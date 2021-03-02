@@ -27,13 +27,17 @@ public class Point {
 	}
 
 	public Point add(Vector v) {
-		// TODO: implement
-		return null;
+		Point vPoint = v.getHead();
+		return new Point(coordinates[0].add(vPoint.getCoordinate(0)),
+						coordinates[1].add(vPoint.getCoordinate(1)),
+						coordinates[2].add(vPoint.getCoordinate(2)));
 	}
 
 	public Vector vectorTo(Point target) {
-		// TODO: implement
-		return null;
+		Point vHead = new Point(target.getCoordinate(0).subtract(coordinates[0]),
+								target.getCoordinate(1).subtract(coordinates[1]),
+								target.getCoordinate(2).subtract(coordinates[2]));
+        return new Vector(vHead);
 	}
 
 	public double distance(Point target) {
@@ -41,8 +45,12 @@ public class Point {
 	}
 
 	public double squareDistance(Point target) {
-		// TODO: implement
-		return null;
+		double dif, total = 0;
+		for (int i = 0; i < 3; i++) {
+			dif = coordinates[0].subtract(target.getCoordinate(0)).getValue();
+			total += dif * dif; //check for overflow??
+		}
+		return total;
 	}
 
 	@Override

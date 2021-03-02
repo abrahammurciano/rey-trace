@@ -15,6 +15,15 @@ public class Coordinate {
 		this.value = value;
 	}
 
+	// should be private?
+	public Coordinate add(Coordinate c) {
+		return new Coordinate(this.value + c.value);
+	}
+	
+	public Coordinate subtract(Coordinate c) {
+		return new Coordinate(this.value - c.value);
+	}
+
 	@Override
 	public boolean equals(Object c) {
 		if (this == c) {

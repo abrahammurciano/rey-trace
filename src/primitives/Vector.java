@@ -23,7 +23,7 @@ public class Vector {
 	}
 
 	public Vector subtract(Vector vector) {
-		return add(vector.scale(-1));
+		return add(vector.scale(-1)); // Should be 'new'?
 	}
 
 	public Vector scale(double factor) {
