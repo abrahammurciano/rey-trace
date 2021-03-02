@@ -8,7 +8,7 @@ public class Vector {
 	}
 
 	public Vector(Point head) {
-		if (head == Point.ORIGIN) {
+		if (head.equals(Point.ORIGIN)) {
 			throw new IllegalArgumentException("Error: Zero vector is not allowed.");
 		}
 		this.head = head;
@@ -19,8 +19,7 @@ public class Vector {
 	}
 
 	public Vector add(Vector vector) {
-		// TODO: implement
-		return null;
+		return new Vector(getHead().add(vector));
 	}
 
 	public Vector subtract(Vector vector) {
@@ -28,18 +27,29 @@ public class Vector {
 	}
 
 	public Vector scale(double factor) {
-		// TODO: implement
-		return null;
+		return new Vector(getHead().getCoordinate(0).getValue() * factor,
+				getHead().getCoordinate(1).getValue() * factor,
+				getHead().getCoordinate(2).getValue() * factor);
 	}
 
 	public Vector crossProduct(Vector vector) {
-		// TODO: implement
-		return null;
+		double[] coordinates = new double[3];
+		for (int i = 0; i < coordinates.length; ++i) {
+			coordinates[i] = getHead().getCoordinate(i + 1 % coordinates.length).getValue()
+					* vector.getHead().getCoordinate(1 + 2 % coordinates.length).getValue()
+					- getHead().getCoordinate(i + 2 % coordinates.length).getValue()
+							* vector.getHead().getCoordinate(i + 1 % coordinates.length).getValue();
+		}
+		return new Vector(coordinates[0], coordinates[1], coordinates[2]);
 	}
 
 	public double dotProduct(Vector vector) {
-		// TODO: implement
-		return 0;
+		double dotProduct = 0;
+		for (int i = 0; i < 3; ++i) {
+			dotProduct += getHead().getCoordinate(i).getValue()
+					* vector.getHead().getCoordinate(i).getValue();
+		}
+		return dotProduct;
 	}
 
 	public double length() {
