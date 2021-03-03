@@ -4,24 +4,27 @@ public class Coordinate {
 	private double value;
 
 	public Coordinate(double value) {
-		this.setValue(value);
+		this.value = value;
 	}
 
 	public double getValue() {
 		return value;
 	}
 
-	private void setValue(double value) {
-		this.value = value;
+	public Coordinate add(Coordinate c) {
+		return new Coordinate(getValue() + c.value);
 	}
 
-	// should be private?
-	public Coordinate add(Coordinate c) {
-		return new Coordinate(this.value + c.value);
-	}
-	
 	public Coordinate subtract(Coordinate c) {
-		return new Coordinate(this.value - c.value);
+		return new Coordinate(getValue() - c.value);
+	}
+
+	public Coordinate multiply(double d) {
+		return new Coordinate(getValue() * d);
+	}
+
+	public Coordinate multiply(Coordinate c) {
+		return new Coordinate(getValue() * c.getValue());
 	}
 
 	@Override

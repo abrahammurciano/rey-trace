@@ -7,6 +7,10 @@ public class Vector {
 		this(new Point(x, y, z));
 	}
 
+	public Vector(Coordinate x, Coordinate y, Coordinate z) {
+		this(new Point(x, y, z));
+	}
+
 	public Vector(Point head) {
 		if (head.equals(Point.ORIGIN)) {
 			throw new IllegalArgumentException("Error: Zero vector is not allowed.");
@@ -18,38 +22,41 @@ public class Vector {
 		return head;
 	}
 
+	public Vector transform(CoordinateTransformation transformation, Vector auxiliary) {
+		return new Vector(getHead().transform(transformation, auxiliary.getHead()));
+	}
+
+	public Vector transform(CoordinateTransformation transformation) {
+		return new Vector(getHead().transform(transformation));
+	}
+
 	public Vector add(Vector vector) {
 		return new Vector(getHead().add(vector));
 	}
 
 	public Vector subtract(Vector vector) {
-		return add(vector.scale(-1)); // Should be 'new'?
+		return add(vector.scale(-1));
 	}
 
 	public Vector scale(double factor) {
-		return new Vector(getHead().getCoordinate(0).getValue() * factor,
-				getHead().getCoordinate(1).getValue() * factor,
-				getHead().getCoordinate(2).getValue() * factor);
+		return transform((c, __) -> c.multiply(factor));
 	}
 
 	public Vector crossProduct(Vector vector) {
-		double[] coordinates = new double[3];
+		Coordinate[] coordinates = new Coordinate[3];
 		for (int i = 0; i < coordinates.length; ++i) {
-			coordinates[i] = getHead().getCoordinate(i + 1 % coordinates.length).getValue()
-					* vector.getHead().getCoordinate(1 + 2 % coordinates.length).getValue()
-					- getHead().getCoordinate(i + 2 % coordinates.length).getValue()
-							* vector.getHead().getCoordinate(i + 1 % coordinates.length).getValue();
+			coordinates[i] = getHead().getCoordinate(i + 1 % coordinates.length)
+					.multiply(vector.getHead().getCoordinate(1 + 2 % coordinates.length))
+					.subtract(getHead().getCoordinate(i + 2 % coordinates.length)
+							.multiply(vector.getHead().getCoordinate(i + 1 % coordinates.length)));
 		}
 		return new Vector(coordinates[0], coordinates[1], coordinates[2]);
 	}
 
 	public double dotProduct(Vector vector) {
-		double dotProduct = 0;
-		for (int i = 0; i < 3; ++i) {
-			dotProduct += getHead().getCoordinate(i).getValue()
-					* vector.getHead().getCoordinate(i).getValue();
-		}
-		return dotProduct;
+		// Construct a vector whose coordinates are the product of the coordinates of the other two.
+		Vector v = transform((base, aux) -> base.multiply(aux), vector);
+		return v.getHead().sum();
 	}
 
 	public double length() {

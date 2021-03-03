@@ -8,10 +8,7 @@ public class Point {
 	public static final Point ORIGIN = new Point(0, 0, 0);
 
 	public Point(Coordinate x, Coordinate y, Coordinate z) {
-		coordinates = new Coordinate[3];
-		setCoordinate(0, x);
-		setCoordinate(1, y);
-		setCoordinate(2, z);
+		coordinates = new Coordinate[] {x, y, z};
 	}
 
 	public Point(double x, double y, double z) {
@@ -22,22 +19,22 @@ public class Point {
 		return coordinates[index];
 	}
 
-	private void setCoordinate(int index, Coordinate coordinate) {
-		coordinates[index] = coordinate;
+	public Point transform(CoordinateTransformation transformation, Point auxiliary) {
+		return new Point(transformation.transform(getCoordinate(0), auxiliary.getCoordinate(0)),
+				transformation.transform(getCoordinate(1), auxiliary.getCoordinate(1)),
+				transformation.transform(getCoordinate(2), auxiliary.getCoordinate(2)));
+	}
+
+	public Point transform(CoordinateTransformation transformation) {
+		return transform(transformation, ORIGIN);
 	}
 
 	public Point add(Vector v) {
-		Point vPoint = v.getHead();
-		return new Point(coordinates[0].add(vPoint.getCoordinate(0)),
-						coordinates[1].add(vPoint.getCoordinate(1)),
-						coordinates[2].add(vPoint.getCoordinate(2)));
+		return transform((base, aux) -> base.add(aux), v.getHead());
 	}
 
 	public Vector vectorTo(Point target) {
-		Point vHead = new Point(target.getCoordinate(0).subtract(coordinates[0]),
-								target.getCoordinate(1).subtract(coordinates[1]),
-								target.getCoordinate(2).subtract(coordinates[2]));
-        return new Vector(vHead);
+		return new Vector(transform((base, aux) -> aux.subtract(base), target));
 	}
 
 	public double distance(Point target) {
@@ -45,12 +42,18 @@ public class Point {
 	}
 
 	public double squareDistance(Point target) {
-		double dif, total = 0;
-		for (int i = 0; i < 3; i++) {
-			dif = coordinates[0].subtract(target.getCoordinate(0)).getValue();
-			total += dif * dif; //check for overflow??
-		}
-		return total;
+		// Construct a point whose coordinates are the squares of the differences of the coordinates
+		// of the two points.
+		Point squarePoint = transform((base, aux) -> {
+			Coordinate diff = aux.subtract(base);
+			return diff.multiply(diff);
+		}, target);
+		// Sum the coordinates of the square point.
+		return squarePoint.sum();
+	}
+
+	public double sum() {
+		return Arrays.stream(coordinates).reduce(Coordinate::add).get().getValue();
 	}
 
 	@Override
