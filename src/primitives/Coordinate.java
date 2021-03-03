@@ -101,5 +101,4 @@ public class Coordinate {
 	public String toString() {
 		return Double.toString(value);
 	}
->>>>>>> ea3855b7a1e28137d33dd7cfe183df78a0e32c72
 }
