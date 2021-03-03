@@ -2,6 +2,9 @@ package primitives;
 
 import java.util.Arrays;
 
+/**
+ * The Point class represents a point in three dimensional space
+ */
 public class Point {
 	private Coordinate[] coordinates;
 
