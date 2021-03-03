@@ -1,5 +1,12 @@
 package primitives;
 
+/**
+ * Ray Class
+ * This class represents a ray with it's base at the Point 'source' and shoots off in direction pointed at by Vector 'direction'
+ * @author [Abe Murciano]
+ * @author [Eli Levin]
+ *
+ * */
 public class Ray {
 	private Point source;
 	private Vector direction;

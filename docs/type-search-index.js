@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"primitives","l":"Coordinate"},{"p":"primitives","l":"CoordinateTransformation"},{"p":"primitives","l":"Point"},{"p":"primitives","l":"Ray"},{"p":"primitives","l":"Util"},{"p":"primitives","l":"Vector"}]
