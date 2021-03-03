@@ -4,7 +4,6 @@ package primitives;
  * The Coordinate class represents a distance along a single axis.
  *
  * @author Abraham Murciano and Eli Levin
- *
  */
 
 public class Coordinate {
