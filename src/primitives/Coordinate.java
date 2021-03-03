@@ -33,8 +33,7 @@ public class Coordinate {
 	 * new coordinate with the resulting value.
 	 *
 	 * @param c The coordinate to add to this coordinate.
-	 * @return Coordinate A new coordinate whose value is the sum of the values of the two
-	 *         coordinates.
+	 * @return A new coordinate whose value is the sum of the values of the two coordinates.
 	 */
 	public Coordinate add(Coordinate c) {
 		return new Coordinate(getValue() + c.value);
@@ -45,8 +44,7 @@ public class Coordinate {
 	 * constructs a new coordinate with the resulting value.
 	 *
 	 * @param c The coordinate to subtract from this coordinate.
-	 * @return Coordinate A new coordinate whose value is the difference of the values of the two
-	 *         coordinates.
+	 * @return A new coordinate whose value is the difference of the values of the two coordinates.
 	 */
 	public Coordinate subtract(Coordinate c) {
 		return new Coordinate(getValue() - c.value);
@@ -57,8 +55,8 @@ public class Coordinate {
 	 * constructs a new coordinate with the resulting value.
 	 *
 	 * @param d The double to multiply this coordinate with.
-	 * @return Coordinate A new coordinate whose value is the product of the values of this
-	 *         coordinate and the given double.
+	 * @return A new coordinate whose value is the product of the values of this coordinate and the
+	 *         given double.
 	 */
 	public Coordinate multiply(double d) {
 		return new Coordinate(getValue() * d);
@@ -69,8 +67,7 @@ public class Coordinate {
 	 * constructs a new coordinate with the resulting value.
 	 *
 	 * @param c The coordinate to multiply with this coordinate.
-	 * @return Coordinate A new coordinate whose value is the product of the values of the two
-	 *         coordinates.
+	 * @return A new coordinate whose value is the product of the values of the two coordinates.
 	 */
 	public Coordinate multiply(Coordinate c) {
 		return multiply(c.getValue());
