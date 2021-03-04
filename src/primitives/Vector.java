@@ -16,6 +16,7 @@ public class Vector {
 	 * @param x The value of the x {@link Coordinate}.
 	 * @param y The value of the y {@link Coordinate}.
 	 * @param z The value of the z {@link Coordinate}.
+	 * @throws IllegalArgumentException if the {@link Vector} is the zero vector.
 	 */
 	public Vector(double x, double y, double z) {
 		this(new Point(x, y, z));
@@ -27,6 +28,7 @@ public class Vector {
 	 * @param x The x {@link Coordinate}.
 	 * @param y The y {@link Coordinate}.
 	 * @param z The z {@link Coordinate}.
+	 * @throws IllegalArgumentException if this {@link Vector} is the zero vector.
 	 */
 	public Vector(Coordinate x, Coordinate y, Coordinate z) {
 		this(new Point(x, y, z));
@@ -35,8 +37,9 @@ public class Vector {
 	/**
 	 * This constructor accepts a {@link Point} and returns the appropriate {@link Vector}
 	 *
-	 * @param head The {@link Point} which the {@link Vector} would point to if its base was at the
+	 * @param head The {@link Point} which this {@link Vector} would point to if its base was at the
 	 *             origin.
+	 * @throws IllegalArgumentException if this {@link Vector} is the zero vector.
 	 */
 	public Vector(Point head) {
 		if (head.equals(Point.ORIGIN)) {
