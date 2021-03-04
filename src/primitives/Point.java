@@ -3,20 +3,21 @@ package primitives;
 import java.util.Arrays;
 
 /**
- * The Point class represents a point in three dimensional space.
+ * The {@link Point} class represents a {@link Point} in three dimensional space.
  *
- * @author Abraham Murciano and Eli Levin
+ * @author Abraham Murciano
+ * @author Eli Levin
  */
 public class Point {
 	private Coordinate[] coordinates;
 
 	/**
-	 * Represents the point (0, 0, 0)
+	 * Represents the {@link Point} (0, 0, 0)
 	 */
 	public static final Point ORIGIN = new Point(0, 0, 0);
 
 	/**
-	 * Constructs a point from three coordinates.
+	 * Constructs a {@link Point} from three {@link Coordinate}s.
 	 *
 	 * @param x The x-coordinate.
 	 * @param y The y-coordinate.
@@ -27,7 +28,7 @@ public class Point {
 	}
 
 	/**
-	 * Constructs a point from three coordinates' values.
+	 * Constructs a {@link Point} from three {@link Coordinate}s' values.
 	 *
 	 * @param x The x-coordinate value.
 	 * @param y The y-coordinate value.
@@ -38,9 +39,9 @@ public class Point {
 	}
 
 	/**
-	 * Gets the x, y, or z coordinate given the index (0, 1, or 2).
+	 * Gets the x, y, or z {@link Coordinate} given the index (0, 1, or 2).
 	 *
-	 * @param index The index of the coordinate to get.
+	 * @param index The index of the {@link Coordinate} to get.
 	 * @throws IllegalArgumentException if index is not between 0 and 2.
 	 * @return
 	 */
@@ -53,15 +54,16 @@ public class Point {
 	}
 
 	/**
-	 * Creates a new point which is a transformation of this point by applying the given
-	 * transformation to each of the coordinates.
+	 * Creates a new {@link Point} which is a transformation of this {@link Point} by applying the
+	 * given transformation to each of the {@link Coordinate}s.
 	 *
-	 * @param transformation A function which receives two coordinates and returns another
-	 *                       coordinate.
-	 * @param auxiliary      An auxiliary point whose corresponding coordinate may (or may not) be
-	 *                       used in the transformation function in order to calculate each of the
-	 *                       new coordinates.
-	 * @return The point made up of applying the transformation to each of the three coordinates.
+	 * @param transformation A function which receives two {@link Coordinate}s and returns another
+	 *                       {@link Coordinate}.
+	 * @param auxiliary      An auxiliary {@link Point} whose corresponding {@link Coordinate} may
+	 *                       (or may not) be used in the transformation function in order to
+	 *                       calculate each of the new {@link Coordinate}s.
+	 * @return The {@link Point} made up of applying the transformation to each of the three
+	 *         {@link Coordinate}s.
 	 */
 	public Point transform(CoordinateTransformation transformation, Point auxiliary) {
 		return new Point(transformation.transform(getCoordinate(0), auxiliary.getCoordinate(0)),
@@ -70,76 +72,81 @@ public class Point {
 	}
 
 	/**
-	 * Similar to {@link #transform} but does not require an auxiliary point, since the
-	 * transformation when called in this way is not supposed to depend on a second coordinate.
+	 * Similar to {@link #transform} but does not require an auxiliary {@link Point}, since the
+	 * transformation when called in this way is not supposed to depend on a second
+	 * {@link Coordinate}.
 	 *
-	 * @param transformation A function which receives two coordinates and returns another
-	 *                       coordinate.
-	 * @return The point made up of applying the transformation to each of the three coordinates.
+	 * @param transformation A function which receives two {@link Coordinate}s and returns another
+	 *                       {@link Coordinate}.
+	 * @return The {@link Point} made up of applying the transformation to each of the three
+	 *         {@link Coordinate}s.
 	 */
 	public Point transform(CoordinateTransformation transformation) {
 		return transform(transformation, ORIGIN);
 	}
 
 	/**
-	 * Adds a vector to this point and returns the resulting point.
+	 * Adds a {@link Vector} to this {@link Point} and returns the resulting {@link Point}.
 	 *
-	 * @param v The vector to add to this point.
-	 * @return The point resulting from adding the vector to this point.
+	 * @param v The {@link Vector} to add to this {@link Point}.
+	 * @return The {@link Point} resulting from adding the {@link Vector} to this {@link Point}.
 	 */
 	public Point add(Vector v) {
 		return transform((base, aux) -> base.add(aux), v.getHead());
 	}
 
 	/**
-	 * Constructs a vector from this point to the given point.
+	 * Constructs a {@link Vector} from this {@link Point} to the given {@link Point}.
 	 *
-	 * @param target The coordinate where the vector is to end, if it were to start from this point.
-	 * @return The vector from this point to the given point.
+	 * @param target The {@link Coordinate} where the {@link Vector} is to end, if it were to start
+	 *               from this {@link Point}.
+	 * @return The {@link Vector} from this {@link Point} to the given {@link Point}.
 	 */
 	public Vector vectorTo(Point target) {
 		return new Vector(transform((base, aux) -> aux.subtract(base), target));
 	}
 
 	/**
-	 * Calculates the distance between this point and the target point.
+	 * Calculates the distance between this {@link Point} and the target {@link Point}.
 	 *
-	 * @param target The point to calculate the distance to.
-	 * @return The distance between this point and the target point.
+	 * @param target The {@link Point} to calculate the distance to.
+	 * @return The distance between this {@link Point} and the target {@link Point}.
 	 */
 	public double distance(Point target) {
 		return Math.sqrt(squareDistance(target));
 	}
 
 	/**
-	 * The square of the distance between this point and the target point. This number is much more
-	 * efficient to compute than {@link distance} since it does not involve a square root.
+	 * The square of the distance between this {@link Point} and the target {@link Point}. This
+	 * number is much more efficient to compute than {@link distance} since it does not involve a
+	 * square root.
 	 *
-	 * @param target The point to calculate the distance to.
-	 * @return The square of the distance between this point and the target point.
+	 * @param target The {@link Point} to calculate the distance to.
+	 * @return The square of the distance between this {@link Point} and the target {@link Point}.
 	 */
 	public double squareDistance(Point target) {
-		// Construct a point whose coordinates are the squares of the differences of the coordinates
-		// of the two points.
+		// Construct a point whose {@link Coordinate}s are the squares of the differences of the
+		// {@link Coordinate}s
+		// of the two {@link Point}s.
 		Point squarePoint = transform((base, aux) -> {
 			Coordinate diff = aux.subtract(base);
 			return diff.multiply(diff);
 		}, target);
-		// Sum the coordinates of the square point.
+		// Sum the {@link Coordinate}s of the square point.
 		return squarePoint.sum();
 	}
 
 	/**
-	 * Calculates the sum of the three coordinates this point is made up of.
+	 * Calculates the sum of the three {@link Coordinate}s this {@link Point} is made up of.
 	 *
-	 * @return The sum of the three coordinates this point is made up of.
+	 * @return The sum of the three {@link Coordinate}s this {@link Point} is made up of.
 	 */
 	public double sum() {
 		return Arrays.stream(coordinates).reduce(Coordinate::add).get().getValue();
 	}
 
 	/**
-	 * Checks if the two points are in the same three dimensional space.
+	 * Checks if the two {@link Point}s are in the same three dimensional space.
 	 */
 	@Override
 	public boolean equals(Object p) {
@@ -153,7 +160,7 @@ public class Point {
 	}
 
 	/**
-	 * Computes the hash function based on that of the array of coordinates.
+	 * Computes the hash function based on that of the array of {@link Coordinate}s.
 	 */
 	@Override
 	public int hashCode() {
@@ -161,7 +168,7 @@ public class Point {
 	}
 
 	/**
-	 * Returns the point as a string in the cartesian representation, e.g. "(0, 0, 0)"
+	 * Returns the {@link Point} as a string in the cartesian representation, e.g. "(0, 0, 0)"
 	 */
 	@Override
 	public String toString() {
