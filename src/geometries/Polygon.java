@@ -1,5 +1,6 @@
 package geometries;
 
+import java.util.ArrayList;
 import java.util.List;
 import primitives.Point;
 import primitives.Vector;
@@ -20,11 +21,9 @@ public class Polygon implements Geometry {
 	 * This constructor accepts a list of the vertices of the polygon.
 	 *
 	 * @param vertices A list of the vertices of the polygon.
-	 * @throws IllegalArgumentException if there are less than three vertices.
-	 * @throws IllegalArgumentException if any of the vertices are not on the same plane as the
-	 *                                  rest.
-	 * @throws IllegalArgumentException if the vertices are out of order.
-	 * @throws IllegalArgumentException if the vertices form a non-convex polygon.
+	 * @throws IllegalArgumentException if there are less than three vertices, any of the vertices
+	 *                                  are not on the same plane as the rest, the vertices are out
+	 *                                  of order, or the vertices form a non-convex polygon.
 	 */
 	public Polygon(List<Point> vertices) {
 		// Checks for at least three vertices
@@ -47,7 +46,7 @@ public class Polygon implements Geometry {
 		// TODO: Check that the vertices form a convex polygon and are in order (i suspect they can
 		// be checked with one check for both conditions).
 
-		this.vertices = vertices;
+		this.vertices = new ArrayList<>(vertices);
 	}
 
 	@Override
