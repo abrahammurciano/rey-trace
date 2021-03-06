@@ -122,7 +122,7 @@ public class Vector {
 	 * @param vector The {@link Vector} by which to multiply this {@link Vector}
 	 * @return The resulting {@link Vector} which is the cross product of the two {@link Vector}s
 	 */
-	public Vector crossProduct(Vector vector) {
+	public Vector cross(Vector vector) {
 		Coordinate[] coordinates = new Coordinate[3];
 		for (int i = 0; i < coordinates.length; ++i) {
 			coordinates[i] = getHead().getCoordinate(i + 1 % coordinates.length)
@@ -139,7 +139,7 @@ public class Vector {
 	 * @param vector The {@link Vector} to dot product with this {@link Vector}
 	 * @return The dot product of the two {@link Vector}s
 	 */
-	public double dotProduct(Vector vector) {
+	public double dot(Vector vector) {
 		// Construct a vector whose coordinates are the product of the coordinates of the other two.
 		Vector v = transform((base, aux) -> base.multiply(aux), vector);
 		return v.getHead().sum();
@@ -170,6 +170,17 @@ public class Vector {
 	 */
 	public Vector normalized() {
 		return scale(1 / length());
+	}
+
+	/**
+	 * Calculates the angle in radians between this vector and the given vector. The angle is
+	 * normalized between zero and Pi.
+	 *
+	 * @param v The other vector to be used to calculate the angle.
+	 * @return The angle in radians between the vectors between zero and Pi.
+	 */
+	public double angle(Vector v) {
+		return Math.acos(normalized().dot(v.normalized()));
 	}
 
 	/**

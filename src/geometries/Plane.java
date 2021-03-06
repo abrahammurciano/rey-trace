@@ -54,7 +54,7 @@ public class Plane implements Geometry {
 	public boolean contains(Point p) {
 		// If the vector from p to another point is on the plane dot product the normal is zero (the
 		// vectors are perpendicular) then the point is on the plane.
-		return p.equals(point) || Util.isZero(normal.dotProduct(point.vectorTo(p)));
+		return p.equals(point) || Util.isZero(normal.dot(point.vectorTo(p)));
 	}
 
 	@Override
