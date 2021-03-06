@@ -36,10 +36,10 @@ public class Plane implements Geometry {
 	 * @throws IllegalArgumentException if the three points are on a single line.
 	 */
 	public Plane(Point p1, Point p2, Point p3) {
-		Vector v1 = p1.vectorTo(p2).normalized();
-		Vector v2 = p2.vectorTo(p3).normalized();
+		Vector v1 = p1.vectorTo(p2);
+		Vector v2 = p2.vectorTo(p3);
 		try {
-			this.normal = v1.cross(v2);
+			this.normal = v1.cross(v2).normalized();
 		} catch (IllegalArgumentException e) {
 			throw new IllegalArgumentException(
 					"Error: The three points must not be on the same line.");
