@@ -13,8 +13,8 @@ import primitives.Vector;
  */
 public class Plane implements Geometry {
 
-	Point point;
-	Vector normal;
+	private Point point;
+	private Vector normal;
 
 	/**
 	 * This constructor accepts a point on the plane and a vector perpendicular to the plane.
