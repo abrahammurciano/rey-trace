@@ -38,7 +38,9 @@ public class Plane implements Geometry {
 	public Plane(Point p1, Point p2, Point p3) {
 		Vector v1 = p1.vectorTo(p2).normalized();
 		Vector v2 = p2.vectorTo(p3).normalized();
-		if (v1.equals(v2) || v1.equals(v2.scale(-1))) {
+		try {
+			this.normal = v1.cross(v2);
+		} catch (IllegalArgumentException e) {
 			throw new IllegalArgumentException(
 					"Error: The three points must not be on the same line.");
 		}

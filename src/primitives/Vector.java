@@ -121,6 +121,7 @@ public class Vector {
 	 *
 	 * @param vector The {@link Vector} by which to multiply this {@link Vector}
 	 * @return The resulting {@link Vector} which is the cross product of the two {@link Vector}s
+	 * @throws IllegalArgumentException if the result vector is the zero vector.
 	 */
 	public Vector cross(Vector vector) {
 		Coordinate[] coordinates = new Coordinate[3];

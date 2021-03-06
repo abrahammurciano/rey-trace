@@ -32,8 +32,8 @@ public class Polygon implements Geometry {
 
 		double sum = 0.0; // sum of exterior angles
 		for (int i = 0; i < size; ++i) { // loop through input vertices
-			Vector v1 = vertices.get(i - 1 % size).vectorTo(vertices.get(i)); // prev to current
-			Vector v2 = vertices.get(i).vectorTo(vertices.get(i + 1 % size)); // current to next
+			Vector v1 = vertices.get((i - 1) % size).vectorTo(vertices.get(i)); // prev to current
+			Vector v2 = vertices.get(i).vectorTo(vertices.get((i + 1) % size)); // current to next
 			double angle = v1.angle(v2);
 			// if exterior angle is zero, point is on an existing edge and can be ignored
 			if (Util.isZero(angle)) {
