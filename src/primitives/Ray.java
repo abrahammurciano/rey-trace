@@ -19,7 +19,7 @@ public class Ray {
 	 */
 	public Ray(Point source, Vector direction) {
 		this.source = source;
-		this.direction = direction;
+		this.direction = direction.normalized();
 	}
 
 	/**

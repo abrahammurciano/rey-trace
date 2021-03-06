@@ -33,23 +33,23 @@ public final class Main {
 			out.println("ERROR: length() wrong value");
 
 		// test Dot-Product
-		if (!isZero(v1.dotProduct(v3)))
-			out.println("ERROR: dotProduct() for orthogonal vectors is not zero");
-		if (!isZero(v1.dotProduct(v2) + 28))
-			out.println("ERROR: dotProduct() wrong value");
+		if (!isZero(v1.dot(v3)))
+			out.println("ERROR: dot() for orthogonal vectors is not zero");
+		if (!isZero(v1.dot(v2) + 28))
+			out.println("ERROR: dot() wrong value");
 
 		// test Cross-Product
 		try { // test zero vector
-			v1.crossProduct(v2);
-			out.println("ERROR: crossProduct() for parallel vectors does not throw an exception");
+			v1.cross(v2);
+			out.println("ERROR: cross() for parallel vectors does not throw an exception");
 		} catch (Exception e) {
 			out.print("All's well that ends well.");
 		}
-		Vector vr = v1.crossProduct(v3);
+		Vector vr = v1.cross(v3);
 		if (!isZero(vr.length() - v1.length() * v3.length()))
-			out.println("ERROR: crossProduct() wrong result length");
-		if (!isZero(vr.dotProduct(v1)) || !isZero(vr.dotProduct(v3)))
-			out.println("ERROR: crossProduct() result is not orthogonal to its operands");
+			out.println("ERROR: cross() wrong result length");
+		if (!isZero(vr.dot(v1)) || !isZero(vr.dot(v3)))
+			out.println("ERROR: cross() result is not orthogonal to its operands");
 
 		// test vector normalization vs vector length and cross-product
 		Vector v = new Vector(1, 2, 3);

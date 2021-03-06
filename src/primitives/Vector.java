@@ -16,6 +16,7 @@ public class Vector {
 	 * @param x The value of the x {@link Coordinate}.
 	 * @param y The value of the y {@link Coordinate}.
 	 * @param z The value of the z {@link Coordinate}.
+	 * @throws IllegalArgumentException if the {@link Vector} is the zero vector.
 	 */
 	public Vector(double x, double y, double z) {
 		this(new Point(x, y, z));
@@ -27,6 +28,7 @@ public class Vector {
 	 * @param x The x {@link Coordinate}.
 	 * @param y The y {@link Coordinate}.
 	 * @param z The z {@link Coordinate}.
+	 * @throws IllegalArgumentException if this {@link Vector} is the zero vector.
 	 */
 	public Vector(Coordinate x, Coordinate y, Coordinate z) {
 		this(new Point(x, y, z));
@@ -35,8 +37,9 @@ public class Vector {
 	/**
 	 * This constructor accepts a {@link Point} and returns the appropriate {@link Vector}
 	 *
-	 * @param head The {@link Point} which the {@link Vector} would point to if its base was at the
+	 * @param head The {@link Point} which this {@link Vector} would point to if its base was at the
 	 *             origin.
+	 * @throws IllegalArgumentException if this {@link Vector} is the zero vector.
 	 */
 	public Vector(Point head) {
 		if (head.equals(Point.ORIGIN)) {
@@ -118,8 +121,9 @@ public class Vector {
 	 *
 	 * @param vector The {@link Vector} by which to multiply this {@link Vector}
 	 * @return The resulting {@link Vector} which is the cross product of the two {@link Vector}s
+	 * @throws IllegalArgumentException if the result vector is the zero vector.
 	 */
-	public Vector crossProduct(Vector vector) {
+	public Vector cross(Vector vector) {
 		Coordinate[] coordinates = new Coordinate[3];
 		for (int i = 0; i < coordinates.length; ++i) {
 			coordinates[i] = getHead().getCoordinate(i + 1 % coordinates.length)
@@ -136,7 +140,7 @@ public class Vector {
 	 * @param vector The {@link Vector} to dot product with this {@link Vector}
 	 * @return The dot product of the two {@link Vector}s
 	 */
-	public double dotProduct(Vector vector) {
+	public double dot(Vector vector) {
 		// Construct a vector whose coordinates are the product of the coordinates of the other two.
 		Vector v = transform((base, aux) -> base.multiply(aux), vector);
 		return v.getHead().sum();
@@ -167,6 +171,17 @@ public class Vector {
 	 */
 	public Vector normalized() {
 		return scale(1 / length());
+	}
+
+	/**
+	 * Calculates the angle in radians between this vector and the given vector. The angle is
+	 * normalized between zero and Pi.
+	 *
+	 * @param v The other vector to be used to calculate the angle.
+	 * @return The angle in radians between the vectors between zero and Pi.
+	 */
+	public double angle(Vector v) {
+		return Math.acos(normalized().dot(v.normalized()));
 	}
 
 	/**

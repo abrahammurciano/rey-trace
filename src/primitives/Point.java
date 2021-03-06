@@ -125,14 +125,13 @@ public class Point {
 	 * @return The square of the distance between this {@link Point} and the target {@link Point}.
 	 */
 	public double squareDistance(Point target) {
-		// Construct a point whose {@link Coordinate}s are the squares of the differences of the
-		// {@link Coordinate}s
-		// of the two {@link Point}s.
+		// Construct a point whose coordinates are the squares of the differences of the coordinates
+		// of the two points.
 		Point squarePoint = transform((base, aux) -> {
 			Coordinate diff = aux.subtract(base);
 			return diff.multiply(diff);
 		}, target);
-		// Sum the {@link Coordinate}s of the square point.
+		// Sum the coordinates of the square point.
 		return squarePoint.sum();
 	}
 
