@@ -1,48 +1,59 @@
 package geometries;
 
+import primitives.NormalizedVector;
 import primitives.Point;
 import primitives.Util;
 import primitives.Vector;
 import primitives.Ray;
 
 /**
- * A Tube is a 3D tube object that goes on to infinity. 
+ * A Tube is a 3D tube object that goes on to infinity.
+ *
  * @author Eli Levin
  * @author Abraham Murciano
  */
 public class Tube implements Geometry {
-    protected Ray axisRay;
-    protected double radius;
+	private Ray axis;
+	private double radius;
 
-    public Tube(Ray axisRay, double radius) {
-        // The following 2 if statements are repeated in Sphere ctor. Is there some way
-        // to generalize this?
-        if (radius < 0) {
-            radius = radius * -1;
-        }
-        if (Util.isZero(radius)) {
-            throw new IllegalArgumentException("Error: Radius must be non-zero.");
-        }
-        this.axisRay = axisRay;
-        this.radius = radius;
-    }
+	/**
+	 * Constructs a {@link Tube} with the source at the same source and direction as the given axis
+	 * {@link Ray}.
+	 *
+	 * @param axis   The {@link Ray} from which to get the source and direction.
+	 * @param radius The distance from the axis to the surface.
+	 */
+	public Tube(Ray axis, double radius) {
+		if (Util.isZero(radius)) {
+			throw new IllegalArgumentException("Error: Radius must be non-zero.");
+		}
+		this.axis = axis;
+		this.radius = Math.abs(radius);
+	}
 
-    public Vector axisIntersection(Point p) {
-        Vector vp = axisRay.getSource().vectorTo(p); // Vector to p from point in ray
-        Vector vr = axisRay.getDirection(); // Vector on Ray
-        return vr.scale(vr.dot(vp));
-    }
+	/**
+	 * Gets the axis {@link Vector} of the {@link Tube}.
+	 *
+	 * @return The axis {@link Vector} of the {@link Tube}.
+	 */
+	public NormalizedVector direction() {
+		return axis.direction();
+	}
 
-    /** 
-     * This function returns the normal to the tube at the given point.
-     * It is assumed that the point lies on the surface of the tube.
-     * @param p If p lies on on the central axis the function will throw an exception due to Zero Vector.
-     * @return normalized normal {@link Vector}
-     * */
-    @Override
-    public Vector normal(Point p) {
-        //         |  vector from RaySource to p  |  
-        Vector n = axisRay.getSource().vectorTo(p).subtract(axisIntersection(p));
-        return n.normalized();
-    }
+	/**
+	 * This function returns the normal to the tube at the given point. If the point doesn't lie on
+	 * the surface of the tube, the behavior is undefined.
+	 *
+	 * @param p The {@link Point} to get the normal at.
+	 * @return The normalized normal {@link Vector}
+	 */
+	@Override
+	public NormalizedVector normal(Point p) {
+		Vector sourceToP = axis.source().vectorTo(p);
+		double dotProduct = direction().dot(sourceToP);
+		if (Util.isZero(dotProduct)) { // Would throw a zero vector exception if not checked
+			return sourceToP.normalized();
+		}
+		return sourceToP.subtract(direction().scale(dotProduct)).normalized();
+	}
 }

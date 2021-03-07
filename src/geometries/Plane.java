@@ -1,6 +1,7 @@
 package geometries;
 
 import primitives.Point;
+import primitives.Util;
 import primitives.Vector;
 import primitives.NormalizedVector;
 
@@ -25,6 +26,18 @@ public class Plane implements Geometry {
 	public Plane(Point point, Vector normal) {
 		this.point = point;
 		this.normal = normal.normalized();
+	}
+
+	/**
+	 * Checks if the given point is on the plane.
+	 *
+	 * @param p The point to check.
+	 * @return Whether or not the given point is on the plane.
+	 */
+	public boolean contains(Point p) {
+		// If the vector from p to another point is on the plane dot product the normal is zero (the
+		// vectors are perpendicular) then the point is on the plane.
+		return p.equals(point) || Util.isZero(normal.dot(point.vectorTo(p)));
 	}
 
 	/**
