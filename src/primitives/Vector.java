@@ -51,7 +51,7 @@ public class Vector {
 	/**
 	 * Gets the head of the {@link Vector}.
 	 */
-	public Point getHead() {
+	public Point head() {
 		return head;
 	}
 
@@ -68,7 +68,7 @@ public class Vector {
 	 *         {@link Coordinate}s.
 	 */
 	public Vector transform(CoordinateTransformation transformation, Vector auxiliary) {
-		return new Vector(getHead().transform(transformation, auxiliary.getHead()));
+		return new Vector(head().transform(transformation, auxiliary.head()));
 	}
 
 	/**
@@ -82,7 +82,7 @@ public class Vector {
 	 *         {@link Coordinate}s.
 	 */
 	public Vector transform(CoordinateTransformation transformation) {
-		return new Vector(getHead().transform(transformation));
+		return new Vector(head().transform(transformation));
 	}
 
 	/**
@@ -92,7 +92,7 @@ public class Vector {
 	 * @return The sum of the two {@link Vector}s.
 	 */
 	public Vector add(Vector vector) {
-		return new Vector(getHead().add(vector));
+		return new Vector(head().add(vector));
 	}
 
 	/**
@@ -117,6 +117,15 @@ public class Vector {
 	}
 
 	/**
+	 * An alias for {@link #scale(-1)}.
+	 *
+	 * @return New reversed {@link Vector}
+	 */
+	public Vector reverse() {
+		return scale(-1);
+	}
+
+	/**
 	 * Calculates the cross product of two {@link Vector}s.
 	 *
 	 * @param vector The {@link Vector} by which to multiply this {@link Vector}
@@ -126,10 +135,10 @@ public class Vector {
 	public Vector cross(Vector vector) {
 		Coordinate[] coordinates = new Coordinate[3];
 		for (int i = 0; i < coordinates.length; ++i) {
-			coordinates[i] = getHead().getCoordinate(i + 1 % coordinates.length)
-					.multiply(vector.getHead().getCoordinate(1 + 2 % coordinates.length))
-					.subtract(getHead().getCoordinate(i + 2 % coordinates.length)
-							.multiply(vector.getHead().getCoordinate(i + 1 % coordinates.length)));
+			coordinates[i] = head().coordinate(i + 1 % coordinates.length)
+					.multiply(vector.head().coordinate(1 + 2 % coordinates.length))
+					.subtract(head().coordinate(i + 2 % coordinates.length)
+							.multiply(vector.head().coordinate(i + 1 % coordinates.length)));
 		}
 		return new Vector(coordinates[0], coordinates[1], coordinates[2]);
 	}
@@ -143,7 +152,7 @@ public class Vector {
 	public double dot(Vector vector) {
 		// Construct a vector whose coordinates are the product of the coordinates of the other two.
 		Vector v = transform((base, aux) -> base.multiply(aux), vector);
-		return v.getHead().sum();
+		return v.head().sum();
 	}
 
 	/**
@@ -168,7 +177,7 @@ public class Vector {
 	 * Normalizes this vector in place.
 	 */
 	protected void normalize() {
-		head = scale(1 / length()).getHead();
+		head = scale(1 / length()).head();
 	}
 
 	/**

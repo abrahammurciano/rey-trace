@@ -23,20 +23,20 @@ public class Ray {
 	}
 
 	/**
-	 * returns source point of the Ray
+	 * Gets source {@link Point} of the {@link Ray}.
 	 *
-	 * @return source Point
+	 * @return The source {@link Point} of the {@link Ray}.
 	 */
-	public Point getSource() {
+	public Point source() {
 		return source;
 	}
 
 	/**
-	 * returns direction Vector of the Ray
+	 * Gets direction {@link Vector} of the {@link Ray}.
 	 *
-	 * @return direction Vector
+	 * @return The normalized direction {@link Vector}.
 	 */
-	public Vector getDirection() {
+	public NormalizedVector direction() {
 		return direction;
 	}
 
