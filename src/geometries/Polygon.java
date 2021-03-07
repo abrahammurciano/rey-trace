@@ -59,6 +59,12 @@ public class Polygon implements Geometry {
 		this.plane = new Plane(this.vertices.get(0), this.vertices.get(1), this.vertices.get(2));
 	}
 
+	/**
+	 * Calculates the normal to the {@link Polygon}. The given {@link Point} is disregarded.
+	 *
+	 * @param p The point at which to calculate the normal.
+	 * @return A vector perpendicular to the {@link Polygon}.
+	 */
 	@Override
 	public Vector normal(Point p) {
 		return plane.normal(p);

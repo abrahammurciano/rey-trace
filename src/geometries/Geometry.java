@@ -8,10 +8,13 @@ import primitives.Vector;
  */
 public interface Geometry {
 	/**
-	 * Calculates the normal to the shape at the given point.
+	 * Calculates the normal to the {@link Geometry} at the given {@link Point}. If the given
+	 * {@link Point} is not on the surface of the {@link Geometry} the resulting behaviour is
+	 * undefined.
 	 *
-	 * @param p The point at which to calculate the normal.
-	 * @return A vector perpendicular to the surface of the shape at the given point.
+	 * @param p The {@link Point} at which to calculate the normal.
+	 * @return A {@link Vector} perpendicular to the surface of the shape at the given
+	 *         {@link Point}.
 	 */
 	public Vector normal(Point p);
 }

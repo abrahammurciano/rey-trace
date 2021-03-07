@@ -47,6 +47,12 @@ public class Plane implements Geometry {
 		this.point = p1;
 	}
 
+	/**
+	 * Calculates the normal to the {@link Plane}. The given {@link Point} is disregarded.
+	 *
+	 * @param p The {@link Point} at which to calculate the normal.
+	 * @return A vector perpendicular to the surface of the {@link Plane}.
+	 */
 	@Override
 	public Vector normal(Point p) {
 		return normal;
