@@ -1,8 +1,8 @@
 package geometries;
 
 import primitives.Point;
-import primitives.Util;
 import primitives.Vector;
+import primitives.NormalizedVector;
 
 /**
  * A {@link Plane} is a flat two dimensional surface in three dimensional space which goes off to
@@ -13,8 +13,8 @@ import primitives.Vector;
  */
 public class Plane implements Geometry {
 
-	Point point;
-	Vector normal;
+	private Point point;
+	private NormalizedVector normal;
 
 	/**
 	 * This constructor accepts a point on the plane and a vector perpendicular to the plane.
@@ -24,7 +24,7 @@ public class Plane implements Geometry {
 	 */
 	public Plane(Point point, Vector normal) {
 		this.point = point;
-		this.normal = normal;
+		this.normal = normal.normalized();
 	}
 
 	/**
@@ -36,29 +36,19 @@ public class Plane implements Geometry {
 	 * @throws IllegalArgumentException if the three points are on a single line.
 	 */
 	public Plane(Point p1, Point p2, Point p3) {
-		Vector v1 = p1.vectorTo(p2).normalized();
-		Vector v2 = p2.vectorTo(p3).normalized();
-		if (v1.equals(v2) || v1.equals(v2.scale(-1))) {
+		Vector v1 = p1.vectorTo(p2);
+		Vector v2 = p2.vectorTo(p3);
+		try {
+			this.normal = v1.cross(v2).normalized();
+		} catch (IllegalArgumentException e) {
 			throw new IllegalArgumentException(
 					"Error: The three points must not be on the same line.");
 		}
 		this.point = p1;
 	}
 
-	/**
-	 * Checks if the given point is on the plane.
-	 *
-	 * @param p The point to check.
-	 * @return Whether or not the given point is on the plane.
-	 */
-	public boolean contains(Point p) {
-		// If the vector from p to another point is on the plane dot product the normal is zero (the
-		// vectors are perpendicular) then the point is on the plane.
-		return p.equals(point) || Util.isZero(normal.dot(point.vectorTo(p)));
-	}
-
 	@Override
-	public Vector normal(Point p) {
+	public NormalizedVector normal(Point p) {
 		return normal;
 	}
 

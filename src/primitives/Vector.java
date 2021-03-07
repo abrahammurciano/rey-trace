@@ -8,7 +8,7 @@ package primitives;
  * @author Eli Levin
  */
 public class Vector {
-	private Point head;
+	protected Point head;
 
 	/**
 	 * This constructor accepts 3 doubles and returns the appropriate {@link Vector}
@@ -121,6 +121,7 @@ public class Vector {
 	 *
 	 * @param vector The {@link Vector} by which to multiply this {@link Vector}
 	 * @return The resulting {@link Vector} which is the cross product of the two {@link Vector}s
+	 * @throws IllegalArgumentException if the result vector is the zero vector.
 	 */
 	public Vector cross(Vector vector) {
 		Coordinate[] coordinates = new Coordinate[3];
@@ -164,12 +165,19 @@ public class Vector {
 	}
 
 	/**
+	 * Normalizes this vector in place.
+	 */
+	protected void normalize() {
+		head = scale(1 / length()).getHead();
+	}
+
+	/**
 	 * Creates a new {@link Vector} with the same direction as this one but with a magnitude of one.
 	 *
 	 * @return new {@link Vector}
 	 */
-	public Vector normalized() {
-		return scale(1 / length());
+	public NormalizedVector normalized() {
+		return new NormalizedVector(head);
 	}
 
 	/**
