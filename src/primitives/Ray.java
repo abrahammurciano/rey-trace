@@ -9,7 +9,7 @@ package primitives;
  */
 public class Ray {
 	private Point source;
-	private Vector direction;
+	private NormalizedVector direction;
 
 	/**
 	 * Constructs a {@link Ray} from a source {@link Point} and a direction {@link Vector}.
