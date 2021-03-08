@@ -45,7 +45,7 @@ public class Point {
 	 * @throws IllegalArgumentException if index is not between 0 and 2.
 	 * @return
 	 */
-	public Coordinate getCoordinate(int index) {
+	public Coordinate coordinate(int index) {
 		try {
 			return coordinates[index];
 		} catch (ArrayIndexOutOfBoundsException e) {
@@ -66,15 +66,15 @@ public class Point {
 	 *         {@link Coordinate}s.
 	 */
 	public Point transform(CoordinateTransformation transformation, Point auxiliary) {
-		return new Point(transformation.transform(getCoordinate(0), auxiliary.getCoordinate(0)),
-				transformation.transform(getCoordinate(1), auxiliary.getCoordinate(1)),
-				transformation.transform(getCoordinate(2), auxiliary.getCoordinate(2)));
+		return new Point(transformation.transform(coordinate(0), auxiliary.coordinate(0)),
+				transformation.transform(coordinate(1), auxiliary.coordinate(1)),
+				transformation.transform(coordinate(2), auxiliary.coordinate(2)));
 	}
 
 	/**
-	 * Similar to {@link #transform} but does not require an auxiliary {@link Point}, since the
-	 * transformation when called in this way is not supposed to depend on a second
-	 * {@link Coordinate}.
+	 * Similar to {@link #transform(CoordinateTransformation, Point)} but does not require an
+	 * auxiliary {@link Point}, since the transformation when called in this way is not supposed to
+	 * depend on a second {@link Coordinate}.
 	 *
 	 * @param transformation A function which receives two {@link Coordinate}s and returns another
 	 *                       {@link Coordinate}.
@@ -92,7 +92,7 @@ public class Point {
 	 * @return The {@link Point} resulting from adding the {@link Vector} to this {@link Point}.
 	 */
 	public Point add(Vector v) {
-		return transform((base, aux) -> base.add(aux), v.getHead());
+		return transform((base, aux) -> base.add(aux), v.head());
 	}
 
 	/**
@@ -104,6 +104,17 @@ public class Point {
 	 */
 	public Vector vectorTo(Point target) {
 		return new Vector(transform((base, aux) -> aux.subtract(base), target));
+	}
+
+	/**
+	 * Constructs a {@link Vector} from the given {@link Point} to this {@link Point}.
+	 *
+	 * @param source The {@link Coordinate} where the {@link Vector} is to start, if it were to end
+	 *               at this {@link Point}.
+	 * @return The {@link Vector} to this {@link Point} from the given {@link Point}.
+	 */
+	public Vector vectorFrom(Point source) {
+		return source.vectorTo(this);
 	}
 
 	/**
@@ -141,7 +152,7 @@ public class Point {
 	 * @return The sum of the three {@link Coordinate}s this {@link Point} is made up of.
 	 */
 	public double sum() {
-		return Arrays.stream(coordinates).reduce(Coordinate::add).get().getValue();
+		return Arrays.stream(coordinates).reduce(Coordinate::add).get().value();
 	}
 
 	/**
@@ -171,6 +182,6 @@ public class Point {
 	 */
 	@Override
 	public String toString() {
-		return "(" + getCoordinate(0) + ", " + getCoordinate(1) + ", " + getCoordinate(2) + ")";
+		return "(" + coordinate(0) + ", " + coordinate(1) + ", " + coordinate(2) + ")";
 	}
 }

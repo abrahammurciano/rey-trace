@@ -23,7 +23,7 @@ public class Coordinate {
 	 *
 	 * @return The value of the {@link Coordinate}.
 	 */
-	public double getValue() {
+	public double value() {
 		return value;
 	}
 
@@ -35,7 +35,7 @@ public class Coordinate {
 	 * @return A new {@link Coordinate} whose value is the sum of the values of the two coordinates.
 	 */
 	public Coordinate add(Coordinate c) {
-		return new Coordinate(getValue() + c.value);
+		return new Coordinate(value() + c.value());
 	}
 
 	/**
@@ -47,7 +47,7 @@ public class Coordinate {
 	 *         coordinates.
 	 */
 	public Coordinate subtract(Coordinate c) {
-		return new Coordinate(getValue() - c.value);
+		return new Coordinate(value() - c.value());
 	}
 
 	/**
@@ -59,7 +59,7 @@ public class Coordinate {
 	 *         {@link Coordinate} and the given double.
 	 */
 	public Coordinate multiply(double d) {
-		return new Coordinate(getValue() * d);
+		return new Coordinate(value() * d);
 	}
 
 	/**
@@ -71,7 +71,7 @@ public class Coordinate {
 	 *         coordinates.
 	 */
 	public Coordinate multiply(Coordinate c) {
-		return multiply(c.getValue());
+		return multiply(c.value());
 	}
 
 	/**

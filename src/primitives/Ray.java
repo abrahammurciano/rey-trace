@@ -9,7 +9,7 @@ package primitives;
  */
 public class Ray {
 	private Point source;
-	private Vector direction;
+	private NormalizedVector direction;
 
 	/**
 	 * Constructs a {@link Ray} from a source {@link Point} and a direction {@link Vector}.
@@ -20,6 +20,24 @@ public class Ray {
 	public Ray(Point source, Vector direction) {
 		this.source = source;
 		this.direction = direction.normalized();
+	}
+
+	/**
+	 * Gets source {@link Point} of the {@link Ray}.
+	 *
+	 * @return The source {@link Point} of the {@link Ray}.
+	 */
+	public Point source() {
+		return source;
+	}
+
+	/**
+	 * Gets direction {@link Vector} of the {@link Ray}.
+	 *
+	 * @return The normalized direction {@link Vector}.
+	 */
+	public NormalizedVector direction() {
+		return direction;
 	}
 
 	/**

@@ -3,6 +3,7 @@ package geometries;
 import primitives.Point;
 import primitives.Util;
 import primitives.Vector;
+import primitives.NormalizedVector;
 
 /**
  * A {@link Plane} is a flat two dimensional surface in three dimensional space which goes off to
@@ -14,17 +15,31 @@ import primitives.Vector;
 public class Plane implements Geometry {
 
 	private Point point;
-	private Vector normal;
+	private NormalizedVector normal;
 
 	/**
 	 * This constructor accepts a point on the plane and a vector perpendicular to the plane.
+	 * {@link #normal} will return a normalized vector in the same direction as the given
+	 * {@link Vector}.
 	 *
 	 * @param point  A point on the plane.
 	 * @param normal A vector perpendicular to the plane.
 	 */
 	public Plane(Point point, Vector normal) {
 		this.point = point;
-		this.normal = normal;
+		this.normal = normal.normalized();
+	}
+
+	/**
+	 * Checks if the given point is on the plane.
+	 *
+	 * @param p The point to check.
+	 * @return Whether or not the given point is on the plane.
+	 */
+	public boolean contains(Point p) {
+		// If the vector from p to another point is on the plane dot product the normal is zero (the
+		// vectors are perpendicular) then the point is on the plane.
+		return p.equals(point) || Util.isZero(normal.dot(point.vectorTo(p)));
 	}
 
 	/**
@@ -54,7 +69,7 @@ public class Plane implements Geometry {
 	 * @return A vector perpendicular to the surface of the {@link Plane}.
 	 */
 	@Override
-	public Vector normal(Point p) {
+	public NormalizedVector normal(Point p) {
 		return normal;
 	}
 

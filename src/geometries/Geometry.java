@@ -1,7 +1,7 @@
 package geometries;
 
 import primitives.Point;
-import primitives.Vector;
+import primitives.NormalizedVector;
 
 /**
  * Represents a three dimensional shape
@@ -16,5 +16,5 @@ public interface Geometry {
 	 * @return A {@link Vector} perpendicular to the surface of the shape at the given
 	 *         {@link Point}.
 	 */
-	public Vector normal(Point p);
+	public NormalizedVector normal(Point p);
 }

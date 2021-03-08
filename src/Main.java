@@ -43,7 +43,6 @@ public final class Main {
 			v1.cross(v2);
 			out.println("ERROR: cross() for parallel vectors does not throw an exception");
 		} catch (Exception e) {
-			out.print("All's well that ends well.");
 		}
 		Vector vr = v1.cross(v3);
 		if (!isZero(vr.length() - v1.length() * v3.length()))
@@ -64,7 +63,7 @@ public final class Main {
 		Point p1 = new Point(1, 2, 3);
 		if (!Point.ORIGIN.equals(p1.add(new Vector(-1, -2, -3))))
 			out.println("ERROR: Point + Vector does not work correctly");
-		if (!new Vector(1, 1, 1).equals(new Point(2, 3, 4).vectorTo(p1)))
+		if (!new Vector(1, 1, 1).equals(new Point(2, 3, 4).vectorFrom(p1)))
 			out.println("ERROR: Point - Point does not work correctly");
 
 		out.println("If there were no any other outputs - all tests succeeded!");
