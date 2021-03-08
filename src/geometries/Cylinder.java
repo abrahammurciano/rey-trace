@@ -34,7 +34,7 @@ public class Cylinder implements Geometry {
 			throw new IllegalArgumentException("Error: Height must be a non-zero number.");
 		}
 		this.height = Math.abs(height);
-		base = new Plane(ray.source(), direction().reverse());
+		base = new Plane(ray.source(), direction().reversed());
 		lid = new Plane(ray.source().add(direction().scale(height)), direction());
 	}
 

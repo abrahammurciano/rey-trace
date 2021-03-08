@@ -121,7 +121,7 @@ public class Vector {
 	 *
 	 * @return New reversed {@link Vector}
 	 */
-	public Vector reverse() {
+	public Vector reversed() {
 		return scale(-1);
 	}
 
@@ -135,10 +135,10 @@ public class Vector {
 	public Vector cross(Vector vector) {
 		Coordinate[] coordinates = new Coordinate[3];
 		for (int i = 0; i < coordinates.length; ++i) {
-			coordinates[i] = head().coordinate(i + 1 % coordinates.length)
-					.multiply(vector.head().coordinate(1 + 2 % coordinates.length))
-					.subtract(head().coordinate(i + 2 % coordinates.length)
-							.multiply(vector.head().coordinate(i + 1 % coordinates.length)));
+			coordinates[i] = head().coordinate((i + 1) % coordinates.length)
+					.multiply(vector.head().coordinate((i + 2) % coordinates.length))
+					.subtract(head().coordinate((i + 2) % coordinates.length)
+							.multiply(vector.head().coordinate((i + 1) % coordinates.length)));
 		}
 		return new Vector(coordinates[0], coordinates[1], coordinates[2]);
 	}
@@ -171,13 +171,6 @@ public class Vector {
 	 */
 	public double squareLength() {
 		return head.squareDistance(Point.ORIGIN);
-	}
-
-	/**
-	 * Normalizes this vector in place.
-	 */
-	protected void normalize() {
-		head = scale(1 / length()).head();
 	}
 
 	/**

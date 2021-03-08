@@ -72,9 +72,9 @@ public class Point {
 	}
 
 	/**
-	 * Similar to {@link #transform} but does not require an auxiliary {@link Point}, since the
-	 * transformation when called in this way is not supposed to depend on a second
-	 * {@link Coordinate}.
+	 * Similar to {@link #transform(CoordinateTransformation, Point)} but does not require an
+	 * auxiliary {@link Point}, since the transformation when called in this way is not supposed to
+	 * depend on a second {@link Coordinate}.
 	 *
 	 * @param transformation A function which receives two {@link Coordinate}s and returns another
 	 *                       {@link Coordinate}.
@@ -104,6 +104,17 @@ public class Point {
 	 */
 	public Vector vectorTo(Point target) {
 		return new Vector(transform((base, aux) -> aux.subtract(base), target));
+	}
+
+	/**
+	 * Constructs a {@link Vector} from the given {@link Point} to this {@link Point}.
+	 *
+	 * @param source The {@link Coordinate} where the {@link Vector} is to start, if it were to end
+	 *               at this {@link Point}.
+	 * @return The {@link Vector} to this {@link Point} from the given {@link Point}.
+	 */
+	public Vector vectorFrom(Point source) {
+		return source.vectorTo(this);
 	}
 
 	/**
