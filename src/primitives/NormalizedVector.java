@@ -10,8 +10,7 @@ package primitives;
 public class NormalizedVector extends Vector {
 
 	/**
-	 * Constructs a {@link NormalizedVector} which is a normalization of the {@link Vector} to the
-	 * given {@link Point}.
+	 * Constructs a {@link NormalizedVector} which is a normalization of the {@link Vector} to the given {@link Point}.
 	 *
 	 * @param head The point towards which the vector points from the origin.
 	 */
@@ -21,13 +20,12 @@ public class NormalizedVector extends Vector {
 	}
 
 	/**
-	 * This private constructor does not normalize the vector. Make sure that the head is on the
-	 * unit sphere before calling this.
+	 * This private constructor does not normalize the vector. Make sure that the head is on the unit sphere before calling
+	 * this.
 	 *
-	 * @param head The head of the vector. It will be stored exactly as passed so make sure it makes
-	 *             a vector with length equal to one.
-	 * @param __   This is a dummy variable to distinguish this constructor from
-	 *             {@link #NormalizedVector(Point)}
+	 * @param head The head of the vector. It will be stored exactly as passed so make sure it makes a vector with length
+	 *             equal to one.
+	 * @param __   This is a dummy variable to distinguish this constructor from {@link #NormalizedVector(Point)}
 	 */
 	private NormalizedVector(Point head, boolean __) {
 		super(head);
@@ -61,14 +59,26 @@ public class NormalizedVector extends Vector {
 	 * Normalizes this vector in place.
 	 */
 	private void normalize() {
-		head = scale(1 / super.length()).head();
+		setHead(scale(1 / super.length()).head());
 	}
 
+
+	/**
+	 * Calculates a new {@link NormalizedVector} with the opposite direction to this vector.
+	 *
+	 * @return Since the magnitude is unchanged, the returned {@link Vector} is a {@link NormalizedVector}.
+	 */
 	@Override
 	public NormalizedVector reversed() {
-		return new NormalizedVector(head().transform((c1, c2) -> c1.multiply(-1)));
+		return new NormalizedVector(head().transform((c1, c2) -> c1.multiply(-1)), true);
 	}
 
+
+	/**
+	 * Gets the length of the vector.
+	 *
+	 * @return 1.0 since a normalized vector by definition has a length of one.
+	 */
 	@Override
 	public double length() {
 		return 1.0;

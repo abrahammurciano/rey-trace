@@ -1,2 +1,4 @@
 *.docx
 /docs
+.vscode
+*.class

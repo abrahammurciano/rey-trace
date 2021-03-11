@@ -1,14 +1,14 @@
 package primitives;
 
 /**
- * The {@link Vector} class represents a {@link Vector} with it's base at the origin and it's head
- * at the {@link Point} 'head'.
+ * The {@link Vector} class represents a {@link Vector} with it's base at the origin and it's head at the {@link Point}
+ * 'head'.
  *
  * @author Abraham Murciano
  * @author Eli Levin
  */
 public class Vector {
-	protected Point head;
+	private Point head;
 
 	/**
 	 * This constructor accepts 3 doubles and returns the appropriate {@link Vector}
@@ -37,8 +37,7 @@ public class Vector {
 	/**
 	 * This constructor accepts a {@link Point} and returns the appropriate {@link Vector}
 	 *
-	 * @param head The {@link Point} which this {@link Vector} would point to if its base was at the
-	 *             origin.
+	 * @param head The {@link Point} which this {@link Vector} would point to if its base was at the origin.
 	 * @throws IllegalArgumentException if this {@link Vector} is the zero vector.
 	 */
 	public Vector(Point head) {
@@ -50,36 +49,41 @@ public class Vector {
 
 	/**
 	 * Gets the head of the {@link Vector}.
+	 *
+	 * @return The head of the {@link Vector}.
 	 */
 	public Point head() {
 		return head;
 	}
 
 	/**
-	 * Creates a new {@link Vector} which is a transformation of this {@link Vector} by applying the
-	 * given transformation to each of the {@link Coordinate}s.
+	 * Sets the head of the {@link Vector}.
 	 *
-	 * @param transformation A function which receives two {@link Coordinate}s and returns another
-	 *                       {@link Coordinate}.
-	 * @param auxiliary      An auxiliary {@link {@link Vector}} whose corresponding
-	 *                       {@link Coordinate} may (or may not) be used in the transformation
-	 *                       function in order to calculate each of the new {@link Coordinate}s.
-	 * @return The {@link Vector} made up of applying the transformation to each of the three
-	 *         {@link Coordinate}s.
+	 * @param head The new head of the {@link Vector}.
+	 */
+	protected void setHead(Point head) {
+		this.head = head;
+	}
+
+	/**
+	 * Creates a new {@link Vector} which is a transformation of this {@link Vector} by applying the given transformation to
+	 * each of the {@link Coordinate}s.
+	 *
+	 * @param transformation A function which receives two {@link Coordinate}s and returns another {@link Coordinate}.
+	 * @param auxiliary      An auxiliary {@link Vector} whose corresponding {@link Coordinate} may (or may not) be used in
+	 *                       the transformation function in order to calculate each of the new {@link Coordinate}s.
+	 * @return The {@link Vector} made up of applying the transformation to each of the three {@link Coordinate}s.
 	 */
 	public Vector transform(CoordinateTransformation transformation, Vector auxiliary) {
 		return new Vector(head().transform(transformation, auxiliary.head()));
 	}
 
 	/**
-	 * Similar to {@link #transform} but does not require an auxiliary {@link Vector}, since the
-	 * transformation when called in this way is not supposed to depend on a second
-	 * {@link Coordinate}.
+	 * Similar to {@link #transform} but does not require an auxiliary {@link Vector}, since the transformation when called
+	 * in this way is not supposed to depend on a second {@link Coordinate}.
 	 *
-	 * @param transformation A function which receives two {@link Coordinate}s and returns another
-	 *                       {@link Coordinate}.
-	 * @return The {@link Vector} made up of applying the transformation to each of the three
-	 *         {@link Coordinate}s.
+	 * @param transformation A function which receives two {@link Coordinate}s and returns another {@link Coordinate}.
+	 * @return The {@link Vector} made up of applying the transformation to each of the three {@link Coordinate}s.
 	 */
 	public Vector transform(CoordinateTransformation transformation) {
 		return new Vector(head().transform(transformation));
@@ -106,8 +110,7 @@ public class Vector {
 	}
 
 	/**
-	 * Constructs a new {@link Vector} which is a scalar multiplication of this {@link Vector} by a
-	 * scalar.
+	 * Constructs a new {@link Vector} which is a scalar multiplication of this {@link Vector} by a scalar.
 	 *
 	 * @param factor The scalar by which to multiply this {@link Vector}
 	 * @return New scaled {@link Vector}
@@ -117,7 +120,7 @@ public class Vector {
 	}
 
 	/**
-	 * An alias for {@link #scale(-1)}.
+	 * An alias for {@link #scale} with factor -1.
 	 *
 	 * @return New reversed {@link Vector}
 	 */
@@ -183,8 +186,8 @@ public class Vector {
 	}
 
 	/**
-	 * Calculates the angle in radians between this vector and the given vector. The angle is
-	 * normalized between zero and Pi.
+	 * Calculates the angle in radians between this vector and the given vector. The angle is normalized between zero and
+	 * Pi.
 	 *
 	 * @param v The other vector to be used to calculate the angle.
 	 * @return The angle in radians between the vectors between zero and Pi.

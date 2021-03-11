@@ -15,10 +15,16 @@ public abstract class Util {
 	private Util() {
 	}
 
-	// double store format (bit level): seee eeee eeee (1.)mmmm � mmmm
-	// 1 bit sign, 11 bits exponent, 53 bits (52 stored) normalized mantissa
-	// the number is m+2^e where 1<=m<2
-	// NB: exponent is stored "normalized" (i.e. always positive by adding 1023)
+
+	/**
+	 * double store format (bit level): seee eeee eeee (1.)mmmm � mmmm 1 bit sign, 11 bits exponent, 53 bits (52 stored)
+	 * normalized mantissa the number is m+2^e where 1<=m<2 NB: exponent is stored "normalized" (i.e. always positive by
+	 * adding 1023)
+	 *
+	 * @param num The double to extract the exponent from.
+	 * @return The exponent of the double.
+	 */
+
 	private static int getExp(double num) {
 		// 1. doubleToRawLongBits: "convert" the stored number to set of bits
 		// 2. Shift all 52 bits to the right (removing mantissa)
@@ -30,7 +36,7 @@ public abstract class Util {
 	/**
 	 * Checks whether the number is [almost] zero
 	 *
-	 * @param number
+	 * @param number The number to check against zero.
 	 * @return true if the number is zero or almost zero, false otherwise
 	 */
 	public static boolean isZero(double number) {
@@ -40,7 +46,7 @@ public abstract class Util {
 	/**
 	 * Aligns the number to zero if it is almost zero
 	 *
-	 * @param number
+	 * @param number The number to align to zero.
 	 * @return 0.0 if the number is very close to zero, the number itself otherwise
 	 */
 	public static double alignZero(double number) {
@@ -59,11 +65,11 @@ public abstract class Util {
 	}
 
 	/**
-	 * Provide a real random number in range between min and max
+	 * Provide a real random number in range between min and max.
 	 *
-	 * @param min
-	 * @param max
-	 * @return the random value
+	 * @param min The minimum boundary of the range.
+	 * @param max The maximum boundary of the range.
+	 * @return The random value.
 	 */
 	public static double random(double min, double max) {
 		return Math.random() * (max - min) + min;

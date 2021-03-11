@@ -43,7 +43,7 @@ public class Point {
 	 *
 	 * @param index The index of the {@link Coordinate} to get.
 	 * @throws IllegalArgumentException if index is not between 0 and 2.
-	 * @return
+	 * @return The x, y, or z {@link Coordinate}.
 	 */
 	public Coordinate coordinate(int index) {
 		try {
@@ -54,16 +54,13 @@ public class Point {
 	}
 
 	/**
-	 * Creates a new {@link Point} which is a transformation of this {@link Point} by applying the
-	 * given transformation to each of the {@link Coordinate}s.
+	 * Creates a new {@link Point} which is a transformation of this {@link Point} by applying the given transformation to
+	 * each of the {@link Coordinate}s.
 	 *
-	 * @param transformation A function which receives two {@link Coordinate}s and returns another
-	 *                       {@link Coordinate}.
-	 * @param auxiliary      An auxiliary {@link Point} whose corresponding {@link Coordinate} may
-	 *                       (or may not) be used in the transformation function in order to
-	 *                       calculate each of the new {@link Coordinate}s.
-	 * @return The {@link Point} made up of applying the transformation to each of the three
-	 *         {@link Coordinate}s.
+	 * @param transformation A function which receives two {@link Coordinate}s and returns another {@link Coordinate}.
+	 * @param auxiliary      An auxiliary {@link Point} whose corresponding {@link Coordinate} may (or may not) be used in
+	 *                       the transformation function in order to calculate each of the new {@link Coordinate}s.
+	 * @return The {@link Point} made up of applying the transformation to each of the three {@link Coordinate}s.
 	 */
 	public Point transform(CoordinateTransformation transformation, Point auxiliary) {
 		return new Point(transformation.transform(coordinate(0), auxiliary.coordinate(0)),
@@ -72,14 +69,11 @@ public class Point {
 	}
 
 	/**
-	 * Similar to {@link #transform(CoordinateTransformation, Point)} but does not require an
-	 * auxiliary {@link Point}, since the transformation when called in this way is not supposed to
-	 * depend on a second {@link Coordinate}.
+	 * Similar to {@link #transform(CoordinateTransformation, Point)} but does not require an auxiliary {@link Point}, since
+	 * the transformation when called in this way is not supposed to depend on a second {@link Coordinate}.
 	 *
-	 * @param transformation A function which receives two {@link Coordinate}s and returns another
-	 *                       {@link Coordinate}.
-	 * @return The {@link Point} made up of applying the transformation to each of the three
-	 *         {@link Coordinate}s.
+	 * @param transformation A function which receives two {@link Coordinate}s and returns another {@link Coordinate}.
+	 * @return The {@link Point} made up of applying the transformation to each of the three {@link Coordinate}s.
 	 */
 	public Point transform(CoordinateTransformation transformation) {
 		return transform(transformation, ORIGIN);
@@ -98,8 +92,7 @@ public class Point {
 	/**
 	 * Constructs a {@link Vector} from this {@link Point} to the given {@link Point}.
 	 *
-	 * @param target The {@link Coordinate} where the {@link Vector} is to end, if it were to start
-	 *               from this {@link Point}.
+	 * @param target The {@link Coordinate} where the {@link Vector} is to end, if it were to start from this {@link Point}.
 	 * @return The {@link Vector} from this {@link Point} to the given {@link Point}.
 	 */
 	public Vector vectorTo(Point target) {
@@ -109,8 +102,7 @@ public class Point {
 	/**
 	 * Constructs a {@link Vector} from the given {@link Point} to this {@link Point}.
 	 *
-	 * @param source The {@link Coordinate} where the {@link Vector} is to start, if it were to end
-	 *               at this {@link Point}.
+	 * @param source The {@link Coordinate} where the {@link Vector} is to start, if it were to end at this {@link Point}.
 	 * @return The {@link Vector} to this {@link Point} from the given {@link Point}.
 	 */
 	public Vector vectorFrom(Point source) {
@@ -128,9 +120,8 @@ public class Point {
 	}
 
 	/**
-	 * The square of the distance between this {@link Point} and the target {@link Point}. This
-	 * number is much more efficient to compute than {@link distance} since it does not involve a
-	 * square root.
+	 * The square of the distance between this {@link Point} and the target {@link Point}. This number is much more
+	 * efficient to compute than {@link distance} since it does not involve a square root.
 	 *
 	 * @param target The {@link Point} to calculate the distance to.
 	 * @return The square of the distance between this {@link Point} and the target {@link Point}.

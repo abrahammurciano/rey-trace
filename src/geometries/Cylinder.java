@@ -37,9 +37,9 @@ public class Cylinder implements Geometry {
 	}
 
 	/**
-	 * Gets the axis {@link Vector} of the {@link Cylinder}.
+	 * Gets the axis {@link NormalizedVector} of the {@link Cylinder}.
 	 *
-	 * @return The axis {@link Vector} of the {@link Cylinder}.
+	 * @return The axis {@link NormalizedVector} of the {@link Cylinder}.
 	 */
 	public NormalizedVector direction() {
 		return tube.direction();
