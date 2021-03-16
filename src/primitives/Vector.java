@@ -10,7 +10,7 @@ import java.util.Objects;
  * @author Eli Levin
  */
 public class Vector {
-	private Point head;
+	final Point head;
 
 	/**
 	 * This constructor accepts 3 doubles and returns the appropriate {@link Vector}
@@ -50,24 +50,6 @@ public class Vector {
 	}
 
 	/**
-	 * Gets the head of the {@link Vector}.
-	 *
-	 * @return The head of the {@link Vector}.
-	 */
-	public Point head() {
-		return head;
-	}
-
-	/**
-	 * Sets the head of the {@link Vector}.
-	 *
-	 * @param head The new head of the {@link Vector}.
-	 */
-	protected void setHead(Point head) {
-		this.head = head;
-	}
-
-	/**
 	 * Creates a new {@link Vector} which is a transformation of this {@link Vector} by applying the given transformation to
 	 * each of the {@link Coordinate}s.
 	 *
@@ -78,7 +60,7 @@ public class Vector {
 	 * @throws ZeroVectorException if the transformation results in the zero vector.
 	 */
 	public Vector transform(CoordinateTransformation transformation, Vector auxiliary) {
-		return new Vector(head().transform(transformation, auxiliary.head()));
+		return new Vector(head.transform(transformation, auxiliary.head));
 	}
 
 	/**
@@ -90,7 +72,7 @@ public class Vector {
 	 * @throws ZeroVectorException if the transformation results in the zero vector.
 	 */
 	public Vector transform(CoordinateTransformation transformation) {
-		return new Vector(head().transform(transformation));
+		return new Vector(head.transform(transformation));
 	}
 
 	/**
@@ -101,7 +83,7 @@ public class Vector {
 	 * @throws ZeroVectorException when adding a {@link Vector} with its reverse.
 	 */
 	public Vector add(Vector vector) {
-		return new Vector(head().add(vector));
+		return new Vector(head.add(vector));
 	}
 
 	/**
@@ -143,14 +125,10 @@ public class Vector {
 	 * @throws ZeroVectorException if the result vector is the zero vector.
 	 */
 	public Vector cross(Vector vector) {
-		Coordinate[] coordinates = new Coordinate[3];
-		for (int i = 0; i < coordinates.length; ++i) {
-			coordinates[i] = head().coordinate((i + 1) % coordinates.length)
-					.multiply(vector.head().coordinate((i + 2) % coordinates.length))
-					.subtract(head().coordinate((i + 2) % coordinates.length)
-							.multiply(vector.head().coordinate((i + 1) % coordinates.length)));
-		}
-		return new Vector(coordinates[0], coordinates[1], coordinates[2]);
+		Coordinate x = head.y.multiply(vector.head.z).subtract(head.z.multiply(vector.head.y));
+		Coordinate y = head.z.multiply(vector.head.x).subtract(head.x.multiply(vector.head.z));
+		Coordinate z = head.x.multiply(vector.head.y).subtract(head.y.multiply(vector.head.x));
+		return new Vector(x, y, z);
 	}
 
 	/**
@@ -161,7 +139,7 @@ public class Vector {
 	 */
 	public double dot(Vector vector) {
 		// Construct a point whose coordinates are the product of the coordinates of the other two.
-		Point p = head().transform((base, aux) -> base.multiply(aux), vector.head());
+		Point p = head.transform((base, aux) -> base.multiply(aux), vector.head);
 		return p.sum();
 	}
 
@@ -189,7 +167,7 @@ public class Vector {
 	 * @return new {@link Vector}
 	 */
 	public NormalizedVector normalized() {
-		return new NormalizedVector(head);
+		return new NormalizedVector(this);
 	}
 
 	/**

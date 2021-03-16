@@ -7,7 +7,7 @@ package primitives;
  * @author Eli Levin
  */
 public class Coordinate {
-	private double value;
+	final double value;
 
 	/**
 	 * Constructs a {@link Coordinate}.
@@ -19,15 +19,6 @@ public class Coordinate {
 	}
 
 	/**
-	 * Gets the value of the {@link Coordinate}.
-	 *
-	 * @return The value of the {@link Coordinate}.
-	 */
-	public double value() {
-		return value;
-	}
-
-	/**
 	 * Adds this {@link Coordinate} with another {@link Coordinate}. Effectively adds their values and constructs a new
 	 * {@link Coordinate} with the resulting value.
 	 *
@@ -35,7 +26,7 @@ public class Coordinate {
 	 * @return A new {@link Coordinate} whose value is the sum of the values of the two coordinates.
 	 */
 	public Coordinate add(Coordinate c) {
-		return new Coordinate(value() + c.value());
+		return new Coordinate(value + c.value);
 	}
 
 	/**
@@ -46,7 +37,7 @@ public class Coordinate {
 	 * @return A new {@link Coordinate} whose value is the difference of the values of the two coordinates.
 	 */
 	public Coordinate subtract(Coordinate c) {
-		return new Coordinate(value() - c.value());
+		return new Coordinate(value - c.value);
 	}
 
 	/**
@@ -58,7 +49,7 @@ public class Coordinate {
 	 *         double.
 	 */
 	public Coordinate multiply(double d) {
-		return new Coordinate(value() * d);
+		return new Coordinate(value * d);
 	}
 
 	/**
@@ -69,13 +60,12 @@ public class Coordinate {
 	 * @return A new {@link Coordinate} whose value is the product of the values of the two coordinates.
 	 */
 	public Coordinate multiply(Coordinate c) {
-		return multiply(c.value());
+		return multiply(c.value);
 	}
 
 	/**
 	 * Compares the values of two coordinates.
 	 */
-
 	@Override
 	public boolean equals(Object o) {
 		if (o == this)
@@ -84,12 +74,9 @@ public class Coordinate {
 			return false;
 		}
 		Coordinate coordinate = (Coordinate) o;
-		return value == coordinate.value;
+		return Util.isZero(coordinate.value - value);
 	}
 
-	/**
-	 * Computes the hash function based on that of the {@link Coordinate}'s value.
-	 */
 	@Override
 	public int hashCode() {
 		return Double.hashCode(value);

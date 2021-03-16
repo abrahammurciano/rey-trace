@@ -1,7 +1,5 @@
 package primitives;
 
-import java.util.Arrays;
-
 /**
  * The {@link Point} class represents a {@link Point} in three dimensional space.
  *
@@ -9,7 +7,9 @@ import java.util.Arrays;
  * @author Eli Levin
  */
 public class Point {
-	private Coordinate[] coordinates;
+	Coordinate x;
+	Coordinate y;
+	Coordinate z;
 
 	/**
 	 * Represents the {@link Point} (0, 0, 0)
@@ -24,7 +24,9 @@ public class Point {
 	 * @param z The z-coordinate.
 	 */
 	public Point(Coordinate x, Coordinate y, Coordinate z) {
-		coordinates = new Coordinate[] {x, y, z};
+		this.x = x;
+		this.y = y;
+		this.z = z;
 	}
 
 	/**
@@ -39,21 +41,6 @@ public class Point {
 	}
 
 	/**
-	 * Gets the x, y, or z {@link Coordinate} given the index (0, 1, or 2).
-	 *
-	 * @param index The index of the {@link Coordinate} to get.
-	 * @throws IllegalArgumentException if index is not between 0 and 2.
-	 * @return The x, y, or z {@link Coordinate}.
-	 */
-	public Coordinate coordinate(int index) {
-		try {
-			return coordinates[index];
-		} catch (ArrayIndexOutOfBoundsException e) {
-			throw new IllegalArgumentException(e);
-		}
-	}
-
-	/**
 	 * Creates a new {@link Point} which is a transformation of this {@link Point} by applying the given transformation to
 	 * each of the {@link Coordinate}s.
 	 *
@@ -63,9 +50,8 @@ public class Point {
 	 * @return The {@link Point} made up of applying the transformation to each of the three {@link Coordinate}s.
 	 */
 	public Point transform(CoordinateTransformation transformation, Point auxiliary) {
-		return new Point(transformation.transform(coordinate(0), auxiliary.coordinate(0)),
-				transformation.transform(coordinate(1), auxiliary.coordinate(1)),
-				transformation.transform(coordinate(2), auxiliary.coordinate(2)));
+		return new Point(transformation.transform(x, auxiliary.x),
+				transformation.transform(y, auxiliary.y), transformation.transform(z, auxiliary.z));
 	}
 
 	/**
@@ -86,7 +72,7 @@ public class Point {
 	 * @return The {@link Point} resulting from adding the {@link Vector} to this {@link Point}.
 	 */
 	public Point add(Vector v) {
-		return transform((base, aux) -> base.add(aux), v.head());
+		return transform((base, aux) -> base.add(aux), v.head);
 	}
 
 	/**
@@ -145,7 +131,7 @@ public class Point {
 	 * @return The sum of the three {@link Coordinate}s this {@link Point} is made up of.
 	 */
 	public double sum() {
-		return Arrays.stream(coordinates).reduce(Coordinate::add).get().value();
+		return x.add(y).add(z).value;
 	}
 
 	/**
@@ -160,7 +146,7 @@ public class Point {
 			return false;
 		}
 		Point point = (Point) o;
-		return Arrays.deepEquals(coordinates, point.coordinates);
+		return x.equals(point.x) && y.equals(point.y) && z.equals(point.z);
 	}
 
 	/**
@@ -168,7 +154,7 @@ public class Point {
 	 */
 	@Override
 	public int hashCode() {
-		return Arrays.hashCode(coordinates);
+		return x.hashCode() ^ y.hashCode() ^ z.hashCode();
 	}
 
 	/**
@@ -176,6 +162,6 @@ public class Point {
 	 */
 	@Override
 	public String toString() {
-		return "(" + coordinate(0) + ", " + coordinate(1) + ", " + coordinate(2) + ")";
+		return "(" + x + ", " + y + ", " + z + ")";
 	}
 }

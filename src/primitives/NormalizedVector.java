@@ -10,14 +10,12 @@ package primitives;
 public class NormalizedVector extends Vector {
 
 	/**
-	 * Constructs a {@link NormalizedVector} which is a normalization of the {@link Vector} to the given {@link Point}.
+	 * Constructs a {@link NormalizedVector} from a not necessarily normalized {@link Vector}
 	 *
-	 * @param head The point towards which the vector points from the origin.
-	 * @throws ZeroVectorException if the given {@link Point} is the origin.
+	 * @param v The unnormalized vector.
 	 */
-	public NormalizedVector(Point head) {
-		super(head);
-		normalize();
+	public NormalizedVector(Vector v) {
+		super(v.scale(1 / v.length()).head);
 	}
 
 	/**
@@ -42,7 +40,7 @@ public class NormalizedVector extends Vector {
 	 * @throws ZeroVectorException if the x, y, and z are all zero.
 	 */
 	public NormalizedVector(double x, double y, double z) {
-		this(new Point(x, y, z));
+		this(new Vector(x, y, z));
 	}
 
 	/**
@@ -54,14 +52,7 @@ public class NormalizedVector extends Vector {
 	 * @throws ZeroVectorException if the x, y, and z are all zero.
 	 */
 	public NormalizedVector(Coordinate x, Coordinate y, Coordinate z) {
-		this(new Point(x, y, z));
-	}
-
-	/**
-	 * Normalizes this vector in place.
-	 */
-	private void normalize() {
-		setHead(scale(1 / super.length()).head());
+		this(new Vector(x, y, z));
 	}
 
 
@@ -72,7 +63,7 @@ public class NormalizedVector extends Vector {
 	 */
 	@Override
 	public NormalizedVector reversed() {
-		return new NormalizedVector(head().transform((c1, c2) -> c1.multiply(-1)), true);
+		return new NormalizedVector(head.transform((c1, c2) -> c1.multiply(-1)), true);
 	}
 
 
