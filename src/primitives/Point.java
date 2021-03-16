@@ -7,9 +7,20 @@ package primitives;
  * @author Eli Levin
  */
 public class Point {
-	Coordinate x;
-	Coordinate y;
-	Coordinate z;
+	/**
+	 * The x-{@link Coordinate}
+	 */
+	final Coordinate x;
+
+	/**
+	 * The y-{@link Coordinate}
+	 */
+	final Coordinate y;
+
+	/**
+	 * The z-{@link Coordinate}
+	 */
+	final Coordinate z;
 
 	/**
 	 * Represents the {@link Point} (0, 0, 0)
@@ -45,13 +56,13 @@ public class Point {
 	 * each of the {@link Coordinate}s.
 	 *
 	 * @param transformation A function which receives two {@link Coordinate}s and returns another {@link Coordinate}.
-	 * @param auxiliary      An auxiliary {@link Point} whose corresponding {@link Coordinate} may (or may not) be used in
+	 * @param aux            An auxiliary {@link Point} whose corresponding {@link Coordinate} may (or may not) be used in
 	 *                       the transformation function in order to calculate each of the new {@link Coordinate}s.
 	 * @return The {@link Point} made up of applying the transformation to each of the three {@link Coordinate}s.
 	 */
-	public Point transform(CoordinateTransformation transformation, Point auxiliary) {
-		return new Point(transformation.transform(x, auxiliary.x),
-				transformation.transform(y, auxiliary.y), transformation.transform(z, auxiliary.z));
+	public Point transform(CoordinateTransformation transformation, Point aux) {
+		return new Point(transformation.transform(x, aux.x), transformation.transform(y, aux.y),
+				transformation.transform(z, aux.z));
 	}
 
 	/**
@@ -131,7 +142,7 @@ public class Point {
 	 * @return The sum of the three {@link Coordinate}s this {@link Point} is made up of.
 	 */
 	public double sum() {
-		return x.add(y).add(z).value;
+		return x.add(y).add(z).val;
 	}
 
 	/**

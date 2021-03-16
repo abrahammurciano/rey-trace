@@ -1,5 +1,6 @@
 package geometries;
 
+import primitives.ZeroVectorException;
 import primitives.NormalizedVector;
 import primitives.Point;
 import primitives.Util;

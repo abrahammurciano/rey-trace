@@ -7,15 +7,18 @@ package primitives;
  * @author Eli Levin
  */
 public class Coordinate {
-	final double value;
+	/**
+	 * The value of the {@link Coordinate} along its axis.
+	 */
+	final double val;
 
 	/**
 	 * Constructs a {@link Coordinate}.
 	 *
-	 * @param value The value of the {@link Coordinate}.
+	 * @param val The value of the {@link Coordinate}.
 	 */
-	public Coordinate(double value) {
-		this.value = value;
+	public Coordinate(double val) {
+		this.val = val;
 	}
 
 	/**
@@ -26,7 +29,7 @@ public class Coordinate {
 	 * @return A new {@link Coordinate} whose value is the sum of the values of the two coordinates.
 	 */
 	public Coordinate add(Coordinate c) {
-		return new Coordinate(value + c.value);
+		return new Coordinate(val + c.val);
 	}
 
 	/**
@@ -37,7 +40,7 @@ public class Coordinate {
 	 * @return A new {@link Coordinate} whose value is the difference of the values of the two coordinates.
 	 */
 	public Coordinate subtract(Coordinate c) {
-		return new Coordinate(value - c.value);
+		return new Coordinate(val - c.val);
 	}
 
 	/**
@@ -49,7 +52,7 @@ public class Coordinate {
 	 *         double.
 	 */
 	public Coordinate multiply(double d) {
-		return new Coordinate(value * d);
+		return new Coordinate(val * d);
 	}
 
 	/**
@@ -60,7 +63,7 @@ public class Coordinate {
 	 * @return A new {@link Coordinate} whose value is the product of the values of the two coordinates.
 	 */
 	public Coordinate multiply(Coordinate c) {
-		return multiply(c.value);
+		return multiply(c.val);
 	}
 
 	/**
@@ -74,12 +77,12 @@ public class Coordinate {
 			return false;
 		}
 		Coordinate coordinate = (Coordinate) o;
-		return Util.isZero(coordinate.value - value);
+		return Util.isZero(coordinate.val - val);
 	}
 
 	@Override
 	public int hashCode() {
-		return Double.hashCode(value);
+		return Double.hashCode(val);
 	}
 
 	/**
@@ -87,6 +90,6 @@ public class Coordinate {
 	 */
 	@Override
 	public String toString() {
-		return Double.toString(value);
+		return Double.toString(val);
 	}
 }

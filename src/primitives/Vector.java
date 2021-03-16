@@ -10,6 +10,9 @@ import java.util.Objects;
  * @author Eli Levin
  */
 public class Vector {
+	/**
+	 * The point where the vector ends if it were to start at the origin.
+	 */
 	final Point head;
 
 	/**
@@ -54,13 +57,13 @@ public class Vector {
 	 * each of the {@link Coordinate}s.
 	 *
 	 * @param transformation A function which receives two {@link Coordinate}s and returns another {@link Coordinate}.
-	 * @param auxiliary      An auxiliary {@link Vector} whose corresponding {@link Coordinate} may (or may not) be used in
+	 * @param aux            An auxiliary {@link Vector} whose corresponding {@link Coordinate} may (or may not) be used in
 	 *                       the transformation function in order to calculate each of the new {@link Coordinate}s.
 	 * @return The {@link Vector} made up of applying the transformation to each of the three {@link Coordinate}s.
 	 * @throws ZeroVectorException if the transformation results in the zero vector.
 	 */
-	public Vector transform(CoordinateTransformation transformation, Vector auxiliary) {
-		return new Vector(head.transform(transformation, auxiliary.head));
+	public Vector transform(CoordinateTransformation transformation, Vector aux) {
+		return new Vector(head.transform(transformation, aux.head));
 	}
 
 	/**
@@ -78,12 +81,12 @@ public class Vector {
 	/**
 	 * Adds two {@link Vector}s and returns a new {@link Vector}.
 	 *
-	 * @param vector The {@link Vector} which is to be added to this {@link Vector}.
+	 * @param v The {@link Vector} which is to be added to this {@link Vector}.
 	 * @return The sum of the two {@link Vector}s.
 	 * @throws ZeroVectorException when adding a {@link Vector} with its reverse.
 	 */
-	public Vector add(Vector vector) {
-		return new Vector(head.add(vector));
+	public Vector add(Vector v) {
+		return new Vector(head.add(v));
 	}
 
 	/**
@@ -120,26 +123,26 @@ public class Vector {
 	/**
 	 * Calculates the cross product of two {@link Vector}s.
 	 *
-	 * @param vector The {@link Vector} by which to multiply this {@link Vector}
+	 * @param v The {@link Vector} by which to multiply this {@link Vector}
 	 * @return The resulting {@link Vector} which is the cross product of the two {@link Vector}s
 	 * @throws ZeroVectorException if the result vector is the zero vector.
 	 */
-	public Vector cross(Vector vector) {
-		Coordinate x = head.y.multiply(vector.head.z).subtract(head.z.multiply(vector.head.y));
-		Coordinate y = head.z.multiply(vector.head.x).subtract(head.x.multiply(vector.head.z));
-		Coordinate z = head.x.multiply(vector.head.y).subtract(head.y.multiply(vector.head.x));
+	public Vector cross(Vector v) {
+		double x = head.y.val * v.head.z.val - head.z.val * v.head.y.val;
+		double y = head.z.val * v.head.x.val - head.x.val * v.head.z.val;
+		double z = head.x.val * v.head.y.val - head.y.val * v.head.x.val;
 		return new Vector(x, y, z);
 	}
 
 	/**
 	 * Calculates the dot product of two {@link Vector}s
 	 *
-	 * @param vector The {@link Vector} to dot product with this {@link Vector}
+	 * @param v The {@link Vector} to dot product with this {@link Vector}
 	 * @return The dot product of the two {@link Vector}s
 	 */
-	public double dot(Vector vector) {
+	public double dot(Vector v) {
 		// Construct a point whose coordinates are the product of the coordinates of the other two.
-		Point p = head.transform((base, aux) -> base.multiply(aux), vector.head);
+		Point p = head.transform((base, aux) -> base.multiply(aux), v.head);
 		return p.sum();
 	}
 

@@ -12,9 +12,9 @@ public interface CoordinateTransformation {
 	 * A function which takes two coordinates and returns a new {@link Coordinate} which is a transformation of the first,
 	 * optionally using the second to aid the calculation.
 	 *
-	 * @param base      The base coordinate to be transformed.
-	 * @param auxiliary The auxiliary coordinate to aid the calculation.
+	 * @param base The base coordinate to be transformed.
+	 * @param aux  The auxiliary coordinate to aid the calculation.
 	 * @return A new {@link Coordinate} which is a transformation of the first.
 	 */
-	Coordinate transform(Coordinate base, Coordinate auxiliary);
+	Coordinate transform(Coordinate base, Coordinate aux);
 }
