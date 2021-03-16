@@ -94,6 +94,7 @@ public class Point {
 	 *
 	 * @param target The {@link Coordinate} where the {@link Vector} is to end, if it were to start from this {@link Point}.
 	 * @return The {@link Vector} from this {@link Point} to the given {@link Point}.
+	 * @throws ZeroVectorException if the target is equal to this {@link Point}.
 	 */
 	public Vector vectorTo(Point target) {
 		return new Vector(transform((base, aux) -> aux.subtract(base), target));
@@ -104,6 +105,7 @@ public class Point {
 	 *
 	 * @param source The {@link Coordinate} where the {@link Vector} is to start, if it were to end at this {@link Point}.
 	 * @return The {@link Vector} to this {@link Point} from the given {@link Point}.
+	 * @throws ZeroVectorException if the source is equal to this {@link Point}.
 	 */
 	public Vector vectorFrom(Point source) {
 		return source.vectorTo(this);
@@ -149,15 +151,16 @@ public class Point {
 	/**
 	 * Checks if the two {@link Point}s are in the same three dimensional space.
 	 */
+
 	@Override
-	public boolean equals(Object p) {
-		if (this == p) {
+	public boolean equals(Object o) {
+		if (o == this)
 			return true;
-		}
-		if (p == null || getClass() != p.getClass()) {
+		if (!(o instanceof Point)) {
 			return false;
 		}
-		return Arrays.deepEquals(this.coordinates, ((Point) p).coordinates);
+		Point point = (Point) o;
+		return Arrays.deepEquals(coordinates, point.coordinates);
 	}
 
 	/**

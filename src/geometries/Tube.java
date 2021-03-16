@@ -17,11 +17,11 @@ public class Tube implements Geometry {
 	private double radius;
 
 	/**
-	 * Constructs a {@link Tube} with the source at the same source and direction as the given axis
-	 * {@link Ray}.
+	 * Constructs a {@link Tube} with the source at the same source and direction as the given axis {@link Ray}.
 	 *
 	 * @param axis   The {@link Ray} from which to get the source and direction.
 	 * @param radius The distance from the axis to the surface.
+	 * @throws IllegalArgumentException if the radius is zero.
 	 */
 	public Tube(Ray axis, double radius) {
 		if (Util.isZero(radius)) {
@@ -41,11 +41,12 @@ public class Tube implements Geometry {
 	}
 
 	/**
-	 * This function returns the normal to the tube at the given point. If the point doesn't lie on
-	 * the surface of the tube, the behavior is undefined.
+	 * This function returns the normal to the tube at the given point. If the point doesn't lie on the surface of the tube,
+	 * the behavior is undefined.
 	 *
 	 * @param p The {@link Point} to get the normal at.
 	 * @return The normalized normal {@link Vector}
+	 * @throws ZeroVectorException if the p is equal to the source @{@link Point} of the {@link Tube}.
 	 */
 	@Override
 	public NormalizedVector normal(Point p) {

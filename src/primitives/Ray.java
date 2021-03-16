@@ -1,8 +1,10 @@
 package primitives;
 
+import java.util.Objects;
+
 /**
- * The {@link Ray} class represents a ray with it's base at the {@link Point} 'source' and shoots
- * off in direction pointed at by {@link Vector} 'direction'.
+ * The {@link Ray} class represents a ray with it's base at the {@link Point} 'source' and shoots off in direction
+ * pointed at by {@link Vector} 'direction'.
  *
  * @author Abraham Murciano
  * @author Eli Levin
@@ -43,21 +45,20 @@ public class Ray {
 	/**
 	 * Compares the source and direction of the two {@link Ray}s.
 	 */
+
 	@Override
-	public boolean equals(Object r) {
-		if (this == r) {
+	public boolean equals(Object o) {
+		if (o == this)
 			return true;
-		}
-		if (r == null || getClass() != r.getClass()) {
+		if (!(o instanceof Ray)) {
 			return false;
 		}
-		Ray ray = (Ray) r;
-		return source.equals(ray.source) && direction.equals(ray.direction);
+		Ray ray = (Ray) o;
+		return Objects.equals(source, ray.source) && Objects.equals(direction, ray.direction);
 	}
 
 	/**
-	 * Computes the hash code based on that of the source {@link Point} and the direction
-	 * {@link Vector}.
+	 * Computes the hash code based on that of the source {@link Point} and the direction {@link Vector}.
 	 */
 	@Override
 	public int hashCode() {

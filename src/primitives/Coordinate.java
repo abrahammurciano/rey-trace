@@ -28,8 +28,8 @@ public class Coordinate {
 	}
 
 	/**
-	 * Adds this {@link Coordinate} with another {@link Coordinate}. Effectively adds their values
-	 * and constructs a new {@link Coordinate} with the resulting value.
+	 * Adds this {@link Coordinate} with another {@link Coordinate}. Effectively adds their values and constructs a new
+	 * {@link Coordinate} with the resulting value.
 	 *
 	 * @param c The {@link Coordinate} to add to this {@link Coordinate}.
 	 * @return A new {@link Coordinate} whose value is the sum of the values of the two coordinates.
@@ -39,36 +39,34 @@ public class Coordinate {
 	}
 
 	/**
-	 * Subtracts another {@link Coordinate} from this {@link Coordinate}. Effectively subtracts
-	 * their values and constructs a new {@link Coordinate} with the resulting value.
+	 * Subtracts another {@link Coordinate} from this {@link Coordinate}. Effectively subtracts their values and constructs
+	 * a new {@link Coordinate} with the resulting value.
 	 *
 	 * @param c The {@link Coordinate} to subtract from this {@link Coordinate}.
-	 * @return A new {@link Coordinate} whose value is the difference of the values of the two
-	 *         coordinates.
+	 * @return A new {@link Coordinate} whose value is the difference of the values of the two coordinates.
 	 */
 	public Coordinate subtract(Coordinate c) {
 		return new Coordinate(value() - c.value());
 	}
 
 	/**
-	 * Multiplies this {@link Coordinate} by a double. Effectively multiplies its value with the
-	 * double and constructs a new {@link Coordinate} with the resulting value.
+	 * Multiplies this {@link Coordinate} by a double. Effectively multiplies its value with the double and constructs a new
+	 * {@link Coordinate} with the resulting value.
 	 *
 	 * @param d The double to multiply this {@link Coordinate} with.
-	 * @return A new {@link Coordinate} whose value is the product of the values of this
-	 *         {@link Coordinate} and the given double.
+	 * @return A new {@link Coordinate} whose value is the product of the values of this {@link Coordinate} and the given
+	 *         double.
 	 */
 	public Coordinate multiply(double d) {
 		return new Coordinate(value() * d);
 	}
 
 	/**
-	 * Multiplies this {@link Coordinate} with another {@link Coordinate}. Effectively multiplies
-	 * their values and constructs a new {@link Coordinate} with the resulting value.
+	 * Multiplies this {@link Coordinate} with another {@link Coordinate}. Effectively multiplies their values and
+	 * constructs a new {@link Coordinate} with the resulting value.
 	 *
 	 * @param c The {@link Coordinate} to multiply with this {@link Coordinate}.
-	 * @return A new {@link Coordinate} whose value is the product of the values of the two
-	 *         coordinates.
+	 * @return A new {@link Coordinate} whose value is the product of the values of the two coordinates.
 	 */
 	public Coordinate multiply(Coordinate c) {
 		return multiply(c.value());
@@ -77,15 +75,16 @@ public class Coordinate {
 	/**
 	 * Compares the values of two coordinates.
 	 */
+
 	@Override
-	public boolean equals(Object c) {
-		if (this == c) {
+	public boolean equals(Object o) {
+		if (o == this)
 			return true;
-		}
-		if (c == null || getClass() != c.getClass()) {
+		if (!(o instanceof Coordinate)) {
 			return false;
 		}
-		return Util.isZero(value - ((Coordinate) c).value);
+		Coordinate coordinate = (Coordinate) o;
+		return value == coordinate.value;
 	}
 
 	/**

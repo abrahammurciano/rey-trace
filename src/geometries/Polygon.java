@@ -5,6 +5,7 @@ import java.util.List;
 import primitives.Point;
 import primitives.Util;
 import primitives.Vector;
+import primitives.ZeroVectorException;
 import primitives.NormalizedVector;
 
 /**
@@ -23,9 +24,10 @@ public class Polygon implements Geometry {
 	 * This constructor accepts a list of the vertices of the polygon.
 	 *
 	 * @param vertices A list of the vertices of the polygon, in order.
-	 * @throws IllegalArgumentException if there are less than three vertices, any of the vertices are not on the same plane
-	 *                                  as the rest, the vertices are out of order, or the vertices form a non-convex
-	 *                                  polygon.
+	 * @throws IllegalArgumentException if there are less than three significant vertices, any of the vertices are not on
+	 *                                  the same plane as the rest, the vertices are out of order and thus form a non-convex
+	 *                                  polygon, consecutive vertices are repeated, or the last point is equal to the first
+	 *                                  point.
 	 */
 	public Polygon(Point... vertices) {
 		int size = vertices.length;
@@ -33,15 +35,20 @@ public class Polygon implements Geometry {
 
 		double sum = 0.0; // sum of exterior angles
 		for (int i = 0; i < size; ++i) { // loop through input vertices
-			Vector v1 = vertices[(i - 1) % size].vectorTo(vertices[i]); // prev to current
-			Vector v2 = vertices[i].vectorTo(vertices[(i + 1) % size]); // current to next
-			double angle = v1.angle(v2);
-			// if exterior angle is zero, point is on an existing edge and can be ignored
-			if (Util.isZero(angle)) {
-				continue;
+			try {
+				Vector v1 = vertices[(i - 1) % size].vectorTo(vertices[i]); // prev to current
+				Vector v2 = vertices[i].vectorTo(vertices[(i + 1) % size]); // current to next
+				double angle = v1.angle(v2);
+				// if exterior angle is zero, point is on an existing edge and can be ignored
+				if (Util.isZero(angle)) {
+					continue;
+				}
+				this.vertices.add(vertices[i]);
+				sum += angle;
+			} catch (ZeroVectorException e) {
+				throw new IllegalArgumentException(
+						"Error: Consecutive repeated vertices are not allowed. Perhaps you are repeating the start point at the end.");
 			}
-			this.vertices.add(vertices[i]);
-			sum += angle;
 		}
 
 		// If the sum of the exterior angles is greater than 2 Pi radians then it's not convex or

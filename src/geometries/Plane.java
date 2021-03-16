@@ -3,11 +3,12 @@ package geometries;
 import primitives.Point;
 import primitives.Util;
 import primitives.Vector;
+import primitives.ZeroVectorException;
 import primitives.NormalizedVector;
 
 /**
- * A {@link Plane} is a flat two dimensional surface in three dimensional space which goes off to
- * infinity in all directions.
+ * A {@link Plane} is a flat two dimensional surface in three dimensional space which goes off to infinity in all
+ * directions.
  *
  * @author Abraham Murciano
  * @author Eli Levin
@@ -18,9 +19,8 @@ public class Plane implements Geometry {
 	private NormalizedVector normal;
 
 	/**
-	 * This constructor accepts a point on the plane and a vector perpendicular to the plane.
-	 * {@link #normal} will return a normalized vector in the same direction as the given
-	 * {@link Vector}.
+	 * This constructor accepts a point on the plane and a vector perpendicular to the plane. {@link #normal} will return a
+	 * normalized vector in the same direction as the given {@link Vector}.
 	 *
 	 * @param point  A point on the plane.
 	 * @param normal A vector perpendicular to the plane.
@@ -39,7 +39,11 @@ public class Plane implements Geometry {
 	public boolean contains(Point p) {
 		// If the vector from p to another point is on the plane dot product the normal is zero (the
 		// vectors are perpendicular) then the point is on the plane.
-		return p.equals(point) || Util.isZero(normal.dot(point.vectorTo(p)));
+		try {
+			return Util.isZero(normal.dot(point.vectorTo(p)));
+		} catch (ZeroVectorException e) {
+			return true; // if p equals the plane's defining point vectorTo will throw
+		}
 	}
 
 	/**
@@ -55,7 +59,7 @@ public class Plane implements Geometry {
 		Vector v2 = p2.vectorTo(p3);
 		try {
 			this.normal = v1.cross(v2).normalized();
-		} catch (IllegalArgumentException e) {
+		} catch (ZeroVectorException e) {
 			throw new IllegalArgumentException(
 					"Error: The three points must not be on the same line.");
 		}

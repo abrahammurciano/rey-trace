@@ -13,6 +13,7 @@ public class NormalizedVector extends Vector {
 	 * Constructs a {@link NormalizedVector} which is a normalization of the {@link Vector} to the given {@link Point}.
 	 *
 	 * @param head The point towards which the vector points from the origin.
+	 * @throws ZeroVectorException if the given {@link Point} is the origin.
 	 */
 	public NormalizedVector(Point head) {
 		super(head);
@@ -26,6 +27,7 @@ public class NormalizedVector extends Vector {
 	 * @param head The head of the vector. It will be stored exactly as passed so make sure it makes a vector with length
 	 *             equal to one.
 	 * @param __   This is a dummy variable to distinguish this constructor from {@link #NormalizedVector(Point)}
+	 * @throws ZeroVectorException if the given {@link Point} is the origin.
 	 */
 	private NormalizedVector(Point head, boolean __) {
 		super(head);
@@ -37,7 +39,7 @@ public class NormalizedVector extends Vector {
 	 * @param x The value of the x {@link Coordinate}.
 	 * @param y The value of the y {@link Coordinate}.
 	 * @param z The value of the z {@link Coordinate}.
-	 * @throws IllegalArgumentException if the {@link Vector} is the zero vector.
+	 * @throws ZeroVectorException if the x, y, and z are all zero.
 	 */
 	public NormalizedVector(double x, double y, double z) {
 		this(new Point(x, y, z));
@@ -49,7 +51,7 @@ public class NormalizedVector extends Vector {
 	 * @param x The x {@link Coordinate}.
 	 * @param y The y {@link Coordinate}.
 	 * @param z The z {@link Coordinate}.
-	 * @throws IllegalArgumentException if this {@link Vector} is the zero vector.
+	 * @throws ZeroVectorException if the x, y, and z are all zero.
 	 */
 	public NormalizedVector(Coordinate x, Coordinate y, Coordinate z) {
 		this(new Point(x, y, z));
