@@ -1,4 +1,5 @@
 *.docx
 /docs
+/doc
 .vscode
 *.class
