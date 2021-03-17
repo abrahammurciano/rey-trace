@@ -1,6 +1,7 @@
 package primitives;
 
-import java.util.Objects;
+import java.util.function.DoubleBinaryOperator;
+import java.util.function.DoubleUnaryOperator;
 
 /**
  * The {@link Vector} class represents a {@link Vector} with it's base at the origin and it's head at the {@link Point}
@@ -18,24 +19,12 @@ public class Vector {
 	/**
 	 * This constructor accepts 3 doubles and returns the appropriate {@link Vector}
 	 *
-	 * @param x The value of the x {@link Coordinate}.
-	 * @param y The value of the y {@link Coordinate}.
-	 * @param z The value of the z {@link Coordinate}.
+	 * @param x The value of the x coordinate.
+	 * @param y The value of the y coordinate.
+	 * @param z The value of the z coordinate.
 	 * @throws ZeroVectorException if the {@link Vector} is the zero vector.
 	 */
 	public Vector(double x, double y, double z) {
-		this(new Point(x, y, z));
-	}
-
-	/**
-	 * This constructor accepts 3 {@link Coordinate}s and returns the appropriate {@link Vector}
-	 *
-	 * @param x The x {@link Coordinate}.
-	 * @param y The y {@link Coordinate}.
-	 * @param z The z {@link Coordinate}.
-	 * @throws ZeroVectorException if this {@link Vector} is the zero vector.
-	 */
-	public Vector(Coordinate x, Coordinate y, Coordinate z) {
 		this(new Point(x, y, z));
 	}
 
@@ -54,27 +43,27 @@ public class Vector {
 
 	/**
 	 * Creates a new {@link Vector} which is a transformation of this {@link Vector} by applying the given transformation to
-	 * each of the {@link Coordinate}s.
+	 * each of the coordinates.
 	 *
-	 * @param transformation A function which receives two {@link Coordinate}s and returns another {@link Coordinate}.
-	 * @param aux            An auxiliary {@link Vector} whose corresponding {@link Coordinate} may (or may not) be used in
-	 *                       the transformation function in order to calculate each of the new {@link Coordinate}s.
-	 * @return The {@link Vector} made up of applying the transformation to each of the three {@link Coordinate}s.
+	 * @param transformation A function which receives two doubles and returns another double.
+	 * @param aux            An auxiliary {@link Vector} whose corresponding coordinate may (or may not) be used in the
+	 *                       transformation function in order to calculate each of the new coordinates.
+	 * @return The {@link Vector} made up of applying the transformation to each of the three coordinates.
 	 * @throws ZeroVectorException if the transformation results in the zero vector.
 	 */
-	public Vector transform(CoordinateTransformation transformation, Vector aux) {
+	public Vector transform(DoubleBinaryOperator transformation, Vector aux) {
 		return new Vector(head.transform(transformation, aux.head));
 	}
 
 	/**
-	 * Similar to {@link #transform} but does not require an auxiliary {@link Vector}, since the transformation when called
-	 * in this way is not supposed to depend on a second {@link Coordinate}.
+	 * Similar to {@link #transform(DoubleBinaryOperator, Vector)} but does not require an auxiliary {@link Vector}, since
+	 * the transformation when called in this way does not depend on a second coordinate.
 	 *
-	 * @param transformation A function which receives two {@link Coordinate}s and returns another {@link Coordinate}.
-	 * @return The {@link Vector} made up of applying the transformation to each of the three {@link Coordinate}s.
+	 * @param transformation A function which receives a dingle double and returns another double.
+	 * @return The {@link Vector} made up of applying the transformation to each of the three coordinates.
 	 * @throws ZeroVectorException if the transformation results in the zero vector.
 	 */
-	public Vector transform(CoordinateTransformation transformation) {
+	public Vector transform(DoubleUnaryOperator transformation) {
 		return new Vector(head.transform(transformation));
 	}
 
@@ -108,7 +97,7 @@ public class Vector {
 	 * @throws ZeroVectorException if the scale factor is zero.
 	 */
 	public Vector scale(double factor) {
-		return transform((c, __) -> c.multiply(factor));
+		return transform(c -> c * factor);
 	}
 
 	/**
@@ -128,9 +117,9 @@ public class Vector {
 	 * @throws ZeroVectorException if the result vector is the zero vector.
 	 */
 	public Vector cross(Vector v) {
-		double x = head.y.val * v.head.z.val - head.z.val * v.head.y.val;
-		double y = head.z.val * v.head.x.val - head.x.val * v.head.z.val;
-		double z = head.x.val * v.head.y.val - head.y.val * v.head.x.val;
+		double x = head.y * v.head.z - head.z * v.head.y;
+		double y = head.z * v.head.x - head.x * v.head.z;
+		double z = head.x * v.head.y - head.y * v.head.x;
 		return new Vector(x, y, z);
 	}
 
@@ -142,7 +131,7 @@ public class Vector {
 	 */
 	public double dot(Vector v) {
 		// Construct a point whose coordinates are the product of the coordinates of the other two.
-		Point p = head.transform((base, aux) -> base.multiply(aux), v.head);
+		Point p = head.transform((base, aux) -> base * aux, v.head);
 		return p.sum();
 	}
 
@@ -196,7 +185,7 @@ public class Vector {
 			return false;
 		}
 		Vector vector = (Vector) o;
-		return Objects.equals(head, vector.head);
+		return head.equals(vector.head);
 	}
 
 	/**

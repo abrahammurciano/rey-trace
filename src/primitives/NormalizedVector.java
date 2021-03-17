@@ -24,34 +24,21 @@ public class NormalizedVector extends Vector {
 	 *
 	 * @param head The head of the vector. It will be stored exactly as passed so make sure it makes a vector with length
 	 *             equal to one.
-	 * @param __   This is a dummy variable to distinguish this constructor from {@link #NormalizedVector(Point)}
 	 * @throws ZeroVectorException if the given {@link Point} is the origin.
 	 */
-	private NormalizedVector(Point head, boolean __) {
+	private NormalizedVector(Point head) {
 		super(head);
 	}
 
 	/**
 	 * This constructor accepts 3 doubles and returns the appropriate {@link Vector}.
 	 *
-	 * @param x The value of the x {@link Coordinate}.
-	 * @param y The value of the y {@link Coordinate}.
-	 * @param z The value of the z {@link Coordinate}.
+	 * @param x The value of the x coordinate.
+	 * @param y The value of the y coordinate.
+	 * @param z The value of the z coordinate.
 	 * @throws ZeroVectorException if the x, y, and z are all zero.
 	 */
 	public NormalizedVector(double x, double y, double z) {
-		this(new Vector(x, y, z));
-	}
-
-	/**
-	 * This constructor accepts 3 {@link Coordinate}s and returns the appropriate {@link Vector}
-	 *
-	 * @param x The x {@link Coordinate}.
-	 * @param y The y {@link Coordinate}.
-	 * @param z The z {@link Coordinate}.
-	 * @throws ZeroVectorException if the x, y, and z are all zero.
-	 */
-	public NormalizedVector(Coordinate x, Coordinate y, Coordinate z) {
 		this(new Vector(x, y, z));
 	}
 
@@ -63,7 +50,7 @@ public class NormalizedVector extends Vector {
 	 */
 	@Override
 	public NormalizedVector reversed() {
-		return new NormalizedVector(head.transform((c1, c2) -> c1.multiply(-1)), true);
+		return new NormalizedVector(head.transform(c -> -c));
 	}
 
 

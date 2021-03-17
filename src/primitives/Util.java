@@ -44,6 +44,18 @@ public abstract class Util {
 	}
 
 	/**
+	 * Checks if two doubles are equal within some tolerance.
+	 *
+	 * @param n1 The first double.
+	 * @param n2 The second double.
+	 * @author Abraham Murciano
+	 * @return True if the difference between the two doubles is less than {@code Util.ACCURACY}
+	 */
+	public static boolean equals(double n1, double n2) {
+		return isZero(n1 - n2);
+	}
+
+	/**
 	 * Aligns the number to zero if it is almost zero
 	 *
 	 * @param number The number to align to zero.

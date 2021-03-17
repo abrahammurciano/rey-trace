@@ -1,5 +1,9 @@
 package primitives;
 
+import java.util.Objects;
+import java.util.function.DoubleBinaryOperator;
+import java.util.function.DoubleUnaryOperator;
+
 /**
  * The {@link Point} class represents a {@link Point} in three dimensional space.
  *
@@ -8,19 +12,19 @@ package primitives;
  */
 public class Point {
 	/**
-	 * The x-{@link Coordinate}
+	 * The x-coordinate
 	 */
-	final Coordinate x;
+	final double x;
 
 	/**
-	 * The y-{@link Coordinate}
+	 * The y-coordinate
 	 */
-	final Coordinate y;
+	final double y;
 
 	/**
-	 * The z-{@link Coordinate}
+	 * The z-coordinate
 	 */
-	final Coordinate z;
+	final double z;
 
 	/**
 	 * Represents the {@link Point} (0, 0, 0)
@@ -28,52 +32,42 @@ public class Point {
 	public static final Point ORIGIN = new Point(0, 0, 0);
 
 	/**
-	 * Constructs a {@link Point} from three {@link Coordinate}s.
+	 * Constructs a {@link Point} from three coordinates.
 	 *
 	 * @param x The x-coordinate.
 	 * @param y The y-coordinate.
 	 * @param z The z-coordinate.
 	 */
-	public Point(Coordinate x, Coordinate y, Coordinate z) {
+	public Point(double x, double y, double z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
 	}
 
 	/**
-	 * Constructs a {@link Point} from three {@link Coordinate}s' values.
-	 *
-	 * @param x The x-coordinate value.
-	 * @param y The y-coordinate value.
-	 * @param z The z-coordinate value.
-	 */
-	public Point(double x, double y, double z) {
-		this(new Coordinate(x), new Coordinate(y), new Coordinate(z));
-	}
-
-	/**
 	 * Creates a new {@link Point} which is a transformation of this {@link Point} by applying the given transformation to
-	 * each of the {@link Coordinate}s.
+	 * each of the coordinates.
 	 *
-	 * @param transformation A function which receives two {@link Coordinate}s and returns another {@link Coordinate}.
-	 * @param aux            An auxiliary {@link Point} whose corresponding {@link Coordinate} may (or may not) be used in
-	 *                       the transformation function in order to calculate each of the new {@link Coordinate}s.
-	 * @return The {@link Point} made up of applying the transformation to each of the three {@link Coordinate}s.
+	 * @param transformation A function which receives two coordinates and returns another coordinate.
+	 * @param aux            An auxiliary {@link Point} whose corresponding coordinate may (or may not) be used in the
+	 *                       transformation function in order to calculate each of the new coordinates.
+	 * @return The {@link Point} made up of applying the transformation to each of the three coordinates.
 	 */
-	public Point transform(CoordinateTransformation transformation, Point aux) {
-		return new Point(transformation.transform(x, aux.x), transformation.transform(y, aux.y),
-				transformation.transform(z, aux.z));
+	public Point transform(DoubleBinaryOperator transformation, Point aux) {
+		return new Point(transformation.applyAsDouble(x, aux.x),
+				transformation.applyAsDouble(y, aux.y), transformation.applyAsDouble(z, aux.z));
 	}
 
 	/**
-	 * Similar to {@link #transform(CoordinateTransformation, Point)} but does not require an auxiliary {@link Point}, since
-	 * the transformation when called in this way is not supposed to depend on a second {@link Coordinate}.
+	 * Similar to {@link #transform(DoubleBinaryOperator, Point)} but does not require an auxiliary {@link Point}, since the
+	 * transformation when called in this way does not depend on a second coordinate.
 	 *
-	 * @param transformation A function which receives two {@link Coordinate}s and returns another {@link Coordinate}.
-	 * @return The {@link Point} made up of applying the transformation to each of the three {@link Coordinate}s.
+	 * @param transformation A function which receives a single coordinate and returns another coordinate.
+	 * @return The {@link Point} made up of applying the transformation to each of the three coordinates.
 	 */
-	public Point transform(CoordinateTransformation transformation) {
-		return transform(transformation, ORIGIN);
+	public Point transform(DoubleUnaryOperator transformation) {
+		return new Point(transformation.applyAsDouble(x), transformation.applyAsDouble(y),
+				transformation.applyAsDouble(z));
 	}
 
 	/**
@@ -83,24 +77,24 @@ public class Point {
 	 * @return The {@link Point} resulting from adding the {@link Vector} to this {@link Point}.
 	 */
 	public Point add(Vector v) {
-		return transform((base, aux) -> base.add(aux), v.head);
+		return transform((base, aux) -> base + aux, v.head);
 	}
 
 	/**
 	 * Constructs a {@link Vector} from this {@link Point} to the given {@link Point}.
 	 *
-	 * @param target The {@link Coordinate} where the {@link Vector} is to end, if it were to start from this {@link Point}.
+	 * @param target The coordinate where the {@link Vector} is to end, if it were to start from this {@link Point}.
 	 * @return The {@link Vector} from this {@link Point} to the given {@link Point}.
 	 * @throws ZeroVectorException if the target is equal to this {@link Point}.
 	 */
 	public Vector vectorTo(Point target) {
-		return new Vector(transform((base, aux) -> aux.subtract(base), target));
+		return new Vector(transform((base, aux) -> aux - base, target));
 	}
 
 	/**
 	 * Constructs a {@link Vector} from the given {@link Point} to this {@link Point}.
 	 *
-	 * @param source The {@link Coordinate} where the {@link Vector} is to start, if it were to end at this {@link Point}.
+	 * @param source The coordinate where the {@link Vector} is to start, if it were to end at this {@link Point}.
 	 * @return The {@link Vector} to this {@link Point} from the given {@link Point}.
 	 * @throws ZeroVectorException if the source is equal to this {@link Point}.
 	 */
@@ -129,26 +123,25 @@ public class Point {
 		// Construct a point whose coordinates are the squares of the differences of the coordinates
 		// of the two points.
 		Point squarePoint = transform((base, aux) -> {
-			Coordinate diff = aux.subtract(base);
-			return diff.multiply(diff);
+			double diff = aux - base;
+			return diff * diff;
 		}, target);
 		// Sum the coordinates of the square point.
 		return squarePoint.sum();
 	}
 
 	/**
-	 * Calculates the sum of the three {@link Coordinate}s this {@link Point} is made up of.
+	 * Calculates the sum of the three coordinates this {@link Point} is made up of.
 	 *
-	 * @return The sum of the three {@link Coordinate}s this {@link Point} is made up of.
+	 * @return The sum of the three coordinates this {@link Point} is made up of.
 	 */
 	public double sum() {
-		return x.add(y).add(z).val;
+		return x + y + z;
 	}
 
 	/**
 	 * Checks if the two {@link Point}s are in the same three dimensional space.
 	 */
-
 	@Override
 	public boolean equals(Object o) {
 		if (o == this)
@@ -157,16 +150,18 @@ public class Point {
 			return false;
 		}
 		Point point = (Point) o;
-		return x.equals(point.x) && y.equals(point.y) && z.equals(point.z);
+		return Util.equals(x, point.x) && Util.equals(y, point.y) && Util.equals(z, point.z);
 	}
 
+
 	/**
-	 * Computes the hash function based on that of the array of {@link Coordinate}s.
+	 * Computes the hash function based on that of the array of coordinates.
 	 */
 	@Override
 	public int hashCode() {
-		return x.hashCode() ^ y.hashCode() ^ z.hashCode();
+		return Objects.hash(x, y, z);
 	}
+
 
 	/**
 	 * Returns the {@link Point} as a string in the cartesian representation, e.g. "(0, 0, 0)"
