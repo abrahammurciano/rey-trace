@@ -7,16 +7,16 @@ import primitives.ZeroVectorException;
 
 /**
  * Tests the functions of the vector class
+ *
+ * @author Abraham Murciano
+ * @author Eli Levin
  */
 public class VectorTests {
 	/**
 	 * Tests Vector.cross
-	 *
-	 * @author Abraham Murciano
-	 * @author Eli Levin
 	 */
 	@Test
-	public void testCrossProduct() {
+	public void cross() {
 		Vector base = new Vector(1, 2, 3);
 		Vector calc, actual;
 
@@ -43,5 +43,77 @@ public class VectorTests {
 				ZeroVectorException.class, () -> base.cross(colinear));
 		Assert.assertThrows("Expected ZeroVectorException to be thrown co-directional vectors.",
 				ZeroVectorException.class, () -> base.cross(colinear.reversed()));
+	}
+
+	/**
+	 * Test Vector.add
+	 */
+	@Test
+	public void add() {
+		// TODO: implement
+	}
+
+	/**
+	 * Test Vector.subtract
+	 */
+	@Test
+	public void subtract() {
+		// TODO: implement
+	}
+
+	/**
+	 * Test Vector.scale
+	 */
+	@Test
+	public void scale() {
+		// TODO: implement
+	}
+
+	/**
+	 * Test Vector.reversed
+	 */
+	@Test
+	public void reversed() {
+		// TODO: implement
+	}
+
+	/**
+	 * Test Vector.dot
+	 */
+	@Test
+	public void dot() {
+		// TODO: implement
+	}
+
+	/**
+	 * Test Vector.length
+	 */
+	@Test
+	public void length() {
+		// TODO: implement
+	}
+
+	/**
+	 * Test Vector.normalized
+	 */
+	@Test
+	public void normalized() {
+		// TODO: implement
+	}
+
+	/**
+	 * Test Vector.angle
+	 */
+	@Test
+	public void angle() {
+		// TODO: implement
+	}
+
+	/**
+	 * Test Vector.equals
+	 */
+	@Test
+	public void equals() {
+		// TODO: implement
 	}
 }
