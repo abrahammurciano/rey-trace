@@ -13,7 +13,7 @@ import primitives.Point;
 public final class Main {
 
 	/**
-	 * Main program to tests initial functionality of the 1st stage oosp
+	 * Main program to tests initial functionality of the 1st stage
 	 *
 	 * @param args irrelevant here
 	 */
