@@ -86,7 +86,7 @@ public class Vector {
 	 * @throws ZeroVectorException if a {@link Vector} is subtracted from itself.
 	 */
 	public Vector subtract(Vector vector) {
-		return add(vector.scale(-1));
+		return add(vector.reversed());
 	}
 
 	/**
