@@ -18,13 +18,13 @@ public class VectorTests {
 			"Non-parallel vectors gave wrong result.";
 	private static final String PARALLEL_VECTORS_GAVE_WRONG_RESULT =
 			"Parallel vectors gave wrong result.";
+	private final Vector base = new Vector(1, 2, 3);
 
 	/**
 	 * Tests Vector.cross
 	 */
 	@Test
 	public void cross() {
-		Vector base = new Vector(1, 2, 3);
 		Vector calc, actual;
 
 		// Equivalence partition tests
@@ -56,8 +56,6 @@ public class VectorTests {
 	 */
 	@Test
 	public void add() {
-		Vector base = new Vector(1, 2, 3);
-
 		// Equivalence partition tests
 		Assert.assertEquals(NON_PARALLEL_VECTORS_GAVE_WRONG_RESULT, base.add(new Vector(3, 2, 4)),
 				new Vector(4, 4, 7));
@@ -79,8 +77,6 @@ public class VectorTests {
 	 */
 	@Test
 	public void subtract() {
-		Vector base = new Vector(1, 2, 3);
-
 		// Equivalence partition tests
 		Assert.assertEquals(NON_PARALLEL_VECTORS_GAVE_WRONG_RESULT,
 				base.subtract(new Vector(3, 2, 4)), new Vector(-2, 0, -1));
@@ -102,8 +98,6 @@ public class VectorTests {
 	 */
 	@Test
 	public void scale() {
-		Vector base = new Vector(1, 2, 3);
-
 		// Equivalence partition tests
 		Assert.assertEquals("Wrong output for scale factor > 1", base.scale(2),
 				new Vector(2, 4, 6));
@@ -127,7 +121,6 @@ public class VectorTests {
 	 */
 	@Test
 	public void reversed() {
-		Vector base = new Vector(1, 2, 3);
 		Assert.assertEquals("Wrong reversed vector.", base.reversed(), new Vector(-1, -2, -3));
 	}
 
@@ -136,8 +129,6 @@ public class VectorTests {
 	 */
 	@Test
 	public void dot() {
-		Vector base = new Vector(1, 2, 3);
-
 		// Equivalence partition tests
 		Assert.assertTrue("Acute vectors give wrong dot product.",
 				Util.equals(base.dot(new Vector(1, 2, 4)), 17));
@@ -158,7 +149,6 @@ public class VectorTests {
 	 */
 	@Test
 	public void length() {
-		Vector base = new Vector(1, 2, 3);
 		Assert.assertTrue("Wrong vector length.", Util.equals(base.length(), 3.741657386773941));
 	}
 
@@ -189,8 +179,6 @@ public class VectorTests {
 	 */
 	@Test
 	public void angle() {
-		Vector base = new Vector(1, 2, 3);
-
 		// Equivalence partition tests
 		Assert.assertTrue("Acute vectors give wrong angle.",
 				Util.equals(base.angle(new Vector(1, 2, 4)), 0.1307826338479177));
@@ -211,7 +199,6 @@ public class VectorTests {
 	 */
 	@Test
 	public void equals() {
-		Vector base = new Vector(1, 2, 3);
 		Assert.assertEquals("Equivalent vectors not treated as such.", base, new Vector(1, 2, 3));
 		Assert.assertNotEquals("Nonequivalent vectors are treated as equal.", base,
 				new Vector(2, 2, 3));
