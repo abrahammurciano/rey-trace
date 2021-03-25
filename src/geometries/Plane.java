@@ -31,22 +31,6 @@ public class Plane implements Geometry {
 	}
 
 	/**
-	 * Checks if the given point is on the plane.
-	 *
-	 * @param p The point to check.
-	 * @return Whether or not the given point is on the plane.
-	 */
-	public boolean contains(Point p) {
-		// If the vector from p to another point is on the plane dot product the normal is zero (the
-		// vectors are perpendicular) then the point is on the plane.
-		try {
-			return Util.isZero(normal.dot(point.vectorTo(p)));
-		} catch (ZeroVectorException e) {
-			return true; // if p equals the plane's defining point vectorTo will throw
-		}
-	}
-
-	/**
 	 * This constructor accepts three distinct points on the plane.
 	 *
 	 * @param p1 A point on the plane.
@@ -64,6 +48,22 @@ public class Plane implements Geometry {
 					"Error: The three points must not be on the same line.");
 		}
 		this.point = p1;
+	}
+
+	/**
+	 * Checks if the given point is on the plane.
+	 *
+	 * @param p The point to check.
+	 * @return Whether or not the given point is on the plane.
+	 */
+	public boolean contains(Point p) {
+		// If the vector from p to another point is on the plane dot product the normal is zero (the
+		// vectors are perpendicular) then the point is on the plane.
+		try {
+			return Util.isZero(normal.dot(point.vectorTo(p)));
+		} catch (ZeroVectorException e) {
+			return true; // if p equals the plane's defining point vectorTo will throw
+		}
 	}
 
 	/**
