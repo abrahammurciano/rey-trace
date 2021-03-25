@@ -36,7 +36,7 @@ public class Polygon implements Geometry {
 		double sum = 0.0; // sum of exterior angles
 		for (int i = 0; i < size; ++i) { // loop through input vertices
 			try {
-				Vector v1 = vertices[(i - 1) % size].vectorTo(vertices[i]); // prev to current
+				Vector v1 = vertices[mod(i - 1, size)].vectorTo(vertices[i]); // prev to current
 				Vector v2 = vertices[i].vectorTo(vertices[(i + 1) % size]); // current to next
 				double angle = v1.angle(v2);
 				// if exterior angle is zero, point is on an existing edge and can be ignored
@@ -47,13 +47,13 @@ public class Polygon implements Geometry {
 				sum += angle;
 			} catch (ZeroVectorException e) {
 				throw new IllegalArgumentException(
-						"Error: Consecutive repeated vertices are not allowed. Perhaps you are repeating the start point at the end.");
+						"Error: Repeated vertices are not allowed. Perhaps you are repeating the start point at the end.");
 			}
 		}
 
 		// If the sum of the exterior angles is greater than 2 Pi radians then it's not convex or
 		// not all points are on the same plane.
-		if (!Util.isZero(sum - 2 * Math.PI)) {
+		if (!Util.equals(sum, 2 * Math.PI, -20)) {
 			throw new IllegalArgumentException(
 					"Error: The polygon must be convex and all the vertices must be on a common plane.");
 		}
@@ -76,6 +76,18 @@ public class Polygon implements Geometry {
 	@Override
 	public NormalizedVector normal(Point p) {
 		return plane.normal(p);
+	}
+
+	/**
+	 * Calculates a % b but for negative inputs will still give a result between 0 and b (similar to how Python implements
+	 * mod).
+	 *
+	 * @param a The dividend
+	 * @param b The divisor
+	 * @return The remainder (between 0 and b)
+	 */
+	private int mod(int a, int b) {
+		return (((a % b) + b) % b);
 	}
 
 }

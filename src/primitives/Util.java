@@ -40,7 +40,18 @@ public abstract class Util {
 	 * @return true if the number is zero or almost zero, false otherwise
 	 */
 	public static boolean isZero(double number) {
-		return getExp(number) < ACCURACY;
+		return isZero(number, ACCURACY);
+	}
+
+	/**
+	 * Checks whether the number is [almost] zero within some specified accuracy
+	 *
+	 * @param number   The number to check against zero.
+	 * @param accuracy More negative means higher accuracy. Default is -40.
+	 * @return true if the number is zero or almost zero, false otherwise
+	 */
+	public static boolean isZero(double number, int accuracy) {
+		return getExp(number) < accuracy;
 	}
 
 	/**
@@ -52,7 +63,20 @@ public abstract class Util {
 	 * @return True if the difference between the two doubles is less than {@code Util.ACCURACY}
 	 */
 	public static boolean equals(double n1, double n2) {
-		return isZero(n1 - n2);
+		return equals(n1, n2, ACCURACY);
+	}
+
+	/**
+	 * Checks if two doubles are equal within some tolerance.
+	 *
+	 * @param n1       The first double.
+	 * @param n2       The second double.
+	 * @param accuracy More negative means higher accuracy. Default is -40.
+	 * @author Abraham Murciano
+	 * @return True if the difference between the two doubles is less than {@code Util.ACCURACY}
+	 */
+	public static boolean equals(double n1, double n2, int accuracy) {
+		return isZero(n1 - n2, accuracy);
 	}
 
 	/**

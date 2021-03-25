@@ -1,9 +1,8 @@
-package test;
+package test.primitives;
 
 import org.junit.Assert;
 import org.junit.Test;
 import primitives.NormalizedVector;
-import primitives.Point;
 import primitives.Util;
 import primitives.Vector;
 import primitives.ZeroVectorException;

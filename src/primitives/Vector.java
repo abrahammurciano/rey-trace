@@ -170,7 +170,14 @@ public class Vector {
 	 * @return The angle in radians between the vectors between zero and Pi.
 	 */
 	public double angle(Vector v) {
-		return Math.acos(normalized().dot(v.normalized()));
+		double dot = normalized().dot(v.normalized());
+		if (Util.equals(dot, 1d)) {
+			return 0; // More accurate than Math.acos
+		}
+		if (Util.equals(dot, -1d)) {
+			return Math.PI;
+		}
+		return Math.acos(dot);
 	}
 
 	/**
