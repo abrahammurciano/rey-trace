@@ -1,7 +1,7 @@
 import primitives.Vector;
 import primitives.ZeroVectorException;
 import static java.lang.System.out;
-import util.DoubleCompare;;
+import util.DoubleCompare;
 import primitives.Point;
 
 /**
