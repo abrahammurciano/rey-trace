@@ -1,7 +1,7 @@
 package geometries;
 
 import primitives.Point;
-import primitives.Util;
+import util.DoubleCompare;
 import primitives.Vector;
 import primitives.ZeroVectorException;
 import primitives.NormalizedVector;
@@ -60,7 +60,7 @@ public class Plane implements Geometry {
 		// If the vector from p to another point is on the plane dot product the normal is zero (the
 		// vectors are perpendicular) then the point is on the plane.
 		try {
-			return Util.isZero(normal.dot(point.vectorTo(p)));
+			return DoubleCompare.eq(normal.dot(point.vectorTo(p)), 0);
 		} catch (ZeroVectorException e) {
 			return true; // if p equals the plane's defining point vectorTo will throw
 		}

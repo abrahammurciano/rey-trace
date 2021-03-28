@@ -3,7 +3,7 @@ package geometries;
 import primitives.ZeroVectorException;
 import primitives.NormalizedVector;
 import primitives.Point;
-import primitives.Util;
+import util.DoubleCompare;
 
 /**
  * This represents a sphere. A sphere is described by a center {@link Point} and a positive radius.
@@ -23,7 +23,7 @@ public class Sphere implements Geometry {
 	 * @throws IllegalArgumentException if the radius is zero.
 	 */
 	public Sphere(Point center, double radius) {
-		if (Util.isZero(radius)) {
+		if (DoubleCompare.eq(radius, 0)) {
 			throw new IllegalArgumentException("Error: Radius must not be zero.");
 		}
 		this.center = center;

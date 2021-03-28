@@ -1,7 +1,7 @@
 import primitives.Vector;
 import primitives.ZeroVectorException;
 import static java.lang.System.out;
-import primitives.Util;
+import util.DoubleCompare;;
 import primitives.Point;
 
 /**
@@ -31,19 +31,19 @@ public final class Main {
 		Vector v3 = new Vector(0, 3, -2);
 
 		// test length..
-		if (!Util.equals(v1.squareLength(), 14)) {
+		if (DoubleCompare.neq(v1.squareLength(), 14)) {
 			throw new AssertionError("Error: squareLength() wrong value");
 		}
-		if (!Util.equals(new Vector(0, 3, 4).length(), 5)) {
+		if (DoubleCompare.neq(new Vector(0, 3, 4).length(), 5)) {
 			throw new AssertionError("Error: length() wrong value");
 		}
 		out.println("Vector length check: Passed");
 
 		// test Dot-Product
-		if (!Util.isZero(v1.dot(v3))) {
+		if (DoubleCompare.neq(v1.dot(v3), 0)) {
 			throw new AssertionError("Error: dot() for orthogonal vectors is not zero");
 		}
-		if (!Util.equals(v1.dot(v2), -28)) {
+		if (DoubleCompare.neq(v1.dot(v2), -28)) {
 			throw new AssertionError("Error: dot() wrong value");
 		}
 		out.println("Dot product check: Passed");
@@ -57,10 +57,10 @@ public final class Main {
 			out.println("Cross product throws zero vector exception: Passed");
 		}
 		Vector vr = v1.cross(v3);
-		if (!Util.equals(vr.length(), v1.length() * v3.length())) {
+		if (DoubleCompare.neq(vr.length(), v1.length() * v3.length())) {
 			throw new AssertionError("Error: cross() wrong result length");
 		}
-		if (!Util.isZero(vr.dot(v1)) || !Util.isZero(vr.dot(v3))) {
+		if (DoubleCompare.neq(vr.dot(v1), 0) || DoubleCompare.neq(vr.dot(v3), 0)) {
 			throw new AssertionError("Error: cross() result is not orthogonal to its operands");
 		}
 		out.println("Cross product checks: Passed");
@@ -68,7 +68,7 @@ public final class Main {
 		// test vector normalization vs vector length and cross-product
 		Vector v = new Vector(1, 2, 3);
 		Vector vCopyNormalize = v.normalized();
-		if (!Util.equals(vCopyNormalize.length(), 1)) {
+		if (DoubleCompare.neq(vCopyNormalize.length(), 1)) {
 			throw new AssertionError("Error: normalize() result is not a unit vector");
 		}
 		Vector u = v.normalized();

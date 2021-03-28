@@ -3,7 +3,7 @@ package geometries;
 import java.util.ArrayList;
 import java.util.List;
 import primitives.Point;
-import primitives.Util;
+import util.DoubleCompare;
 import primitives.Vector;
 import primitives.ZeroVectorException;
 import primitives.NormalizedVector;
@@ -40,7 +40,7 @@ public class Polygon implements Geometry {
 				Vector v2 = vertices[i].vectorTo(vertices[(i + 1) % size]); // current to next
 				double angle = v1.angle(v2);
 				// if exterior angle is zero, point is on an existing edge and can be ignored
-				if (Util.isZero(angle)) {
+				if (DoubleCompare.eq(angle, 0)) {
 					continue;
 				}
 				this.vertices.add(vertices[i]);
@@ -53,7 +53,7 @@ public class Polygon implements Geometry {
 
 		// If the sum of the exterior angles is greater than 2 Pi radians then it's not convex or
 		// not all points are on the same plane.
-		if (!Util.equals(sum, 2 * Math.PI, -20)) {
+		if (DoubleCompare.neq(sum, 2 * Math.PI)) {
 			throw new IllegalArgumentException(
 					"Error: The polygon must be convex and all the vertices must be on a common plane.");
 		}

@@ -1,7 +1,7 @@
 package geometries;
 
 import primitives.Point;
-import primitives.Util;
+import util.DoubleCompare;
 import primitives.NormalizedVector;
 import primitives.Ray;
 
@@ -28,7 +28,7 @@ public class Cylinder implements Geometry {
 	 */
 	public Cylinder(Ray ray, double radius, double height) {
 		tube = new Tube(ray, radius);
-		if (Util.isZero(height) || height < 0) { // if height is 0 it's a disk
+		if (DoubleCompare.leq(height, 0)) { // if height is 0 it's a disk
 			throw new IllegalArgumentException("Error: Height must be a positive number.");
 		}
 		this.height = height;

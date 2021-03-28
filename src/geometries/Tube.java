@@ -3,7 +3,7 @@ package geometries;
 import primitives.ZeroVectorException;
 import primitives.NormalizedVector;
 import primitives.Point;
-import primitives.Util;
+import util.DoubleCompare;
 import primitives.Vector;
 import primitives.Ray;
 
@@ -25,7 +25,7 @@ public class Tube implements Geometry {
 	 * @throws IllegalArgumentException if the radius is zero.
 	 */
 	public Tube(Ray axis, double radius) {
-		if (Util.isZero(radius)) {
+		if (DoubleCompare.eq(radius, 0)) {
 			throw new IllegalArgumentException("Error: Radius must be non-zero.");
 		}
 		this.axis = axis;
@@ -53,7 +53,7 @@ public class Tube implements Geometry {
 	public NormalizedVector normal(Point p) {
 		Vector sourceToP = axis.source().vectorTo(p);
 		double dotProduct = direction().dot(sourceToP);
-		if (Util.isZero(dotProduct)) { // Would throw a zero vector exception if not checked
+		if (DoubleCompare.eq(dotProduct, 0)) { // Would throw a zero vector exception if not checked
 			return sourceToP.normalized();
 		}
 		return sourceToP.subtract(direction().scale(dotProduct)).normalized();

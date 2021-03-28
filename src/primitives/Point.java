@@ -3,6 +3,7 @@ package primitives;
 import java.util.Objects;
 import java.util.function.DoubleBinaryOperator;
 import java.util.function.DoubleUnaryOperator;
+import util.DoubleCompare;;
 
 /**
  * The {@link Point} class represents a {@link Point} in three dimensional space.
@@ -150,7 +151,8 @@ public class Point {
 			return false;
 		}
 		Point point = (Point) o;
-		return Util.equals(x, point.x) && Util.equals(y, point.y) && Util.equals(z, point.z);
+		return DoubleCompare.eq(x, point.x) && DoubleCompare.eq(y, point.y)
+				&& DoubleCompare.eq(z, point.z);
 	}
 
 

@@ -3,7 +3,7 @@ package test.primitives;
 import org.junit.Assert;
 import org.junit.Test;
 import primitives.NormalizedVector;
-import primitives.Util;
+import util.DoubleCompare;
 import primitives.Vector;
 import primitives.ZeroVectorException;
 
@@ -52,6 +52,6 @@ public class NormalizedVectorTests {
 	 */
 	@Test
 	public void length() {
-		Assert.assertTrue("Wrong normalized vector length.", Util.equals(base.length(), 1));
+		Assert.assertTrue("Wrong normalized vector length.", DoubleCompare.eq(base.length(), 1));
 	}
 }

@@ -2,6 +2,7 @@ package primitives;
 
 import java.util.function.DoubleBinaryOperator;
 import java.util.function.DoubleUnaryOperator;
+import util.DoubleCompare;;
 
 /**
  * The {@link Vector} class represents a {@link Vector} with it's base at the origin and it's head at the {@link Point}
@@ -171,12 +172,12 @@ public class Vector {
 	 */
 	public double angle(Vector v) {
 		double dot = normalized().dot(v.normalized());
-		if (Util.equals(dot, 1d)) {
-			return 0; // More accurate than Math.acos
-		}
-		if (Util.equals(dot, -1d)) {
-			return Math.PI;
-		}
+		// if (DoubleCompare.eq(dot, 1d)) {
+		// return 0; // More accurate than Math.acos
+		// }
+		// if (DoubleCompare.eq(dot, -1d)) {
+		// return Math.PI;
+		// }
 		return Math.acos(dot);
 	}
 

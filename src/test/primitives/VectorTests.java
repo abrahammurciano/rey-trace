@@ -3,7 +3,7 @@ package test.primitives;
 import org.junit.Assert;
 import org.junit.Test;
 import primitives.Point;
-import primitives.Util;
+import util.DoubleCompare;
 import primitives.Vector;
 import primitives.ZeroVectorException;
 
@@ -131,17 +131,17 @@ public class VectorTests {
 	public void dot() {
 		// Equivalence partition tests
 		Assert.assertTrue("Acute vectors give wrong dot product.",
-				Util.equals(base.dot(new Vector(1, 2, 4)), 17));
+				DoubleCompare.eq(base.dot(new Vector(1, 2, 4)), 17));
 		Assert.assertTrue("Obtuse vectors give wrong dot product.",
-				Util.equals(base.dot(new Vector(-2, -2, -3)), -15));
+				DoubleCompare.eq(base.dot(new Vector(-2, -2, -3)), -15));
 
 		// Boundary values test
 		Assert.assertTrue("Parallel vectors give wrong dot product.",
-				Util.equals(base.dot(new Vector(2, 4, 6)), 28));
+				DoubleCompare.eq(base.dot(new Vector(2, 4, 6)), 28));
 		Assert.assertTrue("Perpendicular vectors give wrong dot product.",
-				Util.equals(base.dot(new Vector(3, -4, 5d / 3)), 0));
+				DoubleCompare.eq(base.dot(new Vector(3, -4, 5d / 3)), 0));
 		Assert.assertTrue("Antiparallel vectors give wrong dot product.",
-				Util.equals(base.dot(new Vector(-2, -4, -6)), -28));
+				DoubleCompare.eq(base.dot(new Vector(-2, -4, -6)), -28));
 	}
 
 	/**
@@ -149,7 +149,8 @@ public class VectorTests {
 	 */
 	@Test
 	public void length() {
-		Assert.assertTrue("Wrong vector length.", Util.equals(base.length(), 3.741657386773941));
+		Assert.assertTrue("Wrong vector length.",
+				DoubleCompare.eq(base.length(), 3.741657386773941));
 	}
 
 	/**
@@ -159,16 +160,16 @@ public class VectorTests {
 	public void normalized() {
 		// Equivalence partition tests
 		Assert.assertTrue("Vector with magnitude larger than 1 not normalized correctly.",
-				Util.equals(
+				DoubleCompare.eq(
 						Point.ORIGIN.add(new Vector(1, 2, 3).normalized()).distance(Point.ORIGIN),
 						1));
 		Assert.assertTrue("Vector with magnitude smaller than 1 not normalized correctly.",
-				Util.equals(Point.ORIGIN.add(new Vector(0.1, 0.2, 0.3).normalized())
+				DoubleCompare.eq(Point.ORIGIN.add(new Vector(0.1, 0.2, 0.3).normalized())
 						.distance(Point.ORIGIN), 1));
 
 		// Boundary values test
 		Assert.assertTrue("Vector with magnitude equal to 1 not normalized correctly.",
-				Util.equals(Point.ORIGIN
+				DoubleCompare.eq(Point.ORIGIN
 						.add(new Vector(1.414213562373095, 1.414213562373095, 1.414213562373095)
 								.normalized())
 						.distance(Point.ORIGIN), 1));
@@ -180,18 +181,19 @@ public class VectorTests {
 	@Test
 	public void angle() {
 		// Equivalence partition tests
-		Assert.assertTrue("Acute vectors give wrong angle.",
-				Util.equals(base.angle(new Vector(1, 2, 4)), 0.1307826338479177));
+		Assert.assertTrue("Acute vectors give wrong angle.", DoubleCompare.eq(
+				base.angle(new Vector(1, 2, 4)),
+				0.130782633847917656944056860734086768630736087062570540166461649983025095922235607171292334532715044));
 		Assert.assertTrue("Obtuse vectors give wrong angle.",
-				Util.equals(base.angle(new Vector(-2, -2, -3)), 2.905697773154866));
+				DoubleCompare.eq(base.angle(new Vector(-2, -2, -3)), 2.905697773154866));
 
 		// Boundary values test
 		Assert.assertTrue("Parallel vectors give wrong angle.",
-				Util.equals(base.angle(new Vector(2, 4, 6)), 0));
+				DoubleCompare.eq(base.angle(new Vector(2, 4, 6)), 0));
 		Assert.assertTrue("Perpendicular vectors give wrong angle.",
-				Util.equals(base.angle(new Vector(3, -4, 5d / 3)), Math.PI / 2));
+				DoubleCompare.eq(base.angle(new Vector(3, -4, 5d / 3)), Math.PI / 2));
 		Assert.assertTrue("Antiparallel vectors give wrong angle.",
-				Util.equals(base.angle(new Vector(-2, -4, -6)), Math.PI));
+				DoubleCompare.eq(base.angle(new Vector(-2, -4, -6)), Math.PI));
 	}
 
 	/**
