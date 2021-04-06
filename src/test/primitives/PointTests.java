@@ -116,6 +116,6 @@ public class PointTests {
 	@Test
 	public void equals() {
         Assert.assertEquals("Equal points are not considered equal.", p, new Point(1,2,3));
-        Assert.assertNotEquals("Equal points are not considered equal.", p, new Point(2,3,4));
+        Assert.assertNotEquals("Non-equal points are considered equal.", p, new Point(2,3,4));
 	}
 }
