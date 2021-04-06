@@ -1,3 +1,11 @@
 *.docx
 .vscode
 *.class
+
+# Eli's crap
+target
+docs
+.settings
+pom.xml
+.project
+.classpath

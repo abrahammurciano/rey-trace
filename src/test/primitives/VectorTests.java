@@ -1,4 +1,4 @@
-package test.primitives;
+package primitives;
 
 import org.junit.Assert;
 import org.junit.Test;

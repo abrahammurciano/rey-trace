@@ -1,4 +1,4 @@
-package test.geometries;
+package geometries;
 
 import org.junit.Assert;
 import org.junit.Test;
