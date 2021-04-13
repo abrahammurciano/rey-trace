@@ -19,5 +19,6 @@ public class RayTests {
 				r, new Ray(new Point(1,2,3), new Vector(3,2,1)));
 		Assert.assertNotEquals("Rays should not be equal",
 				r, new Ray(new Point(4,4,4), new Vector(3,2,1)));
+
 	}
 }

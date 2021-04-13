@@ -18,7 +18,7 @@ public class DoubleCompare {
 	 * @return true if the doubles are approximately equal.
 	 */
 	public static boolean eq(double a, double b) {
-		return Math.abs(a - b) <= 1E-5;
+		return Math.abs(a - b) <= 1E-7;
 	}
 
 
