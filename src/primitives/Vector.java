@@ -2,11 +2,10 @@ package primitives;
 
 import java.util.function.DoubleBinaryOperator;
 import java.util.function.DoubleUnaryOperator;
-import util.DoubleCompare;;
 
 /**
- * The {@link Vector} class represents a {@link Vector} with it's base at the origin and it's head at the {@link Point}
- * 'head'.
+ * The {@link Vector} class represents a {@link Vector} with it's base at the
+ * origin and it's head at the {@link Point} 'head'.
  *
  * @author Abraham Murciano
  * @author Eli Levin
@@ -30,9 +29,11 @@ public class Vector {
 	}
 
 	/**
-	 * This constructor accepts a {@link Point} and returns the appropriate {@link Vector}
+	 * This constructor accepts a {@link Point} and returns the appropriate
+	 * {@link Vector}
 	 *
-	 * @param head The {@link Point} which this {@link Vector} would point to if its base was at the origin.
+	 * @param head The {@link Point} which this {@link Vector} would point to if its
+	 *             base was at the origin.
 	 * @throws ZeroVectorException if this {@link Vector} is the zero vector.
 	 */
 	public Vector(Point head) {
@@ -43,13 +44,17 @@ public class Vector {
 	}
 
 	/**
-	 * Creates a new {@link Vector} which is a transformation of this {@link Vector} by applying the given transformation to
-	 * each of the coordinates.
+	 * Creates a new {@link Vector} which is a transformation of this {@link Vector}
+	 * by applying the given transformation to each of the coordinates.
 	 *
-	 * @param transformation A function which receives two doubles and returns another double.
-	 * @param aux            An auxiliary {@link Vector} whose corresponding coordinate may (or may not) be used in the
-	 *                       transformation function in order to calculate each of the new coordinates.
-	 * @return The {@link Vector} made up of applying the transformation to each of the three coordinates.
+	 * @param transformation A function which receives two doubles and returns
+	 *                       another double.
+	 * @param aux            An auxiliary {@link Vector} whose corresponding
+	 *                       coordinate may (or may not) be used in the
+	 *                       transformation function in order to calculate each of
+	 *                       the new coordinates.
+	 * @return The {@link Vector} made up of applying the transformation to each of
+	 *         the three coordinates.
 	 * @throws ZeroVectorException if the transformation results in the zero vector.
 	 */
 	public Vector transform(DoubleBinaryOperator transformation, Vector aux) {
@@ -57,11 +62,14 @@ public class Vector {
 	}
 
 	/**
-	 * Similar to {@link #transform(DoubleBinaryOperator, Vector)} but does not require an auxiliary {@link Vector}, since
-	 * the transformation when called in this way does not depend on a second coordinate.
+	 * Similar to {@link #transform(DoubleBinaryOperator, Vector)} but does not
+	 * require an auxiliary {@link Vector}, since the transformation when called in
+	 * this way does not depend on a second coordinate.
 	 *
-	 * @param transformation A function which receives a dingle double and returns another double.
-	 * @return The {@link Vector} made up of applying the transformation to each of the three coordinates.
+	 * @param transformation A function which receives a dingle double and returns
+	 *                       another double.
+	 * @return The {@link Vector} made up of applying the transformation to each of
+	 *         the three coordinates.
 	 * @throws ZeroVectorException if the transformation results in the zero vector.
 	 */
 	public Vector transform(DoubleUnaryOperator transformation) {
@@ -83,7 +91,8 @@ public class Vector {
 	 * Subtracts two {@link Vector}s and returns a new {@link Vector}.
 	 *
 	 * @param vector The {@link Vector} to be subtracted from this {@link Vector}.
-	 * @return The sum of this {@link Vector} and the negation of the given {@link Vector}.
+	 * @return The sum of this {@link Vector} and the negation of the given
+	 *         {@link Vector}.
 	 * @throws ZeroVectorException if a {@link Vector} is subtracted from itself.
 	 */
 	public Vector subtract(Vector vector) {
@@ -91,7 +100,8 @@ public class Vector {
 	}
 
 	/**
-	 * Constructs a new {@link Vector} which is a scalar multiplication of this {@link Vector} by a scalar.
+	 * Constructs a new {@link Vector} which is a scalar multiplication of this
+	 * {@link Vector} by a scalar.
 	 *
 	 * @param factor The scalar by which to multiply this {@link Vector}
 	 * @return New scaled {@link Vector}
@@ -114,7 +124,8 @@ public class Vector {
 	 * Calculates the cross product of two {@link Vector}s.
 	 *
 	 * @param v The {@link Vector} by which to multiply this {@link Vector}
-	 * @return The resulting {@link Vector} which is the cross product of the two {@link Vector}s
+	 * @return The resulting {@link Vector} which is the cross product of the two
+	 *         {@link Vector}s
 	 * @throws ZeroVectorException if the result vector is the zero vector.
 	 */
 	public Vector cross(Vector v) {
@@ -131,7 +142,8 @@ public class Vector {
 	 * @return The dot product of the two {@link Vector}s
 	 */
 	public double dot(Vector v) {
-		// Construct a point whose coordinates are the product of the coordinates of the other two.
+		// Construct a point whose coordinates are the product of the coordinates of the
+		// other two.
 		Point p = head.transform((base, aux) -> base * aux, v.head);
 		return p.sum();
 	}
@@ -155,7 +167,8 @@ public class Vector {
 	}
 
 	/**
-	 * Creates a new {@link Vector} with the same direction as this one but with a magnitude of one.
+	 * Creates a new {@link Vector} with the same direction as this one but with a
+	 * magnitude of one.
 	 *
 	 * @return new {@link Vector}
 	 */
@@ -164,20 +177,14 @@ public class Vector {
 	}
 
 	/**
-	 * Calculates the angle in radians between this vector and the given vector. The angle is normalized between zero and
-	 * Pi.
+	 * Calculates the angle in radians between this vector and the given vector. The
+	 * angle is normalized between zero and Pi.
 	 *
 	 * @param v The other vector to be used to calculate the angle.
 	 * @return The angle in radians between the vectors between zero and Pi.
 	 */
 	public double angle(Vector v) {
 		double dot = normalized().dot(v.normalized());
-		// if (DoubleCompare.eq(dot, 1d)) {
-		// return 0; // More accurate than Math.acos
-		// }
-		// if (DoubleCompare.eq(dot, -1d)) {
-		// return Math.PI;
-		// }
 		return Math.acos(dot);
 	}
 
