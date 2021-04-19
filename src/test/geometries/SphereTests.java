@@ -13,26 +13,26 @@ import primitives.ZeroVectorException;
  * @author Eli Levin
  */
 public class SphereTests {
-  public final Sphere s = new Sphere(new Point(1, 2, 3), 5);
+	public final Sphere s = new Sphere(new Point(1, 2, 3), 5);
 
-  @Test
-  public void normal() {
-    NormalizedVector calc, actual;
+	@Test
+	public void normal() {
+		NormalizedVector calc, actual;
 
-    // Test at direction (2,1,1)
-    calc =
-        s.normal(new Point(5.08248290463863016366, 4.04124145231931508183, 5.04124145231931508183));
-    actual = new NormalizedVector(2, 1, 1);
-    Assert.assertEquals("Normalized vectors to the sphere should be equal.", calc, actual);
+		// Test at direction (2,1,1)
+		calc =
+			s.normal(new Point(5.08248290463863016366, 4.04124145231931508183, 5.04124145231931508183));
+		actual = new NormalizedVector(2, 1, 1);
+		Assert.assertEquals("Normalized vectors to the sphere should be equal.", calc, actual);
 
-    // Test at direction (1,2,3)
-    calc = s.normal(new Point(2.336306209562122, 4.672612419124244, 7.008918628686366));
-    actual = new NormalizedVector(1, 2, 3);
-    Assert.assertEquals(
-        "Normalized vectors to the sphere should be equal in direction (1,2,3)", calc, actual);
+		// Test at direction (1,2,3)
+		calc = s.normal(new Point(2.336306209562122, 4.672612419124244, 7.008918628686366));
+		actual = new NormalizedVector(1, 2, 3);
+		Assert.assertEquals(
+				"Normalized vectors to the sphere should be equal in direction (1,2,3)", calc, actual);
 
-    // Test at center of circle
-    Assert.assertThrows(
-        "Should throw zero Vector", ZeroVectorException.class, () -> s.normal(new Point(1, 2, 3)));
-  }
+		// Test at center of circle
+		Assert.assertThrows(
+				"Should throw zero Vector", ZeroVectorException.class, () -> s.normal(new Point(1, 2, 3)));
+	}
 }
