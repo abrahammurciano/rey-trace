@@ -2,7 +2,6 @@ package geometries;
 
 import org.junit.Assert;
 import org.junit.Test;
-import geometries.Plane;
 import primitives.NormalizedVector;
 import primitives.Point;
 import primitives.Vector;

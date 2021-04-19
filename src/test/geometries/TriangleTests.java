@@ -2,7 +2,6 @@ package geometries;
 
 import org.junit.Assert;
 import org.junit.Test;
-import geometries.Triangle;
 import primitives.Point;
 
 /**

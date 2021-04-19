@@ -4,7 +4,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import primitives.NormalizedVector;
 import primitives.Point;
-import geometries.Polygon;
 
 /**
  * Tests the methods of the Polygon class.
