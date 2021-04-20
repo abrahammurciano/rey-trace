@@ -34,7 +34,7 @@ public class Sphere implements Geometry {
 	 * Returns normal to the sphere at given point.
 	 *
 	 * @param p The point to get normal at. This point is assumed to be on the surface of the circle. If it's not then it is
-	 *          undefined behavior.
+	 *			undefined behavior.
 	 * @throws ZeroVectorException if p is the center of the sphere.
 	 */
 	@Override

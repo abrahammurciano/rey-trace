@@ -65,11 +65,13 @@ public class PointTests {
 	public void vectorFrom() {
 		Vector calc, actual;
 
+		// Test if vectorFrom() calculates the correct vector
 		calc = p.vectorFrom(new Point(2,3,4));
 		actual = new Vector(-1,-1,-1);
 		Assert.assertEquals("Incorrect vectorTo other point.", calc, actual);
 
-		Assert.assertThrows("Expected zero vector", ZeroVectorException.class,	() -> p.vectorFrom(new Point(1,2,3)));
+		// Test that it will throw ZeroVector if given the itself as the parameter
+		Assert.assertThrows("Expected zero vector", ZeroVectorException.class,	() -> p.vectorFrom(p));
 	}
 
 	/**
@@ -79,10 +81,12 @@ public class PointTests {
 	public void distance() {
 		double calc, actual;
 
+		// Test distance to other point
 		calc = p.distance(new Point(2,3,4));
 		actual = Math.sqrt(3);
 		Assert.assertTrue("Incorrect distance to other point", DoubleCompare.eq(calc,actual));
 
+		// Test that distance it itself is zero
 		calc = p.distance(new Point(1,2,3));
 		actual = 0;
 		Assert.assertTrue("Distance should be zero", DoubleCompare.eq(calc,actual));
@@ -95,15 +99,18 @@ public class PointTests {
 	public void sum() {
 		double calc, actual;
 
+		// Test sum of elements of vector is correct
 		calc = p.sum();
 		actual = 6;
 		Assert.assertTrue("Incorrect sum", DoubleCompare.eq(calc, actual));
 
+		// Test some other point
 		Point newP = new Point(3.742,2.589,-29.0381);
 		calc = newP.sum();
 		actual = -22.7071;
 		Assert.assertTrue("Incorrect sum", DoubleCompare.eq(calc, actual));
 
+		// Test when sum should be zero
 		newP = new Point(1,1,-2);
 		calc = newP.sum();
 		actual = 0;
@@ -115,7 +122,10 @@ public class PointTests {
 	 */
 	@Test
 	public void equals() {
+		// Test that equal points should be equal
 		Assert.assertEquals("Equal points are not considered equal.", p, new Point(1,2,3));
+
+		// Test that non equal points are indeed not equal
 		Assert.assertNotEquals("Non-equal points are considered equal.", p, new Point(2,3,4));
 	}
 }

@@ -20,7 +20,7 @@ public class Tube implements Geometry {
 	/**
 	 * Constructs a {@link Tube} with the source at the same source and direction as the given axis {@link Ray}.
 	 *
-	 * @param axis   The {@link Ray} from which to get the source and direction.
+	 * @param axis	 The {@link Ray} from which to get the source and direction.
 	 * @param radius The distance from the axis to the surface.
 	 * @throws IllegalArgumentException if the radius is zero.
 	 */
@@ -38,7 +38,7 @@ public class Tube implements Geometry {
 	 * @return The axis {@link Vector} of the {@link Tube}.
 	 */
 	public NormalizedVector direction() {
-		return axis.direction();
+		return axis.direction;
 	}
 
 	/**
@@ -51,7 +51,7 @@ public class Tube implements Geometry {
 	 */
 	@Override
 	public NormalizedVector normal(Point p) {
-		Vector sourceToP = axis.source().vectorTo(p);
+		Vector sourceToP = axis.source.vectorTo(p);
 		double dotProduct = direction().dot(sourceToP);
 		if (DoubleCompare.eq(dotProduct, 0)) { // Would throw a zero vector exception if not checked
 			return sourceToP.normalized();

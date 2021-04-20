@@ -29,7 +29,7 @@ public class CylinderTests {
 		Assert.assertTrue("Normalized vectors should be equal", NormalCompare.eq(calc, actual1));
 
 		// test on flat side side
-		calc =	base.normal(new Point(7.79639313525896, 11.780511727620528, 3.517181606066203));
+		calc =  base.normal(new Point(7.79639313525896, 11.780511727620528, 3.517181606066203));
 		actual1 = new NormalizedVector(6,5,4);
 		Assert.assertTrue("Normalized vectors should be equal", NormalCompare.eq(calc, actual1));
 
