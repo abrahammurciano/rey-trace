@@ -46,12 +46,12 @@ public class Point {
 	}
 
 	/**
-	 * Creates a new {@link Point} which is a transformation of this {@link Point} by applying the given transformation to
-	 * each of the coordinates.
+	 * Creates a new {@link Point} which is a transformation of this {@link Point} by applying the given transformation
+	 * to each of the coordinates.
 	 *
 	 * @param transformation A function which receives two coordinates and returns another coordinate.
-	 * @param aux            An auxiliary {@link Point} whose corresponding coordinate may (or may not) be used in the
-	 *                       transformation function in order to calculate each of the new coordinates.
+	 * @param aux An auxiliary {@link Point} whose corresponding coordinate may (or may not) be used in the
+	 *        transformation function in order to calculate each of the new coordinates.
 	 * @return The {@link Point} made up of applying the transformation to each of the three coordinates.
 	 */
 	public Point transform(DoubleBinaryOperator transformation, Point aux) {
@@ -60,8 +60,8 @@ public class Point {
 	}
 
 	/**
-	 * Similar to {@link #transform(DoubleBinaryOperator, Point)} but does not require an auxiliary {@link Point}, since the
-	 * transformation when called in this way does not depend on a second coordinate.
+	 * Similar to {@link #transform(DoubleBinaryOperator, Point)} but does not require an auxiliary {@link Point}, since
+	 * the transformation when called in this way does not depend on a second coordinate.
 	 *
 	 * @param transformation A function which receives a single coordinate and returns another coordinate.
 	 * @return The {@link Point} made up of applying the transformation to each of the three coordinates.

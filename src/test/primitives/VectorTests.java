@@ -2,10 +2,7 @@ package primitives;
 
 import org.junit.Assert;
 import org.junit.Test;
-import primitives.Point;
 import util.DoubleCompare;
-import primitives.Vector;
-import primitives.ZeroVectorException;
 
 /**
  * Tests the functions of the vector class
