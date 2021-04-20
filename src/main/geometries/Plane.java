@@ -19,10 +19,10 @@ public class Plane implements Geometry {
 	private NormalizedVector normal;
 
 	/**
-	 * This constructor accepts a point on the plane and a vector perpendicular to the plane. {@link #normal} will return a
-	 * normalized vector in the same direction as the given {@link Vector}.
+	 * This constructor accepts a point on the plane and a vector perpendicular to the plane. {@link #normal} will
+	 * return a normalized vector in the same direction as the given {@link Vector}.
 	 *
-	 * @param point  A point on the plane.
+	 * @param point A point on the plane.
 	 * @param normal A vector perpendicular to the plane.
 	 */
 	public Plane(Point point, Vector normal) {

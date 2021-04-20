@@ -16,7 +16,7 @@ public class Ray {
 	/**
 	 * Constructs a {@link Ray} from a source {@link Point} and a direction {@link Vector}.
 	 *
-	 * @param source	The {@link Point} at which the {@link Ray} starts.
+	 * @param source The {@link Point} at which the {@link Ray} starts.
 	 * @param direction The {@link Vector} in which the {@link Ray} is directed.
 	 */
 	public Ray(Point source, Vector direction) {

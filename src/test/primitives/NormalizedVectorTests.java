@@ -14,7 +14,8 @@ import primitives.ZeroVectorException;
  * @author Eli Levin
  */
 public class NormalizedVectorTests {
-	private final NormalizedVector base = new NormalizedVector(1, 2, 3); // (0.2672612419124244, 0.5345224838248488, 0.8017837257372732)
+	private final NormalizedVector base = new NormalizedVector(1, 2, 3); // (0.2672612419124244, 0.5345224838248488,
+																			// 0.8017837257372732)
 
 	/**
 	 * Test Vector.subtract

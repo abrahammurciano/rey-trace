@@ -7,8 +7,7 @@ package util;
  * @author Eli Levin
  */
 public class DoubleCompare {
-	private DoubleCompare() {
-	}
+	private DoubleCompare() {}
 
 	/**
 	 * Check if two doubles are approximately equal.

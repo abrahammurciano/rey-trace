@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import primitives.NormalizedVector;
 import primitives.Point;
+import util.NormalCompare;
 
 /**
  * Tests the methods of the Polygon class.
@@ -101,7 +102,6 @@ public class PolygonTests {
 				new Point(-1, -1, -1));
 		NormalizedVector normal = polygon.normal(new Point(0, 0, 0));
 		NormalizedVector expected_normal = new NormalizedVector(1, -1, 0);
-		Assert.assertTrue("Wrong normal for Polygon.",
-				normal.equals(expected_normal) || normal.equals(expected_normal.reversed()));
+		Assert.assertTrue("Wrong normal for Polygon.", NormalCompare.eq(normal, expected_normal));
 	}
 }

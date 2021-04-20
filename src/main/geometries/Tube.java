@@ -20,7 +20,7 @@ public class Tube implements Geometry {
 	/**
 	 * Constructs a {@link Tube} with the source at the same source and direction as the given axis {@link Ray}.
 	 *
-	 * @param axis	 The {@link Ray} from which to get the source and direction.
+	 * @param axis The {@link Ray} from which to get the source and direction.
 	 * @param radius The distance from the axis to the surface.
 	 * @throws IllegalArgumentException if the radius is zero.
 	 */
@@ -42,8 +42,8 @@ public class Tube implements Geometry {
 	}
 
 	/**
-	 * This function returns the normal to the tube at the given point. If the point doesn't lie on the surface of the tube,
-	 * the behavior is undefined.
+	 * This function returns the normal to the tube at the given point. If the point doesn't lie on the surface of the
+	 * tube, the behavior is undefined.
 	 *
 	 * @param p The {@link Point} to get the normal at.
 	 * @return The normalized normal {@link Vector}

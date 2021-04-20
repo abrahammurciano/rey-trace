@@ -21,7 +21,7 @@ public class Cylinder implements Geometry {
 	/**
 	 * This constructs a Cylinder.
 	 *
-	 * @param ray	 The ray that makes up the center of the Cylinder.
+	 * @param ray The ray that makes up the center of the Cylinder.
 	 * @param radius A positive double that represents the radius.
 	 * @param height A positive double that represents the height of the Cylinder.
 	 * @throws IllegalArgumentException if the radius is zero or the height is not positive.
@@ -32,7 +32,7 @@ public class Cylinder implements Geometry {
 			throw new IllegalArgumentException("Error: Height must be a positive number.");
 		}
 		this.height = height;
-		base = new Plane(ray.source, direction().reversed());
+		base = new Plane(ray.source, direction());
 		lid = new Plane(ray.source.add(direction().scale(height)), direction());
 	}
 
@@ -55,8 +55,7 @@ public class Cylinder implements Geometry {
 	public NormalizedVector normal(Point p) {
 		if (lid.contains(p) || base.contains(p)) {
 			return tube.direction();
-		}
-		else {
+		} else {
 			return tube.normal(p);
 		}
 	}
