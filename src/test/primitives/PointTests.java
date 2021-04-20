@@ -107,19 +107,20 @@ public class PointTests {
 		// Test sum of elements of vector is correct
 		calc = p.sum();
 		actual = 6;
-		Assert.assertTrue("Incorrect sum", DoubleCompare.eq(calc, actual));
+		String incorrectSum = "Incorrect sum";
+		Assert.assertTrue(incorrectSum, DoubleCompare.eq(calc, actual));
 
 		// Test some other point
 		Point newP = new Point(3.742, 2.589, -29.0381);
 		calc = newP.sum();
 		actual = -22.7071;
-		Assert.assertTrue("Incorrect sum", DoubleCompare.eq(calc, actual));
+		Assert.assertTrue(incorrectSum, DoubleCompare.eq(calc, actual));
 
 		// Test when sum should be zero
 		newP = new Point(1, 1, -2);
 		calc = newP.sum();
 		actual = 0;
-		Assert.assertTrue("Incorrect sum", DoubleCompare.eq(calc, actual));
+		Assert.assertTrue(incorrectSum, DoubleCompare.eq(calc, actual));
 	}
 
 	/**
