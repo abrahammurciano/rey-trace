@@ -1,1 +1,0 @@
-cnoremap w FuckingTab
