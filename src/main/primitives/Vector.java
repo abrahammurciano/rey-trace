@@ -47,8 +47,8 @@ public class Vector {
 	 * each of the coordinates.
 	 *
 	 * @param transformation A function which receives two doubles and returns another double.
-	 * @param aux            An auxiliary {@link Vector} whose corresponding coordinate may (or may not) be used in the
-	 *                       transformation function in order to calculate each of the new coordinates.
+	 * @param aux			 An auxiliary {@link Vector} whose corresponding coordinate may (or may not) be used in the
+	 *						 transformation function in order to calculate each of the new coordinates.
 	 * @return The {@link Vector} made up of applying the transformation to each of the three coordinates.
 	 * @throws ZeroVectorException if the transformation results in the zero vector.
 	 */

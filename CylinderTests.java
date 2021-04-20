@@ -29,7 +29,7 @@ public class CylinderTests {
 		Assert.assertTrue("Normalized vectors should be equal", NormalCompare.eq(calc, actual1));
 
 		// test on flat side side
-		calc =  base.normal(new Point(7.79639313525896, 11.780511727620528, 3.517181606066203));
+		calc =	base.normal(new Point(7.79639313525896, 11.780511727620528, 3.517181606066203));
 		actual1 = new NormalizedVector(6,5,4);
 		Assert.assertTrue("Normalized vectors should be equal", NormalCompare.eq(calc, actual1));
 
@@ -38,22 +38,22 @@ public class CylinderTests {
 		actual1 = new NormalizedVector(6,5,4);
 		actual2 = new NormalizedVector(1,-2,1);
 		// in practice always ends up being normal to the flat side
-		Assert.assertTrue("something", NormalCompare.eq(calc, actual1) || NormalCompare.eq(calc, actual2)); 
+		Assert.assertTrue("Vectors should be equal", NormalCompare.eq(calc, actual1) || NormalCompare.eq(calc, actual2)); 
 
 		// base side
 		calc = base.normal(new Point(5.182178902359924, 6.364357804719848, -7.728715609439696));
 		actual1 = new NormalizedVector(6,5,4);
 		actual2 = new NormalizedVector(1,-2,1);
-		Assert.assertTrue("something", NormalCompare.eq(calc, actual1) || NormalCompare.eq(calc, actual2)); 
+		Assert.assertTrue("Vectors should be equal", NormalCompare.eq(calc, actual1) || NormalCompare.eq(calc, actual2)); 
 
 		// center of base
 		calc = base.normal(new Point(3,2,1));
 		actual1 = new NormalizedVector(6,5,4);
-		Assert.assertTrue("something", NormalCompare.eq(calc, actual1));
+		Assert.assertTrue("Vectors should be equal", NormalCompare.eq(calc, actual1));
 
 		// opposite center
 		calc = base. normal(new Point(9.837634587578275,7.698028822981897,5.558423058385518));
 		actual1 = new NormalizedVector(6,5,4);
-		Assert.assertTrue("something", NormalCompare.eq(calc, actual1));
+		Assert.assertTrue("Vectors should be equal", NormalCompare.eq(calc, actual1));
 	}
 }
