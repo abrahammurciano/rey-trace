@@ -56,7 +56,7 @@ public class Point {
 	 */
 	public Point transform(DoubleBinaryOperator transformation, Point aux) {
 		return new Point(transformation.applyAsDouble(x, aux.x),
-				transformation.applyAsDouble(y, aux.y), transformation.applyAsDouble(z, aux.z));
+			transformation.applyAsDouble(y, aux.y), transformation.applyAsDouble(z, aux.z));
 	}
 
 	/**
@@ -68,7 +68,7 @@ public class Point {
 	 */
 	public Point transform(DoubleUnaryOperator transformation) {
 		return new Point(transformation.applyAsDouble(x), transformation.applyAsDouble(y),
-				transformation.applyAsDouble(z));
+			transformation.applyAsDouble(z));
 	}
 
 	/**
@@ -152,7 +152,7 @@ public class Point {
 		}
 		Point point = (Point) o;
 		return DoubleCompare.eq(x, point.x) && DoubleCompare.eq(y, point.y)
-				&& DoubleCompare.eq(z, point.z);
+			&& DoubleCompare.eq(z, point.z);
 	}
 
 

@@ -52,7 +52,7 @@ public final class Main {
 		try { // test zero vector
 			v1.cross(v2);
 			throw new AssertionError(
-					"Error: cross() for parallel vectors does not throw an exception");
+				"Error: cross() for parallel vectors does not throw an exception");
 		} catch (ZeroVectorException e) {
 			out.println("Cross product throws zero vector exception: Passed");
 		}

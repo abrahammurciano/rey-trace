@@ -40,14 +40,14 @@ public class CylinderTests {
 		// in practice always ends up being normal to the flat side
 		String notEqErrMsg = "Vectors should be equal";
 		Assert.assertTrue(notEqErrMsg,
-				NormalCompare.eq(calc, actual1) || NormalCompare.eq(calc, actual2));
+			NormalCompare.eq(calc, actual1) || NormalCompare.eq(calc, actual2));
 
 		// base side
 		calc = base.normal(new Point(5.182178902359924, 6.364357804719848, -7.728715609439696));
 		actual1 = new NormalizedVector(6, 5, 4);
 		actual2 = new NormalizedVector(1, -2, 1);
 		Assert.assertTrue(notEqErrMsg,
-				NormalCompare.eq(calc, actual1) || NormalCompare.eq(calc, actual2));
+			NormalCompare.eq(calc, actual1) || NormalCompare.eq(calc, actual2));
 
 		// center of base
 		calc = base.normal(new Point(3, 2, 1));

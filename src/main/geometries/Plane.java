@@ -45,7 +45,7 @@ public class Plane implements Geometry {
 			this.normal = v1.cross(v2).normalized();
 		} catch (ZeroVectorException e) {
 			throw new IllegalArgumentException(
-					"Error: The three points must not be on the same line.");
+				"Error: The three points must not be on the same line.");
 		}
 		this.point = p1;
 	}
