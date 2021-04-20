@@ -1,8 +1,10 @@
 package geometries;
 
 import primitives.ZeroVectorException;
+import java.util.List;
 import primitives.NormalizedVector;
 import primitives.Point;
+import primitives.Ray;
 import util.DoubleCompare;
 
 /**
@@ -41,5 +43,11 @@ public class Sphere implements Geometry {
 	@Override
 	public NormalizedVector normal(Point p) {
 		return center.vectorTo(p).normalized();
+	}
+
+	@Override
+	public List<Point> intersect(Ray ray) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

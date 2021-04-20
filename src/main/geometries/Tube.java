@@ -1,6 +1,7 @@
 package geometries;
 
 import primitives.ZeroVectorException;
+import java.util.List;
 import primitives.NormalizedVector;
 import primitives.Point;
 import util.DoubleCompare;
@@ -57,5 +58,11 @@ public class Tube implements Geometry {
 			return sourceToP.normalized();
 		}
 		return sourceToP.subtract(direction().scale(dotProduct)).normalized();
+	}
+
+	@Override
+	public List<Point> intersect(Ray ray) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

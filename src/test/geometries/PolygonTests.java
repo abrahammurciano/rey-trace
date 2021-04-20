@@ -13,13 +13,18 @@ import util.NormalCompare;
  * @author Eli Levin
  */
 public class PolygonTests {
+
 	/**
-	 * Tests that constructor takes at least 3 significant points.
+	 * Test Polygon.Polygon
 	 */
 	@Test
-	public void testPointCount() {
-		// Test number of points given
+	public void testConstructor() {
+		// ===========================================================
+		// Tests that constructor takes at least 3 significant points.
+		// ===========================================================
+
 		// Equivalence partition tests
+
 		// More than three points should not throw an exception.
 		new Polygon(new Point(0, 0, 0), new Point(2, -1, 0), new Point(1, 1, 0),
 			new Point(0.5, 1, 0));
@@ -36,18 +41,17 @@ public class PolygonTests {
 				new Point(1, 1, 1), new Point(2, 2, 2), new Point(3, 3, 3)));
 
 		// Boundary values test
+
 		// Exactly three points should not throw an exception.
 		new Polygon(new Point(0, 0, 0), new Point(1, 1, 0), new Point(0.5, 1, 0));
 		// Exactly three significant points should not throw an exception.
 		new Polygon(new Point(0, 0, 0), new Point(1, -0.5, 0), new Point(2, -1, 0),
 			new Point(1, 1, 0));
-	}
 
-	/**
-	 * Test that constructor accepts only convex polygons.
-	 */
-	@Test
-	public void testConvex() {
+		// ===================================================
+		// Test that constructor accepts only convex polygons.
+		// ===================================================
+
 		// Equivalence partition tests (there are no boundary values)
 
 		// Convex polygon
@@ -72,14 +76,13 @@ public class PolygonTests {
 		Assert.assertThrows("Non-planar polygon should throw an exception.",
 			IllegalArgumentException.class, () -> new Polygon(new Point(0, 0, 0),
 				new Point(1, 2, 0), new Point(0, 2, 0), new Point(1, 0, 1)));
-	}
 
-	/**
-	 * Test that constructor doesn't accept repeated points.
-	 */
-	@Test
-	public void testRepeatedPoints() {
+		// =====================================================
+		// Test that constructor doesn't accept repeated points.
+		// =====================================================
+
 		// Equivalence partition tests
+
 		// Repeated points in the middle
 		Assert.assertThrows("Repeated points should throw an exception.",
 			IllegalArgumentException.class, () -> new Polygon(new Point(0, 0, 1),
@@ -94,7 +97,7 @@ public class PolygonTests {
 	 * Test Polygon.normal
 	 */
 	@Test
-	public void normal() {
+	public void testNormal() {
 		Polygon polygon = new Polygon(new Point(0, 0, 1), new Point(2, 2, 2), new Point(1, 1, 0),
 			new Point(-1, -1, -1));
 		NormalizedVector normal = polygon.normal(new Point(0, 0, 0));

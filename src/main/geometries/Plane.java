@@ -1,9 +1,11 @@
 package geometries;
 
 import primitives.Point;
+import primitives.Ray;
 import util.DoubleCompare;
 import primitives.Vector;
 import primitives.ZeroVectorException;
+import java.util.List;
 import primitives.NormalizedVector;
 
 /**
@@ -75,6 +77,12 @@ public class Plane implements Geometry {
 	@Override
 	public NormalizedVector normal(Point p) {
 		return normal;
+	}
+
+	@Override
+	public List<Point> intersect(Ray ray) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

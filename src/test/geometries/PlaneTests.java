@@ -1,9 +1,11 @@
 package geometries;
 
+import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 import primitives.NormalizedVector;
 import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
 import util.NormalCompare;
 
@@ -57,5 +59,41 @@ public class PlaneTests {
 		NormalizedVector normal = plane.normal(new Point(0, 0, 0));
 		NormalizedVector expected_normal = new NormalizedVector(0, 0, 1);
 		Assert.assertTrue("Wrong normal for Polygon.", NormalCompare.eq(normal, expected_normal));
+	}
+
+	/**
+	 * Test Plane.intersections
+	 */
+	@Test
+	public void testIntersections() {
+		Plane plane = new Plane(new Point(0, 0, 0), new Point(2, -1, 0), new Point(1, 1, 0));
+		Ray ray;
+
+		// Equivalence partition tests
+
+		// Does intersect
+		ray = new Ray(new Point(1, 1, 1), new Vector(1, 1, -1));
+		Assert.assertEquals("Expected intersection for intersecting ray.",
+			List.copyOf(plane.intersect(ray)), List.of(new Point(2, 2, 0)));
+
+		// Does not intersect (not parallel)
+		ray = new Ray(new Point(1, 1, -1), new Vector(1, 1, -1));
+		Assert.assertNull("Expected no intersection for non-intersecting ray",
+			plane.intersect(ray));
+
+		// Does not intersect (parallel)
+		ray = new Ray(new Point(1, 1, -1), new Vector(1, 1, 0));
+		Assert.assertNull("No plane intersection expected for parallel ray.", plane.intersect(ray));
+
+		// Boundary values test
+
+		// Ray is completely in plane
+		ray = new Ray(new Point(1, 1, 0), new Vector(1, 1, 0));
+		Assert.assertNull("No plane intersection expected for embedded ray.", plane.intersect(ray));
+
+		// Ray starts on plane but not parallel
+		ray = new Ray(new Point(1, 1, 0), new Vector(1, 1, 1));
+		Assert.assertNull("No plane intersection expected for ray starting on plane.",
+			plane.intersect(ray));
 	}
 }
