@@ -8,7 +8,6 @@ import primitives.ZeroVectorException;
 import java.util.Collections;
 import java.util.List;
 import primitives.NormalizedVector;
-import primitives.ZeroVectorException;
 
 /**
  * A {@link Plane} is a flat two dimensional surface in three dimensional space which goes off to infinity in all
