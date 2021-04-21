@@ -86,7 +86,7 @@ public class Polygon implements Geometry {
 	 * @param b The divisor
 	 * @return The remainder (between 0 and b)
 	 */
-	private int mod(int a, int b) {
+	private static int mod(int a, int b) {
 		return (((a % b) + b) % b);
 	}
 

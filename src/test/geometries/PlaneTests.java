@@ -62,10 +62,10 @@ public class PlaneTests {
 	}
 
 	/**
-	 * Test Plane.intersections
+	 * Test Plane.intersect
 	 */
 	@Test
-	public void testIntersections() {
+	public void testIntersect() {
 		Plane plane = new Plane(new Point(0, 0, 0), new Point(2, -1, 0), new Point(1, 1, 0));
 		Ray ray;
 
@@ -78,22 +78,30 @@ public class PlaneTests {
 
 		// Does not intersect (not parallel)
 		ray = new Ray(new Point(1, 1, -1), new Vector(1, 1, -1));
-		Assert.assertNull("Expected no intersection for non-intersecting ray",
-			plane.intersect(ray));
+		Assert.assertTrue("Expected no intersection for non-intersecting ray",
+			plane.intersect(ray).isEmpty());
 
 		// Does not intersect (parallel)
 		ray = new Ray(new Point(1, 1, -1), new Vector(1, 1, 0));
-		Assert.assertNull("No plane intersection expected for parallel ray.", plane.intersect(ray));
+		Assert.assertTrue("No plane intersection expected for parallel ray.",
+			plane.intersect(ray).isEmpty());
 
 		// Boundary values test
 
 		// Ray is completely in plane
 		ray = new Ray(new Point(1, 1, 0), new Vector(1, 1, 0));
-		Assert.assertNull("No plane intersection expected for embedded ray.", plane.intersect(ray));
+		Assert.assertTrue("No plane intersection expected for embedded ray.",
+			plane.intersect(ray).isEmpty());
 
 		// Ray starts on plane but not parallel
 		ray = new Ray(new Point(1, 1, 0), new Vector(1, 1, 1));
-		Assert.assertNull("No plane intersection expected for ray starting on plane.",
-			plane.intersect(ray));
+		Assert.assertTrue("No plane intersection expected for ray starting on plane.",
+			plane.intersect(ray).isEmpty());
+
+		// Ray starts on plane's internal point
+		ray = new Ray(new Point(0, 0, 0), new Vector(1, 1, 1));
+		Assert.assertTrue(
+			"No plane intersection expected for ray starting on plane's internal point.",
+			plane.intersect(ray).isEmpty());
 	}
 }
