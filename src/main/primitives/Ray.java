@@ -31,7 +31,7 @@ public class Ray {
 	public boolean equals(Object o) {
 		if (o == this)
 			return true;
-		if (!(o instanceof Ray)) {
+		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
 		Ray ray = (Ray) o;
