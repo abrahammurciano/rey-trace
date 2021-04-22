@@ -3,6 +3,7 @@ package geometries;
 import java.util.ArrayList;
 import java.util.List;
 import primitives.Point;
+import primitives.Ray;
 import util.DoubleCompare;
 import primitives.Vector;
 import primitives.ZeroVectorException;
@@ -85,8 +86,14 @@ public class Polygon implements Geometry {
 	 * @param b The divisor
 	 * @return The remainder (between 0 and b)
 	 */
-	private int mod(int a, int b) {
+	private static int mod(int a, int b) {
 		return (((a % b) + b) % b);
+	}
+
+	@Override
+	public List<Point> intersect(Ray ray) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

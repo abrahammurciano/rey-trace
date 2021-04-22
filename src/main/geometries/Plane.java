@@ -1,9 +1,12 @@
 package geometries;
 
 import primitives.Point;
+import primitives.Ray;
 import util.DoubleCompare;
 import primitives.Vector;
 import primitives.ZeroVectorException;
+import java.util.Collections;
+import java.util.List;
 import primitives.NormalizedVector;
 
 /**
@@ -66,15 +69,26 @@ public class Plane implements Geometry {
 		}
 	}
 
-	/**
-	 * Calculates the normal to the {@link Plane}. The given {@link Point} is disregarded.
-	 *
-	 * @param p The {@link Point} at which to calculate the normal.
-	 * @return A vector perpendicular to the surface of the {@link Plane}.
-	 */
 	@Override
 	public NormalizedVector normal(Point p) {
 		return normal;
+	}
+
+	@Override
+	public List<Point> intersect(Ray ray) {
+		try {
+			double ray_dot_normal = ray.direction.dot(normal);
+			if (DoubleCompare.eq(ray_dot_normal, 0)) {
+				return Collections.emptyList(); // ray is parallel to plane
+			}
+			double distance = (ray.source.vectorTo(point)).dot(normal) / ray_dot_normal;
+			if (DoubleCompare.leq(distance, 0)) {
+				return Collections.emptyList(); // pane is behind the ray
+			}
+			return List.of(ray.travel(distance));
+		} catch (ZeroVectorException __) {
+			return Collections.emptyList(); // plane and ray start at same point
+		}
 	}
 
 }
