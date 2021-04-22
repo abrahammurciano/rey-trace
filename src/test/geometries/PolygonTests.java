@@ -104,4 +104,10 @@ public class PolygonTests {
 		NormalizedVector expected_normal = new NormalizedVector(1, -1, 0);
 		Assert.assertTrue("Wrong normal for Polygon.", NormalCompare.eq(normal, expected_normal));
 	}
+
+	@Test
+	public void testIntersect() {
+		Polygon polygon = new Polygon(new Point(0, 0, 0), new Point(1, 0, 0), new Point(1, 1, 1),
+			new Point(0, 1, 1));
+	}
 }
