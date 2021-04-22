@@ -1,35 +1,13 @@
 package primitives;
 
-import java.util.Objects;
-import java.util.function.DoubleBinaryOperator;
-import java.util.function.DoubleUnaryOperator;
-import util.DoubleCompare;;
-
 /**
  * The {@link Point} class represents a {@link Point} in three dimensional space.
  *
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class Point {
-	/**
-	 * The x-coordinate
-	 */
-	final double x;
+public class Point extends Triple {
 
-	/**
-	 * The y-coordinate
-	 */
-	final double y;
-
-	/**
-	 * The z-coordinate
-	 */
-	final double z;
-
-	/**
-	 * Represents the {@link Point} (0, 0, 0)
-	 */
 	public static final Point ORIGIN = new Point(0, 0, 0);
 
 	/**
@@ -40,45 +18,27 @@ public class Point {
 	 * @param z The z-coordinate.
 	 */
 	public Point(double x, double y, double z) {
-		this.x = x;
-		this.y = y;
-		this.z = z;
+		super(x, y, z);
 	}
 
 	/**
-	 * Creates a new {@link Point} which is a transformation of this {@link Point} by applying the given transformation
-	 * to each of the coordinates.
+	 * This constructor accepts a {@link Triple} and constructs the appropriate {@link Point} with those values.
 	 *
-	 * @param transformation A function which receives two coordinates and returns another coordinate.
-	 * @param aux An auxiliary {@link Point} whose corresponding coordinate may (or may not) be used in the
-	 *        transformation function in order to calculate each of the new coordinates.
-	 * @return The {@link Point} made up of applying the transformation to each of the three coordinates.
+	 * @param triple The {@link Triple} with the coordinates which this {@link Point} has.
+	 * @throws ZeroVectorException if this {@link Vector} is the zero vector.
 	 */
-	public Point transform(DoubleBinaryOperator transformation, Point aux) {
-		return new Point(transformation.applyAsDouble(x, aux.x),
-			transformation.applyAsDouble(y, aux.y), transformation.applyAsDouble(z, aux.z));
-	}
-
-	/**
-	 * Similar to {@link #transform(DoubleBinaryOperator, Point)} but does not require an auxiliary {@link Point}, since
-	 * the transformation when called in this way does not depend on a second coordinate.
-	 *
-	 * @param transformation A function which receives a single coordinate and returns another coordinate.
-	 * @return The {@link Point} made up of applying the transformation to each of the three coordinates.
-	 */
-	public Point transform(DoubleUnaryOperator transformation) {
-		return new Point(transformation.applyAsDouble(x), transformation.applyAsDouble(y),
-			transformation.applyAsDouble(z));
+	public Point(Triple triple) {
+		this(triple.x, triple.y, triple.z);
 	}
 
 	/**
 	 * Adds a {@link Vector} to this {@link Point} and returns the resulting {@link Point}.
 	 *
-	 * @param v The {@link Vector} to add to this {@link Point}.
+	 * @param vector The {@link Vector} to add to this {@link Point}.
 	 * @return The {@link Point} resulting from adding the {@link Vector} to this {@link Point}.
 	 */
-	public Point add(Vector v) {
-		return transform((base, aux) -> base + aux, v.head);
+	public Point add(Vector vector) {
+		return new Point(transform(Double::sum, vector));
 	}
 
 	/**
@@ -123,53 +83,10 @@ public class Point {
 	public double squareDistance(Point target) {
 		// Construct a point whose coordinates are the squares of the differences of the coordinates
 		// of the two points.
-		Point squarePoint = transform((base, aux) -> {
+		// Sum the coordinates of the square point.
+		return transform((base, aux) -> {
 			double diff = aux - base;
 			return diff * diff;
-		}, target);
-		// Sum the coordinates of the square point.
-		return squarePoint.sum();
-	}
-
-	/**
-	 * Calculates the sum of the three coordinates this {@link Point} is made up of.
-	 *
-	 * @return The sum of the three coordinates this {@link Point} is made up of.
-	 */
-	public double sum() {
-		return x + y + z;
-	}
-
-	/**
-	 * Checks if the two {@link Point}s are in the same three dimensional space.
-	 */
-	@Override
-	public boolean equals(Object o) {
-		if (o == this)
-			return true;
-		if (!(o instanceof Point)) {
-			return false;
-		}
-		Point point = (Point) o;
-		return DoubleCompare.eq(x, point.x) && DoubleCompare.eq(y, point.y)
-			&& DoubleCompare.eq(z, point.z);
-	}
-
-
-	/**
-	 * Computes the hash function based on that of the array of coordinates.
-	 */
-	@Override
-	public int hashCode() {
-		return Objects.hash(x, y, z);
-	}
-
-
-	/**
-	 * Returns the {@link Point} as a string in the cartesian representation, e.g. "(0, 0, 0)"
-	 */
-	@Override
-	public String toString() {
-		return "(" + x + ", " + y + ", " + z + ")";
+		}, target).sum();
 	}
 }
