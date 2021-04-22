@@ -1,9 +1,12 @@
 package geometries;
 
+import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 import primitives.NormalizedVector;
 import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
 import util.NormalCompare;
 
 /**
@@ -109,5 +112,12 @@ public class PolygonTests {
 	public void testIntersect() {
 		Polygon polygon = new Polygon(new Point(0, 0, 0), new Point(1, 0, 0), new Point(1, 1, 1),
 			new Point(0, 1, 1));
+
+		// Equivalence partition tests
+
+		// Intersection inside polygon
+		Ray ray = new Ray(new Point(0.5, 0, 1), new Vector(0, -1, -1));
+		Assert.assertEquals("Intersection expected but not found or wrong value.",
+			List.copyOf(polygon.intersect(ray)), List.of(new Point(0.5, 0.5, 0.5)));
 	}
 }
