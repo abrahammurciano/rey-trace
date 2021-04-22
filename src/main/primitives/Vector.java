@@ -10,11 +10,7 @@ import java.util.function.DoubleUnaryOperator;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class Vector {
-	/**
-	 * The point where the vector ends if it were to start at the origin.
-	 */
-	final Point head;
+public class Vector extends Triple {
 
 	/**
 	 * This constructor accepts 3 doubles and returns the appropriate {@link Vector}
@@ -25,46 +21,31 @@ public class Vector {
 	 * @throws ZeroVectorException if the {@link Vector} is the zero vector.
 	 */
 	public Vector(double x, double y, double z) {
-		this(new Point(x, y, z));
-	}
-
-	/**
-	 * This constructor accepts a {@link Point} and returns the appropriate {@link Vector}
-	 *
-	 * @param head The {@link Point} which this {@link Vector} would point to if its base was at the origin.
-	 * @throws ZeroVectorException if this {@link Vector} is the zero vector.
-	 */
-	public Vector(Point head) {
-		if (head.equals(Point.ORIGIN)) {
+		super(x, y, z);
+		if (Triple.ZERO.equals(this)) {
 			throw new ZeroVectorException();
 		}
-		this.head = head;
 	}
 
 	/**
-	 * Creates a new {@link Vector} which is a transformation of this {@link Vector} by applying the given
-	 * transformation to each of the coordinates.
+	 * This constructor accepts a {@link Triple} and constructs the appropriate {@link Vector} with those values.
 	 *
-	 * @param transformation A function which receives two doubles and returns another double.
-	 * @param aux An auxiliary {@link Vector} whose corresponding coordinate may (or may not) be used in the
-	 *        transformation function in order to calculate each of the new coordinates.
-	 * @return The {@link Vector} made up of applying the transformation to each of the three coordinates.
-	 * @throws ZeroVectorException if the transformation results in the zero vector.
+	 * @param triple The {@link Triple} with the coordinates which this {@link Vector} would point to if its base was at
+	 *        the origin.
+	 * @throws ZeroVectorException if this {@link Vector} is the zero vector.
 	 */
-	public Vector transform(DoubleBinaryOperator transformation, Vector aux) {
-		return new Vector(head.transform(transformation, aux.head));
+	public Vector(Triple triple) {
+		this(triple.x, triple.y, triple.z);
 	}
 
-	/**
-	 * Similar to {@link #transform(DoubleBinaryOperator, Vector)} but does not require an auxiliary {@link Vector},
-	 * since the transformation when called in this way does not depend on a second coordinate.
-	 *
-	 * @param transformation A function which receives a dingle double and returns another double.
-	 * @return The {@link Vector} made up of applying the transformation to each of the three coordinates.
-	 * @throws ZeroVectorException if the transformation results in the zero vector.
-	 */
+	@Override
+	public Vector transform(DoubleBinaryOperator transformation, Triple aux) {
+		return new Vector(super.transform(transformation, aux));
+	}
+
+	@Override
 	public Vector transform(DoubleUnaryOperator transformation) {
-		return new Vector(head.transform(transformation));
+		return new Vector(super.transform(transformation));
 	}
 
 	/**
