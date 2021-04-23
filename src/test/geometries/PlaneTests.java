@@ -1,7 +1,5 @@
 package geometries;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
