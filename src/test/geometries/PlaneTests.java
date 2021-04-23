@@ -1,5 +1,7 @@
 package geometries;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
@@ -73,8 +75,8 @@ public class PlaneTests {
 
 		// Does intersect
 		ray = new Ray(new Point(1, 1, 1), new Vector(1, 1, -1));
-		Assert.assertEquals("Expected intersection for intersecting ray.",
-			List.copyOf(plane.intersect(ray)), List.of(new Point(2, 2, 0)));
+		Assert.assertEquals("Expected intersection for intersecting ray.", plane.intersect(ray),
+			List.of(new Point(2, 2, 0)));
 
 		// Does not intersect (not parallel)
 		ray = new Ray(new Point(1, 1, -1), new Vector(1, 1, -1));

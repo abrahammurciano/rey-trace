@@ -93,12 +93,12 @@ public class Polygon implements Geometry {
 		Point p1 = vertices.get(0);
 		Point p2 = vertices.get(1);
 		Vector normal = ray.source.vectorTo(p1).cross(p1.vectorTo(p2)); // No zero vectors bc ray intersects the plane
-		boolean sign = normal.dot(ray.direction) > 0; // No need for DC.eq bc ray direction is not parallel to plane
+		int comparison = DoubleCompare.compare(normal.dot(ray.direction), 0);
 		for (int i = 2; i <= size; ++i) { // Loop through consecutive points
 			p1 = p2;
 			p2 = vertices.get(i % size);
 			normal = ray.source.vectorTo(p1).cross(p1.vectorTo(p2));
-			if (sign != (normal.dot(ray.direction) > 0)) {
+			if (comparison != DoubleCompare.compare(normal.dot(ray.direction), 0)) {
 				return Collections.emptyList();
 			}
 		}
