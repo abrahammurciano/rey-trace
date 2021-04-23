@@ -4,7 +4,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import primitives.NormalizedVector;
 import primitives.Point;
-import primitives.ZeroVectorException;
 import util.NormalCompare;
 
 /**

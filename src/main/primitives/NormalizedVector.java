@@ -12,10 +12,10 @@ public class NormalizedVector extends Vector {
 	/**
 	 * Constructs a {@link NormalizedVector} from a not necessarily normalized {@link Vector}
 	 *
-	 * @param v The unnormalized vector.
+	 * @param vector The unnormalized vector.
 	 */
-	public NormalizedVector(Vector v) {
-		super(v.scale(1 / v.length()).head);
+	public NormalizedVector(Vector vector) {
+		super(vector.scale(1 / vector.length()));
 	}
 
 	/**
@@ -26,8 +26,8 @@ public class NormalizedVector extends Vector {
 	 *        length equal to one.
 	 * @throws ZeroVectorException if the given {@link Point} is the origin.
 	 */
-	private NormalizedVector(Point head) {
-		super(head);
+	private NormalizedVector(Triple triple) {
+		super(triple);
 	}
 
 	/**
@@ -50,7 +50,7 @@ public class NormalizedVector extends Vector {
 	 */
 	@Override
 	public NormalizedVector reversed() {
-		return new NormalizedVector(head.transform(c -> -c));
+		return new NormalizedVector(transform(c -> -c));
 	}
 
 
