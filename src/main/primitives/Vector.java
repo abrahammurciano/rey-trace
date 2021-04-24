@@ -113,7 +113,7 @@ public class Vector extends Triple {
 	 * @return The square of the length of this {@link Vector}.
 	 */
 	public double squareLength() {
-		return transform(coord -> coord * coord).sum();
+		return this.dot(this);
 	}
 
 	/**
