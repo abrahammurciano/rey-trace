@@ -14,7 +14,7 @@ public class Vector {
 	/**
 	 * The point where the vector ends if it were to start at the origin.
 	 */
-	final Point head;
+	public final Point head;
 
 	/**
 	 * This constructor accepts 3 doubles and returns the appropriate {@link Vector}
@@ -42,12 +42,12 @@ public class Vector {
 	}
 
 	/**
-	 * Creates a new {@link Vector} which is a transformation of this {@link Vector} by applying the given
-	 * transformation to each of the coordinates.
+	 * Creates a new {@link Vector} which is a transformation of this {@link Vector} by applying the given transformation to
+	 * each of the coordinates.
 	 *
 	 * @param transformation A function which receives two doubles and returns another double.
-	 * @param aux An auxiliary {@link Vector} whose corresponding coordinate may (or may not) be used in the
-	 *        transformation function in order to calculate each of the new coordinates.
+	 * @param aux An auxiliary {@link Vector} whose corresponding coordinate may (or may not) be used in the transformation
+	 *        function in order to calculate each of the new coordinates.
 	 * @return The {@link Vector} made up of applying the transformation to each of the three coordinates.
 	 * @throws ZeroVectorException if the transformation results in the zero vector.
 	 */
@@ -56,8 +56,8 @@ public class Vector {
 	}
 
 	/**
-	 * Similar to {@link #transform(DoubleBinaryOperator, Vector)} but does not require an auxiliary {@link Vector},
-	 * since the transformation when called in this way does not depend on a second coordinate.
+	 * Similar to {@link #transform(DoubleBinaryOperator, Vector)} but does not require an auxiliary {@link Vector}, since
+	 * the transformation when called in this way does not depend on a second coordinate.
 	 *
 	 * @param transformation A function which receives a dingle double and returns another double.
 	 * @return The {@link Vector} made up of applying the transformation to each of the three coordinates.
@@ -164,8 +164,8 @@ public class Vector {
 	}
 
 	/**
-	 * Calculates the angle in radians between this vector and the given vector. The angle is normalized between zero
-	 * and Pi.
+	 * Calculates the angle in radians between this vector and the given vector. The angle is normalized between zero and
+	 * Pi.
 	 *
 	 * @param v The other vector to be used to calculate the angle.
 	 * @return The angle in radians between the vectors between zero and Pi.

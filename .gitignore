@@ -3,6 +3,7 @@
 *.class
 
 # Eli's crap
+formatter
 target
 .settings
 pom.xml

@@ -15,17 +15,17 @@ public class Point {
 	/**
 	 * The x-coordinate
 	 */
-	final double x;
+	public final double x;
 
 	/**
 	 * The y-coordinate
 	 */
-	final double y;
+	public final double y;
 
 	/**
 	 * The z-coordinate
 	 */
-	final double z;
+	public final double z;
 
 	/**
 	 * Represents the {@link Point} (0, 0, 0)
@@ -46,12 +46,12 @@ public class Point {
 	}
 
 	/**
-	 * Creates a new {@link Point} which is a transformation of this {@link Point} by applying the given transformation
-	 * to each of the coordinates.
+	 * Creates a new {@link Point} which is a transformation of this {@link Point} by applying the given transformation to
+	 * each of the coordinates.
 	 *
 	 * @param transformation A function which receives two coordinates and returns another coordinate.
-	 * @param aux An auxiliary {@link Point} whose corresponding coordinate may (or may not) be used in the
-	 *        transformation function in order to calculate each of the new coordinates.
+	 * @param aux An auxiliary {@link Point} whose corresponding coordinate may (or may not) be used in the transformation
+	 *        function in order to calculate each of the new coordinates.
 	 * @return The {@link Point} made up of applying the transformation to each of the three coordinates.
 	 */
 	public Point transform(DoubleBinaryOperator transformation, Point aux) {
@@ -60,8 +60,8 @@ public class Point {
 	}
 
 	/**
-	 * Similar to {@link #transform(DoubleBinaryOperator, Point)} but does not require an auxiliary {@link Point}, since
-	 * the transformation when called in this way does not depend on a second coordinate.
+	 * Similar to {@link #transform(DoubleBinaryOperator, Point)} but does not require an auxiliary {@link Point}, since the
+	 * transformation when called in this way does not depend on a second coordinate.
 	 *
 	 * @param transformation A function which receives a single coordinate and returns another coordinate.
 	 * @return The {@link Point} made up of applying the transformation to each of the three coordinates.
@@ -170,6 +170,17 @@ public class Point {
 	 */
 	@Override
 	public String toString() {
-		return "(" + x + ", " + y + ", " + z + ")";
+		// clean up small numbers for printing
+		double x1 = x, y1 = y, z1 = z;
+		if (DoubleCompare.eq(x1, 0.0)) {
+			x1 = 0;
+		}
+		if (DoubleCompare.eq(y1, 0.0)) {
+			y1 = 0;
+		}
+		if (DoubleCompare.eq(z1, 0.0)) {
+			z1 = 0;
+		}
+		return "(" + x1 + ", " + y1 + ", " + z1 + ")";
 	}
 }
