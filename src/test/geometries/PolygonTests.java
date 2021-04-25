@@ -121,13 +121,13 @@ public class PolygonTests {
 			polygon.intersect(ray), List.of(new Point(0.5, 0.5, 0.5)));
 
 		// Intersection outside polygon (on outside of only one edge)
-		ray = new Ray(new Point(0.5, 0, 1), new Vector(2, -1, -1));
+		ray = new Ray(new Point(0.5, 0, 1), new Vector(2, 1, -1));
 		Assert.assertTrue(
 			"No intersections expected for ray which intersects outside edge of polygon.",
 			polygon.intersect(ray).isEmpty());
 
 		// Intersection outside polygon (on outside of two edges)
-		ray = new Ray(new Point(0.5, 0, 1), new Vector(2, -1, 1));
+		ray = new Ray(new Point(0.5, 0, 1), new Vector(1, -1, -2));
 		Assert.assertTrue(
 			"No intersections expected for ray which intersects outside corner of polygon.",
 			polygon.intersect(ray).isEmpty());
