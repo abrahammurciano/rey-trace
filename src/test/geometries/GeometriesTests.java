@@ -1,7 +1,5 @@
 package geometries;
 
-import java.util.HashSet;
-import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 import primitives.Point;
@@ -23,18 +21,35 @@ public class GeometriesTests {
 		// Equivalence partition tests
 
 		// Some shapes intersect
+		Sphere intersectingSphere = new Sphere(new Point(2, 0, 0), 1);
+		Plane nonIntersectingPlane = new Plane(new Point(0, 0, 1), i);
+		Triangle intersectingTriangle =
+			new Triangle(new Point(4, 0, 1), new Point(4, 1, -1), new Point(4, -1, -1));
 		Geometries geometries =
-			new Geometries(new Sphere(new Point(2, 0, 0), 1), new Plane(new Point(0, 0, 1), i),
-				new Triangle(new Point(4, 0, 1), new Point(4, 1, -1), new Point(4, -1, -1)));
-		Assert.assertEquals("Wrong result when some shapes intersect",
-			new HashSet<>(geometries.intersect(ray)),
-			new HashSet<>(List.of(new Point(1, 0, 0), new Point(3, 0, 0), new Point(4, 0, 0))));
+			new Geometries(intersectingSphere, nonIntersectingPlane, intersectingTriangle);
+		Assert.assertEquals("Wrong number of intersections when some shapes intersect",
+			geometries.intersect(ray).size(), 3);
 
 		// Boundary values test
 
-		// Test intersections with empty geometries
+		// Empty geometries
 		geometries = new Geometries();
 		Assert.assertTrue("Empty geometries returned intersections.",
 			geometries.intersect(ray).isEmpty());
+
+		// No geometries intersect
+		geometries = new Geometries(nonIntersectingPlane);
+		Assert.assertTrue("Expected no intersections when no geometries intersect.",
+			geometries.intersect(ray).isEmpty());
+
+		// Only one shape intersects
+		geometries = new Geometries(intersectingSphere, nonIntersectingPlane);
+		Assert.assertEquals("Wrong number of intersections when some shapes intersect",
+			geometries.intersect(ray).size(), 2);
+
+		// All shapes intersect
+		geometries = new Geometries(intersectingSphere, intersectingTriangle);
+		Assert.assertEquals("Wrong number of intersections when all shapes intersect",
+			geometries.intersect(ray).size(), 3);
 	}
 }
