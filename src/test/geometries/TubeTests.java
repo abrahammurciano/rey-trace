@@ -18,7 +18,7 @@ public class TubeTests {
 		// then going perpendicular from there for a length of radius.
 		// Scale vector by 6.9
 		NormalizedVector calc =
-			tube.normal(new Point(30.942606428329093, 34.625914857336724, 44.4));
+				tube.normal(new Point(30.942606428329093, 34.625914857336724, 44.4));
 		NormalizedVector actual = new NormalizedVector(5, -4, 0);
 		Assert.assertEquals("Normalized vectors should be equal", calc, actual);
 
@@ -26,6 +26,15 @@ public class TubeTests {
 		calc = tube.normal(new Point(1, 8, -2));
 		actual = new NormalizedVector(0, 6, -5);
 		Assert.assertEquals("Normalized vectors should be equal", calc, actual);
+	}
+
+	public final Ray axis = new Ray(new Point(-1,1,0), new Vector(1,1,1));
+	public final Tube t = new Tube(axis, 1);
+	// Ray shoot = new Ray(
+
+	@Test
+	public void intersect() {
+
 	}
 
 }

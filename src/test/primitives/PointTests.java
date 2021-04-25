@@ -30,13 +30,13 @@ public class PointTests {
 		calc = p.add(new Vector(-2, -4, -5));
 		actual = new Point(-1, -2, -2);
 		Assert.assertEquals("Incorrect output for adding vector to point while crossing origin",
-			calc, actual);
+				calc, actual);
 
 		// floating point addition
 		calc = p.add(new Vector(0.4537, -0.7891, 0.1309));
 		actual = new Point(1.4537, 1.2109, 3.1309);
 		Assert.assertEquals("Incorrect output for adding vector with 4 points of accuracy", calc,
-			actual);
+				actual);
 
 		// go to origin
 		calc = p.add(new Vector(-1, -2, -3));
@@ -59,7 +59,7 @@ public class PointTests {
 
 		// return zero vector
 		Assert.assertThrows("Expected zero vector", ZeroVectorException.class,
-			() -> p.vectorTo(new Point(1, 2, 3)));
+				() -> p.vectorTo(new Point(1, 2, 3)));
 	}
 
 	/**
@@ -76,7 +76,7 @@ public class PointTests {
 
 		// Test that it will throw ZeroVector if given the itself as the parameter
 		Assert.assertThrows("Expected zero vector", ZeroVectorException.class,
-			() -> p.vectorFrom(p));
+				() -> p.vectorFrom(p));
 	}
 
 	/**

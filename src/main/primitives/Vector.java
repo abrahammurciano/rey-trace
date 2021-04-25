@@ -27,8 +27,8 @@ public class Vector extends Triple {
 	/**
 	 * This constructor accepts a {@link Triple} and constructs the appropriate {@link Vector} with those values.
 	 *
-	 * @param triple The {@link Triple} with the coordinates which this {@link Vector} would point to if its base was at
-	 *        the origin.
+	 * @param triple The {@link Triple} with the coordinates which this {@link Vector} would point to if its base was at the
+	 *        origin.
 	 * @throws ZeroVectorException if this {@link Vector} is the zero vector.
 	 */
 	public Vector(Triple triple) {

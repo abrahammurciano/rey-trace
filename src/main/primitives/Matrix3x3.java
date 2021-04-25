@@ -40,7 +40,7 @@ public class Matrix3x3 {
 			Vector temp = new Vector(t);
 			return new Triple(r1.dot(temp), r2.dot(temp), r3.dot(temp));
 		} catch (ZeroVectorException e) {
-			return new Triple(0,0,0);
+			return new Triple(0, 0, 0);
 		}
 	}
 
@@ -86,8 +86,8 @@ public class Matrix3x3 {
 						(u_xz * (1 - cosA) + u.y * sinA)),
 				new Vector((u_xy * (1 - cosA + u.z * sinA)), (cosA + u_y2 * (1 - cosA)),
 						(u_yz * (1 - cosA) - u.x * sinA)),
-				new Vector((u_xz * (1 - cosA) - u.y * sinA),
-						(u_yz * (1 - cosA) + u.x * sinA), (cosA + u_z2 * (1 - cosA))));
+				new Vector((u_xz * (1 - cosA) - u.y * sinA), (u_yz * (1 - cosA) + u.x * sinA),
+						(cosA + u_z2 * (1 - cosA))));
 	}
 
 	public Matrix3x3 inverse() {
@@ -102,8 +102,7 @@ public class Matrix3x3 {
 	}
 
 	public Matrix3x3 transpose() {
-		return new Matrix3x3(new Vector(r1.x, r2.x, r3.x),
-				new Vector(r1.y, r2.y, r3.y),
+		return new Matrix3x3(new Vector(r1.x, r2.x, r3.x), new Vector(r1.y, r2.y, r3.y),
 				new Vector(r1.z, r2.z, r3.z));
 	}
 
@@ -115,14 +114,11 @@ public class Matrix3x3 {
 	// I hate this
 	public Matrix3x3 adjoint() {
 		return new Matrix3x3(
-				new Vector(((r2.y * r3.z) - (r3.y * r2.z)),
-						(r3.y * r1.z - r1.y * r3.z),
+				new Vector(((r2.y * r3.z) - (r3.y * r2.z)), (r3.y * r1.z - r1.y * r3.z),
 						(r1.y * r2.z - r2.y * r1.z)),
-				new Vector((r3.x * r2.z - r2.x * r3.z),
-						(r1.x * r3.z - r3.x * r1.z),
+				new Vector((r3.x * r2.z - r2.x * r3.z), (r1.x * r3.z - r3.x * r1.z),
 						(r2.x * r1.z - r1.x * r2.z)),
-				new Vector((r2.x * r3.y - r3.x * r2.y),
-						(r3.x * r1.y - r1.x * r3.y),
+				new Vector((r2.x * r3.y - r3.x * r2.y), (r3.x * r1.y - r1.x * r3.y),
 						(r1.x * r2.y - r2.x * r1.y)));
 	}
 
