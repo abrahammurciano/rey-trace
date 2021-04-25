@@ -12,9 +12,9 @@ public interface Geometry extends Intersectible {
 	 * the given {@link Point} is not on the surface of the {@link Geometry} the
 	 * resulting behaviour is undefined.
 	 *
-	 * @param p The {@link Point} at which to calculate the normal.
+	 * @param point The {@link Point} at which to calculate the normal.
 	 * @return A {@link NormalizedVector} perpendicular to the surface of the shape
 	 *         at the given {@link Point}.
 	 */
-	public NormalizedVector normal(Point p);
+	public NormalizedVector normal(Point point);
 }

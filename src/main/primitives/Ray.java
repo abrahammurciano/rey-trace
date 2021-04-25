@@ -1,5 +1,6 @@
 package primitives;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -31,7 +32,7 @@ public class Ray {
 	public boolean equals(Object o) {
 		if (o == this)
 			return true;
-		if (!(o instanceof Ray)) {
+		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
 		Ray ray = (Ray) o;
@@ -53,5 +54,15 @@ public class Ray {
 	public String toString() {
 		// ((0, 0, 0), (1, 1, 1))
 		return "(" + source + ", " + direction + ")";
+	}
+
+	/**
+	 * Calculate the point along the ray after traveling "distance" units in the ray's direction.
+	 *
+	 * @param distance The distance to travel in the ray's direction.
+	 * @return The point on the ray after travelling "distance" units.
+	 */
+	public Point travel(double distance) {
+		return source.add(direction.scale(distance));
 	}
 }

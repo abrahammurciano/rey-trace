@@ -12,5 +12,13 @@ import primitives.Ray;
  * @author Eli Levin
  */
 public interface Intersectible {
+
+	/**
+	 * Calculates all the intersections between a given {@link Ray} and this object.
+	 *
+	 * @param ray The {@link Ray} to check for intersections.
+	 * @return A list of all the intersections with the given {@link Ray}.
+	 */
 	public List<Point> intersect(Ray ray);
+
 }
