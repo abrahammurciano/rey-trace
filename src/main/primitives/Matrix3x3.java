@@ -35,18 +35,27 @@ public class Matrix3x3 {
 		return this;
 	}
 
-	public Vector multiply(Vector v) {
-		return new Vector(r1.dot(v), r2.dot(v), r3.dot(v));
+	private Triple multiply_T(Triple t) {
+		try {
+			Vector temp = new Vector(t);
+			return new Triple(r1.dot(temp), r2.dot(temp), r3.dot(temp));
+		} catch (ZeroVectorException e) {
+			return new Triple(0,0,0);
+		}
 	}
 
 	public Point multiply(Point p) {
-		return multiply(new Vector(p)).head;
+		return new Point(multiply_T(p));
+	}
+
+	public Vector multiply(Vector v) {
+		return new Vector(multiply_T(v));
 	}
 
 	public Matrix3x3 multiply(Matrix3x3 B) {
-		Vector col1 = new Vector(B.r1.head.x, B.r2.head.x, B.r3.head.x);
-		Vector col2 = new Vector(B.r1.head.y, B.r2.head.y, B.r3.head.y);
-		Vector col3 = new Vector(B.r1.head.z, B.r2.head.z, B.r3.head.z);
+		Vector col1 = new Vector(B.r1.x, B.r2.x, B.r3.x);
+		Vector col2 = new Vector(B.r1.y, B.r2.y, B.r3.y);
+		Vector col3 = new Vector(B.r1.z, B.r2.z, B.r3.z);
 		return new Matrix3x3(new Vector(r1.dot(col1), r1.dot(col2), r1.dot(col3)),
 				new Vector(r2.dot(col1), r2.dot(col2), r2.dot(col3)),
 				new Vector(r3.dot(col1), r3.dot(col2), r3.dot(col3)));
@@ -66,19 +75,19 @@ public class Matrix3x3 {
 		NormalizedVector u = f.cross(t).normalized();
 		double cosA = f.dot(t);
 		double sinA = f.cross(t).length();
-		double u_xy = u.head.x * u.head.y;
-		double u_xz = u.head.x * u.head.z;
-		double u_yz = u.head.y * u.head.z;
-		double u_x2 = u.head.x * u.head.x;
-		double u_y2 = u.head.y * u.head.y;
-		double u_z2 = u.head.z * u.head.z;
+		double u_xy = u.x * u.y;
+		double u_xz = u.x * u.z;
+		double u_yz = u.y * u.z;
+		double u_x2 = u.x * u.x;
+		double u_y2 = u.y * u.y;
+		double u_z2 = u.z * u.z;
 		return new Matrix3x3(
-				new Vector((cosA + u_x2 * (1 - cosA)), (u_xy * (1 - cosA) - u.head.z * sinA),
-						(u_xz * (1 - cosA) + u.head.y * sinA)),
-				new Vector((u_xy * (1 - cosA + u.head.z * sinA)), (cosA + u_y2 * (1 - cosA)),
-						(u_yz * (1 - cosA) - u.head.x * sinA)),
-				new Vector((u_xz * (1 - cosA) - u.head.y * sinA),
-						(u_yz * (1 - cosA) + u.head.x * sinA), (cosA + u_z2 * (1 - cosA))));
+				new Vector((cosA + u_x2 * (1 - cosA)), (u_xy * (1 - cosA) - u.z * sinA),
+						(u_xz * (1 - cosA) + u.y * sinA)),
+				new Vector((u_xy * (1 - cosA + u.z * sinA)), (cosA + u_y2 * (1 - cosA)),
+						(u_yz * (1 - cosA) - u.x * sinA)),
+				new Vector((u_xz * (1 - cosA) - u.y * sinA),
+						(u_yz * (1 - cosA) + u.x * sinA), (cosA + u_z2 * (1 - cosA))));
 	}
 
 	public Matrix3x3 inverse() {
@@ -93,28 +102,28 @@ public class Matrix3x3 {
 	}
 
 	public Matrix3x3 transpose() {
-		return new Matrix3x3(new Vector(r1.head.x, r2.head.x, r3.head.x),
-				new Vector(r1.head.y, r2.head.y, r3.head.y),
-				new Vector(r1.head.z, r2.head.z, r3.head.z));
+		return new Matrix3x3(new Vector(r1.x, r2.x, r3.x),
+				new Vector(r1.y, r2.y, r3.y),
+				new Vector(r1.z, r2.z, r3.z));
 	}
 
 	public double determinant() {
 		Vector v = r2.cross(r3);
-		return (v.head.x * r1.head.x) + (v.head.y * r1.head.y) + (v.head.z * r1.head.z);
+		return (v.x * r1.x) + (v.y * r1.y) + (v.z * r1.z);
 	}
 
 	// I hate this
 	public Matrix3x3 adjoint() {
 		return new Matrix3x3(
-				new Vector(((r2.head.y * r3.head.z) - (r3.head.y * r2.head.z)),
-						(r3.head.y * r1.head.z - r1.head.y * r3.head.z),
-						(r1.head.y * r2.head.z - r2.head.y * r1.head.z)),
-				new Vector((r3.head.x * r2.head.z - r2.head.x * r3.head.z),
-						(r1.head.x * r3.head.z - r3.head.x * r1.head.z),
-						(r2.head.x * r1.head.z - r1.head.x * r2.head.z)),
-				new Vector((r2.head.x * r3.head.y - r3.head.x * r2.head.y),
-						(r3.head.x * r1.head.y - r1.head.x * r3.head.y),
-						(r1.head.x * r2.head.y - r2.head.x * r1.head.y)));
+				new Vector(((r2.y * r3.z) - (r3.y * r2.z)),
+						(r3.y * r1.z - r1.y * r3.z),
+						(r1.y * r2.z - r2.y * r1.z)),
+				new Vector((r3.x * r2.z - r2.x * r3.z),
+						(r1.x * r3.z - r3.x * r1.z),
+						(r2.x * r1.z - r1.x * r2.z)),
+				new Vector((r2.x * r3.y - r3.x * r2.y),
+						(r3.x * r1.y - r1.x * r3.y),
+						(r1.x * r2.y - r2.x * r1.y)));
 	}
 
 

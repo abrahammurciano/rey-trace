@@ -3,6 +3,7 @@ package geometries;
 import java.util.ArrayList;
 import java.util.List;
 import primitives.Point;
+import primitives.Ray;
 import util.DoubleCompare;
 import primitives.Vector;
 import primitives.ZeroVectorException;
@@ -46,7 +47,7 @@ public class Polygon implements Geometry {
 				sum += angle;
 			} catch (ZeroVectorException e) {
 				throw new IllegalArgumentException(
-						"Error: Repeated vertices are not allowed. Perhaps you are repeating the start point at the end.");
+					"Error: Repeated vertices are not allowed. Perhaps you are repeating the start point at the end.");
 			}
 		}
 
@@ -54,13 +55,13 @@ public class Polygon implements Geometry {
 		// not all points are on the same plane.
 		if (DoubleCompare.neq(sum, 2 * Math.PI)) {
 			throw new IllegalArgumentException(
-					"Error: The polygon must be convex and all the vertices must be on a common plane.");
+				"Error: The polygon must be convex and all the vertices must be on a common plane.");
 		}
 
 		// Checks for at least three vertices
 		if (this.vertices.size() < 3) {
 			throw new IllegalArgumentException(
-					"Error: A polygon must contain at least three vertices.");
+				"Error: A polygon must contain at least three vertices.");
 		}
 		// Construct the plane from the first three vertices (not in a straight line).
 		this.plane = new Plane(this.vertices.get(0), this.vertices.get(1), this.vertices.get(2));
@@ -85,8 +86,14 @@ public class Polygon implements Geometry {
 	 * @param b The divisor
 	 * @return The remainder (between 0 and b)
 	 */
-	private int mod(int a, int b) {
+	private static int mod(int a, int b) {
 		return (((a % b) + b) % b);
+	}
+
+	@Override
+	public List<Point> intersect(Ray ray) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

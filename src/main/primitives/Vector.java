@@ -1,8 +1,5 @@
 package primitives;
 
-import java.util.function.DoubleBinaryOperator;
-import java.util.function.DoubleUnaryOperator;
-
 /**
  * The {@link Vector} class represents a {@link Vector} with it's base at the origin and it's head at the {@link Point}
  * 'head'.
@@ -10,11 +7,7 @@ import java.util.function.DoubleUnaryOperator;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class Vector {
-	/**
-	 * The point where the vector ends if it were to start at the origin.
-	 */
-	public final Point head;
+public class Vector extends Triple {
 
 	/**
 	 * This constructor accepts 3 doubles and returns the appropriate {@link Vector}
@@ -25,46 +18,21 @@ public class Vector {
 	 * @throws ZeroVectorException if the {@link Vector} is the zero vector.
 	 */
 	public Vector(double x, double y, double z) {
-		this(new Point(x, y, z));
-	}
-
-	/**
-	 * This constructor accepts a {@link Point} and returns the appropriate {@link Vector}
-	 *
-	 * @param head The {@link Point} which this {@link Vector} would point to if its base was at the origin.
-	 * @throws ZeroVectorException if this {@link Vector} is the zero vector.
-	 */
-	public Vector(Point head) {
-		if (head.equals(Point.ORIGIN)) {
+		super(x, y, z);
+		if (this.equals(0, 0, 0)) {
 			throw new ZeroVectorException();
 		}
-		this.head = head;
 	}
 
 	/**
-	 * Creates a new {@link Vector} which is a transformation of this {@link Vector} by applying the given transformation to
-	 * each of the coordinates.
+	 * This constructor accepts a {@link Triple} and constructs the appropriate {@link Vector} with those values.
 	 *
-	 * @param transformation A function which receives two doubles and returns another double.
-	 * @param aux An auxiliary {@link Vector} whose corresponding coordinate may (or may not) be used in the transformation
-	 *        function in order to calculate each of the new coordinates.
-	 * @return The {@link Vector} made up of applying the transformation to each of the three coordinates.
-	 * @throws ZeroVectorException if the transformation results in the zero vector.
+	 * @param triple The {@link Triple} with the coordinates which this {@link Vector} would point to if its base was at
+	 *        the origin.
+	 * @throws ZeroVectorException if this {@link Vector} is the zero vector.
 	 */
-	public Vector transform(DoubleBinaryOperator transformation, Vector aux) {
-		return new Vector(head.transform(transformation, aux.head));
-	}
-
-	/**
-	 * Similar to {@link #transform(DoubleBinaryOperator, Vector)} but does not require an auxiliary {@link Vector}, since
-	 * the transformation when called in this way does not depend on a second coordinate.
-	 *
-	 * @param transformation A function which receives a dingle double and returns another double.
-	 * @return The {@link Vector} made up of applying the transformation to each of the three coordinates.
-	 * @throws ZeroVectorException if the transformation results in the zero vector.
-	 */
-	public Vector transform(DoubleUnaryOperator transformation) {
-		return new Vector(head.transform(transformation));
+	public Vector(Triple triple) {
+		this(triple.x, triple.y, triple.z);
 	}
 
 	/**
@@ -75,7 +43,7 @@ public class Vector {
 	 * @throws ZeroVectorException when adding a {@link Vector} with its reverse.
 	 */
 	public Vector add(Vector v) {
-		return new Vector(head.add(v));
+		return new Vector(transform(Double::sum, v));
 	}
 
 	/**
@@ -97,7 +65,7 @@ public class Vector {
 	 * @throws ZeroVectorException if the scale factor is zero.
 	 */
 	public Vector scale(double factor) {
-		return transform(c -> c * factor);
+		return new Vector(transform(c -> c * factor));
 	}
 
 	/**
@@ -117,10 +85,7 @@ public class Vector {
 	 * @throws ZeroVectorException if the result vector is the zero vector.
 	 */
 	public Vector cross(Vector v) {
-		double x = head.y * v.head.z - head.z * v.head.y;
-		double y = head.z * v.head.x - head.x * v.head.z;
-		double z = head.x * v.head.y - head.y * v.head.x;
-		return new Vector(x, y, z);
+		return new Vector(y * v.z - z * v.y, z * v.x - x * v.z, x * v.y - y * v.x);
 	}
 
 	/**
@@ -130,10 +95,7 @@ public class Vector {
 	 * @return The dot product of the two {@link Vector}s
 	 */
 	public double dot(Vector v) {
-		// Construct a point whose coordinates are the product of the coordinates of the
-		// other two.
-		Point p = head.transform((base, aux) -> base * aux, v.head);
-		return p.sum();
+		return transform((base, aux) -> base * aux, v).sum();
 	}
 
 	/**
@@ -142,7 +104,7 @@ public class Vector {
 	 * @return The length of this {@link Vector}.
 	 */
 	public double length() {
-		return head.distance(Point.ORIGIN);
+		return Math.sqrt(squareLength());
 	}
 
 	/**
@@ -151,7 +113,7 @@ public class Vector {
 	 * @return The square of the length of this {@link Vector}.
 	 */
 	public double squareLength() {
-		return head.squareDistance(Point.ORIGIN);
+		return transform(coord -> coord * coord).sum();
 	}
 
 	/**
@@ -173,36 +135,5 @@ public class Vector {
 	public double angle(Vector v) {
 		double dot = normalized().dot(v.normalized());
 		return Math.acos(dot);
-	}
-
-	/**
-	 * Checks if the two {@link Vector}s have the same magnitude and direction.
-	 */
-
-	@Override
-	public boolean equals(Object o) {
-		if (o == this)
-			return true;
-		if (!(o instanceof Vector)) {
-			return false;
-		}
-		Vector vector = (Vector) o;
-		return head.equals(vector.head);
-	}
-
-	/**
-	 * Computes the hash function based on that of {@link Point}.
-	 */
-	@Override
-	public int hashCode() {
-		return head.hashCode();
-	}
-
-	/**
-	 * Returns the head of the {@link Vector} as a string.
-	 */
-	@Override
-	public String toString() {
-		return head.toString();
 	}
 }

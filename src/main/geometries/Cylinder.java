@@ -2,6 +2,7 @@ package geometries;
 
 import primitives.Point;
 import util.DoubleCompare;
+import java.util.List;
 import primitives.NormalizedVector;
 import primitives.Ray;
 
@@ -59,5 +60,11 @@ public class Cylinder implements Geometry {
 		} else {
 			return tube.normal(p);
 		}
+	}
+
+	@Override
+	public List<Point> intersect(Ray ray) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
