@@ -26,9 +26,9 @@ public final class Main {
 	 * @param args irrelevant here
 	 */
 	public static void main(String[] args) {
-		Ray axis = new Ray(new Point(2,-5,9), new Vector(-5,9,14));
-		Tube tube = new Tube(axis, 4.1);
-		Ray zoink = new Ray(new Point(4,3,3), new Vector(-2,-2,10));
+		Ray axis = new Ray(new Point(1, 2, 3), new Vector(-1, -2, 7));
+		Tube tube = new Tube(axis, 1);
+		Ray zoink = new Ray(new Point(1, 2, 4), new Vector(1, 0, 1));
 		List<Point> l = tube.intersect(zoink);
 		out.println(l.toString());
 	}

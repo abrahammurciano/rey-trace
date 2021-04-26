@@ -83,7 +83,7 @@ public class Triple {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(x, y, z);
+		return 0;
 	}
 
 
