@@ -132,7 +132,7 @@ public class Tube implements Geometry {
 			return;
 		}
 		Point p = r.travel(t);
-		if (!tubeIsCentered) {
+		if (fromOrigin == null) {
 			p = p.add(fromOrigin);
 		}
 		intersections.add(p);
