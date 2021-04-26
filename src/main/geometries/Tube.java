@@ -127,8 +127,7 @@ public class Tube implements Geometry {
 	}
 
 	// helper function for intersection
-	private void fillList(List<Point> intersections, Ray r, boolean tubeIsCentered,
-			Vector fromOrigin, double t) {
+	private void fillList(List<Point> intersections, Ray r, double t) {
 		if (DoubleCompare.leq(t, 0)) {
 			return;
 		}
