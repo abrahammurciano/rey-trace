@@ -107,8 +107,7 @@ public class Matrix3x3 {
 	}
 
 	public double determinant() {
-		Vector v = r2.cross(r3);
-		return (v.x * r1.x) + (v.y * r1.y) + (v.z * r1.z);
+		return r1.dot(r2.cross(r3));
 	}
 
 	// I hate this
