@@ -40,7 +40,7 @@ public class Matrix3x3 {
 			Vector temp = new Vector(t);
 			return new Triple(r1.dot(temp), r2.dot(temp), r3.dot(temp));
 		} catch (ZeroVectorException e) {
-			return new Triple(0, 0, 0);
+			return t;
 		}
 	}
 
