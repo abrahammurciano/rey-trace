@@ -61,7 +61,7 @@ public class Sphere implements Geometry {
 		double b = 2 * ray.direction.dot(centerToRaySource);
 		double c = centerToRaySource.squareLength() - radius * radius;
 		Quadratic quadratic = new Quadratic(1, b, c);
-		double discriminant = quadratic.determinant();
+		double discriminant = quadratic.discriminant;
 		if (DoubleCompare.leq(discriminant, 0)) {
 			return Collections.emptyList(); // ray is tangent or doesn't intersect at all
 		}

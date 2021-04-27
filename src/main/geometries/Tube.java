@@ -117,7 +117,7 @@ public class Tube implements Geometry {
 			equation = new Linear(B, C);
 		} else {
 			Quadratic quadratic = new Quadratic(A, B, C);
-			if (DoubleCompare.leq(quadratic.determinant(), 0)) {
+			if (DoubleCompare.leq(quadratic.discriminant, 0)) {
 				return Collections.emptyList();
 			}
 			equation = quadratic;
