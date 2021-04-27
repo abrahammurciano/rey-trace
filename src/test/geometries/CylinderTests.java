@@ -167,14 +167,18 @@ public class CylinderTests {
 
 		// passes though bottom and CORNER(!) of cylinder
 		ray = new Ray(new Point(0, 0, 0), new Vector(3, 2, 3));
-		Assert.assertEquals("Passes through bottom and comes out top",
+		Assert.assertEquals("Passes through bottom and comes out corner",
 			new HashSet<>(List.of(new Point(0.375, 0.25, 0.375), new Point(6, 4, 6))),
 			new HashSet<>(cyl.intersect(ray)));
 
-		//hits corner from outside
+		//hits corner from outside near top
 		ray = new Ray(new Point(3, 4, 6), new Vector(1, 0, 0));
-		Assert.assertEquals("Passes through bottom and comes out top", List.of(new Point(6, 4, 6)),
+		Assert.assertEquals("Starts outside and hits corner near lid", List.of(new Point(6, 4, 6)),
 			cyl.intersect(ray));
 
+		//hits corner from outside near base
+		ray = new Ray(new Point(0, -3, 0), new Vector(0, 1, 0));
+		Assert.assertEquals("Starts outside and hist corner near base", List.of(new Point(0, 1, 0)),
+			cyl.intersect(ray));
 	}
 }
