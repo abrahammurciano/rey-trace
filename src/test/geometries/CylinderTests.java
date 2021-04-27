@@ -83,6 +83,10 @@ public class CylinderTests {
 		// in practice always ends up being normal to the flat side
 		Assert.assertTrue(notEqErrMsg,
 			NormalCompare.eq(calc, actual1) || NormalCompare.eq(calc, actual2));
+	}
+
+	@Test
+	public void testIntersect() {
 
 	}
 }
