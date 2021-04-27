@@ -22,8 +22,8 @@ abstract class Triple {
 	}
 
 	/**
-	 * Creates a new {@link Triple} which is a transformation of this {@link Triple} by applying the given
-	 * transformation to each of the coordinates.
+	 * Creates a new {@link Triple} which is a transformation of this {@link Triple} by applying the given transformation to
+	 * each of the coordinates.
 	 *
 	 * @param transformation A function which receives two doubles and returns another double.
 	 * @param aux An auxiliary {@link Triple} whose corresponding coordinate may (or may not) be used in the
@@ -55,8 +55,8 @@ abstract class Triple {
 	}
 
 	/**
-	 * Similar to {@link #transform(DoubleBinaryOperator, Triple)} but does not require an auxiliary {@link Triple},
-	 * since the transformation when called in this way does not depend on a second coordinate.
+	 * Similar to {@link #transform(DoubleBinaryOperator, Triple)} but does not require an auxiliary {@link Triple}, since
+	 * the transformation when called in this way does not depend on a second coordinate.
 	 *
 	 * @param transformation A function which receives a dingle double and returns another double.
 	 * @param returnType A derived class of {@link Triple} which is to be instanciated and returned by the
@@ -120,7 +120,7 @@ abstract class Triple {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(x, y, z);
+		return 0;
 	}
 
 

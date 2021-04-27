@@ -69,7 +69,18 @@ public class PlaneTests {
 		Plane plane = new Plane(new Point(0, 0, 0), new Point(2, -1, 0), new Point(1, 1, 0));
 		Ray ray;
 
-		// Equivalence partition tests
+		//  _____            _            _
+		// | ____|__ _ _   _(_)_   ____ _| | ___ _ __   ___ ___
+		// |  _| / _` | | | | \ \ / / _` | |/ _ \ '_ \ / __/ _ \
+		// | |__| (_| | |_| | |\ V / (_| | |  __/ | | | (_|  __/
+		// |_____\__, |\__,_|_| \_/ \__,_|_|\___|_| |_|\___\___|
+		//          |_|
+		//  ____            _   _ _   _
+		// |  _ \ __ _ _ __| |_(_) |_(_) ___  _ __  ___
+		// | |_) / _` | '__| __| | __| |/ _ \| '_ \/ __|
+		// |  __/ (_| | |  | |_| | |_| | (_) | | | \__ \
+		// |_|   \__,_|_|   \__|_|\__|_|\___/|_| |_|___/
+
 
 		// Does intersect
 		ray = new Ray(new Point(1, 1, 1), new Vector(1, 1, -1));
@@ -86,7 +97,18 @@ public class PlaneTests {
 		Assert.assertTrue("No plane intersection expected for parallel ray.",
 			plane.intersect(ray).isEmpty());
 
-		// Boundary values test
+		//  ____                        _
+		// | __ )  ___  _   _ _ __   __| | __ _ _ __ _   _
+		// |  _ \ / _ \| | | | '_ \ / _` |/ _` | '__| | | |
+		// | |_) | (_) | |_| | | | | (_| | (_| | |  | |_| |
+		// |____/ \___/ \__,_|_| |_|\__,_|\__,_|_|   \__, |
+		//                                           |___/
+		//  _____         _
+		// |_   _|__  ___| |_ ___
+		//   | |/ _ \/ __| __/ __|
+		//   | |  __/\__ \ |_\__ \
+		//   |_|\___||___/\__|___/
+		//
 
 		// Ray is completely in plane
 		ray = new Ray(new Point(1, 1, 0), new Vector(1, 1, 0));

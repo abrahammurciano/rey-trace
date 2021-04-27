@@ -27,8 +27,8 @@ public class Vector extends Triple {
 	/**
 	 * This constructor accepts a {@link Triple} and constructs the appropriate {@link Vector} with those values.
 	 *
-	 * @param triple The {@link Triple} with the coordinates which this {@link Vector} would point to if its base was at
-	 *        the origin.
+	 * @param triple The {@link Triple} with the coordinates which this {@link Vector} would point to if its base was at the
+	 *        origin.
 	 * @throws ZeroVectorException if this {@link Vector} is the zero vector.
 	 */
 	public Vector(Triple triple) {
@@ -126,8 +126,8 @@ public class Vector extends Triple {
 	}
 
 	/**
-	 * Calculates the angle in radians between this vector and the given vector. The angle is normalized between zero
-	 * and Pi.
+	 * Calculates the angle in radians between this vector and the given vector. The angle is normalized between zero and
+	 * Pi.
 	 *
 	 * @param v The other vector to be used to calculate the angle.
 	 * @return The angle in radians between the vectors between zero and Pi.

@@ -3,9 +3,11 @@
 *.class
 
 # Eli's crap
+formatter
 target
 .settings
 pom.xml
 .project
 .classpath
 .exrc
+formatJava.sh

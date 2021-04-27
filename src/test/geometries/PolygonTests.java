@@ -26,7 +26,18 @@ public class PolygonTests {
 		// Tests that constructor takes at least 3 significant points.
 		// ===========================================================
 
-		// Equivalence partition tests
+		//  _____            _            _
+		// | ____|__ _ _   _(_)_   ____ _| | ___ _ __   ___ ___
+		// |  _| / _` | | | | \ \ / / _` | |/ _ \ '_ \ / __/ _ \
+		// | |__| (_| | |_| | |\ V / (_| | |  __/ | | | (_|  __/
+		// |_____\__, |\__,_|_| \_/ \__,_|_|\___|_| |_|\___\___|
+		//          |_|
+		//  ____            _   _ _   _
+		// |  _ \ __ _ _ __| |_(_) |_(_) ___  _ __  ___
+		// | |_) / _` | '__| __| | __| |/ _ \| '_ \/ __|
+		// |  __/ (_| | |  | |_| | |_| | (_) | | | \__ \
+		// |_|   \__,_|_|   \__|_|\__|_|\___/|_| |_|___/
+
 
 		// More than three points should not throw an exception.
 		new Polygon(new Point(0, 0, 0), new Point(2, -1, 0), new Point(1, 1, 0),
@@ -43,7 +54,18 @@ public class PolygonTests {
 			IllegalArgumentException.class, () -> new Polygon(new Point(0, 0, 0),
 				new Point(1, 1, 1), new Point(2, 2, 2), new Point(3, 3, 3)));
 
-		// Boundary values test
+		//  ____                        _
+		// | __ )  ___  _   _ _ __   __| | __ _ _ __ _   _
+		// |  _ \ / _ \| | | | '_ \ / _` |/ _` | '__| | | |
+		// | |_) | (_) | |_| | | | | (_| | (_| | |  | |_| |
+		// |____/ \___/ \__,_|_| |_|\__,_|\__,_|_|   \__, |
+		//                                           |___/
+		//  _____         _
+		// |_   _|__  ___| |_ ___
+		//   | |/ _ \/ __| __/ __|
+		//   | |  __/\__ \ |_\__ \
+		//   |_|\___||___/\__|___/
+		//
 
 		// Exactly three points should not throw an exception.
 		new Polygon(new Point(0, 0, 0), new Point(1, 1, 0), new Point(0.5, 1, 0));
@@ -84,7 +106,18 @@ public class PolygonTests {
 		// Test that constructor doesn't accept repeated points.
 		// =====================================================
 
-		// Equivalence partition tests
+		//  _____            _            _
+		// | ____|__ _ _   _(_)_   ____ _| | ___ _ __   ___ ___
+		// |  _| / _` | | | | \ \ / / _` | |/ _ \ '_ \ / __/ _ \
+		// | |__| (_| | |_| | |\ V / (_| | |  __/ | | | (_|  __/
+		// |_____\__, |\__,_|_| \_/ \__,_|_|\___|_| |_|\___\___|
+		//          |_|
+		//  ____            _   _ _   _
+		// |  _ \ __ _ _ __| |_(_) |_(_) ___  _ __  ___
+		// | |_) / _` | '__| __| | __| |/ _ \| '_ \/ __|
+		// |  __/ (_| | |  | |_| | |_| | (_) | | | \__ \
+		// |_|   \__,_|_|   \__|_|\__|_|\___/|_| |_|___/
+
 
 		// Repeated points in the middle
 		Assert.assertThrows("Repeated points should throw an exception.",
