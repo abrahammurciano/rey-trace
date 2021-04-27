@@ -15,8 +15,8 @@ import primitives.Ray;
  * @author Abraham Murciano
  */
 public class Tube implements Geometry {
-	private Ray axis;
-	private double radius;
+	public final Ray axis;
+	public final double radius;
 
 	/**
 	 * Constructs a {@link Tube} with the source at the same source and direction as the given axis {@link Ray}.
