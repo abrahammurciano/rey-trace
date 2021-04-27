@@ -1,5 +1,6 @@
 package primitives;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Objects;
 import java.util.function.DoubleBinaryOperator;
 import java.util.function.DoubleUnaryOperator;
@@ -8,7 +9,7 @@ import util.DoubleCompare;
 /**
  * A class that has three values, (x, y, z)
  */
-public class Triple {
+abstract class Triple {
 
 	public final double x;
 	public final double y;
@@ -27,12 +28,30 @@ public class Triple {
 	 * @param transformation A function which receives two doubles and returns another double.
 	 * @param aux An auxiliary {@link Triple} whose corresponding coordinate may (or may not) be used in the
 	 *        transformation function in order to calculate each of the new coordinates.
+	 * @param returnType A derived class of {@link Triple} which is to be instanciated and returned by the
+	 *        transformation.
 	 * @return The {@link Triple} made up of applying the transformation to each of the three coordinates.
-	 * @throws ZeroTripleException if the transformation results in the zero Triple.
+	 * @throws ZeroVectorException if the transformation results in the zero Vector.
 	 */
-	protected Triple transform(DoubleBinaryOperator transformation, Triple aux) {
-		return new Triple(transformation.applyAsDouble(x, aux.x),
-			transformation.applyAsDouble(y, aux.y), transformation.applyAsDouble(z, aux.z));
+	protected <T extends Triple> T transform(DoubleBinaryOperator transformation, Triple aux,
+		Class<T> returnType) {
+		try {
+			return returnType.getConstructor(double.class, double.class, double.class).newInstance(
+				transformation.applyAsDouble(x, aux.x), transformation.applyAsDouble(y, aux.y),
+				transformation.applyAsDouble(z, aux.z));
+		}
+		// MUST. APPEASE. COMPILER!
+		catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+			| NoSuchMethodException | SecurityException __) {
+			throw new IllegalStateException();
+		} catch (InvocationTargetException e) {
+			Throwable throwable = e.getCause();
+			if (throwable instanceof ZeroVectorException) {
+				throw (ZeroVectorException) throwable;
+			} else {
+				throw new IllegalStateException();
+			}
+		}
 	}
 
 	/**
@@ -40,12 +59,30 @@ public class Triple {
 	 * since the transformation when called in this way does not depend on a second coordinate.
 	 *
 	 * @param transformation A function which receives a dingle double and returns another double.
+	 * @param returnType A derived class of {@link Triple} which is to be instanciated and returned by the
+	 *        transformation.
 	 * @return The {@link Triple} made up of applying the transformation to each of the three coordinates.
 	 * @throws ZeroTripleException if the transformation results in the zero Triple.
 	 */
-	protected Triple transform(DoubleUnaryOperator transformation) {
-		return new Triple(transformation.applyAsDouble(x), transformation.applyAsDouble(y),
-			transformation.applyAsDouble(z));
+	protected <T extends Triple> T transform(DoubleUnaryOperator transformation,
+		Class<T> returnType) {
+		try {
+			return returnType.getConstructor(double.class, double.class, double.class).newInstance(
+				transformation.applyAsDouble(x), transformation.applyAsDouble(y),
+				transformation.applyAsDouble(z));
+		}
+		// MUST. APPEASE. COMPILER!
+		catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+			| NoSuchMethodException | SecurityException __) {
+			throw new IllegalStateException();
+		} catch (InvocationTargetException e) {
+			Throwable throwable = e.getCause();
+			if (throwable instanceof ZeroVectorException) {
+				throw (ZeroVectorException) throwable;
+			} else {
+				throw new IllegalStateException();
+			}
+		}
 	}
 
 	/**

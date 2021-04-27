@@ -22,23 +22,13 @@ public class Point extends Triple {
 	}
 
 	/**
-	 * This constructor accepts a {@link Triple} and constructs the appropriate {@link Point} with those values.
-	 *
-	 * @param triple The {@link Triple} with the coordinates which this {@link Point} has.
-	 * @throws ZeroVectorException if this {@link Vector} is the zero vector.
-	 */
-	public Point(Triple triple) {
-		this(triple.x, triple.y, triple.z);
-	}
-
-	/**
 	 * Adds a {@link Vector} to this {@link Point} and returns the resulting {@link Point}.
 	 *
 	 * @param vector The {@link Vector} to add to this {@link Point}.
 	 * @return The {@link Point} resulting from adding the {@link Vector} to this {@link Point}.
 	 */
 	public Point add(Vector vector) {
-		return new Point(transform(Double::sum, vector));
+		return transform(Double::sum, vector, Point.class);
 	}
 
 	/**
@@ -49,7 +39,7 @@ public class Point extends Triple {
 	 * @throws ZeroVectorException if the target is equal to this {@link Point}.
 	 */
 	public Vector vectorTo(Point target) {
-		return new Vector(transform((base, aux) -> aux - base, target));
+		return transform((base, aux) -> aux - base, target, Vector.class);
 	}
 
 	/**
@@ -87,6 +77,6 @@ public class Point extends Triple {
 		return transform((base, aux) -> {
 			double diff = aux - base;
 			return diff * diff;
-		}, target).sum();
+		}, target, Point.class).sum();
 	}
 }

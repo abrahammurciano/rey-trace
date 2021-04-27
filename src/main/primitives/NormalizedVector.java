@@ -19,15 +19,15 @@ public class NormalizedVector extends Vector {
 	}
 
 	/**
-	 * This private constructor does not normalize the vector. Make sure that the head is on the unit sphere before
-	 * calling this.
+	 * This constructor does not normalize the vector. Make sure that the head is on the unit sphere before
+	 * calling this. Any other point results in undefined behavior.
 	 *
 	 * @param head The head of the vector. It will be stored exactly as passed so make sure it makes a vector with
 	 *        length equal to one.
 	 * @throws ZeroVectorException if the given {@link Point} is the origin.
 	 */
-	private NormalizedVector(Triple triple) {
-		super(triple);
+	public NormalizedVector(Point head) {
+		super(head);
 	}
 
 	/**
@@ -50,7 +50,7 @@ public class NormalizedVector extends Vector {
 	 */
 	@Override
 	public NormalizedVector reversed() {
-		return new NormalizedVector(transform(c -> -c));
+		return new NormalizedVector(transform(c -> -c, Point.class));
 	}
 
 
