@@ -27,20 +27,20 @@ public class Polygon implements Geometry {
 	 * This constructor accepts a list of the vertices of the polygon.
 	 *
 	 * @param vertices A list of the vertices of the polygon, in order.
-	 * @throws IllegalArgumentException if there are less than three significant vertices, any of the vertices are not on
+	 * @throws IllegalArgumentException if there are less than three significant vertices, any of the vertices are not
+	 *         on
 	 *         the same plane as the rest, the vertices are out of order and thus form a non-convex polygon, consecutive
 	 *         vertices are repeated, or the last point is equal to the first point.
 	 */
 	public Polygon(Point... vertices) {
-		int size = vertices.length;
-		this.vertices = new ArrayList<>(size);
+		this.vertices = new ArrayList<>(vertices.length);
 
 		double sum = 0.0; // sum of exterior angles
-		for (int i = 0; i < size; ++i) { // loop through 3-tuples of input vertices
+		for (int i = 0; i < vertices.length; ++i) { // loop through 3-tuples of input vertices
 			try {
 				Point p1 = vertices[i];
-				Point p2 = vertices[(i + 1) % size];
-				Point p3 = vertices[(i + 2) % size];
+				Point p2 = vertices[(i + 1) % vertices.length];
+				Point p3 = vertices[(i + 2) % vertices.length];
 				double angle = p1.vectorTo(p2).angle(p2.vectorTo(p3));
 				// if exterior angle is zero, point is on an existing edge and can be ignored
 				if (DoubleCompare.eq(angle, 0)) {
@@ -80,18 +80,6 @@ public class Polygon implements Geometry {
 	@Override
 	public NormalizedVector normal(Point p) {
 		return plane.normal(p);
-	}
-
-	/**
-	 * Calculates a % b but for negative inputs will still give a result between 0 and b (similar to how Python implements
-	 * mod).
-	 *
-	 * @param a The dividend
-	 * @param b The divisor
-	 * @return The remainder (between 0 and b)
-	 */
-	private static int mod(int a, int b) {
-		return (((a % b) + b) % b);
 	}
 
 	@Override

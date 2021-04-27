@@ -6,18 +6,17 @@ package util;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class Quadratic {
+public class Quadratic extends Polynomial {
 
 	public final double a;
 	public final double b;
 	public final double c;
-
-	private final double[] EMPTY_ARRAY = new double[0];
+	private final double determinant;
 
 	/**
 	 * Constructor of quadratic equations.
 	 *
-	 * @param a The coefficient of the quadratic term
+	 * @param a The coefficient of the quadratic term. This may not be 0, else it would not be quadratic.
 	 * @param b The coefficient of the linear term
 	 * @param c The constant
 	 */
@@ -25,43 +24,29 @@ public class Quadratic {
 		this.a = a;
 		this.b = b;
 		this.c = c;
+		this.determinant = determinant();
 	}
 
 	/**
-	 * Calculates the discriminant of the equation. That is, b^2-4ac.
+	 * Calculates the determinant of the equation. That is, b^2-4ac.
 	 *
-	 * @return The discriminant.
+	 * @return The determinant.
 	 */
-	public double discriminant() {
-		return b * b - 4 * a * c;
+	public double determinant() {
+		return determinant;
 	}
 
-	/**
-	 * Calculates the solutions of the equation.
-	 *
-	 * @return An array of doubles containing the solutions, if any.
-	 */
+	@Override
 	public double[] solutions() {
-		return solutions(discriminant());
-	}
-
-	/**
-	 * Calculates the solutions of the equation.
-	 *
-	 * @param discriminant The precomputed discriminant may be provided to improve efficiency. If incorrect, the
-	 *        behaviour of this function is undefined.
-	 * @return An array of doubles containing the solutions, if any.
-	 */
-	public double[] solutions(double discriminant) {
-		if (DoubleCompare.lt(discriminant, 0)) {
+		if (DoubleCompare.lt(determinant, 0)) {
 			return EMPTY_ARRAY;
 		}
 		double minusB = -b;
 		double twoA = 2 * a;
-		if (DoubleCompare.eq(discriminant, 0)) {
+		if (DoubleCompare.eq(determinant, 0)) {
 			return new double[] {minusB / twoA};
 		}
-		double sqrt = Math.sqrt(discriminant);
+		double sqrt = Math.sqrt(determinant);
 		return new double[] {(minusB + sqrt) / twoA, (minusB - sqrt) / twoA};
 	}
 }
