@@ -1,5 +1,6 @@
 package primitives;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.function.DoubleBinaryOperator;
 import java.util.function.DoubleUnaryOperator;
 import util.DoubleCompare;
@@ -7,7 +8,7 @@ import util.DoubleCompare;
 /**
  * A class that has three values, (x, y, z)
  */
-abstract class Triple {
+public abstract class Triple {
 
 	public final double x;
 	public final double y;
