@@ -17,7 +17,7 @@ public class TubeTests {
 	public final Tube tube_n = new Tube(ray, 3);
 
 	@Test
-	public void normal() {
+	public void testNormal() {
 		// find random point on tube by scaling the vector by some random number,
 		// then going perpendicular from there for a length of radius.
 		// Scale vector by 6.9
@@ -33,7 +33,7 @@ public class TubeTests {
 	}
 
 	@Test
-	public void intersect() {
+	public void testIntersect() {
 
 		Ray axis = new Ray(new Point(-1, 1, 0), new Vector(1, 1, 1));
 		Tube tube_i = new Tube(axis, Math.sqrt(2));
@@ -104,7 +104,16 @@ public class TubeTests {
 		Assert.assertEquals("Ray is tangent to tube", tube_i.intersect(ray),
 			Collections.emptyList());
 
-		// ... I know I'm missing more, but I can't tell what.
+		// Start on axis and go orthogonal to it
+		ray = new Ray(new Point(0,2,1), new Vector(-1,1,0));
+		Assert.assertEquals("Ray starts on axis and is orthogonal to it", tube_i.intersect(ray),
+			List.of(new Point(-1,3,1)));
+
+		// tube's center is at origin
+		tube_i = new Tube(new Ray(new Point(0,0,0), new Vector(1,1,1)), Math.sqrt(2));
+		ray = new Ray(new Point(-1,3,1), new Vector(1, -1, 0));
+		Assert.assertEquals("Ray starts on axis and is orthogonal to it", new HashSet<>(tube_i.intersect(ray)),
+			new HashSet<>(List.of(new Point(0,2,1), new Point(2, 0, 1))));
 	}
 
 }
