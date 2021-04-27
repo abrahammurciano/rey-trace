@@ -21,7 +21,8 @@ public class Resolution {
 			x = Integer.parseInt(split[0]);
 			y = Integer.parseInt(split[1]);
 		} catch (NumberFormatException | ArrayIndexOutOfBoundsException __) {
-			throw new IllegalArgumentException("Argument must be a string of the form \"1920x1080\".")
+			throw new IllegalArgumentException(
+				"Argument must be a string of the form \"1920x1080\".");
 		}
 	}
 
