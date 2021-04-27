@@ -1,11 +1,15 @@
 package geometries;
 
 import primitives.ZeroVectorException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import primitives.NormalizedVector;
 import primitives.Point;
 import primitives.Ray;
+import primitives.Vector;
 import util.DoubleCompare;
+import util.Quadratic;
 
 /**
  * This represents a sphere. A sphere is described by a center {@link Point} and a positive radius.
@@ -14,8 +18,8 @@ import util.DoubleCompare;
  * @author Eli Levin
  */
 public class Sphere implements Geometry {
-	private Point center;
-	private double radius;
+	public final Point center;
+	public final double radius;
 
 	/**
 	 * Constructs a sphere from a given center point and a radius.
@@ -47,7 +51,25 @@ public class Sphere implements Geometry {
 
 	@Override
 	public List<Point> intersect(Ray ray) {
-		// TODO Auto-generated method stub
-		return null;
+		Vector centerToRaySource;
+		try {
+			centerToRaySource = center.vectorTo(ray.source);
+		} catch (ZeroVectorException __) { // ray starts at center
+			return List.of(ray.travel(radius));
+		}
+		double b = 2 * ray.direction.dot(centerToRaySource);
+		double c = centerToRaySource.squareLength() - radius * radius;
+		Quadratic quadratic = new Quadratic(1, b, c);
+		double discriminant = quadratic.discriminant();
+		if (DoubleCompare.leq(discriminant, 0)) {
+			return Collections.emptyList(); // ray is tangent or doesn't intersect at all
+		}
+		List<Point> result = new ArrayList<>(2);
+		for (double t : quadratic.solutions(discriminant)) {
+			if (DoubleCompare.gt(t, 0)) {
+				result.add(ray.travel(t));
+			}
+		}
+		return result;
 	}
 }

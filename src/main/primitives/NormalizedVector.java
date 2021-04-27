@@ -42,7 +42,6 @@ public class NormalizedVector extends Vector {
 		this(new Vector(x, y, z));
 	}
 
-
 	/**
 	 * Calculates a new {@link NormalizedVector} with the opposite direction to this vector.
 	 *
@@ -52,7 +51,6 @@ public class NormalizedVector extends Vector {
 	public NormalizedVector reversed() {
 		return new NormalizedVector(transform(c -> -c, Point.class));
 	}
-
 
 	/**
 	 * Gets the length of the vector.
@@ -64,4 +62,13 @@ public class NormalizedVector extends Vector {
 		return 1.0;
 	}
 
+	/**
+	 * Gets the length of the vector squared.
+	 *
+	 * @return 1.0 since a normalized vector by definition has a length of one.
+	 */
+	@Override
+	public double squareLength() {
+		return 1.0;
+	}
 }

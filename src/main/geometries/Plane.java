@@ -19,7 +19,7 @@ import primitives.NormalizedVector;
 public class Plane implements Geometry {
 
 	private Point point;
-	private NormalizedVector normal;
+	public final NormalizedVector normal;
 
 	/**
 	 * This constructor accepts a point on the plane and a vector perpendicular to the plane. {@link #normal} will
@@ -42,10 +42,8 @@ public class Plane implements Geometry {
 	 * @throws IllegalArgumentException if the three points are on a single line.
 	 */
 	public Plane(Point p1, Point p2, Point p3) {
-		Vector v1 = p1.vectorTo(p2);
-		Vector v2 = p2.vectorTo(p3);
 		try {
-			this.normal = v1.cross(v2).normalized();
+			this.normal = p1.vectorTo(p2).cross(p2.vectorTo(p3)).normalized();
 		} catch (ZeroVectorException e) {
 			throw new IllegalArgumentException(
 				"Error: The three points must not be on the same line.");
@@ -76,19 +74,20 @@ public class Plane implements Geometry {
 
 	@Override
 	public List<Point> intersect(Ray ray) {
+		double ray_dot_normal = ray.direction.dot(normal);
+		if (DoubleCompare.eq(ray_dot_normal, 0)) {
+			return Collections.emptyList(); // ray is parallel to plane
+		}
+		double distance;
 		try {
-			double ray_dot_normal = ray.direction.dot(normal);
-			if (DoubleCompare.eq(ray_dot_normal, 0)) {
-				return Collections.emptyList(); // ray is parallel to plane
-			}
-			double distance = (ray.source.vectorTo(point)).dot(normal) / ray_dot_normal;
-			if (DoubleCompare.leq(distance, 0)) {
-				return Collections.emptyList(); // pane is behind the ray
-			}
-			return List.of(ray.travel(distance));
+			distance = (ray.source.vectorTo(point)).dot(normal) / ray_dot_normal;
 		} catch (ZeroVectorException __) {
 			return Collections.emptyList(); // plane and ray start at same point
 		}
+		if (DoubleCompare.leq(distance, 0)) {
+			return Collections.emptyList(); // pane is behind the ray
+		}
+		return List.of(ray.travel(distance));
 	}
 
 }

@@ -95,7 +95,7 @@ public class Vector extends Triple {
 	 * @return The dot product of the two {@link Vector}s
 	 */
 	public double dot(Vector v) {
-		return transform((base, aux) -> base * aux, v, Vector.class).sum();
+		return transform((base, aux) -> base * aux, v, Point.class).sum();
 	}
 
 	/**
@@ -113,7 +113,7 @@ public class Vector extends Triple {
 	 * @return The square of the length of this {@link Vector}.
 	 */
 	public double squareLength() {
-		return transform(coord -> coord * coord, Vector.class).sum();
+		return this.dot(this);
 	}
 
 	/**

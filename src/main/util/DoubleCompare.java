@@ -79,4 +79,15 @@ public class DoubleCompare {
 	public static boolean geq(double a, double b) {
 		return !lt(a, b);
 	}
+
+	/**
+	 * Compare two doubles.
+	 *
+	 * @param a A double
+	 * @param b Another double
+	 * @return 0 if equal, positive if a > b, negative if a < b.
+	 */
+	public static int compare(double a, double b) {
+		return eq(a, b) ? 0 : Double.compare(a, b);
+	}
 }
