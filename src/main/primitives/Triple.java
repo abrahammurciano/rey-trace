@@ -1,7 +1,6 @@
 package primitives;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Objects;
 import java.util.function.DoubleBinaryOperator;
 import java.util.function.DoubleUnaryOperator;
 import util.DoubleCompare;
@@ -9,7 +8,7 @@ import util.DoubleCompare;
 /**
  * A class that has three values, (x, y, z)
  */
-abstract class Triple {
+public abstract class Triple {
 
 	public final double x;
 	public final double y;
@@ -22,7 +21,8 @@ abstract class Triple {
 	}
 
 	/**
-	 * Creates a new {@link Triple} which is a transformation of this {@link Triple} by applying the given transformation to
+	 * Creates a new {@link Triple} which is a transformation of this {@link Triple} by applying the given
+	 * transformation to
 	 * each of the coordinates.
 	 *
 	 * @param transformation A function which receives two doubles and returns another double.
@@ -55,7 +55,8 @@ abstract class Triple {
 	}
 
 	/**
-	 * Similar to {@link #transform(DoubleBinaryOperator, Triple)} but does not require an auxiliary {@link Triple}, since
+	 * Similar to {@link #transform(DoubleBinaryOperator, Triple)} but does not require an auxiliary {@link Triple},
+	 * since
 	 * the transformation when called in this way does not depend on a second coordinate.
 	 *
 	 * @param transformation A function which receives a dingle double and returns another double.

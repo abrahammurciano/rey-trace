@@ -23,7 +23,6 @@ public class CylinderTests {
 	public void normal() {
 		NormalizedVector calc, actual1, actual2;
 
-
 		//  _____            _            _
 		// | ____|__ _ _   _(_)_   ____ _| | ___ _ __   ___ ___
 		// |  _| / _` | | | | \ \ / / _` | |/ _ \ '_ \ / __/ _ \
@@ -84,6 +83,10 @@ public class CylinderTests {
 		// in practice always ends up being normal to the flat side
 		Assert.assertTrue(notEqErrMsg,
 			NormalCompare.eq(calc, actual1) || NormalCompare.eq(calc, actual2));
+	}
 
+	@Test
+	public void testIntersect() {
+		// TODO: Implement
 	}
 }

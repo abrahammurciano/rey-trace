@@ -6,18 +6,17 @@ package util;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class Quadratic {
+public class Quadratic extends Polynomial {
 
 	public final double a;
 	public final double b;
 	public final double c;
-
-	private final double[] EMPTY_ARRAY = new double[0];
+	public final double discriminant;
 
 	/**
 	 * Constructor of quadratic equations.
 	 *
-	 * @param a The coefficient of the quadratic term
+	 * @param a The coefficient of the quadratic term. This may not be 0, else it would not be quadratic.
 	 * @param b The coefficient of the linear term
 	 * @param c The constant
 	 */
@@ -25,6 +24,7 @@ public class Quadratic {
 		this.a = a;
 		this.b = b;
 		this.c = c;
+		this.discriminant = discriminant();
 	}
 
 	/**
@@ -32,27 +32,12 @@ public class Quadratic {
 	 *
 	 * @return The discriminant.
 	 */
-	public double discriminant() {
+	private double discriminant() {
 		return b * b - 4 * a * c;
 	}
 
-	/**
-	 * Calculates the solutions of the equation.
-	 *
-	 * @return An array of doubles containing the solutions, if any.
-	 */
+	@Override
 	public double[] solutions() {
-		return solutions(discriminant());
-	}
-
-	/**
-	 * Calculates the solutions of the equation.
-	 *
-	 * @param discriminant The precomputed discriminant may be provided to improve efficiency. If incorrect, the
-	 *        behaviour of this function is undefined.
-	 * @return An array of doubles containing the solutions, if any.
-	 */
-	public double[] solutions(double discriminant) {
 		if (DoubleCompare.lt(discriminant, 0)) {
 			return EMPTY_ARRAY;
 		}

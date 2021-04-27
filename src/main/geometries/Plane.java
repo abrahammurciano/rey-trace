@@ -18,7 +18,7 @@ import primitives.NormalizedVector;
  */
 public class Plane implements Geometry {
 
-	private Point point;
+	public final Point point;
 	public final NormalizedVector normal;
 
 	/**

@@ -2,6 +2,9 @@ package geometries;
 
 import primitives.Point;
 import util.DoubleCompare;
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import primitives.NormalizedVector;
 import primitives.Ray;
@@ -15,9 +18,9 @@ import primitives.Ray;
 public class Cylinder implements Geometry {
 	private double height;
 
-	private Tube tube;
-	private Plane base;
-	private Plane lid;
+	private Tube middle;
+	private Plane bottom;
+	private Plane top;
 
 	/**
 	 * This constructs a Cylinder.
@@ -29,13 +32,13 @@ public class Cylinder implements Geometry {
 	 * @throws IllegalArgumentException if the radius is zero or the height is not positive.
 	 */
 	public Cylinder(Ray ray, double radius, double height) {
-		tube = new Tube(ray, radius);
+		middle = new Tube(ray, radius);
 		if (DoubleCompare.leq(height, 0)) { // if height is 0 it's a disk
 			throw new IllegalArgumentException("Error: Height must be a positive number.");
 		}
 		this.height = height;
-		base = new Plane(ray.source, direction());
-		lid = new Plane(ray.source.add(direction().scale(height)), direction());
+		bottom = new Plane(ray.source, direction());
+		top = new Plane(ray.source.add(direction().scale(height)), direction());
 	}
 
 	/**
@@ -44,7 +47,7 @@ public class Cylinder implements Geometry {
 	 * @return The axis {@link NormalizedVector} of the {@link Cylinder}.
 	 */
 	public NormalizedVector direction() {
-		return tube.direction();
+		return middle.direction();
 	}
 
 	/**
@@ -55,16 +58,52 @@ public class Cylinder implements Geometry {
 	 */
 	@Override
 	public NormalizedVector normal(Point p) {
-		if (lid.contains(p) || base.contains(p)) {
-			return tube.direction();
+		if (top.contains(p) || bottom.contains(p)) {
+			return middle.direction();
 		} else {
-			return tube.normal(p);
+			return middle.normal(p);
 		}
 	}
 
+	/**
+	 * This function will find intersection points (possibly none) between a {@link Ray} and an {@link Cylinder}.
+	 *
+	 * @param r The {@link Ray} to intersect
+	 * @return a list (possibly empty) of intersection points
+	 */
 	@Override
 	public List<Point> intersect(Ray ray) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Point> intersections = new ArrayList<>(2);
+		intersections.addAll(intersectLid(ray, bottom));
+		intersections.addAll(intersectLid(ray, top));
+		if (intersections.size() == 2) {
+			return intersections;
+		}
+		intersections.addAll(intersectMiddle(ray));
+		return intersections;
+	}
+
+	// helper function
+	private List<Point> intersectMiddle(Ray ray) {
+		List<Point> intersections = middle.intersect(ray); //unimplented currently in this branch
+		if (intersections.isEmpty()) { // silly now
+			return intersections;
+		}
+		intersections.removeIf(point -> {
+			double intersectionHeight = middle.axis.direction.dot(bottom.point.vectorTo(point));
+			return DoubleCompare.leq(intersectionHeight, 0) || DoubleCompare.geq(intersectionHeight, height);
+		});
+		return intersections;
+	}
+
+	// helper function
+	private List<Point> intersectLid(Ray ray, Plane lid) {
+		List<Point> intersection = lid.intersect(ray);
+		if (!intersection.isEmpty()
+			&& DoubleCompare.leq(intersection.get(0).squareDistance(lid.point), middle.radius * middle.radius)) {
+			return intersection;
+		} else {
+			return Collections.emptyList();
+		}
 	}
 }
