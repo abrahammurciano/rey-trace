@@ -13,21 +13,21 @@ import primitives.Ray;
 import primitives.Vector;
 
 public class TubeTests {
-	public final Ray ray = new Ray(new Point(1, 2, 3), new Vector(4, 5, 6));
-	public final Tube tube_n = new Tube(ray, 3);
 
 	@Test
 	public void testNormal() {
+		Ray ray = new Ray(new Point(1, 2, 3), new Vector(4, 5, 6));
+		Tube tube = new Tube(ray, 3);
 		// find random point on tube by scaling the vector by some random number,
 		// then going perpendicular from there for a length of radius.
 		// Scale vector by 6.9
 		NormalizedVector calc =
-			tube_n.normal(new Point(30.942606428329093, 34.625914857336724, 44.4));
+			tube.normal(new Point(30.942606428329093, 34.625914857336724, 44.4));
 		NormalizedVector actual = new NormalizedVector(5, -4, 0);
 		Assert.assertEquals("Normalized vectors should be equal", calc, actual);
 
 		// One more, this time perpendicular to the source of the ray
-		calc = tube_n.normal(new Point(1, 8, -2));
+		calc = tube.normal(new Point(1, 8, -2));
 		actual = new NormalizedVector(0, 6, -5);
 		Assert.assertEquals("Normalized vectors should be equal", calc, actual);
 	}
@@ -36,7 +36,7 @@ public class TubeTests {
 	public void testIntersect() {
 
 		Ray axis = new Ray(new Point(-1, 1, 0), new Vector(1, 1, 1));
-		Tube tube_i = new Tube(axis, Math.sqrt(2));
+		Tube tube = new Tube(axis, Math.sqrt(2));
 		Point p1 = new Point(2, 2, 2);
 		Point p2 = new Point(0, 4, 2);
 
@@ -54,22 +54,22 @@ public class TubeTests {
 
 		// 1. Hits tube twice (starts outside).
 		Ray ray = new Ray(new Point(-1, 5, 2), new Vector(1, -1, 0));
-		Assert.assertEquals("Ray which passes through center", new HashSet<>(tube_i.intersect(ray)),
+		Assert.assertEquals("Ray which passes through center", new HashSet<>(tube.intersect(ray)),
 			new HashSet<>(List.of(p1, p2)));
 
 		// 2. Hits tube once (starts inside).
 		ray = new Ray(new Point(1, 3, 2), new Vector(1, -1, 0));
 		Assert.assertEquals("Ray which starts on tube and passes through center",
-			tube_i.intersect(ray), List.of(p1));
+			tube.intersect(ray), List.of(p1));
 
 		// 3. Doesn't intersect tube (starts outside)
 		ray = new Ray(new Point(3, 1, 2), new Vector(1, -1, 0));
-		Assert.assertEquals("Ray starts outside tube and never enters", tube_i.intersect(ray),
+		Assert.assertEquals("Ray starts outside tube and never enters", tube.intersect(ray),
 			Collections.emptyList());
 
 		// 4. Doesn't intersect tube (starts inside and is parallel to axis
 		ray = new Ray(new Point(1.5, 2.5, 2), new Vector(1, 1, 1));
-		Assert.assertEquals("Ray starts inside tube and never exits", tube_i.intersect(ray),
+		Assert.assertEquals("Ray starts inside tube and never exits", tube.intersect(ray),
 			Collections.emptyList());
 
 		//  ____                        _
@@ -86,34 +86,34 @@ public class TubeTests {
 		//
 		// Start on side of cylinder going outwards
 		ray = new Ray(new Point(2, 2, 2), new Vector(1, -1, 0));
-		Assert.assertEquals("ray starts on side of tube and points away", tube_i.intersect(ray),
+		Assert.assertEquals("ray starts on side of tube and points away", tube.intersect(ray),
 			Collections.emptyList());
 
 		// Start on side of cylinder going inwards
 		ray = new Ray(new Point(2, 2, 2), new Vector(-1, 1, 0));
-		Assert.assertEquals("Ray starts on side of tube and goes inwards", tube_i.intersect(ray),
+		Assert.assertEquals("Ray starts on side of tube and goes inwards", tube.intersect(ray),
 			List.of(p2));
 
 		// When ray IS axis
 		ray = axis;
-		Assert.assertEquals("Ray is identical to axis", tube_i.intersect(ray),
+		Assert.assertEquals("Ray is identical to axis", tube.intersect(ray),
 			Collections.emptyList());
 
 		// Tangent to outside of tube
 		ray = new Ray(new Point(3, 3, 1), new Vector(-1, -1, 1));
-		Assert.assertEquals("Ray is tangent to tube", tube_i.intersect(ray),
-			Collections.emptyList());
+		Assert.assertEquals("Ray is tangent to tube", tube.intersect(ray), Collections.emptyList());
 
 		// Start on axis and go orthogonal to it
-		ray = new Ray(new Point(0,2,1), new Vector(-1,1,0));
-		Assert.assertEquals("Ray starts on axis and is orthogonal to it", tube_i.intersect(ray),
-			List.of(new Point(-1,3,1)));
+		ray = new Ray(new Point(0, 2, 1), new Vector(-1, 1, 0));
+		Assert.assertEquals("Ray starts on axis and is orthogonal to it", tube.intersect(ray),
+			List.of(new Point(-1, 3, 1)));
 
 		// tube's center is at origin
-		tube_i = new Tube(new Ray(new Point(0,0,0), new Vector(1,1,1)), Math.sqrt(2));
-		ray = new Ray(new Point(-1,3,1), new Vector(1, -1, 0));
-		Assert.assertEquals("Ray starts on axis and is orthogonal to it", new HashSet<>(tube_i.intersect(ray)),
-			new HashSet<>(List.of(new Point(0,2,1), new Point(2, 0, 1))));
+		tube = new Tube(new Ray(new Point(0, 0, 0), new Vector(1, 1, 1)), Math.sqrt(2));
+		ray = new Ray(new Point(-1, 3, 1), new Vector(1, -1, 0));
+		Assert.assertEquals("Ray starts on axis and is orthogonal to it",
+			new HashSet<>(tube.intersect(ray)),
+			new HashSet<>(List.of(new Point(0, 2, 1), new Point(2, 0, 1))));
 	}
 
 }
