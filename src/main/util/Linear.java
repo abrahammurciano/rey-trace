@@ -17,7 +17,7 @@ public class Linear extends Polynomial {
 	/**
 	 * Constructor of linear equations.
 	 *
-	 * @param a The coefficient of the linear term. This may not be 0, else it would not be linear.
+	 * @param a The coefficient of the linear term. This may not be 0, else the equation has solutions
 	 * @param b The constant
 	 */
 	public Linear(double a, double b) {
