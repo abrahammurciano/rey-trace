@@ -112,7 +112,7 @@ public class Tube implements Geometry {
 		// @formatter:on
 		// use abes quadratic thingy instead
 		double det = (B * B) - (4 * A * C);
-		List<Point> intersections = new ArrayList<Point>();
+		List<Point> intersections = new ArrayList<Point>(); // move this! where?
 		if (DoubleCompare.gt(det, 0)) {
 			double t1 = ((-1) * B + Math.sqrt(det)) / (2 * A); // what to do if A is 0?
 			double t2 = ((-1) * B - Math.sqrt(det)) / (2 * A);
