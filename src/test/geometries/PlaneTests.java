@@ -36,7 +36,18 @@ public class PlaneTests {
 	@Test
 	public void contains() {
 		Plane plane = new Plane(new Point(0, 0, 0), new Vector(0, 0, 1));
-		// Equivalence partition tests
+		//  _____            _            _
+		// | ____|__ _ _   _(_)_   ____ _| | ___ _ __   ___ ___
+		// |  _| / _` | | | | \ \ / / _` | |/ _ \ '_ \ / __/ _ \
+		// | |__| (_| | |_| | |\ V / (_| | |  __/ | | | (_|  __/
+		// |_____\__, |\__,_|_| \_/ \__,_|_|\___|_| |_|\___\___|
+		//          |_|
+		//  ____            _   _ _   _
+		// |  _ \ __ _ _ __| |_(_) |_(_) ___  _ __  ___
+		// | |_) / _` | '__| __| | __| |/ _ \| '_ \/ __|
+		// |  __/ (_| | |  | |_| | |_| | (_) | | | \__ \
+		// |_|   \__,_|_|   \__|_|\__|_|\___/|_| |_|___/
+		//
 		// Point on plane
 		Assert.assertTrue("Plane claims to not contain a point on its surface.",
 			plane.contains(new Point(3, 3, 0)));
@@ -44,7 +55,19 @@ public class PlaneTests {
 		Assert.assertFalse("Plane claims to contain a point not on its surface.",
 			plane.contains(new Point(3, 3, 1)));
 
-		// Boundary values test
+		//  ____                        _
+		// | __ )  ___  _   _ _ __   __| | __ _ _ __ _   _
+		// |  _ \ / _ \| | | | '_ \ / _` |/ _` | '__| | | |
+		// | |_) | (_) | |_| | | | | (_| | (_| | |  | |_| |
+		// |____/ \___/ \__,_|_| |_|\__,_|\__,_|_|   \__, |
+		//                                           |___/
+		//  _____         _
+		// |_   _|__  ___| |_ ___
+		//   | |/ _ \/ __| __/ __|
+		//   | |  __/\__ \ |_\__ \
+		//   |_|\___||___/\__|___/
+		//
+
 		// Plane's defining point
 		Assert.assertTrue("Plane claims to not contain its defining point.",
 			plane.contains(new Point(0, 0, 0)));

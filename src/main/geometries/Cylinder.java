@@ -8,7 +8,6 @@ import java.util.Collections;
 import java.util.List;
 import primitives.NormalizedVector;
 import primitives.Ray;
-import primitives.Vector;
 
 /**
  * This class represents a cylinder, which is a three-dimensional tube with a height, and closed disks on either end.
@@ -66,6 +65,12 @@ public class Cylinder implements Geometry {
 		}
 	}
 
+	/**
+	 * This function will find intersection points (possibly none) between a {@link Ray} and an {@link Cylinder}.
+	 *
+	 * @param r The {@link Ray} to intersect
+	 * @return a list (possibly empty) of intersection points
+	 */
 	@Override
 	public List<Point> intersect(Ray ray) {
 		List<Point> intersections = new ArrayList<>(2);

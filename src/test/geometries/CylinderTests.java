@@ -23,7 +23,6 @@ public class CylinderTests {
 	public void normal() {
 		NormalizedVector calc, actual1, actual2;
 
-
 		//  _____            _            _
 		// | ____|__ _ _   _(_)_   ____ _| | ___ _ __   ___ ___
 		// |  _| / _` | | | | \ \ / / _` | |/ _ \ '_ \ / __/ _ \

@@ -79,12 +79,12 @@ public class Tube implements Geometry {
 
 
 	/**
-	 * This function will find intersection points (possibly none) between a {@link Ray} and an {@link Cylinder}.
+	 * This function will find intersection points (possibly none) between a {@link Ray} and an {@link Tube}.
 	 *
 	 * @param r The {@link Ray} to intersect
 	 * @return a list (possibly empty) of intersection points
 	 */
-	// @Override
+	@Override
 	public List<Point> intersect(Ray r) {
 		Point source;
 		if (!axis.source.equals(Point.ORIGIN)) {

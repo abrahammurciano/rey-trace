@@ -33,7 +33,18 @@ public class TriangleTests {
 		Triangle triangle =
 			new Triangle(new Point(0, 0, 0), new Point(1, 0, 0), new Point(1, 1, 1));
 
-		// Equivalence partition tests
+		//  _____            _            _
+		// | ____|__ _ _   _(_)_   ____ _| | ___ _ __   ___ ___
+		// |  _| / _` | | | | \ \ / / _` | |/ _ \ '_ \ / __/ _ \
+		// | |__| (_| | |_| | |\ V / (_| | |  __/ | | | (_|  __/
+		// |_____\__, |\__,_|_| \_/ \__,_|_|\___|_| |_|\___\___|
+		//          |_|
+		//  ____            _   _ _   _
+		// |  _ \ __ _ _ __| |_(_) |_(_) ___  _ __  ___
+		// | |_) / _` | '__| __| | __| |/ _ \| '_ \/ __|
+		// |  __/ (_| | |  | |_| | |_| | (_) | | | \__ \
+		// |_|   \__,_|_|   \__|_|\__|_|\___/|_| |_|___/
+		//
 
 		// Intersection inside triangle
 		Ray ray = new Ray(new Point(0.5, 0, 1), new Vector(0.5, 1, -1));
@@ -62,7 +73,18 @@ public class TriangleTests {
 		Assert.assertTrue("No intersections expected for ray starting beyond triangle.",
 			triangle.intersect(ray).isEmpty());
 
-		// Boundary values test
+		//  ____                        _
+		// | __ )  ___  _   _ _ __   __| | __ _ _ __ _   _
+		// |  _ \ / _ \| | | | '_ \ / _` |/ _` | '__| | | |
+		// | |_) | (_) | |_| | | | | (_| | (_| | |  | |_| |
+		// |____/ \___/ \__,_|_| |_|\__,_|\__,_|_|   \__, |
+		//                                           |___/
+		//  _____         _
+		// |_   _|__  ___| |_ ___
+		//   | |/ _ \/ __| __/ __|
+		//   | |  __/\__ \ |_\__ \
+		//   |_|\___||___/\__|___/
+		//
 
 		// Ray intersects triangle boundary
 		ray = new Ray(new Point(0.5, 0, 1), new Vector(0, 1, -1));

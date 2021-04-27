@@ -52,7 +52,18 @@ public class SphereTests {
 	public void testIntersect() {
 		Sphere sphere = new Sphere(new Point(1, 0, 0), 1);
 
-		// Equivalence partition tests
+		//  _____            _            _
+		// | ____|__ _ _   _(_)_   ____ _| | ___ _ __   ___ ___
+		// |  _| / _` | | | | \ \ / / _` | |/ _ \ '_ \ / __/ _ \
+		// | |__| (_| | |_| | |\ V / (_| | |  __/ | | | (_|  __/
+		// |_____\__, |\__,_|_| \_/ \__,_|_|\___|_| |_|\___\___|
+		//          |_|
+		//  ____            _   _ _   _
+		// |  _ \ __ _ _ __| |_(_) |_(_) ___  _ __  ___
+		// | |_) / _` | '__| __| | __| |/ _ \| '_ \/ __|
+		// |  __/ (_| | |  | |_| | |_| | (_) | | | \__ \
+		// |_|   \__,_|_|   \__|_|\__|_|\___/|_| |_|___/
+		//
 
 		// Ray's line is outside the sphere
 		Ray ray = new Ray(new Point(-1, 0, 0), new Vector(1, 1, 0));
@@ -77,7 +88,18 @@ public class SphereTests {
 		Assert.assertTrue("Expected no intersections for ray going away from sphere.",
 			sphere.intersect(ray).isEmpty());
 
-		// Boundary values test
+		//  ____                        _
+		// | __ )  ___  _   _ _ __   __| | __ _ _ __ _   _
+		// |  _ \ / _ \| | | | '_ \ / _` |/ _` | '__| | | |
+		// | |_) | (_) | |_| | | | | (_| | (_| | |  | |_| |
+		// |____/ \___/ \__,_|_| |_|\__,_|\__,_|_|   \__, |
+		//                                           |___/
+		//  _____         _
+		// |_   _|__  ___| |_ ___
+		//   | |/ _ \/ __| __/ __|
+		//   | |  __/\__ \ |_\__ \
+		//   |_|\___||___/\__|___/
+		//
 
 		// Ray starts at surface and goes inwards (not through center) (one intersection)
 		ray = new Ray(Point.ORIGIN, new Vector(1, 1, 0));
