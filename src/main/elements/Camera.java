@@ -42,7 +42,7 @@ public class Camera implements Iterable<Ray> {
 			this.y = 0;
 		}
 
-		private Ray ray(int x, int y) {
+		private Ray currentRay() {
 			// TODO: Implement
 			return null;
 		}
@@ -54,7 +54,7 @@ public class Camera implements Iterable<Ray> {
 
 		@Override
 		public Ray next() {
-			Ray r = camera.ray(x, y);
+			Ray r = currentRay();
 			x = (x + 1) % camera.view.resolution.x;
 			if (x == 0) {
 				++y;
