@@ -112,15 +112,14 @@ public class Tube implements Geometry {
 		// @formatter:on
 		// use abes quadratic thingy instead
 		double det = (B * B) - (4 * A * C);
-		List<Point> intersections = new ArrayList<Point>();
 		if (DoubleCompare.gt(det, 0)) {
+			List<Point> intersections = new ArrayList<Point>();
 			double t1 = ((-1) * B + Math.sqrt(det)) / (2 * A); // what to do if A is 0?
 			double t2 = ((-1) * B - Math.sqrt(det)) / (2 * A);
 			Ray shiftedRay = new Ray(source, r.direction);
 			fillList(intersections, shiftedRay, tubeIsCentered, fromOrigin, t1);
 			fillList(intersections, shiftedRay, tubeIsCentered, fromOrigin, t2);
-		}
-		if (intersections.isEmpty()) {
+		} else {
 			return Collections.emptyList();
 		}
 		return intersections;
