@@ -1,6 +1,7 @@
 package geometries;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import primitives.Point;
 import primitives.Ray;
@@ -20,6 +21,7 @@ public class Polygon implements Geometry {
 
 	private List<Point> vertices;
 	private Plane plane; // The plane which all the points must reside on.
+	public final int size;
 
 	/**
 	 * This constructor accepts a list of the vertices of the polygon.
@@ -34,11 +36,12 @@ public class Polygon implements Geometry {
 		this.vertices = new ArrayList<>(size);
 
 		double sum = 0.0; // sum of exterior angles
-		for (int i = 0; i < size; ++i) { // loop through input vertices
+		for (int i = 0; i < size; ++i) { // loop through 3-tuples of input vertices
 			try {
-				Vector v1 = vertices[mod(i - 1, size)].vectorTo(vertices[i]); // prev to current
-				Vector v2 = vertices[i].vectorTo(vertices[(i + 1) % size]); // current to next
-				double angle = v1.angle(v2);
+				Point p1 = vertices[i];
+				Point p2 = vertices[(i + 1) % size];
+				Point p3 = vertices[(i + 2) % size];
+				double angle = p1.vectorTo(p2).angle(p2.vectorTo(p3));
 				// if exterior angle is zero, point is on an existing edge and can be ignored
 				if (DoubleCompare.eq(angle, 0)) {
 					continue;
@@ -50,6 +53,7 @@ public class Polygon implements Geometry {
 					"Error: Repeated vertices are not allowed. Perhaps you are repeating the start point at the end.");
 			}
 		}
+		this.size = this.vertices.size();
 
 		// If the sum of the exterior angles is greater than 2 Pi radians then it's not convex or
 		// not all points are on the same plane.
@@ -59,7 +63,7 @@ public class Polygon implements Geometry {
 		}
 
 		// Checks for at least three vertices
-		if (this.vertices.size() < 3) {
+		if (this.size < 3) {
 			throw new IllegalArgumentException(
 				"Error: A polygon must contain at least three vertices.");
 		}
@@ -78,22 +82,27 @@ public class Polygon implements Geometry {
 		return plane.normal(p);
 	}
 
-	/**
-	 * Calculates a % b but for negative inputs will still give a result between 0 and b (similar to how Python implements
-	 * mod).
-	 *
-	 * @param a The dividend
-	 * @param b The divisor
-	 * @return The remainder (between 0 and b)
-	 */
-	private static int mod(int a, int b) {
-		return (((a % b) + b) % b);
-	}
-
 	@Override
 	public List<Point> intersect(Ray ray) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Point> candidates = plane.intersect(ray);
+		if (candidates.isEmpty()) { // The ray doesn't intersect the plane
+			return candidates;
+		}
+
+		// Check if the plane intersection is within the polygon
+		Point p1 = vertices.get(0);
+		Point p2 = vertices.get(1);
+		Vector normal = ray.source.vectorTo(p1).cross(p1.vectorTo(p2)); // No zero vectors bc ray intersects the plane
+		int comparison = DoubleCompare.compare(normal.dot(ray.direction), 0);
+		for (int i = 2; i <= size; ++i) { // Loop through consecutive points
+			p1 = p2;
+			p2 = vertices.get(i % size);
+			normal = ray.source.vectorTo(p1).cross(p1.vectorTo(p2));
+			if (comparison != DoubleCompare.compare(normal.dot(ray.direction), 0)) {
+				return Collections.emptyList();
+			}
+		}
+		return candidates;
 	}
 
 }

@@ -43,7 +43,7 @@ public class Vector extends Triple {
 	 * @throws ZeroVectorException when adding a {@link Vector} with its reverse.
 	 */
 	public Vector add(Vector v) {
-		return new Vector(transform(Double::sum, v));
+		return transform(Double::sum, v, Vector.class);
 	}
 
 	/**
@@ -65,7 +65,7 @@ public class Vector extends Triple {
 	 * @throws ZeroVectorException if the scale factor is zero.
 	 */
 	public Vector scale(double factor) {
-		return new Vector(transform(c -> c * factor));
+		return transform(c -> c * factor, Vector.class);
 	}
 
 	/**
@@ -95,7 +95,7 @@ public class Vector extends Triple {
 	 * @return The dot product of the two {@link Vector}s
 	 */
 	public double dot(Vector v) {
-		return transform((base, aux) -> base * aux, v).sum();
+		return transform((base, aux) -> base * aux, v, Point.class).sum();
 	}
 
 	/**
@@ -113,7 +113,7 @@ public class Vector extends Triple {
 	 * @return The square of the length of this {@link Vector}.
 	 */
 	public double squareLength() {
-		return transform(coord -> coord * coord).sum();
+		return this.dot(this);
 	}
 
 	/**
