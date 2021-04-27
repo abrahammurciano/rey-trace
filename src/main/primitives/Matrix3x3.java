@@ -93,7 +93,7 @@ public class Matrix3x3 {
 	public Matrix3x3 inverse() {
 		double det = this.determinant();
 		// rotation matrix will never have a zero det
-		return new Matrix3x3(adjoint().scale(1 / det));
+		return adjoint().scale(1 / det);
 	}
 
 	// Inverse of a rotation matrix is just it's transpose.
