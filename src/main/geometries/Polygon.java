@@ -27,9 +27,9 @@ public class Polygon implements Geometry {
 	 * This constructor accepts a list of the vertices of the polygon.
 	 *
 	 * @param vertices A list of the vertices of the polygon, in order.
-	 * @throws IllegalArgumentException if there are less than three significant vertices, any of the vertices are not
-	 *         on the same plane as the rest, the vertices are out of order and thus form a non-convex polygon,
-	 *         consecutive vertices are repeated, or the last point is equal to the first point.
+	 * @throws IllegalArgumentException if there are less than three significant vertices, any of the vertices are not on
+	 *         the same plane as the rest, the vertices are out of order and thus form a non-convex polygon, consecutive
+	 *         vertices are repeated, or the last point is equal to the first point.
 	 */
 	public Polygon(Point... vertices) {
 		int size = vertices.length;
@@ -80,6 +80,18 @@ public class Polygon implements Geometry {
 	@Override
 	public NormalizedVector normal(Point p) {
 		return plane.normal(p);
+	}
+
+	/**
+	 * Calculates a % b but for negative inputs will still give a result between 0 and b (similar to how Python implements
+	 * mod).
+	 *
+	 * @param a The dividend
+	 * @param b The divisor
+	 * @return The remainder (between 0 and b)
+	 */
+	private static int mod(int a, int b) {
+		return (((a % b) + b) % b);
 	}
 
 	@Override

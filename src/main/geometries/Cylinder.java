@@ -29,6 +29,7 @@ public class Cylinder implements Geometry {
 	 * @param ray The ray that makes up the center of the Cylinder.
 	 * @param radius A positive double that represents the radius.
 	 * @param height A positive double that represents the height of the Cylinder.
+	 * 
 	 * @throws IllegalArgumentException if the radius is zero or the height is not positive.
 	 */
 	public Cylinder(Ray ray, double radius, double height) {
@@ -84,8 +85,7 @@ public class Cylinder implements Geometry {
 			return intersections;
 		}
 		intersections.removeIf(point -> {
-			Vector toPoint = bottom.point.vectorTo(point); // can never be zero vector
-			double intersectionHeight = middle.axis.direction.dot(toPoint);
+			double intersectionHeight = middle.axis.direction.dot(bottom.point.vectorTo(point));
 			return DoubleCompare.leq(intersectionHeight, 0) || DoubleCompare.geq(intersectionHeight, height);
 		});
 		return intersections;
