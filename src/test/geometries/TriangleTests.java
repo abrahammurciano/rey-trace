@@ -21,7 +21,7 @@ public class TriangleTests {
 		new Triangle(new Point(0, 0, 0), new Point(2, -1, 0), new Point(1, 1, 0));
 		// Colinear points
 		Assert.assertThrows("Colinear points should throw an exception.",
-				IllegalArgumentException.class,
-				() -> new Triangle(new Point(0, 0, 0), new Point(1, 1, 1), new Point(2, 2, 2)));
+			IllegalArgumentException.class,
+			() -> new Triangle(new Point(0, 0, 0), new Point(1, 1, 1), new Point(2, 2, 2)));
 	}
 }

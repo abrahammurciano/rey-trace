@@ -34,7 +34,7 @@ public class Cylinder implements Geometry {
 			throw new IllegalArgumentException("Error: Height must be a positive number.");
 		}
 		this.height = height;
-		base = new Plane(ray.source, direction().reversed());
+		base = new Plane(ray.source, direction());
 		lid = new Plane(ray.source.add(direction().scale(height)), direction());
 	}
 

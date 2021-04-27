@@ -40,7 +40,10 @@ public class Tube implements Geometry {
 		this.axis = axis;
 		this.radius = Math.abs(radius);
 
-		if (!axis.source.equals(Point.ORIGIN)) {
+		if (axis.source.equals(Point.ORIGIN)) {
+			toOrigin = null;
+			fromOrigin = null;
+		} else {
 			toOrigin = axis.source.vectorTo(Point.ORIGIN);
 			fromOrigin = toOrigin.reversed();
 		}
@@ -84,11 +87,9 @@ public class Tube implements Geometry {
 	// @Override
 	public List<Point> intersect(Ray r) {
 		Point source;
-		boolean tubeIsCentered = false;
 		if (!axis.source.equals(Point.ORIGIN)) {
 			source = r.source.add(toOrigin);
 		} else {
-			tubeIsCentered = true;
 			source = r.source;
 		}
 		CartesianProductSelf a = new CartesianProductSelf(axis.direction);
@@ -97,43 +98,41 @@ public class Tube implements Geometry {
 		CartesianProduct pv = new CartesianProduct(source, r.direction); // pv for...
 		// @formatter:off
 		double A =
-			(a.yy * v.xx) - 2*(a.yx * v.yx) + (a.xx * v.yy) +
-			(a.zz * v.yy) - 2*(a.zy * v.zy) + (a.yy * v.zz) +
+			(a.yy * v.xx) - 2*(a.xy * v.xy) + (a.xx * v.yy) +
+			(a.zz * v.yy) - 2*(a.yz * v.yz) + (a.yy * v.zz) +
 			(a.xx * v.zz) - 2*(a.xz * v.xz) + (a.zz * v.xx);
 		double B = 2 * (
-			(a.yy * pv.xx) - a.yx*(pv.xy + pv.yx) + (a.xx * pv.yy) +
-			(a.zz * pv.yy) - a.zy*(pv.yz + pv.zy) + (a.yy * pv.zz) +
+			(a.yy * pv.xx) - a.xy*(pv.yx + pv.xy) + (a.xx * pv.yy) +
+			(a.zz * pv.yy) - a.yz*(pv.zy + pv.yz) + (a.yy * pv.zz) +
 			(a.xx * pv.zz) - a.xz*(pv.xz + pv.zx) + (a.zz * pv.xx));
 		double C = 
-			(a.yy * p.xx) - 2*(a.yx * p.yx) + (a.xx * p.yy) +
-			(a.zz * p.yy) - 2*(a.zy * p.zy) + (a.yy * p.zz) +
+			(a.yy * p.xx) - 2*(a.xy * p.xy) + (a.xx * p.yy) +
+			(a.zz * p.yy) - 2*(a.yz * p.yz) + (a.yy * p.zz) +
 			(a.xx * p.zz) - 2*(a.xz * p.xz) + (a.zz * p.xx) -
 			(radius * radius);
 		// @formatter:on
 		// use abes quadratic thingy instead
 		double det = (B * B) - (4 * A * C);
-		List<Point> intersections = new ArrayList<Point>(); // move this! where?
 		if (DoubleCompare.gt(det, 0)) {
+			List<Point> intersections = new ArrayList<Point>();
 			double t1 = ((-1) * B + Math.sqrt(det)) / (2 * A); // what to do if A is 0?
 			double t2 = ((-1) * B - Math.sqrt(det)) / (2 * A);
 			Ray shiftedRay = new Ray(source, r.direction);
-			fillList(intersections, shiftedRay, tubeIsCentered, fromOrigin, t1);
-			fillList(intersections, shiftedRay, tubeIsCentered, fromOrigin, t2);
-		}
-		if (intersections.isEmpty()) {
+			fillList(intersections, shiftedRay, t1);
+			fillList(intersections, shiftedRay, t2);
+			return intersections;
+		} else {
 			return Collections.emptyList();
 		}
-		return intersections;
 	}
 
 	// helper function for intersection
-	private void fillList(List<Point> intersections, Ray r, boolean tubeIsCentered,
-			Vector fromOrigin, double t) {
+	private void fillList(List<Point> intersections, Ray r, double t) {
 		if (DoubleCompare.leq(t, 0)) {
 			return;
 		}
 		Point p = r.travel(t);
-		if (!tubeIsCentered) {
+		if (fromOrigin != null) {
 			p = p.add(fromOrigin);
 		}
 		intersections.add(p);

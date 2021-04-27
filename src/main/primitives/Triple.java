@@ -32,7 +32,7 @@ public class Triple {
 	 */
 	protected Triple transform(DoubleBinaryOperator transformation, Triple aux) {
 		return new Triple(transformation.applyAsDouble(x, aux.x),
-				transformation.applyAsDouble(y, aux.y), transformation.applyAsDouble(z, aux.z));
+			transformation.applyAsDouble(y, aux.y), transformation.applyAsDouble(z, aux.z));
 	}
 
 	/**
@@ -45,7 +45,7 @@ public class Triple {
 	 */
 	protected Triple transform(DoubleUnaryOperator transformation) {
 		return new Triple(transformation.applyAsDouble(x), transformation.applyAsDouble(y),
-				transformation.applyAsDouble(z));
+			transformation.applyAsDouble(z));
 	}
 
 	/**
@@ -67,7 +67,7 @@ public class Triple {
 	 */
 	public boolean equals(double x, double y, double z) {
 		return DoubleCompare.eq(this.x, x) && DoubleCompare.eq(this.y, y)
-				&& DoubleCompare.eq(this.z, z);
+			&& DoubleCompare.eq(this.z, z);
 	}
 
 	@Override

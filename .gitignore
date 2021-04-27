@@ -10,3 +10,4 @@ pom.xml
 .project
 .classpath
 .exrc
+formatJava.sh

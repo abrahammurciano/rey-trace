@@ -52,7 +52,7 @@ public class CylinderTests {
 		actual1 = new NormalizedVector(6, 5, 4);
 		actual2 = new NormalizedVector(1, -2, 1);
 		Assert.assertTrue(notEqErrMsg,
-				NormalCompare.eq(calc, actual1) || NormalCompare.eq(calc, actual2));
+			NormalCompare.eq(calc, actual1) || NormalCompare.eq(calc, actual2));
 
 		// center of base
 		calc = base.normal(new Point(3, 2, 1));
@@ -63,7 +63,7 @@ public class CylinderTests {
 		calc = base.normal(new Point(9.837634587578275, 7.698028822981897, 5.558423058385518));
 		actual1 = new NormalizedVector(6, 5, 4);
 		Assert.assertTrue(notEqErrMsg, NormalCompare.eq(calc, actual1));
-		
+
 		//  ____                        _
 		// | __ )  ___  _   _ _ __   __| | __ _ _ __ _   _
 		// |  _ \ / _ \| | | | '_ \ / _` |/ _` | '__| | | |
@@ -83,7 +83,7 @@ public class CylinderTests {
 		actual2 = new NormalizedVector(1, -2, 1);
 		// in practice always ends up being normal to the flat side
 		Assert.assertTrue(notEqErrMsg,
-				NormalCompare.eq(calc, actual1) || NormalCompare.eq(calc, actual2));
+			NormalCompare.eq(calc, actual1) || NormalCompare.eq(calc, actual2));
 
 	}
 }
