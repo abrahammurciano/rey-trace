@@ -3,7 +3,6 @@ package elements;
 import primitives.Point;
 import primitives.Ray;
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 import primitives.NormalizedVector;
 import util.Resolution;
 
@@ -18,52 +17,17 @@ public class Camera implements Iterable<Ray> {
 	private final Orientation orientation;
 	private final ViewPlane view;
 
-	public Camera(Point location, NormalizedVector front, NormalizedVector up, double pixelWidth,
-		double pixelHeight, double distance, Resolution resolution) {
+	public Camera(Point location, NormalizedVector front, NormalizedVector up, double width, double height,
+			double distance, Resolution resolution) {
 		this.location = location;
 		this.orientation = new Orientation(front, up);
-		this.view = new ViewPlane(pixelWidth, pixelHeight, distance, resolution);
+		this.view = new ViewPlane(width, height, location.add(orientation.front.scale(distance)), resolution,
+				orientation);
 	}
 
 	@Override
 	public Iterator<Ray> iterator() {
-		return new RayIterator(this);
+		// TODO Auto-generated method stub
+		return null;
 	}
-
-	public class RayIterator implements Iterator<Ray> {
-
-		private final Camera camera;
-		private int x;
-		private int y;
-
-		public RayIterator(Camera camera) {
-			this.camera = camera;
-			this.x = 0;
-			this.y = 0;
-		}
-
-		private Ray currentRay() {
-			// TODO: Implement
-			return null;
-		}
-
-		@Override
-		public boolean hasNext() {
-			return x < camera.view.resolution.x - 1 || y < camera.view.resolution.y - 1;
-		}
-
-		@Override
-		public Ray next() {
-			Ray r = currentRay();
-			x = (x + 1) % camera.view.resolution.x;
-			if (x == 0) {
-				++y;
-			}
-			if (y >= camera.view.resolution.y) {
-				throw new NoSuchElementException();
-			}
-			return r;
-		}
-
-	};
 }
