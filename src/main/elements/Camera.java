@@ -27,7 +27,30 @@ public class Camera implements Iterable<Ray> {
 
 	@Override
 	public Iterator<Ray> iterator() {
-		// TODO Auto-generated method stub
-		return null;
+		return new CameraIterator(this);
 	}
+
+	public class CameraIterator implements Iterator<Ray> {
+
+		private final Point source;
+		private final Iterator<Point> viewPlaneIterator;
+
+		public CameraIterator(Camera camera) {
+			this.viewPlaneIterator = camera.view.iterator();
+			this.source = camera.location;
+		}
+
+		@Override
+		public boolean hasNext() {
+			return viewPlaneIterator.hasNext();
+		}
+
+		@Override
+		public Ray next() {
+			Point p = viewPlaneIterator.next();
+			return new Ray(source, source.vectorTo(p));
+		}
+
+	}
+
 }
