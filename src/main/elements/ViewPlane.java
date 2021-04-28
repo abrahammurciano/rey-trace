@@ -30,34 +30,31 @@ class ViewPlane implements Iterable<Point> {
 
 	public final Resolution resolution;
 
-	public ViewPlane(double width, double height, Point center, Resolution resolution,
-		Orientation orientation) {
+	public ViewPlane(double width, double height, Point center, Resolution resolution, Orientation orientation) {
 		nextCol = orientation.right.scale(width / resolution.x);
 		Vector nextRowStraight = orientation.up.scale(height / resolution.y);
 		nextRow = nextRowStraight.subtract(nextCol.scale((double) (resolution.x - 1)));
-		p0 = center.subtract(orientation.right.scale(width / 2))
-			.subtract(orientation.up.scale(height / 2)).add(nextCol.scale(0.5))
-			.add(nextRowStraight.scale(0.5));
+		p0 = center.subtract(orientation.right.scale(width / 2)).subtract(orientation.up.scale(height / 2))
+				.add(nextCol.scale(0.5)).add(nextRowStraight.scale(0.5));
 		this.resolution = resolution;
 	}
 
 	@Override
 	public Iterator<Point> iterator() {
-		return new PointIterator(this);
+		return new ViewPlaneIterator(this);
 	}
 
-	public class PointIterator implements Iterator<Point> {
+	public class ViewPlaneIterator implements Iterator<Point> {
 
 		private final ViewPlane view;
 		private Point current;
-		private int x;
-		private int y;
+		private int x = 0;
+		private int y = 0;
+		private boolean ended = false;
 
-		public PointIterator(ViewPlane view) {
+		public ViewPlaneIterator(ViewPlane view) {
 			this.view = view;
 			current = view.p0;
-			this.x = 0;
-			this.y = 0;
 		}
 
 		@Override
@@ -67,18 +64,26 @@ class ViewPlane implements Iterable<Point> {
 
 		@Override
 		public Point next() {
+			if (ended) {
+				throw new NoSuchElementException();
+			}
 			Point prev = current; // store value to return
+			increment();
+			return prev;
+		}
+
+		private void increment() {
 			x = (x + 1) % view.resolution.x; // increment x
 			if (x == 0) { // if x wrapped around
 				++y;
 				if (y >= view.resolution.y) { // if y overflowed number of pixels
-					throw new NoSuchElementException();
+					ended = true;
+					return;
 				}
 				current = current.add(view.nextRow); // move current to start of next row
 			} else {
 				current = current.add(view.nextCol); // move current one column across
 			}
-			return prev;
 		}
 
 	};
