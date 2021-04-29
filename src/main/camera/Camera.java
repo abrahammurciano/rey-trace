@@ -1,4 +1,4 @@
-package elements;
+package camera;
 
 import primitives.Point;
 import primitives.Ray;
@@ -7,7 +7,9 @@ import primitives.NormalizedVector;
 import util.Resolution;
 
 /**
- * The camera represents the point of view of the rendered image.
+ * The camera represents the point of view of the rendered image. Iterating over
+ * {@link Camera} will yield {@link Ray}s starting from left to right, then top
+ * to bottom.
  *
  * @author Abraham Murciano
  * @author Eli Levin
@@ -48,7 +50,7 @@ public class Camera implements Iterable<Ray> {
 		@Override
 		public Ray next() {
 			Point p = viewPlaneIterator.next();
-			return new Ray(source, source.vectorTo(p));
+			return new Ray(source, source.vectorTo(p).normalized());
 		}
 
 	}

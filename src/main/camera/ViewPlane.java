@@ -1,4 +1,4 @@
-package elements;
+package camera;
 
 import primitives.Vector;
 import java.util.Iterator;
@@ -30,12 +30,14 @@ class ViewPlane implements Iterable<Point> {
 
 	public final Resolution resolution;
 
-	public ViewPlane(double width, double height, Point center, Resolution resolution, Orientation orientation) {
+	public ViewPlane(double width, double height, Point center, Resolution resolution,
+		Orientation orientation) {
 		nextCol = orientation.right.scale(width / resolution.x);
-		Vector nextRowStraight = orientation.up.scale(height / resolution.y);
+		Vector nextRowStraight = orientation.up.scale(-height / resolution.y);
 		nextRow = nextRowStraight.subtract(nextCol.scale((double) (resolution.x - 1)));
-		p0 = center.subtract(orientation.right.scale(width / 2)).subtract(orientation.up.scale(height / 2))
-				.add(nextCol.scale(0.5)).add(nextRowStraight.scale(0.5));
+		p0 = center.subtract(orientation.right.scale(width / 2))
+			.add(orientation.up.scale(height / 2)).add(nextCol.scale(0.5))
+			.add(nextRowStraight.scale(0.5));
 		this.resolution = resolution;
 	}
 
