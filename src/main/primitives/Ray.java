@@ -3,8 +3,9 @@ package primitives;
 import java.util.Objects;
 
 /**
- * The {@link Ray} class represents a ray with it's base at the {@link Point} 'source' and shoots off in direction
- * pointed at by {@link Vector} 'direction'.
+ * The {@link Ray} class represents a ray with it's base at the {@link Point}
+ * 'source' and shoots off in direction pointed at by {@link Vector}
+ * 'direction'.
  *
  * @author Abraham Murciano
  * @author Eli Levin
@@ -14,14 +15,16 @@ public class Ray {
 	public final NormalizedVector direction;
 
 	/**
-	 * Constructs a {@link Ray} from a source {@link Point} and a direction {@link Vector}.
+	 * Constructs a {@link Ray} from a source {@link Point} and a direction
+	 * {@link Vector}.
 	 *
-	 * @param source The {@link Point} at which the {@link Ray} starts.
-	 * @param direction The {@link Vector} in which the {@link Ray} is directed.
+	 * @param source    The {@link Point} at which the {@link Ray} starts.
+	 * @param direction The {@link NormalizedVector} in which the {@link Ray} is
+	 *                  directed.
 	 */
-	public Ray(Point source, Vector direction) {
+	public Ray(Point source, NormalizedVector direction) {
 		this.source = source;
-		this.direction = direction.normalized();
+		this.direction = direction;
 	}
 
 	/**
@@ -39,7 +42,8 @@ public class Ray {
 	}
 
 	/**
-	 * Computes the hash code based on that of the source {@link Point} and the direction {@link Vector}.
+	 * Computes the hash code based on that of the source {@link Point} and the
+	 * direction {@link Vector}.
 	 */
 	@Override
 	public int hashCode() {
@@ -56,7 +60,8 @@ public class Ray {
 	}
 
 	/**
-	 * Calculate the point along the ray after traveling "distance" units in the ray's direction.
+	 * Calculate the point along the ray after traveling "distance" units in the
+	 * ray's direction.
 	 *
 	 * @param distance The distance to travel in the ray's direction.
 	 * @return The point on the ray after travelling "distance" units.

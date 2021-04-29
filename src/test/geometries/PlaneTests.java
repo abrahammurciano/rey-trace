@@ -6,7 +6,6 @@ import org.junit.Test;
 import primitives.NormalizedVector;
 import primitives.Point;
 import primitives.Ray;
-import primitives.Vector;
 import util.NormalCompare;
 
 /**
@@ -34,7 +33,7 @@ public class PlaneTests {
 	 */
 	@Test
 	public void contains() {
-		Plane plane = new Plane(new Point(0, 0, 0), new Vector(0, 0, 1));
+		Plane plane = new Plane(new Point(0, 0, 0), new NormalizedVector(0, 0, 1));
 
 		// @formatter:off
 		//  _____            _            _
@@ -106,16 +105,16 @@ public class PlaneTests {
 		// @formatter:on
 
 		// Does intersect
-		ray = new Ray(new Point(1, 1, 1), new Vector(1, 1, -1));
+		ray = new Ray(new Point(1, 1, 1), new NormalizedVector(1, 1, -1));
 		Assert.assertEquals("Expected intersection for intersecting ray.", plane.intersect(ray),
 				List.of(new Point(2, 2, 0)));
 
 		// Does not intersect (not parallel)
-		ray = new Ray(new Point(1, 1, -1), new Vector(1, 1, -1));
+		ray = new Ray(new Point(1, 1, -1), new NormalizedVector(1, 1, -1));
 		Assert.assertTrue("Expected no intersection for non-intersecting ray", plane.intersect(ray).isEmpty());
 
 		// Does not intersect (parallel)
-		ray = new Ray(new Point(1, 1, -1), new Vector(1, 1, 0));
+		ray = new Ray(new Point(1, 1, -1), new NormalizedVector(1, 1, 0));
 		Assert.assertTrue("No plane intersection expected for parallel ray.", plane.intersect(ray).isEmpty());
 
 		// @formatter:off
@@ -132,15 +131,15 @@ public class PlaneTests {
 		// @formatter:on
 
 		// Ray is completely in plane
-		ray = new Ray(new Point(1, 1, 0), new Vector(1, 1, 0));
+		ray = new Ray(new Point(1, 1, 0), new NormalizedVector(1, 1, 0));
 		Assert.assertTrue("No plane intersection expected for embedded ray.", plane.intersect(ray).isEmpty());
 
 		// Ray starts on plane but not parallel
-		ray = new Ray(new Point(1, 1, 0), new Vector(1, 1, 1));
+		ray = new Ray(new Point(1, 1, 0), new NormalizedVector(1, 1, 1));
 		Assert.assertTrue("No plane intersection expected for ray starting on plane.", plane.intersect(ray).isEmpty());
 
 		// Ray starts on plane's internal point
-		ray = new Ray(new Point(0, 0, 0), new Vector(1, 1, 1));
+		ray = new Ray(new Point(0, 0, 0), new NormalizedVector(1, 1, 1));
 		Assert.assertTrue("No plane intersection expected for ray starting on plane's internal point.",
 				plane.intersect(ray).isEmpty());
 	}

@@ -6,7 +6,6 @@ import org.junit.Test;
 import primitives.NormalizedVector;
 import primitives.Point;
 import primitives.Ray;
-import primitives.Vector;
 import util.NormalCompare;
 
 /**
@@ -154,26 +153,26 @@ public class PolygonTests {
 		// @formatter:on
 
 		// Intersection inside polygon
-		Ray ray = new Ray(new Point(0.5, 0, 1), new Vector(0, 1, -1));
+		Ray ray = new Ray(new Point(0.5, 0, 1), new NormalizedVector(0, 1, -1));
 		Assert.assertEquals("Intersection expected but not found or wrong value.", polygon.intersect(ray),
 				List.of(new Point(0.5, 0.5, 0.5)));
 
 		// Intersection outside polygon (on outside of only one edge)
-		ray = new Ray(new Point(0.5, 0, 1), new Vector(2, -1, -1));
+		ray = new Ray(new Point(0.5, 0, 1), new NormalizedVector(2, -1, -1));
 		Assert.assertTrue("No intersections expected for ray which intersects outside edge of polygon.",
 				polygon.intersect(ray).isEmpty());
 
 		// Intersection outside polygon (on outside of two edges)
-		ray = new Ray(new Point(0.5, 0, 1), new Vector(2, -1, 1));
+		ray = new Ray(new Point(0.5, 0, 1), new NormalizedVector(2, -1, 1));
 		Assert.assertTrue("No intersections expected for ray which intersects outside corner of polygon.",
 				polygon.intersect(ray).isEmpty());
 
 		// Ray parallel to polygon
-		ray = new Ray(new Point(0.5, 0, 1), new Vector(0, -1, -1));
+		ray = new Ray(new Point(0.5, 0, 1), new NormalizedVector(0, -1, -1));
 		Assert.assertTrue("No intersections expected for parallel ray.", polygon.intersect(ray).isEmpty());
 
 		// Ray starts beyond polygon
-		ray = new Ray(new Point(0.5, 1, 0), new Vector(0, 1, -1));
+		ray = new Ray(new Point(0.5, 1, 0), new NormalizedVector(0, 1, -1));
 		Assert.assertTrue("No intersections expected for ray starting beyond polygon.",
 				polygon.intersect(ray).isEmpty());
 
@@ -191,19 +190,19 @@ public class PolygonTests {
 		// @formatter:on
 
 		// Ray intersects polygon boundary
-		ray = new Ray(new Point(0.5, 0, 1), new Vector(0, 1, 0));
+		ray = new Ray(new Point(0.5, 0, 1), new NormalizedVector(0, 1, 0));
 		Assert.assertTrue("Intersection on edge expected to be ignored.", polygon.intersect(ray).isEmpty());
 
 		// Ray intersects polygon corner
-		ray = new Ray(new Point(0.5, 0, 1), new Vector(0.5, 1, 0));
+		ray = new Ray(new Point(0.5, 0, 1), new NormalizedVector(0.5, 1, 0));
 		Assert.assertTrue("Intersection on corner expected to be ignored.", polygon.intersect(ray).isEmpty());
 
 		// Ray starts on boundary
-		ray = new Ray(new Point(0.5, 0, 0), new Vector(0.5, 1, 0));
+		ray = new Ray(new Point(0.5, 0, 0), new NormalizedVector(0.5, 1, 0));
 		Assert.assertTrue("Expected no intersection from ray starting on boundary.", polygon.intersect(ray).isEmpty());
 
 		// Ray starts on corner
-		ray = new Ray(new Point(0, 0, 0), new Vector(0.5, 1, 0));
+		ray = new Ray(new Point(0, 0, 0), new NormalizedVector(0.5, 1, 0));
 		Assert.assertTrue("Expected no intersection from ray starting on corner.", polygon.intersect(ray).isEmpty());
 	}
 }

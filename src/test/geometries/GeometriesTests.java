@@ -2,9 +2,10 @@ package geometries;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import primitives.NormalizedVector;
 import primitives.Point;
 import primitives.Ray;
-import primitives.Vector;
 
 /**
  * Tests the methods of the Geometries class.
@@ -15,7 +16,7 @@ import primitives.Vector;
 public class GeometriesTests {
 	@Test
 	public void testIntersect() {
-		Vector i = new Vector(1, 0, 0);
+		NormalizedVector i = new NormalizedVector(1, 0, 0);
 		Ray ray = new Ray(Point.ORIGIN, i);
 
 		// @formatter:off
