@@ -101,4 +101,9 @@ public class Point extends Triple {
 			return diff * diff;
 		}, target, Point::create).sum();
 	}
+
+	@Override
+	public String toString() {
+		return "(" + super.toString() + ")";
+	}
 }

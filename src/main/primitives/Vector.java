@@ -142,4 +142,9 @@ public class Vector extends Triple {
 		double dot = normalized().dot(v.normalized());
 		return Math.acos(dot);
 	}
+
+	@Override
+	public String toString() {
+		return "[" + super.toString() + "]";
+	}
 }
