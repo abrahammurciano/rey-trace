@@ -7,9 +7,8 @@ import primitives.NormalizedVector;
 import util.Resolution;
 
 /**
- * The camera represents the point of view of the rendered image. Iterating over
- * {@link Camera} will yield {@link Ray}s starting from left to right, then top
- * to bottom.
+ * The camera represents the point of view of the rendered image. Iterating over {@link Camera} will yield {@link Ray}s
+ * starting from left to right, then top to bottom.
  *
  * @author Abraham Murciano
  * @author Eli Levin
