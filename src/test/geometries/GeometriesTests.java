@@ -2,9 +2,10 @@ package geometries;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import primitives.NormalizedVector;
 import primitives.Point;
 import primitives.Ray;
-import primitives.Vector;
 
 /**
  * Tests the methods of the Geometries class.
@@ -15,18 +16,28 @@ import primitives.Vector;
 public class GeometriesTests {
 	@Test
 	public void testIntersect() {
-		Vector i = new Vector(1, 0, 0);
+		NormalizedVector i = new NormalizedVector(1, 0, 0);
 		Ray ray = new Ray(Point.ORIGIN, i);
 
-		// Equivalence partition tests
+		// @formatter:off
+		//  _____            _            _
+		// | ____|__ _ _   _(_)_   ____ _| | ___ _ __   ___ ___
+		// |  _| / _` | | | | \ \ / / _` | |/ _ \ '_ \ / __/ _ \
+		// | |__| (_| | |_| | |\ V / (_| | |  __/ | | | (_|  __/
+		// |_____\__, |\__,_|_| \_/ \__,_|_|\___|_| |_|\___\___|
+		//          |_|
+		//  ____            _   _ _   _
+		// |  _ \ __ _ _ __| |_(_) |_(_) ___  _ __  ___
+		// | |_) / _` | '__| __| | __| |/ _ \| '_ \/ __|
+		// |  __/ (_| | |  | |_| | |_| | (_) | | | \__ \
+		// |_|   \__,_|_|   \__|_|\__|_|\___/|_| |_|___/
+		// @formatter:on
 
 		// Some shapes intersect
 		Sphere intersectingSphere = new Sphere(new Point(2, 0, 0), 1);
 		Plane nonIntersectingPlane = new Plane(new Point(0, 0, 1), i);
-		Triangle intersectingTriangle =
-			new Triangle(new Point(4, 0, 1), new Point(4, 1, -1), new Point(4, -1, -1));
-		Geometries geometries =
-			new Geometries(intersectingSphere, nonIntersectingPlane, intersectingTriangle);
+		Triangle intersectingTriangle = new Triangle(new Point(4, 0, 1), new Point(4, 1, -1), new Point(4, -1, -1));
+		Geometries geometries = new Geometries(intersectingSphere, nonIntersectingPlane, intersectingTriangle);
 		Assert.assertEquals("Wrong number of intersections when some shapes intersect",
 			geometries.intersect(ray).size(), 3);
 
@@ -34,8 +45,7 @@ public class GeometriesTests {
 
 		// Empty geometries
 		geometries = new Geometries();
-		Assert.assertTrue("Empty geometries returned intersections.",
-			geometries.intersect(ray).isEmpty());
+		Assert.assertTrue("Empty geometries returned intersections.", geometries.intersect(ray).isEmpty());
 
 		// No geometries intersect
 		geometries = new Geometries(nonIntersectingPlane);
@@ -49,7 +59,7 @@ public class GeometriesTests {
 
 		// All shapes intersect
 		geometries = new Geometries(intersectingSphere, intersectingTriangle);
-		Assert.assertEquals("Wrong number of intersections when all shapes intersect",
-			geometries.intersect(ray).size(), 3);
+		Assert.assertEquals("Wrong number of intersections when all shapes intersect", geometries.intersect(ray).size(),
+			3);
 	}
 }

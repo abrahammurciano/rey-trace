@@ -3,8 +3,9 @@ package primitives;
 import java.util.Objects;
 
 /**
- * The {@link Ray} class represents a ray with it's base at the {@link Point} 'source' and shoots off in direction
- * pointed at by {@link Vector} 'direction'.
+ * The {@link Ray} class represents a ray with it's base at the {@link Point}
+ * 'source' and shoots off in direction pointed at by {@link Vector}
+ * 'direction'.
  *
  * @author Abraham Murciano
  * @author Eli Levin
@@ -17,11 +18,11 @@ public class Ray {
 	 * Constructs a {@link Ray} from a source {@link Point} and a direction {@link Vector}.
 	 *
 	 * @param source The {@link Point} at which the {@link Ray} starts.
-	 * @param direction The {@link Vector} in which the {@link Ray} is directed.
+	 * @param direction The {@link NormalizedVector} in which the {@link Ray} is directed.
 	 */
-	public Ray(Point source, Vector direction) {
+	public Ray(Point source, NormalizedVector direction) {
 		this.source = source;
-		this.direction = direction.normalized();
+		this.direction = direction;
 	}
 
 	/**

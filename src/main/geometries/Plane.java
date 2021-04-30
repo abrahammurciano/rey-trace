@@ -3,7 +3,6 @@ package geometries;
 import primitives.Point;
 import primitives.Ray;
 import util.DoubleCompare;
-import primitives.Vector;
 import primitives.ZeroVectorException;
 import java.util.Collections;
 import java.util.List;
@@ -22,15 +21,14 @@ public class Plane implements Geometry {
 	public final NormalizedVector normal;
 
 	/**
-	 * This constructor accepts a point on the plane and a vector perpendicular to the plane. {@link #normal} will return a
-	 * normalized vector in the same direction as the given {@link Vector}.
+	 * This constructor accepts a point on the plane and a vector perpendicular to the plane.
 	 *
 	 * @param point A point on the plane.
-	 * @param normal A vector perpendicular to the plane.
+	 * @param normal A normalized vector perpendicular to the plane.
 	 */
-	public Plane(Point point, Vector normal) {
+	public Plane(Point point, NormalizedVector normal) {
 		this.point = point;
-		this.normal = normal.normalized();
+		this.normal = normal;
 	}
 
 	/**
@@ -45,8 +43,7 @@ public class Plane implements Geometry {
 		try {
 			this.normal = p1.vectorTo(p2).cross(p2.vectorTo(p3)).normalized();
 		} catch (ZeroVectorException e) {
-			throw new IllegalArgumentException(
-				"Error: The three points must not be on the same line.");
+			throw new IllegalArgumentException("Error: The three points must not be on the same line.");
 		}
 		this.point = p1;
 	}
@@ -58,7 +55,8 @@ public class Plane implements Geometry {
 	 * @return Whether or not the given point is on the plane.
 	 */
 	public boolean contains(Point p) {
-		// If the vector from p to another point is on the plane dot product the normal is zero (the
+		// If the vector from p to another point is on the plane dot product the normal
+		// is zero (the
 		// vectors are perpendicular) then the point is on the plane.
 		try {
 			return DoubleCompare.eq(normal.dot(point.vectorTo(p)), 0);

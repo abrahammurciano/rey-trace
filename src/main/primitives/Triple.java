@@ -22,8 +22,7 @@ public abstract class Triple {
 
 	/**
 	 * Creates a new {@link Triple} which is a transformation of this {@link Triple} by applying the given
-	 * transformation to
-	 * each of the coordinates.
+	 * transformation to each of the coordinates.
 	 *
 	 * @param transformation A function which receives two doubles and returns another double.
 	 * @param aux An auxiliary {@link Triple} whose corresponding coordinate may (or may not) be used in the
@@ -33,16 +32,15 @@ public abstract class Triple {
 	 * @return The {@link Triple} made up of applying the transformation to each of the three coordinates.
 	 * @throws ZeroVectorException if the transformation results in the zero Vector.
 	 */
-	protected <T extends Triple> T transform(DoubleBinaryOperator transformation, Triple aux,
-		Class<T> returnType) {
+	protected <T extends Triple> T transform(DoubleBinaryOperator transformation, Triple aux, Class<T> returnType) {
 		try {
 			return returnType.getConstructor(double.class, double.class, double.class).newInstance(
 				transformation.applyAsDouble(x, aux.x), transformation.applyAsDouble(y, aux.y),
 				transformation.applyAsDouble(z, aux.z));
 		}
 		// MUST. APPEASE. COMPILER!
-		catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-			| NoSuchMethodException | SecurityException __) {
+		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | NoSuchMethodException
+			| SecurityException __) {
 			throw new IllegalStateException();
 		} catch (InvocationTargetException e) {
 			Throwable throwable = e.getCause();
@@ -56,8 +54,7 @@ public abstract class Triple {
 
 	/**
 	 * Similar to {@link #transform(DoubleBinaryOperator, Triple)} but does not require an auxiliary {@link Triple},
-	 * since
-	 * the transformation when called in this way does not depend on a second coordinate.
+	 * since the transformation when called in this way does not depend on a second coordinate.
 	 *
 	 * @param transformation A function which receives a dingle double and returns another double.
 	 * @param returnType A derived class of {@link Triple} which is to be instanciated and returned by the
@@ -65,16 +62,14 @@ public abstract class Triple {
 	 * @return The {@link Triple} made up of applying the transformation to each of the three coordinates.
 	 * @throws ZeroTripleException if the transformation results in the zero Triple.
 	 */
-	protected <T extends Triple> T transform(DoubleUnaryOperator transformation,
-		Class<T> returnType) {
+	protected <T extends Triple> T transform(DoubleUnaryOperator transformation, Class<T> returnType) {
 		try {
 			return returnType.getConstructor(double.class, double.class, double.class).newInstance(
-				transformation.applyAsDouble(x), transformation.applyAsDouble(y),
-				transformation.applyAsDouble(z));
+				transformation.applyAsDouble(x), transformation.applyAsDouble(y), transformation.applyAsDouble(z));
 		}
 		// MUST. APPEASE. COMPILER!
-		catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-			| NoSuchMethodException | SecurityException __) {
+		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | NoSuchMethodException
+			| SecurityException __) {
 			throw new IllegalStateException();
 		} catch (InvocationTargetException e) {
 			Throwable throwable = e.getCause();
@@ -104,8 +99,7 @@ public abstract class Triple {
 	 * @return True if this {@link Triple}'s values are equal to the given values.
 	 */
 	public boolean equals(double x, double y, double z) {
-		return DoubleCompare.eq(this.x, x) && DoubleCompare.eq(this.y, y)
-			&& DoubleCompare.eq(this.z, z);
+		return DoubleCompare.eq(this.x, x) && DoubleCompare.eq(this.y, y) && DoubleCompare.eq(this.z, z);
 	}
 
 	@Override

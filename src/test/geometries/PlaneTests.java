@@ -6,7 +6,6 @@ import org.junit.Test;
 import primitives.NormalizedVector;
 import primitives.Point;
 import primitives.Ray;
-import primitives.Vector;
 import util.NormalCompare;
 
 /**
@@ -25,8 +24,7 @@ public class PlaneTests {
 		// Non colinear points
 		new Plane(new Point(0, 0, 0), new Point(2, -1, 0), new Point(1, 1, 0));
 		// Colinear points
-		Assert.assertThrows("Colinear points should throw an exception.",
-			IllegalArgumentException.class,
+		Assert.assertThrows("Colinear points should throw an exception.", IllegalArgumentException.class,
 			() -> new Plane(new Point(0, 0, 0), new Point(1, 1, 1), new Point(2, 2, 2)));
 	}
 
@@ -35,7 +33,9 @@ public class PlaneTests {
 	 */
 	@Test
 	public void contains() {
-		Plane plane = new Plane(new Point(0, 0, 0), new Vector(0, 0, 1));
+		Plane plane = new Plane(new Point(0, 0, 0), new NormalizedVector(0, 0, 1));
+
+		// @formatter:off
 		//  _____            _            _
 		// | ____|__ _ _   _(_)_   ____ _| | ___ _ __   ___ ___
 		// |  _| / _` | | | | \ \ / / _` | |/ _ \ '_ \ / __/ _ \
@@ -47,30 +47,28 @@ public class PlaneTests {
 		// | |_) / _` | '__| __| | __| |/ _ \| '_ \/ __|
 		// |  __/ (_| | |  | |_| | |_| | (_) | | | \__ \
 		// |_|   \__,_|_|   \__|_|\__|_|\___/|_| |_|___/
-		//
-		// Point on plane
-		Assert.assertTrue("Plane claims to not contain a point on its surface.",
-			plane.contains(new Point(3, 3, 0)));
-		// Point not on plane
-		Assert.assertFalse("Plane claims to contain a point not on its surface.",
-			plane.contains(new Point(3, 3, 1)));
+		// @formatter:on
 
+		// Point on plane
+		Assert.assertTrue("Plane claims to not contain a point on its surface.", plane.contains(new Point(3, 3, 0)));
+		// Point not on plane
+		Assert.assertFalse("Plane claims to contain a point not on its surface.", plane.contains(new Point(3, 3, 1)));
+
+		// @formatter:off
 		//  ____                        _
 		// | __ )  ___  _   _ _ __   __| | __ _ _ __ _   _
 		// |  _ \ / _ \| | | | '_ \ / _` |/ _` | '__| | | |
 		// | |_) | (_) | |_| | | | | (_| | (_| | |  | |_| |
 		// |____/ \___/ \__,_|_| |_|\__,_|\__,_|_|   \__, |
-		//                                           |___/
-		//  _____         _
+		//  _____         _                          |___/
 		// |_   _|__  ___| |_ ___
 		//   | |/ _ \/ __| __/ __|
 		//   | |  __/\__ \ |_\__ \
 		//   |_|\___||___/\__|___/
-		//
+		// @formatter:on
 
 		// Plane's defining point
-		Assert.assertTrue("Plane claims to not contain its defining point.",
-			plane.contains(new Point(0, 0, 0)));
+		Assert.assertTrue("Plane claims to not contain its defining point.", plane.contains(new Point(0, 0, 0)));
 	}
 
 	/**
@@ -92,6 +90,7 @@ public class PlaneTests {
 		Plane plane = new Plane(new Point(0, 0, 0), new Point(2, -1, 0), new Point(1, 1, 0));
 		Ray ray;
 
+		// @formatter:off
 		//  _____            _            _
 		// | ____|__ _ _   _(_)_   ____ _| | ___ _ __   ___ ___
 		// |  _| / _` | | | | \ \ / / _` | |/ _ \ '_ \ / __/ _ \
@@ -103,50 +102,45 @@ public class PlaneTests {
 		// | |_) / _` | '__| __| | __| |/ _ \| '_ \/ __|
 		// |  __/ (_| | |  | |_| | |_| | (_) | | | \__ \
 		// |_|   \__,_|_|   \__|_|\__|_|\___/|_| |_|___/
-
+		// @formatter:on
 
 		// Does intersect
-		ray = new Ray(new Point(1, 1, 1), new Vector(1, 1, -1));
+		ray = new Ray(new Point(1, 1, 1), new NormalizedVector(1, 1, -1));
 		Assert.assertEquals("Expected intersection for intersecting ray.", plane.intersect(ray),
 			List.of(new Point(2, 2, 0)));
 
 		// Does not intersect (not parallel)
-		ray = new Ray(new Point(1, 1, -1), new Vector(1, 1, -1));
-		Assert.assertTrue("Expected no intersection for non-intersecting ray",
-			plane.intersect(ray).isEmpty());
+		ray = new Ray(new Point(1, 1, -1), new NormalizedVector(1, 1, -1));
+		Assert.assertTrue("Expected no intersection for non-intersecting ray", plane.intersect(ray).isEmpty());
 
 		// Does not intersect (parallel)
-		ray = new Ray(new Point(1, 1, -1), new Vector(1, 1, 0));
-		Assert.assertTrue("No plane intersection expected for parallel ray.",
-			plane.intersect(ray).isEmpty());
+		ray = new Ray(new Point(1, 1, -1), new NormalizedVector(1, 1, 0));
+		Assert.assertTrue("No plane intersection expected for parallel ray.", plane.intersect(ray).isEmpty());
 
+		// @formatter:off
 		//  ____                        _
 		// | __ )  ___  _   _ _ __   __| | __ _ _ __ _   _
 		// |  _ \ / _ \| | | | '_ \ / _` |/ _` | '__| | | |
 		// | |_) | (_) | |_| | | | | (_| | (_| | |  | |_| |
 		// |____/ \___/ \__,_|_| |_|\__,_|\__,_|_|   \__, |
-		//                                           |___/
-		//  _____         _
+		//  _____         _                          |___/
 		// |_   _|__  ___| |_ ___
 		//   | |/ _ \/ __| __/ __|
 		//   | |  __/\__ \ |_\__ \
 		//   |_|\___||___/\__|___/
-		//
+		// @formatter:on
 
 		// Ray is completely in plane
-		ray = new Ray(new Point(1, 1, 0), new Vector(1, 1, 0));
-		Assert.assertTrue("No plane intersection expected for embedded ray.",
-			plane.intersect(ray).isEmpty());
+		ray = new Ray(new Point(1, 1, 0), new NormalizedVector(1, 1, 0));
+		Assert.assertTrue("No plane intersection expected for embedded ray.", plane.intersect(ray).isEmpty());
 
 		// Ray starts on plane but not parallel
-		ray = new Ray(new Point(1, 1, 0), new Vector(1, 1, 1));
-		Assert.assertTrue("No plane intersection expected for ray starting on plane.",
-			plane.intersect(ray).isEmpty());
+		ray = new Ray(new Point(1, 1, 0), new NormalizedVector(1, 1, 1));
+		Assert.assertTrue("No plane intersection expected for ray starting on plane.", plane.intersect(ray).isEmpty());
 
 		// Ray starts on plane's internal point
-		ray = new Ray(new Point(0, 0, 0), new Vector(1, 1, 1));
-		Assert.assertTrue(
-			"No plane intersection expected for ray starting on plane's internal point.",
+		ray = new Ray(new Point(0, 0, 0), new NormalizedVector(1, 1, 1));
+		Assert.assertTrue("No plane intersection expected for ray starting on plane's internal point.",
 			plane.intersect(ray).isEmpty());
 	}
 }

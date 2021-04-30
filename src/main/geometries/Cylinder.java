@@ -28,7 +28,7 @@ public class Cylinder implements Geometry {
 	 * @param ray The ray that makes up the center of the Cylinder.
 	 * @param radius A positive double that represents the radius.
 	 * @param height A positive double that represents the height of the Cylinder.
-	 * 
+	 *
 	 * @throws IllegalArgumentException if the radius is zero or the height is not positive.
 	 */
 	public Cylinder(Ray ray, double radius, double height) {
@@ -85,8 +85,8 @@ public class Cylinder implements Geometry {
 
 	// helper function
 	private List<Point> intersectMiddle(Ray ray) {
-		List<Point> intersections = middle.intersect(ray); //unimplented currently in this branch
-		if (intersections.isEmpty()) { // silly now
+		List<Point> intersections = middle.intersect(ray);
+		if (intersections.isEmpty()) {
 			return intersections;
 		}
 		intersections.removeIf(point -> {
