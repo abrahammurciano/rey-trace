@@ -57,8 +57,7 @@ public class Tube implements Geometry {
 
 	/**
 	 * This function returns the normal to the tube at the given point. If the point doesn't lie on the surface of the
-	 * tube,
-	 * the behavior is undefined.
+	 * tube, the behavior is undefined.
 	 *
 	 * @param p The {@link Point} to get the normal at.
 	 * @return The normalized normal {@link Vector}
@@ -73,8 +72,6 @@ public class Tube implements Geometry {
 		}
 		return sourceToP.subtract(direction().scale(dotProduct)).normalized();
 	}
-
-
 
 	/**
 	 * This function will find intersection points (possibly none) between a {@link Ray} and an {@link Tube}.

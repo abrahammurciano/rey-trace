@@ -20,11 +20,11 @@ public class Camera implements Iterable<Ray> {
 	private final ViewPlane view;
 
 	public Camera(Point location, NormalizedVector front, NormalizedVector up, double width, double height,
-			double distance, Resolution resolution) {
+		double distance, Resolution resolution) {
 		this.location = location;
 		this.orientation = new Orientation(front, up);
-		this.view = new ViewPlane(width, height, location.add(orientation.front.scale(distance)), resolution,
-				orientation);
+		this.view =
+			new ViewPlane(width, height, location.add(orientation.front.scale(distance)), resolution, orientation);
 	}
 
 	@Override

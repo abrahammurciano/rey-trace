@@ -20,7 +20,6 @@ public class DoubleCompare {
 		return Math.abs(a - b) <= 1E-7;
 	}
 
-
 	/**
 	 * Check if two doubles are not approximately equal.
 	 *
@@ -31,7 +30,6 @@ public class DoubleCompare {
 	public static boolean neq(double a, double b) {
 		return !eq(a, b);
 	}
-
 
 	/**
 	 * Check if a is less than b by a non-negligible amount.
@@ -44,7 +42,6 @@ public class DoubleCompare {
 		return a < b && neq(a, b);
 	}
 
-
 	/**
 	 * Check if two doubles are approximately equal or a is less than b.
 	 *
@@ -56,7 +53,6 @@ public class DoubleCompare {
 		return a < b || eq(a, b);
 	}
 
-
 	/**
 	 * Check if a is greater than b by a non-negligible amount.
 	 *
@@ -67,7 +63,6 @@ public class DoubleCompare {
 	public static boolean gt(double a, double b) {
 		return !leq(a, b);
 	}
-
 
 	/**
 	 * Check if two doubles are approximately equal or a is greater than b.

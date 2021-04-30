@@ -37,12 +37,10 @@ public class CameraTest {
 		Camera camera = new Camera(location, front, up, width, height, distance, resolution);
 
 		List<Ray> expected = List.of(new Ray(location, new NormalizedVector(2, -10, 2)),
-				new Ray(location, new NormalizedVector(0, -10, 2)), new Ray(location, new NormalizedVector(-2, -10, 2)),
-				new Ray(location, new NormalizedVector(2, -10, 0)), new Ray(location, new NormalizedVector(0, -10, 0)),
-				new Ray(location, new NormalizedVector(-2, -10, 0)),
-				new Ray(location, new NormalizedVector(2, -10, -2)),
-				new Ray(location, new NormalizedVector(0, -10, -2)),
-				new Ray(location, new NormalizedVector(-2, -10, -2)));
+			new Ray(location, new NormalizedVector(0, -10, 2)), new Ray(location, new NormalizedVector(-2, -10, 2)),
+			new Ray(location, new NormalizedVector(2, -10, 0)), new Ray(location, new NormalizedVector(0, -10, 0)),
+			new Ray(location, new NormalizedVector(-2, -10, 0)), new Ray(location, new NormalizedVector(2, -10, -2)),
+			new Ray(location, new NormalizedVector(0, -10, -2)), new Ray(location, new NormalizedVector(-2, -10, -2)));
 
 		List<Ray> actual = new ArrayList<>(9);
 		camera.forEach(actual::add);
@@ -54,18 +52,14 @@ public class CameraTest {
 		camera = new Camera(location, front, up, width, height, distance, resolution);
 
 		expected = List.of(new Ray(location, new NormalizedVector(3, -10, 3)),
-				new Ray(location, new NormalizedVector(1, -10, 3)), new Ray(location, new NormalizedVector(-1, -10, 3)),
-				new Ray(location, new NormalizedVector(-3, -10, 3)), new Ray(location, new NormalizedVector(3, -10, 1)),
-				new Ray(location, new NormalizedVector(1, -10, 1)), new Ray(location, new NormalizedVector(-1, -10, 1)),
-				new Ray(location, new NormalizedVector(-3, -10, 1)),
-				new Ray(location, new NormalizedVector(3, -10, -1)),
-				new Ray(location, new NormalizedVector(1, -10, -1)),
-				new Ray(location, new NormalizedVector(-1, -10, -1)),
-				new Ray(location, new NormalizedVector(-3, -10, -1)),
-				new Ray(location, new NormalizedVector(3, -10, -3)),
-				new Ray(location, new NormalizedVector(1, -10, -3)),
-				new Ray(location, new NormalizedVector(-1, -10, -3)),
-				new Ray(location, new NormalizedVector(-3, -10, -3)));
+			new Ray(location, new NormalizedVector(1, -10, 3)), new Ray(location, new NormalizedVector(-1, -10, 3)),
+			new Ray(location, new NormalizedVector(-3, -10, 3)), new Ray(location, new NormalizedVector(3, -10, 1)),
+			new Ray(location, new NormalizedVector(1, -10, 1)), new Ray(location, new NormalizedVector(-1, -10, 1)),
+			new Ray(location, new NormalizedVector(-3, -10, 1)), new Ray(location, new NormalizedVector(3, -10, -1)),
+			new Ray(location, new NormalizedVector(1, -10, -1)), new Ray(location, new NormalizedVector(-1, -10, -1)),
+			new Ray(location, new NormalizedVector(-3, -10, -1)), new Ray(location, new NormalizedVector(3, -10, -3)),
+			new Ray(location, new NormalizedVector(1, -10, -3)), new Ray(location, new NormalizedVector(-1, -10, -3)),
+			new Ray(location, new NormalizedVector(-3, -10, -3)));
 
 		actual = new ArrayList<>(16);
 		camera.forEach(actual::add);

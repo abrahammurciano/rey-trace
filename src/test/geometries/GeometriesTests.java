@@ -39,7 +39,7 @@ public class GeometriesTests {
 		Triangle intersectingTriangle = new Triangle(new Point(4, 0, 1), new Point(4, 1, -1), new Point(4, -1, -1));
 		Geometries geometries = new Geometries(intersectingSphere, nonIntersectingPlane, intersectingTriangle);
 		Assert.assertEquals("Wrong number of intersections when some shapes intersect",
-				geometries.intersect(ray).size(), 3);
+			geometries.intersect(ray).size(), 3);
 
 		// Boundary values test
 
@@ -50,16 +50,16 @@ public class GeometriesTests {
 		// No geometries intersect
 		geometries = new Geometries(nonIntersectingPlane);
 		Assert.assertTrue("Expected no intersections when no geometries intersect.",
-				geometries.intersect(ray).isEmpty());
+			geometries.intersect(ray).isEmpty());
 
 		// Only one shape intersects
 		geometries = new Geometries(intersectingSphere, nonIntersectingPlane);
 		Assert.assertEquals("Wrong number of intersections when some shapes intersect",
-				geometries.intersect(ray).size(), 2);
+			geometries.intersect(ray).size(), 2);
 
 		// All shapes intersect
 		geometries = new Geometries(intersectingSphere, intersectingTriangle);
 		Assert.assertEquals("Wrong number of intersections when all shapes intersect", geometries.intersect(ray).size(),
-				3);
+			3);
 	}
 }

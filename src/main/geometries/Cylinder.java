@@ -95,8 +95,7 @@ public class Cylinder implements Geometry {
 		}
 		intersections.removeIf(point -> {
 			double intersectionHeight = middle.axis.direction.dot(bottom.point.vectorTo(point));
-			return DoubleCompare.leq(intersectionHeight, 0)
-				|| DoubleCompare.geq(intersectionHeight, height);
+			return DoubleCompare.leq(intersectionHeight, 0) || DoubleCompare.geq(intersectionHeight, height);
 		});
 		return intersections;
 	}
@@ -104,8 +103,8 @@ public class Cylinder implements Geometry {
 	// helper function
 	private List<Point> intersectLid(Ray ray, Plane lid) {
 		List<Point> intersection = lid.intersect(ray);
-		if (!intersection.isEmpty() && DoubleCompare
-			.leq(intersection.get(0).squareDistance(lid.point), middle.radius * middle.radius)) {
+		if (!intersection.isEmpty()
+			&& DoubleCompare.leq(intersection.get(0).squareDistance(lid.point), middle.radius * middle.radius)) {
 			return intersection;
 		} else {
 			return Collections.emptyList();

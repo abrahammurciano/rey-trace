@@ -25,7 +25,7 @@ public class TriangleTests {
 		new Triangle(new Point(0, 0, 0), new Point(2, -1, 0), new Point(1, 1, 0));
 		// Colinear points
 		Assert.assertThrows("Colinear points should throw an exception.", IllegalArgumentException.class,
-				() -> new Triangle(new Point(0, 0, 0), new Point(1, 1, 1), new Point(2, 2, 2)));
+			() -> new Triangle(new Point(0, 0, 0), new Point(1, 1, 1), new Point(2, 2, 2)));
 	}
 
 	@Test
@@ -49,17 +49,17 @@ public class TriangleTests {
 		// Intersection inside triangle
 		Ray ray = new Ray(new Point(0.5, 0, 1), new NormalizedVector(0.5, 1, -1));
 		Assert.assertEquals("Intersection expected but not found or wrong value.", triangle.intersect(ray),
-				List.of(new Point(0.75, 0.5, 0.5)));
+			List.of(new Point(0.75, 0.5, 0.5)));
 
 		// Intersection outside triangle (on outside of only one edge)
 		ray = new Ray(new Point(0.5, 0, 1), new NormalizedVector(2, 1, -1));
 		Assert.assertTrue("No intersections expected for ray which intersects outside edge of triangle.",
-				triangle.intersect(ray).isEmpty());
+			triangle.intersect(ray).isEmpty());
 
 		// Intersection outside polygon (on outside of two edges)
 		ray = new Ray(new Point(0.5, 0, 1), new NormalizedVector(1, -1, -2));
 		Assert.assertTrue("No intersections expected for ray which intersects outside corner of triangle.",
-				triangle.intersect(ray).isEmpty());
+			triangle.intersect(ray).isEmpty());
 
 		// Ray parallel to triangle
 		ray = new Ray(new Point(0.5, 0, 1), new NormalizedVector(0, -1, -1));
@@ -68,7 +68,7 @@ public class TriangleTests {
 		// Ray starts beyond triangle
 		ray = new Ray(new Point(0.75, 1, 0), new NormalizedVector(0, 1, -1));
 		Assert.assertTrue("No intersections expected for ray starting beyond triangle.",
-				triangle.intersect(ray).isEmpty());
+			triangle.intersect(ray).isEmpty());
 
 		// @formatter:off
 		//  ____                        _

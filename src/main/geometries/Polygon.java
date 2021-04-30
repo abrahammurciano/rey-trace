@@ -28,9 +28,8 @@ public class Polygon implements Geometry {
 	 *
 	 * @param vertices A list of the vertices of the polygon, in order.
 	 * @throws IllegalArgumentException if there are less than three significant vertices, any of the vertices are not
-	 *         on
-	 *         the same plane as the rest, the vertices are out of order and thus form a non-convex polygon, consecutive
-	 *         vertices are repeated, or the last point is equal to the first point.
+	 *         on the same plane as the rest, the vertices are out of order and thus form a non-convex polygon,
+	 *         consecutive vertices are repeated, or the last point is equal to the first point.
 	 */
 	public Polygon(Point... vertices) {
 		this.vertices = new ArrayList<>(vertices.length);
@@ -55,8 +54,8 @@ public class Polygon implements Geometry {
 		}
 		this.size = this.vertices.size();
 
-		// If the sum of the exterior angles is greater than 2 Pi radians then it's not convex or
-		// not all points are on the same plane.
+		// If the sum of the exterior angles is greater than 2 Pi radians then it's not convex or not all points are on
+		// the same plane.
 		if (DoubleCompare.neq(sum, 2 * Math.PI)) {
 			throw new IllegalArgumentException(
 				"Error: The polygon must be convex and all the vertices must be on a common plane.");
@@ -64,8 +63,7 @@ public class Polygon implements Geometry {
 
 		// Checks for at least three vertices
 		if (this.size < 3) {
-			throw new IllegalArgumentException(
-				"Error: A polygon must contain at least three vertices.");
+			throw new IllegalArgumentException("Error: A polygon must contain at least three vertices.");
 		}
 		// Construct the plane from the first three vertices (not in a straight line).
 		this.plane = new Plane(this.vertices.get(0), this.vertices.get(1), this.vertices.get(2));

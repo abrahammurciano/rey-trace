@@ -55,7 +55,7 @@ public class TubeTests {
 		// 1. Hits tube twice (starts outside).
 		Ray ray = new Ray(new Point(-1, 5, 2), new NormalizedVector(1, -1, 0));
 		Assert.assertEquals("Ray which passes through center", new HashSet<>(tube.intersect(ray)),
-				new HashSet<>(List.of(p1, p2)));
+			new HashSet<>(List.of(p1, p2)));
 
 		// 2. Hits tube once (starts inside).
 		ray = new Ray(new Point(1, 3, 2), new NormalizedVector(1, -1, 0));
@@ -101,13 +101,13 @@ public class TubeTests {
 		// Start on axis and go orthogonal to it
 		ray = new Ray(new Point(0, 2, 1), new NormalizedVector(-1, 1, 0));
 		Assert.assertEquals("Ray starts on axis and is orthogonal to it", tube.intersect(ray),
-				List.of(new Point(-1, 3, 1)));
+			List.of(new Point(-1, 3, 1)));
 
 		// tube's center is at origin
 		tube = new Tube(new Ray(new Point(0, 0, 0), new NormalizedVector(1, 1, 1)), Math.sqrt(2));
 		ray = new Ray(new Point(-1, 3, 1), new NormalizedVector(1, -1, 0));
 		Assert.assertEquals("Ray starts on axis and is orthogonal to it", new HashSet<>(tube.intersect(ray)),
-				new HashSet<>(List.of(new Point(0, 2, 1), new Point(2, 0, 1))));
+			new HashSet<>(List.of(new Point(0, 2, 1), new Point(2, 0, 1))));
 	}
 
 }

@@ -4,9 +4,9 @@ import primitives.Triple;
 
 public class CartesianProduct extends CartesianProductPartial {
 
-	public double yx;
-	public double zy;
-	public double zx;
+	public final double yx;
+	public final double zy;
+	public final double zx;
 
 	public CartesianProduct(Triple first, Triple second) {
 		super(first, second);

@@ -24,7 +24,7 @@ public class Plane implements Geometry {
 	 * This constructor accepts a point on the plane and a vector perpendicular to
 	 * the plane.
 	 *
-	 * @param point  A point on the plane.
+	 * @param point A point on the plane.
 	 * @param normal A normalized vector perpendicular to the plane.
 	 */
 	public Plane(Point point, NormalizedVector normal) {
