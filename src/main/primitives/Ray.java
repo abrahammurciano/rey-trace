@@ -15,8 +15,7 @@ public class Ray {
 	public final NormalizedVector direction;
 
 	/**
-	 * Constructs a {@link Ray} from a source {@link Point} and a direction
-	 * {@link Vector}.
+	 * Constructs a {@link Ray} from a source {@link Point} and a direction {@link Vector}.
 	 *
 	 * @param source The {@link Point} at which the {@link Ray} starts.
 	 * @param direction The {@link NormalizedVector} in which the {@link Ray} is
@@ -42,8 +41,7 @@ public class Ray {
 	}
 
 	/**
-	 * Computes the hash code based on that of the source {@link Point} and the
-	 * direction {@link Vector}.
+	 * Computes the hash code based on that of the source {@link Point} and the direction {@link Vector}.
 	 */
 	@Override
 	public int hashCode() {
@@ -60,8 +58,7 @@ public class Ray {
 	}
 
 	/**
-	 * Calculate the point along the ray after traveling "distance" units in the
-	 * ray's direction.
+	 * Calculate the point along the ray after traveling "distance" units in the ray's direction.
 	 *
 	 * @param distance The distance to travel in the ray's direction.
 	 * @return The point on the ray after travelling "distance" units.

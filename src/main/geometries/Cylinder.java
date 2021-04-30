@@ -10,8 +10,7 @@ import primitives.NormalizedVector;
 import primitives.Ray;
 
 /**
- * This class represents a cylinder, which is a three-dimensional tube with a
- * height, and closed disks on either end.
+ * This class represents a cylinder, which is a three-dimensional tube with a height, and closed disks on either end.
  *
  * @author Eli Levin
  * @author Abraham Murciano
@@ -53,9 +52,8 @@ public class Cylinder implements Geometry {
 	}
 
 	/**
-	 * This function returns the normal vector relative to the {@link Point} p. p is
-	 * assumed to be on the surface of the Cylinder. Anything else is undefined
-	 * behavior.
+	 * This function returns the normal vector relative to the {@link Point} p. p is assumed to be on the surface of the
+	 * Cylinder. Anything else is undefined behavior.
 	 *
 	 * @param p The point at which to find the normal vector.
 	 */
@@ -69,8 +67,7 @@ public class Cylinder implements Geometry {
 	}
 
 	/**
-	 * This function will find intersection points (possibly none) between a
-	 * {@link Ray} and an {@link Cylinder}.
+	 * This function will find intersection points (possibly none) between a {@link Ray} and an {@link Cylinder}.
 	 *
 	 * @param r The {@link Ray} to intersect
 	 * @return a list (possibly empty) of intersection points

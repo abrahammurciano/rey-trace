@@ -9,8 +9,8 @@ import java.util.List;
 import primitives.NormalizedVector;
 
 /**
- * A {@link Plane} is a flat two dimensional surface in three dimensional space
- * which goes off to infinity in all directions.
+ * A {@link Plane} is a flat two dimensional surface in three dimensional space which goes off to infinity in all
+ * directions.
  *
  * @author Abraham Murciano
  * @author Eli Levin
@@ -21,8 +21,7 @@ public class Plane implements Geometry {
 	public final NormalizedVector normal;
 
 	/**
-	 * This constructor accepts a point on the plane and a vector perpendicular to
-	 * the plane.
+	 * This constructor accepts a point on the plane and a vector perpendicular to the plane.
 	 *
 	 * @param point A point on the plane.
 	 * @param normal A normalized vector perpendicular to the plane.

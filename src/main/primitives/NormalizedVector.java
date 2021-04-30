@@ -19,8 +19,8 @@ public class NormalizedVector extends Vector {
 	}
 
 	/**
-	 * This constructor does not normalize the vector. Make sure that the head is on the unit sphere before
-	 * calling this. Any other point results in undefined behavior.
+	 * This constructor does not normalize the vector. Make sure that the head is on the unit sphere before calling
+	 * this. Any other point results in undefined behavior.
 	 *
 	 * @param head The head of the vector. It will be stored exactly as passed so make sure it makes a vector with
 	 *        length equal to one.
