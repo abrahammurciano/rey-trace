@@ -30,14 +30,12 @@ class ViewPlane implements Iterable<Point> {
 
 	public final Resolution resolution;
 
-	public ViewPlane(double width, double height, Point center, Resolution resolution,
-		Orientation orientation) {
+	public ViewPlane(double width, double height, Point center, Resolution resolution, Orientation orientation) {
 		nextCol = orientation.right.scale(width / resolution.x);
 		Vector nextRowStraight = orientation.up.scale(-height / resolution.y);
 		nextRow = nextRowStraight.subtract(nextCol.scale((double) (resolution.x - 1)));
-		p0 = center.subtract(orientation.right.scale(width / 2))
-			.add(orientation.up.scale(height / 2)).add(nextCol.scale(0.5))
-			.add(nextRowStraight.scale(0.5));
+		p0 = center.subtract(orientation.right.scale(width / 2)).add(orientation.up.scale(height / 2))
+				.add(nextCol.scale(0.5)).add(nextRowStraight.scale(0.5));
 		this.resolution = resolution;
 	}
 
@@ -52,7 +50,7 @@ class ViewPlane implements Iterable<Point> {
 		private Point current;
 		private int x = 0;
 		private int y = 0;
-		private boolean ended = false;
+		private boolean hasNext = true;
 
 		public ViewPlaneIterator(ViewPlane view) {
 			this.view = view;
@@ -61,12 +59,12 @@ class ViewPlane implements Iterable<Point> {
 
 		@Override
 		public boolean hasNext() {
-			return x < view.resolution.x - 1 || y < view.resolution.y - 1;
+			return hasNext;
 		}
 
 		@Override
 		public Point next() {
-			if (ended) {
+			if (!hasNext()) {
 				throw new NoSuchElementException();
 			}
 			Point prev = current; // store value to return
@@ -79,7 +77,7 @@ class ViewPlane implements Iterable<Point> {
 			if (x == 0) { // if x wrapped around
 				++y;
 				if (y >= view.resolution.y) { // if y overflowed number of pixels
-					ended = true;
+					hasNext = false;
 					return;
 				}
 				current = current.add(view.nextRow); // move current to start of next row
@@ -87,6 +85,5 @@ class ViewPlane implements Iterable<Point> {
 				current = current.add(view.nextCol); // move current one column across
 			}
 		}
-
-	};
+	}
 }
