@@ -29,8 +29,7 @@ public class Cylinder implements Geometry {
 	 * @param radius A positive double that represents the radius.
 	 * @param height A positive double that represents the height of the Cylinder.
 	 *
-	 * @throws IllegalArgumentException if the radius is zero or the height is not
-	 *         positive.
+	 * @throws IllegalArgumentException if the radius is zero or the height is not positive.
 	 */
 	public Cylinder(Ray ray, double radius, double height) {
 		middle = new Tube(ray, radius);
