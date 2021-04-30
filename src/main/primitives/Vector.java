@@ -1,8 +1,8 @@
 package primitives;
 
 /**
- * The {@link Vector} class represents a {@link Vector} with it's base at the origin and it's head at the {@link Point}
- * 'head'.
+ * The {@link Vector} class represents a {@link Vector} with it's base at the
+ * origin and it's head at the {@link Point} 'head'.
  *
  * @author Abraham Murciano
  * @author Eli Levin
@@ -35,6 +35,10 @@ public class Vector extends Triple {
 		this(triple.x, triple.y, triple.z);
 	}
 
+	public static Vector create(double x, double y, double z) {
+		return new Vector(x, y, z);
+	}
+
 	/**
 	 * Adds two {@link Vector}s and returns a new {@link Vector}.
 	 *
@@ -43,7 +47,7 @@ public class Vector extends Triple {
 	 * @throws ZeroVectorException when adding a {@link Vector} with its reverse.
 	 */
 	public Vector add(Vector v) {
-		return transform(Double::sum, v, Vector.class);
+		return (Vector) transform(Double::sum, v, Vector::create);
 	}
 
 	/**
@@ -65,7 +69,7 @@ public class Vector extends Triple {
 	 * @throws ZeroVectorException if the scale factor is zero.
 	 */
 	public Vector scale(double factor) {
-		return transform(c -> c * factor, Vector.class);
+		return (Vector) transform(c -> c * factor, Vector::create);
 	}
 
 	/**
@@ -95,7 +99,8 @@ public class Vector extends Triple {
 	 * @return The dot product of the two {@link Vector}s
 	 */
 	public double dot(Vector v) {
-		return transform((base, aux) -> base * aux, v, Point.class).sum();
+		// TODO: change Point::create to VectorBase::create when VectorBase is merged
+		return transform((base, aux) -> base * aux, v, Point::create).sum();
 	}
 
 	/**
@@ -117,7 +122,8 @@ public class Vector extends Triple {
 	}
 
 	/**
-	 * Creates a new {@link Vector} with the same direction as this one but with a magnitude of one.
+	 * Creates a new {@link Vector} with the same direction as this one but with a
+	 * magnitude of one.
 	 *
 	 * @return new {@link Vector}
 	 */
@@ -126,8 +132,8 @@ public class Vector extends Triple {
 	}
 
 	/**
-	 * Calculates the angle in radians between this vector and the given vector. The angle is normalized between zero
-	 * and Pi.
+	 * Calculates the angle in radians between this vector and the given vector. The
+	 * angle is normalized between zero and Pi.
 	 *
 	 * @param v The other vector to be used to calculate the angle.
 	 * @return The angle in radians between the vectors between zero and Pi.

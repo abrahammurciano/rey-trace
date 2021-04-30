@@ -22,13 +22,26 @@ public class Point extends Triple {
 	}
 
 	/**
+	 * Constructs a {@link Point} from a {@link Triple}.
+	 *
+	 * @param triple The triple to convert to a {@link Point}.
+	 */
+	public Point(Triple triple) {
+		this(triple.x, triple.y, triple.z);
+	}
+
+	public static Point create(double x, double y, double z) {
+		return new Point(x, y, z);
+	}
+
+	/**
 	 * Adds a {@link Vector} to this {@link Point} and returns the resulting {@link Point}.
 	 *
 	 * @param vector The {@link Vector} to add to this {@link Point}.
 	 * @return The {@link Point} resulting from adding the {@link Vector} to this {@link Point}.
 	 */
 	public Point add(Vector vector) {
-		return transform(Double::sum, vector, Point.class);
+		return (Point) transform(Double::sum, vector, Point::create);
 	}
 
 	/**
@@ -49,7 +62,7 @@ public class Point extends Triple {
 	 * @throws ZeroVectorException if the target is equal to this {@link Point}.
 	 */
 	public Vector vectorTo(Point target) {
-		return transform((base, aux) -> aux - base, target, Vector.class);
+		return (Vector) transform((base, aux) -> aux - base, target, Vector::create);
 	}
 
 	/**
@@ -81,12 +94,11 @@ public class Point extends Triple {
 	 * @return The square of the distance between this {@link Point} and the target {@link Point}.
 	 */
 	public double squareDistance(Point target) {
-		// Construct a point whose coordinates are the squares of the differences of the coordinates
-		// of the two points.
+		// Construct a point whose coordinates are the squares of the differences of the coordinates of the two points.
 		// Sum the coordinates of the square point.
 		return transform((base, aux) -> {
 			double diff = aux - base;
 			return diff * diff;
-		}, target, Point.class).sum();
+		}, target, Point::create).sum();
 	}
 }
