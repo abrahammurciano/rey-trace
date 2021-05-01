@@ -1,4 +1,4 @@
-package util;
+package math.compare;
 
 /**
  * Class for comparing doubles with tolerance.
@@ -7,7 +7,8 @@ package util;
  * @author Eli Levin
  */
 public class DoubleCompare {
-	private DoubleCompare() {}
+	private DoubleCompare() {
+	}
 
 	/**
 	 * Check if two doubles are approximately equal.

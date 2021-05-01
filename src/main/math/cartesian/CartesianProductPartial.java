@@ -1,4 +1,4 @@
-package util;
+package math.cartesian;
 
 import primitives.Triple;
 

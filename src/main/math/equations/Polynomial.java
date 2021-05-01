@@ -1,4 +1,4 @@
-package util;
+package math.equations;
 
 public abstract class Polynomial {
 

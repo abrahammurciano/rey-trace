@@ -1,4 +1,4 @@
-package util;
+package math.equations;
 
 /**
  * Represents a linear polynomial and provides a way to solve it.
@@ -17,8 +17,8 @@ public class Linear extends Polynomial {
 	/**
 	 * Constructor of linear equations.
 	 *
-	 * @param a The coefficient of the linear term. This may not be 0, else the equation has either zero on infinitely
-	 *        many solutions
+	 * @param a The coefficient of the linear term. This may not be 0, else the
+	 *          equation has either zero on infinitely many solutions
 	 * @param b The constant
 	 */
 	public Linear(double a, double b) {
@@ -28,6 +28,6 @@ public class Linear extends Polynomial {
 
 	@Override
 	public double[] solutions() {
-		return new double[] {b / a};
+		return new double[] { b / a };
 	}
 }

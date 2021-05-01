@@ -1,7 +1,10 @@
-package util;
+package math.equations;
+
+import math.compare.DoubleCompare;
 
 /**
- * This class represents a quadratic equation and provides functions to help solve them.
+ * This class represents a quadratic equation and provides functions to help
+ * solve them.
  *
  * @author Abraham Murciano
  * @author Eli Levin
@@ -16,7 +19,8 @@ public class Quadratic extends Polynomial {
 	/**
 	 * Constructor of quadratic equations.
 	 *
-	 * @param a The coefficient of the quadratic term. This may not be 0, else it would not be quadratic.
+	 * @param a The coefficient of the quadratic term. This may not be 0, else it
+	 *          would not be quadratic.
 	 * @param b The coefficient of the linear term
 	 * @param c The constant
 	 */
@@ -44,9 +48,9 @@ public class Quadratic extends Polynomial {
 		double minusB = -b;
 		double twoA = 2 * a;
 		if (DoubleCompare.eq(discriminant, 0)) {
-			return new double[] {minusB / twoA};
+			return new double[] { minusB / twoA };
 		}
 		double sqrt = Math.sqrt(discriminant);
-		return new double[] {(minusB + sqrt) / twoA, (minusB - sqrt) / twoA};
+		return new double[] { (minusB + sqrt) / twoA, (minusB - sqrt) / twoA };
 	}
 }

@@ -1,4 +1,4 @@
-package util;
+package math.compare;
 
 import primitives.NormalizedVector;
 
@@ -10,11 +10,12 @@ import primitives.NormalizedVector;
  */
 public class NormalCompare {
 
-	private NormalCompare() {}
+	private NormalCompare() {
+	}
 
 	/**
-	 * Check if two normals are equal. They are considered equal if they are the same length and the same or opposite
-	 * direction.
+	 * Check if two normals are equal. They are considered equal if they are the
+	 * same length and the same or opposite direction.
 	 *
 	 * @param v1 A vector to compare.
 	 * @param v2 A vector to compare.

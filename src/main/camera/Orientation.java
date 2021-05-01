@@ -1,7 +1,7 @@
 package camera;
 
+import math.compare.DoubleCompare;
 import primitives.NormalizedVector;
-import util.DoubleCompare;
 
 /**
  * This class represents some orientation in three-dimensional space
@@ -14,8 +14,9 @@ public class Orientation {
 	/**
 	 * Constructs an orientation given the front and up vectors.
 	 *
-	 * @param front The vector pointing forward with respect to the desired orientation.
-	 * @param up The vector pointing up with respect to the desired orientation.
+	 * @param front The vector pointing forward with respect to the desired
+	 *              orientation.
+	 * @param up    The vector pointing up with respect to the desired orientation.
 	 * @throws IllegalArgumentException if front and up are not perpendicular.
 	 */
 	public Orientation(NormalizedVector front, NormalizedVector up) {

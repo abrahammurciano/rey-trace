@@ -4,7 +4,7 @@ import primitives.Vector;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import primitives.Point;
-import util.Resolution;
+import math.Resolution;
 
 /**
  * Represends the field of view of the camera.
@@ -35,7 +35,7 @@ class ViewPlane implements Iterable<Point> {
 		Vector nextRowStraight = orientation.up.scale(-height / resolution.y);
 		nextRow = nextRowStraight.subtract(nextCol.scale((double) (resolution.x - 1)));
 		p0 = center.subtract(orientation.right.scale(width / 2)).add(orientation.up.scale(height / 2))
-			.add(nextCol.scale(0.5)).add(nextRowStraight.scale(0.5));
+				.add(nextCol.scale(0.5)).add(nextRowStraight.scale(0.5));
 		this.resolution = resolution;
 	}
 
