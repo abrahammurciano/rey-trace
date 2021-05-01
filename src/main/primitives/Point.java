@@ -21,15 +21,6 @@ public class Point extends Triple {
 		super(x, y, z);
 	}
 
-	/**
-	 * Constructs a {@link Point} from a {@link Triple}.
-	 *
-	 * @param triple The triple to convert to a {@link Point}.
-	 */
-	public Point(Triple triple) {
-		this(triple.x, triple.y, triple.z);
-	}
-
 	public static Point create(double x, double y, double z) {
 		return new Point(x, y, z);
 	}

@@ -26,6 +26,16 @@ public class Ray {
 	}
 
 	/**
+	 * Calculate the point along the ray after traveling "distance" units in the ray's direction.
+	 *
+	 * @param distance The distance to travel in the ray's direction.
+	 * @return The point on the ray after travelling "distance" units.
+	 */
+	public Point travel(double distance) {
+		return source.add(direction.scale(distance));
+	}
+
+	/**
 	 * Compares the source and direction of the two {@link Ray}s.
 	 */
 	@Override
@@ -54,15 +64,5 @@ public class Ray {
 	public String toString() {
 		// ((0, 0, 0), (1, 1, 1))
 		return "(" + source + ", " + direction + ")";
-	}
-
-	/**
-	 * Calculate the point along the ray after traveling "distance" units in the ray's direction.
-	 *
-	 * @param distance The distance to travel in the ray's direction.
-	 * @return The point on the ray after travelling "distance" units.
-	 */
-	public Point travel(double distance) {
-		return source.add(direction.scale(distance));
 	}
 }

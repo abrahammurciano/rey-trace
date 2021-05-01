@@ -10,8 +10,7 @@ import primitives.NormalizedVector;
  */
 public class NormalCompare {
 
-	private NormalCompare() {
-	}
+	private NormalCompare() {}
 
 	/**
 	 * Check if two normals are equal. They are considered equal if they are the
