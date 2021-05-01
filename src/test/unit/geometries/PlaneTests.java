@@ -1,9 +1,9 @@
-package geometries;
+package unit.geometries;
 
 import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
-
+import geometries.Plane;
 import math.compare.NormalCompare;
 import primitives.NormalizedVector;
 import primitives.Point;
@@ -26,7 +26,7 @@ public class PlaneTests {
 		new Plane(new Point(0, 0, 0), new Point(2, -1, 0), new Point(1, 1, 0));
 		// Colinear points
 		Assert.assertThrows("Colinear points should throw an exception.", IllegalArgumentException.class,
-				() -> new Plane(new Point(0, 0, 0), new Point(1, 1, 1), new Point(2, 2, 2)));
+			() -> new Plane(new Point(0, 0, 0), new Point(1, 1, 1), new Point(2, 2, 2)));
 	}
 
 	/**
@@ -108,7 +108,7 @@ public class PlaneTests {
 		// Does intersect
 		ray = new Ray(new Point(1, 1, 1), new NormalizedVector(1, 1, -1));
 		Assert.assertEquals("Expected intersection for intersecting ray.", plane.intersect(ray),
-				List.of(new Point(2, 2, 0)));
+			List.of(new Point(2, 2, 0)));
 
 		// Does not intersect (not parallel)
 		ray = new Ray(new Point(1, 1, -1), new NormalizedVector(1, 1, -1));
@@ -142,6 +142,6 @@ public class PlaneTests {
 		// Ray starts on plane's internal point
 		ray = new Ray(new Point(0, 0, 0), new NormalizedVector(1, 1, 1));
 		Assert.assertTrue("No plane intersection expected for ray starting on plane's internal point.",
-				plane.intersect(ray).isEmpty());
+			plane.intersect(ray).isEmpty());
 	}
 }

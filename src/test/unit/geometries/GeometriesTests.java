@@ -1,8 +1,11 @@
-package geometries;
+package unit.geometries;
 
 import org.junit.Assert;
 import org.junit.Test;
-
+import geometries.Geometries;
+import geometries.Plane;
+import geometries.Sphere;
+import geometries.Triangle;
 import primitives.NormalizedVector;
 import primitives.Point;
 import primitives.Ray;

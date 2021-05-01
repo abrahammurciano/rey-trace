@@ -1,9 +1,12 @@
-package primitives;
+package unit.primitives;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import math.compare.DoubleCompare;
+import primitives.Point;
+import primitives.Vector;
+import primitives.ZeroVectorException;
 
 /**
  * Test the functions of the point class
