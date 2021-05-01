@@ -3,7 +3,7 @@ package primitives;
 import org.junit.Assert;
 import org.junit.Test;
 
-import util.DoubleCompare;
+import math.compare.DoubleCompare;
 
 /**
  * Test the functions of the point class

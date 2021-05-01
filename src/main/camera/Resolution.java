@@ -1,7 +1,8 @@
-package util;
+package camera;
 
 /**
- * Represents the resolution of an image. That is some number of pixels by some number of pixels.
+ * Represents the resolution of an image. That is some number of pixels by some
+ * number of pixels.
  *
  * @author Abraham Murciano
  * @author Eli Levin

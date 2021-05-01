@@ -1,16 +1,18 @@
 package geometries;
 
 import primitives.Point;
-import util.DoubleCompare;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import math.compare.DoubleCompare;
 import primitives.NormalizedVector;
 import primitives.Ray;
 
 /**
- * This class represents a cylinder, which is a three-dimensional tube with a height, and closed disks on either end.
+ * This class represents a cylinder, which is a three-dimensional tube with a
+ * height, and closed disks on either end.
  *
  * @author Eli Levin
  * @author Abraham Murciano
@@ -25,11 +27,12 @@ public class Cylinder implements Geometry {
 	/**
 	 * This constructs a Cylinder.
 	 *
-	 * @param ray The ray that makes up the center of the Cylinder.
+	 * @param ray    The ray that makes up the center of the Cylinder.
 	 * @param radius A positive double that represents the radius.
 	 * @param height A positive double that represents the height of the Cylinder.
 	 *
-	 * @throws IllegalArgumentException if the radius is zero or the height is not positive.
+	 * @throws IllegalArgumentException if the radius is zero or the height is not
+	 *                                  positive.
 	 */
 	public Cylinder(Ray ray, double radius, double height) {
 		middle = new Tube(ray, radius);
@@ -51,8 +54,9 @@ public class Cylinder implements Geometry {
 	}
 
 	/**
-	 * This function returns the normal vector relative to the {@link Point} p. p is assumed to be on the surface of the
-	 * Cylinder. Anything else is undefined behavior.
+	 * This function returns the normal vector relative to the {@link Point} p. p is
+	 * assumed to be on the surface of the Cylinder. Anything else is undefined
+	 * behavior.
 	 *
 	 * @param p The point at which to find the normal vector.
 	 */
@@ -66,7 +70,8 @@ public class Cylinder implements Geometry {
 	}
 
 	/**
-	 * This function will find intersection points (possibly none) between a {@link Ray} and an {@link Cylinder}.
+	 * This function will find intersection points (possibly none) between a
+	 * {@link Ray} and an {@link Cylinder}.
 	 *
 	 * @param r The {@link Ray} to intersect
 	 * @return a list (possibly empty) of intersection points
@@ -100,7 +105,7 @@ public class Cylinder implements Geometry {
 	private List<Point> intersectLid(Ray ray, Plane lid) {
 		List<Point> intersection = lid.intersect(ray);
 		if (!intersection.isEmpty()
-			&& DoubleCompare.leq(intersection.get(0).squareDistance(lid.point), middle.radius * middle.radius)) {
+				&& DoubleCompare.leq(intersection.get(0).squareDistance(lid.point), middle.radius * middle.radius)) {
 			return intersection;
 		} else {
 			return Collections.emptyList();

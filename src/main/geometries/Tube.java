@@ -8,12 +8,12 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 import primitives.ZeroVectorException;
-import util.DoubleCompare;
-import util.Linear;
-import util.Polynomial;
-import util.Quadratic;
-import util.CartesianProduct;
-import util.CartesianProductSelf;
+import math.cartesian.CartesianProduct;
+import math.cartesian.CartesianProductSelf;
+import math.compare.DoubleCompare;
+import math.equations.Linear;
+import math.equations.Polynomial;
+import math.equations.Quadratic;
 
 /**
  * A Tube is a 3D tube object that goes on to infinity.
@@ -27,9 +27,10 @@ public class Tube implements Geometry {
 	private Vector toOrigin = null, fromOrigin = null;
 
 	/**
-	 * Constructs a {@link Tube} with the source at the same source and direction as the given axis {@link Ray}.
+	 * Constructs a {@link Tube} with the source at the same source and direction as
+	 * the given axis {@link Ray}.
 	 *
-	 * @param axis The {@link Ray} from which to get the source and direction.
+	 * @param axis   The {@link Ray} from which to get the source and direction.
 	 * @param radius The distance from the axis to the surface.
 	 * @throws IllegalArgumentException if the radius is zero.
 	 */
@@ -56,12 +57,13 @@ public class Tube implements Geometry {
 	}
 
 	/**
-	 * This function returns the normal to the tube at the given point. If the point doesn't lie on the surface of the
-	 * tube, the behavior is undefined.
+	 * This function returns the normal to the tube at the given point. If the point
+	 * doesn't lie on the surface of the tube, the behavior is undefined.
 	 *
 	 * @param p The {@link Point} to get the normal at.
 	 * @return The normalized normal {@link Vector}
-	 * @throws ZeroVectorException if the p is equal to the source @{@link Point} of the {@link Tube}.
+	 * @throws ZeroVectorException if the p is equal to the source @{@link Point} of
+	 *                             the {@link Tube}.
 	 */
 	@Override
 	public NormalizedVector normal(Point p) {
@@ -74,7 +76,8 @@ public class Tube implements Geometry {
 	}
 
 	/**
-	 * This function will find intersection points (possibly none) between a {@link Ray} and an {@link Tube}.
+	 * This function will find intersection points (possibly none) between a
+	 * {@link Ray} and an {@link Tube}.
 	 *
 	 * @param r The {@link Ray} to intersect
 	 * @return a list (possibly empty) of intersection points
