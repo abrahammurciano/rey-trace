@@ -43,6 +43,15 @@ public class CameraBuilder {
 	}
 
 	/**
+	 * Get the location where the {@link Camera} will be placed.
+	 *
+	 * @return The location where the {@link Camera} will be placed.
+	 */
+	public Point location() {
+		return location;
+	}
+
+	/**
 	 * Specify the direction the {@link Camera} will be facing. Default is the positive y-axis.
 	 *
 	 * @param front The direction the {@link Camera} will be facing.
@@ -51,6 +60,15 @@ public class CameraBuilder {
 	public CameraBuilder front(NormalizedVector front) {
 		this.front = front;
 		return this;
+	}
+
+	/**
+	 * Get the direction the {@link Camera} will be facing.
+	 *
+	 * @return The direction the {@link Camera} will be facing.
+	 */
+	public NormalizedVector front() {
+		return front;
 	}
 
 	/**
@@ -65,6 +83,15 @@ public class CameraBuilder {
 	}
 
 	/**
+	 * Get the direction the {@link Camera} will consider "up".
+	 *
+	 * @return The direction the {@link Camera} will consider "up".
+	 */
+	public NormalizedVector up() {
+		return up;
+	}
+
+	/**
 	 * Specify the width of the view plane. Default is 19.2 units.
 	 *
 	 * @param width The width of the view plane.
@@ -76,6 +103,15 @@ public class CameraBuilder {
 	}
 
 	/**
+	 * Get the width of the view plane.
+	 *
+	 * @return This {@link CameraBuilder}.
+	 */
+	public double width() {
+		return width;
+	}
+
+	/**
 	 * Specify the height of the view plane. Default is 10.8 units.
 	 *
 	 * @param height The height of the view plane.
@@ -84,6 +120,15 @@ public class CameraBuilder {
 	public CameraBuilder height(double height) {
 		this.height = height;
 		return this;
+	}
+
+	/**
+	 * Get the height of the view plane.
+	 *
+	 * @return The height of the view plane.
+	 */
+	public double height() {
+		return height;
 	}
 
 	/**
@@ -109,6 +154,15 @@ public class CameraBuilder {
 	}
 
 	/**
+	 * Get the distance between the {@link Camera} and the view plane.
+	 *
+	 * @return The distance between the {@link Camera} and the view plane.
+	 */
+	public double distance() {
+		return distance;
+	}
+
+	/**
 	 * Specify the resolution of the {@link Camera}. Default is 1080p.
 	 *
 	 * @param resolution The resolution of the {@link Camera}.
@@ -131,12 +185,22 @@ public class CameraBuilder {
 	}
 
 	/**
+	 * Get the resolution of the {@link Camera}.
+	 *
+	 * @return This {@link CameraBuilder}.
+	 */
+	public Resolution resolution() {
+		return resolution;
+	}
+
+	/**
 	 * Construct the {@link Camera} with the specified parameters.
 	 *
-	 * @return The {@link Camera} instance constructed with the specified parameters.
+	 * @return The {@link Camera} instance constructed with the specified
+	 *         parameters.
 	 */
 	public Camera build() {
-		return new Camera(location, front, up, width, height, distance, resolution);
+		return new Camera(this);
 	}
 
 }

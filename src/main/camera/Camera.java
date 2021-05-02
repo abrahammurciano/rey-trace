@@ -4,12 +4,9 @@ import primitives.Point;
 import primitives.Ray;
 import java.util.Iterator;
 
-import primitives.NormalizedVector;
-
 /**
- * The camera represents the point of view of the rendered image. Iterating over
- * {@link Camera} will yield {@link Ray}s starting from left to right, then top
- * to bottom.
+ * The camera represents the point of view of the rendered image. Iterating over {@link Camera} will yield {@link Ray}s
+ * starting from left to right, then top to bottom.
  *
  * @author Abraham Murciano
  * @author Eli Levin
@@ -19,12 +16,22 @@ public class Camera implements Iterable<Ray> {
 	private final Orientation orientation;
 	private final ViewPlane view;
 
-	public Camera(Point location, NormalizedVector front, NormalizedVector up, double width, double height,
-		double distance, Resolution resolution) {
-		this.location = location;
-		this.orientation = new Orientation(front, up);
-		this.view =
-			new ViewPlane(width, height, location.add(orientation.front.scale(distance)), resolution, orientation);
+	Camera(CameraBuilder builder) {
+		this.location = builder.location();
+		this.orientation = new Orientation(builder.front(), builder.up());
+		this.view = new ViewPlane(builder.width(), builder.height(),
+			builder.location().add(orientation.front.scale(builder.distance())), builder.resolution(), orientation);
+	}
+
+	/**
+	 * Calculate the {@link Ray} to the center of the pixel at the given column and row.
+	 *
+	 * @param col The index of the column.
+	 * @param row The index of the row.
+	 * @return The ray to the center of the pixel.
+	 */
+	public Ray point(int col, int row) {
+		return new Ray(location, location.vectorTo(view.point(col, row)).normalized());
 	}
 
 	@Override

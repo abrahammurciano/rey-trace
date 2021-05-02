@@ -15,7 +15,7 @@ class ViewPlane implements Iterable<Point> {
 	/**
 	 * The top left point
 	 */
-	public final Point p0;
+	private final Point topLeft;
 
 	/**
 	 * Moves one pixel to the left
@@ -23,7 +23,7 @@ class ViewPlane implements Iterable<Point> {
 	private final Vector nextCol;
 
 	/**
-	 * Moves one pixel down and back to first column (from last column)
+	 * Moves one pixel down
 	 */
 	private final Vector nextRow;
 
@@ -31,11 +31,32 @@ class ViewPlane implements Iterable<Point> {
 
 	public ViewPlane(double width, double height, Point center, Resolution resolution, Orientation orientation) {
 		nextCol = orientation.right.scale(width / resolution.x);
-		Vector nextRowStraight = orientation.up.scale(-height / resolution.y);
-		nextRow = nextRowStraight.subtract(nextCol.scale((double) (resolution.x - 1)));
-		p0 = center.subtract(orientation.right.scale(width / 2)).add(orientation.up.scale(height / 2))
-			.add(nextCol.scale(0.5)).add(nextRowStraight.scale(0.5));
+		nextRow = orientation.up.scale(-height / resolution.y);
+		topLeft = center.subtract(orientation.right.scale(width / 2)).add(orientation.up.scale(height / 2))
+			.add(nextCol.scale(0.5)).add(nextRow.scale(0.5));
 		this.resolution = resolution;
+	}
+
+	/**
+	 * Calculate the {@link Point} at the center of the pixel at the given column and row.
+	 *
+	 * @param col The index of the column.
+	 * @param row The index of the row.
+	 * @return The point at the center of the pixel.
+	 */
+	public Point point(int col, int row) {
+		// TODO: use this code instead once VectorBase is merged
+		// Passing VectorBase::create into scale allows scaling by 0, which allows getting the pixels at row 0 or column
+		// 0 without preemptive checking.
+		// return topLeft.add(nextCol.scale(col, VectorBase::create)).add(nextRow.scale(row, VectorBase::create));
+		Point p = topLeft;
+		if (col != 0) {
+			p = p.add(nextCol.scale(col));
+		}
+		if (row != 0) {
+			p = p.add(nextRow.scale(row));
+		}
+		return p;
 	}
 
 	@Override
@@ -46,14 +67,12 @@ class ViewPlane implements Iterable<Point> {
 	public class ViewPlaneIterator implements Iterator<Point> {
 
 		private final ViewPlane view;
-		private Point current;
-		private int x = 0;
-		private int y = 0;
+		private int col = 0;
+		private int row = 0;
 		private boolean hasNext = true;
 
 		public ViewPlaneIterator(ViewPlane view) {
 			this.view = view;
-			current = view.p0;
 		}
 
 		@Override
@@ -66,22 +85,18 @@ class ViewPlane implements Iterable<Point> {
 			if (!hasNext()) {
 				throw new NoSuchElementException();
 			}
-			Point prev = current; // store value to return
+			Point prev = view.point(col, row); // store value to return
 			increment();
 			return prev;
 		}
 
 		private void increment() {
-			x = (x + 1) % view.resolution.x; // increment x
-			if (x == 0) { // if x wrapped around
-				++y;
-				if (y >= view.resolution.y) { // if y overflowed number of pixels
+			col = (col + 1) % view.resolution.x; // increment column
+			if (col == 0) { // if column wrapped around
+				++row;
+				if (row >= view.resolution.y) { // if row overflowed number of pixels
 					hasNext = false;
-					return;
 				}
-				current = current.add(view.nextRow); // move current to start of next row
-			} else {
-				current = current.add(view.nextCol); // move current one column across
 			}
 		}
 	}
