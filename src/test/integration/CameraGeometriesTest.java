@@ -1,5 +1,6 @@
 package integration;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -8,6 +9,7 @@ import org.junit.Test;
 import camera.Camera;
 import camera.CameraBuilder;
 import camera.Resolution;
+import geometries.Plane;
 import geometries.Sphere;
 import org.junit.Assert;
 import primitives.NormalizedVector;
@@ -23,6 +25,9 @@ import primitives.Ray;
  */
 public class CameraGeometriesTest {
 
+	/**
+	 * Tests that the rays from the camera intersect with the sphere in the correct coordinates.
+	 */
 	@Test
 	public void testSphere() {
 
@@ -103,5 +108,41 @@ public class CameraGeometriesTest {
 		}
 		expected = Collections.emptySet();
 		Assert.assertEquals("Sphere behind camera", expected, intersections);
+	}
+
+	/**
+	 * Tests that the rays from the camera intersect with the plane the correct number of times.
+	 */
+	@Test
+	public void testPlane() {
+		CameraBuilder builder = new CameraBuilder().dimensions(3, 3).distance(1).front(new NormalizedVector(0, 0, -1))
+			.up(new NormalizedVector(0, 1, 0)).resolution("3x3");
+		Camera camera = builder.build();
+
+		// Plane parallel to the view plane.
+		Plane plane = new Plane(new Point(0, 0, -2), new Point(1, 0, -2), new Point(2, 2, -2));
+		List<Point> intersections = new ArrayList<>(9);
+		for (Ray ray : camera) {
+			intersections.addAll(plane.intersect(ray));
+		}
+		Assert.assertEquals("Wrong number of intersections for plane parallel to view plane.", 9, intersections.size());
+
+		// Slightly slanted plane
+		plane = new Plane(new Point(0, 0, -2.1), new Point(1, 0, -2.2), new Point(2, 2, -2.6));
+		intersections = new ArrayList<>(9);
+		for (Ray ray : camera) {
+			intersections.addAll(plane.intersect(ray));
+		}
+		Assert.assertEquals("Wrong number of intersections for a slightly slanted plane.", 9, intersections.size());
+
+		// very slanted plane
+
+		// Plane behind camera
+		plane = new Plane(new Point(0, 0, 5), new Point(1, 0, 5), new Point(2, 2, 5));
+		intersections = new ArrayList<>(0);
+		for (Ray ray : camera) {
+			intersections.addAll(plane.intersect(ray));
+		}
+		Assert.assertEquals("Found intersections for a plane behind camera.", 0, intersections.size());
 	}
 }
