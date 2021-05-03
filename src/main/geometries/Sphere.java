@@ -7,7 +7,7 @@ import java.util.List;
 import primitives.NormalizedVector;
 import primitives.Point;
 import primitives.Ray;
-import primitives.Vector;
+import primitives.VectorBase;
 import math.compare.DoubleCompare;
 import math.equations.Quadratic;
 
@@ -52,12 +52,7 @@ public class Sphere implements Geometry {
 
 	@Override
 	public List<Point> intersect(Ray ray) {
-		Vector centerToRaySource;
-		try { // TODO: remove try/catch when VectorBase is merged
-			centerToRaySource = center.vectorTo(ray.source);
-		} catch (ZeroVectorException __) { // ray starts at center
-			return List.of(ray.travel(radius));
-		}
+		VectorBase centerToRaySource = center.vectorTo(ray.source, VectorBase::create);
 		double b = 2 * ray.direction.dot(centerToRaySource);
 		double c = centerToRaySource.squareLength() - radius * radius;
 		Quadratic quadratic = new Quadratic(1, b, c);

@@ -2,6 +2,7 @@ package geometries;
 
 import primitives.Point;
 import primitives.Ray;
+import primitives.VectorBase;
 import primitives.ZeroVectorException;
 import java.util.Collections;
 import java.util.List;
@@ -60,11 +61,7 @@ public class Plane implements Geometry {
 		// If the vector from p to another point is on the plane dot product the normal
 		// is zero (the
 		// vectors are perpendicular) then the point is on the plane.
-		try { // TODO: remove try/catch when VectorBase is merged
-			return DoubleCompare.eq(normal.dot(point.vectorTo(p)), 0);
-		} catch (ZeroVectorException e) {
-			return true; // if p equals the plane's defining point vectorTo will throw
-		}
+		return DoubleCompare.eq(normal.dot(point.vectorTo(p, VectorBase::create)), 0);
 	}
 
 	@Override
@@ -78,12 +75,7 @@ public class Plane implements Geometry {
 		if (DoubleCompare.eq(ray_dot_normal, 0)) {
 			return Collections.emptyList(); // ray is parallel to plane
 		}
-		double distance;
-		try {// TODO: remove try catch when VectorBase is merged
-			distance = (ray.source.vectorTo(point)).dot(normal) / ray_dot_normal;
-		} catch (ZeroVectorException __) {
-			return Collections.emptyList(); // plane and ray start at same point
-		}
+		double distance = (ray.source.vectorTo(point, VectorBase::create)).dot(normal) / ray_dot_normal;
 		if (DoubleCompare.leq(distance, 0)) {
 			return Collections.emptyList(); // pane is behind the ray
 		}
