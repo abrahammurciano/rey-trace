@@ -21,26 +21,41 @@ public class VectorBase extends Triple {
 		super(x, y, z);
 	}
 
+	public static VectorBase create(double x, double y, double z) {
+		return new VectorBase(x, y, z);
+	}
+
 	/**
-	 * This constructor accepts a {@link Triple} and constructs the appropriate {@link VectorBase} with those values.
+	 * Adds a {@link Triple} to this {@link VectorBase} and returns a new {@link Triple} of the same type returned by
+	 * {@code creator}.
 	 *
-	 * @param triple The {@link Triple} with the coordinates which this {@link VectorBase} would point to if its base was at the
-	 *        origin.
-	 * @throws ZeroVectorException if this {@link VectorBase} is the zero vector.
+	 * @param triple  The {@link VectorBase} which is to be added to this {@link VectorBase}.
+	 * @param creator A function which receives three doubles and returns a new {@link Triple}.
+	 * @return The sum of the two {@link VectorBase}s.
 	 */
-	public VectorBase(Triple triple) {
-		this(triple.x, triple.y, triple.z);
+	public Triple add(Triple triple, TripleCreator creator) {
+		return transform(Double::sum, triple, creator);
 	}
 
 	/**
 	 * Adds two {@link VectorBase}s and returns a new {@link VectorBase}.
 	 *
-	 * @param v The {@link VectorBase} which is to be added to this {@link VectorBase}.
+	 * @param triple The {@link Triple} which is to be added to this {@link VectorBase}.
 	 * @return The sum of the two {@link VectorBase}s.
-	 * @throws ZeroVectorException when adding a {@link VectorBase} with its reverse.
 	 */
-	public VectorBase add(VectorBase v) {
-		return transform(Double::sum, v, VectorBase.class);
+	public VectorBase add(Triple triple) {
+		return (VectorBase) add(triple, VectorBase::create);
+	}
+
+	/**
+	 * Subtracts two {@link VectorBase}s and returns a new {@link VectorBase} of the type returned by {@code creator}.
+	 *
+	 * @param vector  The {@link VectorBase} to be subtracted from this {@link VectorBase}.
+	 * @param creator A function which receives three doubles and returns a new {@link VectorBase}.
+	 * @return The sum of this {@link VectorBase} and the negation of the given {@link VectorBase}.
+	 */
+	public VectorBase subtract(VectorBase vector, VectorBaseCreator creator) {
+		return (VectorBase) add(vector.reversed(), creator);
 	}
 
 	/**
@@ -48,10 +63,20 @@ public class VectorBase extends Triple {
 	 *
 	 * @param vector The {@link VectorBase} to be subtracted from this {@link VectorBase}.
 	 * @return The sum of this {@link VectorBase} and the negation of the given {@link VectorBase}.
-	 * @throws ZeroVectorException if a {@link VectorBase} is subtracted from itself.
 	 */
 	public VectorBase subtract(VectorBase vector) {
-		return add(vector.reversed());
+		return subtract(vector, VectorBase::create);
+	}
+
+	/**
+	 * Constructs a new {@link VectorBase} which is a scalar multiplication of this {@link VectorBase} by a scalar.
+	 *
+	 * @param factor  The scalar by which to multiply this {@link VectorBase}
+	 * @param creator A function which receives three doubles and returns a new {@link VectorBase}.
+	 * @return New scaled {@link VectorBase}, of the concrete type as returned by {@code creator}.
+	 */
+	public VectorBase scale(double factor, VectorBaseCreator creator) {
+		return (VectorBase) transform(c -> c * factor, creator);
 	}
 
 	/**
@@ -62,11 +87,11 @@ public class VectorBase extends Triple {
 	 * @throws ZeroVectorException if the scale factor is zero.
 	 */
 	public VectorBase scale(double factor) {
-		return transform(c -> c * factor, VectorBase.class);
+		return scale(factor, VectorBase::create);
 	}
 
 	/**
-	 * An alias for {@link #scale} with factor -1.
+	 * An alias for {@link #scale(double)} with factor -1.
 	 *
 	 * @return New reversed {@link VectorBase}
 	 */
@@ -77,12 +102,24 @@ public class VectorBase extends Triple {
 	/**
 	 * Calculates the cross product of two {@link VectorBase}s.
 	 *
+	 * @param v       The {@link VectorBase} by which to multiply this {@link VectorBase}
+	 * @param creator A function which receives three doubles and returns a new {@link VectorBase}
+	 * @return The resulting {@link VectorBase} which is the cross product of the two {@link VectorBase}s, but of the
+	 *         concrete type as returned by {@code creator}
+	 */
+	public VectorBase cross(VectorBase v, VectorBaseCreator creator) {
+		return creator.create(y * v.z - z * v.y, z * v.x - x * v.z, x * v.y - y * v.x);
+	}
+
+	/**
+	 * Calculates the cross product of two {@link VectorBase}s.
+	 *
 	 * @param v The {@link VectorBase} by which to multiply this {@link VectorBase}
 	 * @return The resulting {@link VectorBase} which is the cross product of the two {@link VectorBase}s
 	 * @throws ZeroVectorException if the result vector is the zero vector.
 	 */
 	public VectorBase cross(VectorBase v) {
-		return new VectorBase(y * v.z - z * v.y, z * v.x - x * v.z, x * v.y - y * v.x);
+		return cross(v, VectorBase::create);
 	}
 
 	/**
@@ -92,7 +129,7 @@ public class VectorBase extends Triple {
 	 * @return The dot product of the two {@link VectorBase}s
 	 */
 	public double dot(Triple v) {
-		return transform((base, aux) -> base * aux, v, Point.class).sum();
+		return transform((base, aux) -> base * aux, v, VectorBase::create).sum();
 	}
 
 	/**
@@ -113,7 +150,8 @@ public class VectorBase extends Triple {
 		return this.dot(this);
 	}
 
+	@Override
+	public String toString() {
+		return "[" + super.toString() + "]";
+	}
 }
-
-
-

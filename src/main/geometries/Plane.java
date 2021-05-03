@@ -2,16 +2,16 @@ package geometries;
 
 import primitives.Point;
 import primitives.Ray;
-import util.DoubleCompare;
-import primitives.Vector;
 import primitives.ZeroVectorException;
 import java.util.Collections;
 import java.util.List;
+
+import math.compare.DoubleCompare;
 import primitives.NormalizedVector;
 
 /**
- * A {@link Plane} is a flat two dimensional surface in three dimensional space which goes off to infinity in all
- * directions.
+ * A {@link Plane} is a flat two dimensional surface in three dimensional space
+ * which goes off to infinity in all directions.
  *
  * @author Abraham Murciano
  * @author Eli Levin
@@ -22,15 +22,15 @@ public class Plane implements Geometry {
 	public final NormalizedVector normal;
 
 	/**
-	 * This constructor accepts a point on the plane and a vector perpendicular to the plane. {@link #normal} will return a
-	 * normalized vector in the same direction as the given {@link Vector}.
+	 * This constructor accepts a point on the plane and a vector perpendicular to
+	 * the plane.
 	 *
-	 * @param point A point on the plane.
-	 * @param normal A vector perpendicular to the plane.
+	 * @param point  A point on the plane.
+	 * @param normal A normalized vector perpendicular to the plane.
 	 */
-	public Plane(Point point, Vector normal) {
+	public Plane(Point point, NormalizedVector normal) {
 		this.point = point;
-		this.normal = normal.normalized();
+		this.normal = normal;
 	}
 
 	/**
@@ -45,8 +45,7 @@ public class Plane implements Geometry {
 		try {
 			this.normal = p1.vectorTo(p2).cross(p2.vectorTo(p3)).normalized();
 		} catch (ZeroVectorException e) {
-			throw new IllegalArgumentException(
-				"Error: The three points must not be on the same line.");
+			throw new IllegalArgumentException("Error: The three points must not be on the same line.");
 		}
 		this.point = p1;
 	}
@@ -58,9 +57,10 @@ public class Plane implements Geometry {
 	 * @return Whether or not the given point is on the plane.
 	 */
 	public boolean contains(Point p) {
-		// If the vector from p to another point is on the plane dot product the normal is zero (the
+		// If the vector from p to another point is on the plane dot product the normal
+		// is zero (the
 		// vectors are perpendicular) then the point is on the plane.
-		try {
+		try { // TODO: remove try/catch when VectorBase is merged
 			return DoubleCompare.eq(normal.dot(point.vectorTo(p)), 0);
 		} catch (ZeroVectorException e) {
 			return true; // if p equals the plane's defining point vectorTo will throw
@@ -79,7 +79,7 @@ public class Plane implements Geometry {
 			return Collections.emptyList(); // ray is parallel to plane
 		}
 		double distance;
-		try {
+		try {// TODO: remove try catch when VectorBase is merged
 			distance = (ray.source.vectorTo(point)).dot(normal) / ray_dot_normal;
 		} catch (ZeroVectorException __) {
 			return Collections.emptyList(); // plane and ray start at same point

@@ -9,25 +9,30 @@ package primitives;
 
 public class NormalizedVector extends Vector {
 
+	public static final NormalizedVector I = new NormalizedVector(1, 0, 0);
+	public static final NormalizedVector J = new NormalizedVector(0, 1, 0);
+	public static final NormalizedVector K = new NormalizedVector(0, 0, 1);
+
 	/**
 	 * Constructs a {@link NormalizedVector} from a not necessarily normalized {@link Vector}
 	 *
 	 * @param vector The unnormalized vector.
 	 */
 	public NormalizedVector(Vector vector) {
-		super(vector.scale(1 / vector.length()));
+		this(vector.x, vector.y, vector.z, vector.length());
 	}
 
 	/**
-	 * This constructor does not normalize the vector. Make sure that the head is on the unit sphere before
-	 * calling this. Any other point results in undefined behavior.
+	 * This constructor relies on the length given being correct in order to normalize the vector. If it is incorrect,
+	 * the vector won't be normalized.
 	 *
-	 * @param head The head of the vector. It will be stored exactly as passed so make sure it makes a vector with length
-	 *        equal to one.
+	 * @param head   The head of the vector. It will be stored exactly as passed so make sure it makes a vector with
+	 *               length equal to one.
+	 * @param length The length of the vector formed by x, y, and z.
 	 * @throws ZeroVectorException if the given {@link Point} is the origin.
 	 */
-	public NormalizedVector(Point head) {
-		super(head);
+	private NormalizedVector(double x, double y, double z, double length) {
+		super(x / length, y / length, z / length);
 	}
 
 	/**
@@ -49,7 +54,7 @@ public class NormalizedVector extends Vector {
 	 */
 	@Override
 	public NormalizedVector reversed() {
-		return new NormalizedVector(transform(c -> -c, Point.class));
+		return new NormalizedVector(-x, -y, -z, 1);
 	}
 
 	/**
@@ -59,7 +64,7 @@ public class NormalizedVector extends Vector {
 	 */
 	@Override
 	public double length() {
-		return 1.0;
+		return 1;
 	}
 
 	/**
@@ -69,6 +74,6 @@ public class NormalizedVector extends Vector {
 	 */
 	@Override
 	public double squareLength() {
-		return 1.0;
+		return 1;
 	}
 }

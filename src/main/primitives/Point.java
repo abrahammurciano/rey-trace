@@ -21,14 +21,18 @@ public class Point extends Triple {
 		super(x, y, z);
 	}
 
+	public static Point create(double x, double y, double z) {
+		return new Point(x, y, z);
+	}
+
 	/**
 	 * Adds a {@link Vector} to this {@link Point} and returns the resulting {@link Point}.
 	 *
-	 * @param vector The {@link Vector} to add to this {@link Point}.
+	 * @param vector The {@link VectorBase} to add to this {@link Point}.
 	 * @return The {@link Point} resulting from adding the {@link Vector} to this {@link Point}.
 	 */
-	public Point add(Vector vector) {
-		return transform(Double::sum, vector, Point.class);
+	public Point add(VectorBase vector) {
+		return (Point) transform(Double::sum, vector, Point::create);
 	}
 
 	/**
@@ -42,6 +46,18 @@ public class Point extends Triple {
 	}
 
 	/**
+	 * Constructs a {@link VectorBase} from this {@link Point} to the given {@link Point} of the type {@code creator}
+	 * returns.
+	 *
+	 * @param target  The coordinate where the {@link Vector} is to end, if it were to start from this {@link Point}.
+	 * @param creator A function which receives three doubles and returns a new {@link VectorBase}
+	 * @return The {@link Vector} from this {@link Point} to the given {@link Point}.
+	 */
+	public VectorBase vectorTo(Point target, VectorBaseCreator creator) {
+		return (VectorBase) transform((base, aux) -> aux - base, target, creator);
+	}
+
+	/**
 	 * Constructs a {@link Vector} from this {@link Point} to the given {@link Point}.
 	 *
 	 * @param target The coordinate where the {@link Vector} is to end, if it were to start from this {@link Point}.
@@ -49,18 +65,7 @@ public class Point extends Triple {
 	 * @throws ZeroVectorException if the target is equal to this {@link Point}.
 	 */
 	public Vector vectorTo(Point target) {
-		return transform((base, aux) -> aux - base, target, Vector.class);
-	}
-
-	/**
-	 * Constructs a {@link Vector} from the given {@link Point} to this {@link Point}.
-	 *
-	 * @param source The coordinate where the {@link Vector} is to start, if it were to end at this {@link Point}.
-	 * @return The {@link Vector} to this {@link Point} from the given {@link Point}.
-	 * @throws ZeroVectorException if the source is equal to this {@link Point}.
-	 */
-	public Vector vectorFrom(Point source) {
-		return source.vectorTo(this);
+		return (Vector) vectorTo(target, Vector::create);
 	}
 
 	/**
@@ -81,12 +86,16 @@ public class Point extends Triple {
 	 * @return The square of the distance between this {@link Point} and the target {@link Point}.
 	 */
 	public double squareDistance(Point target) {
-		// Construct a point whose coordinates are the squares of the differences of the coordinates
-		// of the two points.
+		// Construct a point whose coordinates are the squares of the differences of the coordinates of the two points.
 		// Sum the coordinates of the square point.
 		return transform((base, aux) -> {
 			double diff = aux - base;
 			return diff * diff;
-		}, target, Point.class).sum();
+		}, target, Point::create).sum();
+	}
+
+	@Override
+	public String toString() {
+		return "(" + super.toString() + ")";
 	}
 }

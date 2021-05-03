@@ -7,13 +7,14 @@ import primitives.NormalizedVector;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
+import primitives.VectorBase;
 import primitives.ZeroVectorException;
-import util.DoubleCompare;
-import util.Linear;
-import util.Polynomial;
-import util.Quadratic;
-import util.CartesianProduct;
-import util.CartesianProductSelf;
+import math.compare.DoubleCompare;
+import math.equations.Linear;
+import math.equations.Polynomial;
+import math.equations.Quadratic;
+import math.matrices.FastMatrixMult;
+import math.matrices.FastMatrixMultSelf;
 
 /**
  * A Tube is a 3D tube object that goes on to infinity.
@@ -24,12 +25,13 @@ import util.CartesianProductSelf;
 public class Tube implements Geometry {
 	public final Ray axis;
 	public final double radius;
-	private Vector toOrigin = null, fromOrigin = null;
+	private VectorBase toOrigin = null, fromOrigin = null;
 
 	/**
-	 * Constructs a {@link Tube} with the source at the same source and direction as the given axis {@link Ray}.
+	 * Constructs a {@link Tube} with the source at the same source and direction as
+	 * the given axis {@link Ray}.
 	 *
-	 * @param axis The {@link Ray} from which to get the source and direction.
+	 * @param axis   The {@link Ray} from which to get the source and direction.
 	 * @param radius The distance from the axis to the surface.
 	 * @throws IllegalArgumentException if the radius is zero.
 	 */
@@ -40,10 +42,8 @@ public class Tube implements Geometry {
 		this.axis = axis;
 		this.radius = Math.abs(radius);
 
-		if (!axis.source.equals(Point.ORIGIN)) {
-			toOrigin = axis.source.vectorTo(Point.ORIGIN);
-			fromOrigin = toOrigin.reversed();
-		}
+		toOrigin = axis.source.vectorTo(Point.ORIGIN, VectorBase::create);
+		fromOrigin = toOrigin.reversed();
 	}
 
 	/**
@@ -56,13 +56,13 @@ public class Tube implements Geometry {
 	}
 
 	/**
-	 * This function returns the normal to the tube at the given point. If the point doesn't lie on the surface of the
-	 * tube,
-	 * the behavior is undefined.
+	 * This function returns the normal to the tube at the given point. If the point
+	 * doesn't lie on the surface of the tube, the behavior is undefined.
 	 *
 	 * @param p The {@link Point} to get the normal at.
 	 * @return The normalized normal {@link Vector}
-	 * @throws ZeroVectorException if the p is equal to the source @{@link Point} of the {@link Tube}.
+	 * @throws ZeroVectorException if the p is equal to the source @{@link Point} of
+	 *                             the {@link Tube}.
 	 */
 	@Override
 	public NormalizedVector normal(Point p) {
@@ -74,10 +74,9 @@ public class Tube implements Geometry {
 		return sourceToP.subtract(direction().scale(dotProduct)).normalized();
 	}
 
-
-
 	/**
-	 * This function will find intersection points (possibly none) between a {@link Ray} and an {@link Tube}.
+	 * This function will find intersection points (possibly none) between a
+	 * {@link Ray} and an {@link Tube}.
 	 *
 	 * @param r The {@link Ray} to intersect
 	 * @return a list (possibly empty) of intersection points
@@ -90,10 +89,10 @@ public class Tube implements Geometry {
 		} else {
 			source = r.source;
 		}
-		CartesianProductSelf a = new CartesianProductSelf(axis.direction);
-		CartesianProductSelf p = new CartesianProductSelf(source); // p for point
-		CartesianProductSelf v = new CartesianProductSelf(r.direction); // v for vector
-		CartesianProduct pv = new CartesianProduct(source, r.direction); // pv for...
+		FastMatrixMultSelf a = new FastMatrixMultSelf(axis.direction);
+		FastMatrixMultSelf p = new FastMatrixMultSelf(source); // p for point
+		FastMatrixMultSelf v = new FastMatrixMultSelf(r.direction); // v for vector
+		FastMatrixMult pv = new FastMatrixMult(source, r.direction); // pv for...
 		// @formatter:off
 		double A =
 			(a.yy * v.xx) - 2*(a.xy * v.xy) + (a.xx * v.yy) +
@@ -136,9 +135,7 @@ public class Tube implements Geometry {
 			return;
 		}
 		Point p = r.travel(t);
-		if (fromOrigin != null) {
-			p = p.add(fromOrigin);
-		}
+		p = p.add(fromOrigin);
 		intersections.add(p);
 	}
 
