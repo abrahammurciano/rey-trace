@@ -1,7 +1,10 @@
-package primitives;
+package unit.primitives;
 
 import org.junit.Assert;
 import org.junit.Test;
+import primitives.NormalizedVector;
+import primitives.Point;
+import primitives.Ray;
 
 /**
  * Test the functions of the ray class

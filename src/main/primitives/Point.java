@@ -28,10 +28,10 @@ public class Point extends Triple {
 	/**
 	 * Adds a {@link Vector} to this {@link Point} and returns the resulting {@link Point}.
 	 *
-	 * @param vector The {@link Vector} to add to this {@link Point}.
+	 * @param vector The {@link VectorBase} to add to this {@link Point}.
 	 * @return The {@link Point} resulting from adding the {@link Vector} to this {@link Point}.
 	 */
-	public Point add(Vector vector) {
+	public Point add(VectorBase vector) {
 		return (Point) transform(Double::sum, vector, Point::create);
 	}
 
@@ -46,6 +46,18 @@ public class Point extends Triple {
 	}
 
 	/**
+	 * Constructs a {@link VectorBase} from this {@link Point} to the given {@link Point} of the type {@code creator}
+	 * returns.
+	 *
+	 * @param target  The coordinate where the {@link Vector} is to end, if it were to start from this {@link Point}.
+	 * @param creator A function which receives three doubles and returns a new {@link VectorBase}
+	 * @return The {@link Vector} from this {@link Point} to the given {@link Point}.
+	 */
+	public VectorBase vectorTo(Point target, VectorBaseCreator creator) {
+		return (VectorBase) transform((base, aux) -> aux - base, target, creator);
+	}
+
+	/**
 	 * Constructs a {@link Vector} from this {@link Point} to the given {@link Point}.
 	 *
 	 * @param target The coordinate where the {@link Vector} is to end, if it were to start from this {@link Point}.
@@ -53,18 +65,7 @@ public class Point extends Triple {
 	 * @throws ZeroVectorException if the target is equal to this {@link Point}.
 	 */
 	public Vector vectorTo(Point target) {
-		return (Vector) transform((base, aux) -> aux - base, target, Vector::create);
-	}
-
-	/**
-	 * Constructs a {@link Vector} from the given {@link Point} to this {@link Point}.
-	 *
-	 * @param source The coordinate where the {@link Vector} is to start, if it were to end at this {@link Point}.
-	 * @return The {@link Vector} to this {@link Point} from the given {@link Point}.
-	 * @throws ZeroVectorException if the source is equal to this {@link Point}.
-	 */
-	public Vector vectorFrom(Point source) {
-		return source.vectorTo(this);
+		return (Vector) vectorTo(target, Vector::create);
 	}
 
 	/**

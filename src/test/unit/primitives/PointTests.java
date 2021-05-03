@@ -1,9 +1,12 @@
-package primitives;
+package unit.primitives;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import math.compare.DoubleCompare;
+import primitives.Point;
+import primitives.Vector;
+import primitives.ZeroVectorException;
 
 /**
  * Test the functions of the point class
@@ -57,22 +60,6 @@ public class PointTests {
 
 		// return zero vector
 		Assert.assertThrows("Expected zero vector", ZeroVectorException.class, () -> p.vectorTo(new Point(1, 2, 3)));
-	}
-
-	/**
-	 * Test Point.vectorFrom
-	 */
-	@Test
-	public void vectorFrom() {
-		Vector calc, actual;
-
-		// Test if vectorFrom() calculates the correct vector
-		calc = p.vectorFrom(new Point(2, 3, 4));
-		actual = new Vector(-1, -1, -1);
-		Assert.assertEquals("Incorrect vectorTo other point.", calc, actual);
-
-		// Test that it will throw ZeroVector if given the itself as the parameter
-		Assert.assertThrows("Expected zero vector", ZeroVectorException.class, () -> p.vectorFrom(p));
 	}
 
 	/**

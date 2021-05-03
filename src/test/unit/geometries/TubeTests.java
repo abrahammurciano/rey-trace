@@ -1,4 +1,4 @@
-package geometries;
+package unit.geometries;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
-
+import geometries.Tube;
 import primitives.NormalizedVector;
 import primitives.Point;
 import primitives.Ray;
@@ -84,7 +84,7 @@ public class TubeTests {
 
 		// Start on side of cylinder going outwards
 		ray = new Ray(new Point(2, 2, 2), new NormalizedVector(1, -1, 0));
-		Assert.assertEquals("ray starts on side of tube and points away", tube.intersect(ray), Collections.emptyList());
+		Assert.assertEquals("Ray starts on side of tube and points away", tube.intersect(ray), Collections.emptyList());
 
 		// Start on side of cylinder going inwards
 		ray = new Ray(new Point(2, 2, 2), new NormalizedVector(-1, 1, 0));

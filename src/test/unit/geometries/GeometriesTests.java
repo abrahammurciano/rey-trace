@@ -1,8 +1,11 @@
-package geometries;
+package unit.geometries;
 
 import org.junit.Assert;
 import org.junit.Test;
-
+import geometries.Geometries;
+import geometries.Plane;
+import geometries.Sphere;
+import geometries.Triangle;
 import primitives.NormalizedVector;
 import primitives.Point;
 import primitives.Ray;
@@ -16,7 +19,7 @@ import primitives.Ray;
 public class GeometriesTests {
 	@Test
 	public void testIntersect() {
-		NormalizedVector i = new NormalizedVector(1, 0, 0);
+		NormalizedVector i = NormalizedVector.I;
 		Ray ray = new Ray(Point.ORIGIN, i);
 
 		// @formatter:off
