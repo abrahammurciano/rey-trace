@@ -53,8 +53,19 @@ public class Point extends Triple {
 	 * @param creator A function which receives three doubles and returns a new {@link VectorBase}
 	 * @return The {@link Vector} from this {@link Point} to the given {@link Point}.
 	 */
-	public VectorBase vectorTo(Point target, VectorBaseCreator creator) {
+	private VectorBase vectorTo(Point target, VectorBaseCreator creator) {
 		return (VectorBase) transform((base, aux) -> aux - base, target, creator);
+	}
+
+	/**
+	 * Constructs a {@link VectorBase} from this {@link Point} to the given {@link Point}. With this method, the zero
+	 * vector may be returned.
+	 *
+	 * @param target The coordinate where the {@link VectorBase} is to end, if it were to start from this {@link Point}.
+	 * @return The {@link VectorBase} from this {@link Point} to the given {@link Point}.
+	 */
+	public VectorBase vectorBaseTo(Point target) {
+		return vectorTo(target, VectorBase::create);
 	}
 
 	/**

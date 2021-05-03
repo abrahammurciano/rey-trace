@@ -42,7 +42,7 @@ public class Tube implements Geometry {
 		this.axis = axis;
 		this.radius = Math.abs(radius);
 
-		toOrigin = axis.source.vectorTo(Point.ORIGIN, VectorBase::create);
+		toOrigin = axis.source.vectorBaseTo(Point.ORIGIN);
 		fromOrigin = toOrigin.reversed();
 	}
 
@@ -68,10 +68,7 @@ public class Tube implements Geometry {
 	public NormalizedVector normal(Point p) {
 		Vector sourceToP = axis.source.vectorTo(p);
 		double dotProduct = direction().dot(sourceToP);
-		if (DoubleCompare.eq(dotProduct, 0)) { // Would throw a zero vector exception if not checked
-			return sourceToP.normalized();
-		}
-		return sourceToP.subtract(direction().scale(dotProduct)).normalized();
+		return sourceToP.subtract(direction().scale(dotProduct, VectorBase::create)).normalized();
 	}
 
 	/**

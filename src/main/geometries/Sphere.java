@@ -52,7 +52,7 @@ public class Sphere implements Geometry {
 
 	@Override
 	public List<Point> intersect(Ray ray) {
-		VectorBase centerToRaySource = center.vectorTo(ray.source, VectorBase::create);
+		VectorBase centerToRaySource = center.vectorBaseTo(ray.source);
 		double b = 2 * ray.direction.dot(centerToRaySource);
 		double c = centerToRaySource.squareLength() - radius * radius;
 		Quadratic quadratic = new Quadratic(1, b, c);

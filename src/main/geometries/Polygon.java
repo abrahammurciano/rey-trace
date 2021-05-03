@@ -12,9 +12,8 @@ import primitives.ZeroVectorException;
 import primitives.NormalizedVector;
 
 /**
- * This class represents a polygon in three dimensional space. A polygon is a
- * plane figure that is described by a finite number of straight line segments
- * connected to form a polygonal circuit.
+ * This class represents a polygon in three dimensional space. A polygon is a plane figure that is described by a finite
+ * number of straight line segments connected to form a polygonal circuit.
  *
  * @author Abraham Murciano
  * @author Eli Levin
@@ -29,12 +28,10 @@ public class Polygon implements Geometry {
 	 * This constructor accepts a list of the vertices of the polygon.
 	 *
 	 * @param vertices A list of the vertices of the polygon, in order.
-	 * @throws IllegalArgumentException if there are less than three significant
-	 *                                  vertices, any of the vertices are not on the
-	 *                                  same plane as the rest, the vertices are out
-	 *                                  of order and thus form a non-convex polygon,
-	 *                                  consecutive vertices are repeated, or the
-	 *                                  last point is equal to the first point.
+	 * @throws IllegalArgumentException if there are less than three significant vertices, any of the vertices are not
+	 *                                  on the same plane as the rest, the vertices are out of order and thus form a
+	 *                                  non-convex polygon, consecutive vertices are repeated, or the last point is
+	 *                                  equal to the first point.
 	 */
 	public Polygon(Point... vertices) {
 		this.vertices = new ArrayList<>(vertices.length);
@@ -54,17 +51,16 @@ public class Polygon implements Geometry {
 				sum += angle;
 			} catch (ZeroVectorException e) {
 				throw new IllegalArgumentException(
-						"Error: Repeated vertices are not allowed. Perhaps you are repeating the start point at the end.");
+					"Error: Repeated vertices are not allowed. Perhaps you are repeating the start point at the end.");
 			}
 		}
 		this.size = this.vertices.size();
 
-		// If the sum of the exterior angles is greater than 2 Pi radians then it's not
-		// convex or not all points are on
+		// If the sum of the exterior angles is greater than 2 Pi radians then it's not convex or not all points are on
 		// the same plane.
 		if (DoubleCompare.neq(sum, 2 * Math.PI)) {
 			throw new IllegalArgumentException(
-					"Error: The polygon must be convex and all the vertices must be on a common plane.");
+				"Error: The polygon must be convex and all the vertices must be on a common plane.");
 		}
 
 		// Checks for at least three vertices
@@ -76,8 +72,7 @@ public class Polygon implements Geometry {
 	}
 
 	/**
-	 * Calculates the normal to the {@link Polygon}. The given {@link Point} is
-	 * disregarded.
+	 * Calculates the normal to the {@link Polygon}. The given {@link Point} is disregarded.
 	 *
 	 * @param p The point at which to calculate the normal.
 	 * @return A vector perpendicular to the {@link Polygon}.
