@@ -53,7 +53,7 @@ public class Sphere implements Geometry {
 	@Override
 	public List<Point> intersect(Ray ray) {
 		Vector centerToRaySource;
-		try {
+		try { // TODO: remove try/catch when VectorBase is merged
 			centerToRaySource = center.vectorTo(ray.source);
 		} catch (ZeroVectorException __) { // ray starts at center
 			return List.of(ray.travel(radius));
