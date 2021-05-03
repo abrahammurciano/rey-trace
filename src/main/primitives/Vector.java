@@ -7,7 +7,7 @@ package primitives;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class Vector extends Triple {
+public class Vector extends VectorBase {
 
 	/**
 	 * This constructor accepts 3 doubles and returns the appropriate {@link Vector}
@@ -34,7 +34,6 @@ public class Vector extends Triple {
 	public Vector(Triple triple) {
 		this(triple.x, triple.y, triple.z);
 	}
-
 	/**
 	 * Adds two {@link Vector}s and returns a new {@link Vector}.
 	 *
@@ -43,7 +42,7 @@ public class Vector extends Triple {
 	 * @throws ZeroVectorException when adding a {@link Vector} with its reverse.
 	 */
 	public Vector add(Vector v) {
-		return transform(Double::sum, v, Vector.class);
+		return new Vector(super.add(v));
 	}
 
 	/**
@@ -53,8 +52,8 @@ public class Vector extends Triple {
 	 * @return The sum of this {@link Vector} and the negation of the given {@link Vector}.
 	 * @throws ZeroVectorException if a {@link Vector} is subtracted from itself.
 	 */
-	public Vector subtract(Vector vector) {
-		return add(vector.reversed());
+	public Vector subtract(Vector v) {
+		return new Vector(super.subtract(v));
 	}
 
 	/**
@@ -65,7 +64,7 @@ public class Vector extends Triple {
 	 * @throws ZeroVectorException if the scale factor is zero.
 	 */
 	public Vector scale(double factor) {
-		return transform(c -> c * factor, Vector.class);
+		return new Vector(super.scale(factor));
 	}
 
 	/**
@@ -85,35 +84,7 @@ public class Vector extends Triple {
 	 * @throws ZeroVectorException if the result vector is the zero vector.
 	 */
 	public Vector cross(Vector v) {
-		return new Vector(y * v.z - z * v.y, z * v.x - x * v.z, x * v.y - y * v.x);
-	}
-
-	/**
-	 * Calculates the dot product of two {@link Vector}s
-	 *
-	 * @param v The {@link Vector} to dot product with this {@link Vector}
-	 * @return The dot product of the two {@link Vector}s
-	 */
-	public double dot(Vector v) {
-		return transform((base, aux) -> base * aux, v, Point.class).sum();
-	}
-
-	/**
-	 * Calculates the length of this {@link Vector}.
-	 *
-	 * @return The length of this {@link Vector}.
-	 */
-	public double length() {
-		return Math.sqrt(squareLength());
-	}
-
-	/**
-	 * Calculates the square of the length of this {@link Vector}.
-	 *
-	 * @return The square of the length of this {@link Vector}.
-	 */
-	public double squareLength() {
-		return this.dot(this);
+		return new Vector(super.cross(v));
 	}
 
 	/**
