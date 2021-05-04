@@ -7,6 +7,9 @@ import camera.Resolution;
 import geometries.Geometry;
 import geometries.Plane;
 import geometries.Sphere;
+import geometries.Triangle;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.Assert;
 import primitives.NormalizedVector;
 import primitives.Point;
@@ -99,5 +102,36 @@ public class CameraGeometriesTest {
 			actual += geometry.intersect(ray).size();
 		}
 		Assert.assertEquals(message, expectedCount, actual);
+	}
+
+	/**
+	 * Tests that the rays from the camera intersect with the plane the correct number of times.
+	 */
+	@Test
+	public void testTriangle() {
+		CameraBuilder builder = new CameraBuilder().dimensions(3, 3).distance(1).front(new NormalizedVector(0, 1, 0))
+			.up(new NormalizedVector(0, 0, 1)).resolution("3x3");
+		Camera camera = builder.build();
+
+		// triangle in plane parallel to view pane, completely in view pane
+		// Only center ray should intersect
+		Triangle triangle = new Triangle(new Point(0, 5, 2), new Point(-3, 5, -1), new Point(3, 5,-1));
+		checkIntersectCount(camera, triangle, 1, "Wrong number of intersections for a parallel triangle");
+
+		// triangle in plane parallel to view pane, all rays intersect triangle
+		triangle = new Triangle(new Point(0, 5, 10), new Point(-30, 5, -10), new Point(30, 5,-10));
+		checkIntersectCount(camera, triangle, 9, "Wrong number of intersections for a parallel triangle");
+
+		// triangle behind camera
+		triangle = new Triangle(new Point(0, -5, 10), new Point(-30, -5, -10), new Point(30, -5,-10));
+		checkIntersectCount(camera, triangle, 0, "Wrong number of intersections for triangle behind camera");
+
+		// triangle partially in camera
+		triangle = new Triangle(new Point(0, 5, 10), new Point(-5, 5, -10), new Point(5, 5,-10));
+		checkIntersectCount(camera, triangle, 3, "Wrong number of intersections for triangle partially in view");
+
+		// triangle perpendicular to view plane
+		triangle = new Triangle(new Point(0, 5, 0), new Point(-5, 2, 0), new Point(5, 2, 0));
+		checkIntersectCount(camera, triangle, 0, "Wrong number of intersections for triangle partially in view");
 	}
 }
