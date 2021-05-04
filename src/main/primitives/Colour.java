@@ -48,11 +48,12 @@ public class Colour {
 
 	/**
 	 * Returns the RGB value representing the color. (Bits 24-31 are blank since alpha in unused, 16-23 are red, 8-15 are green, 0-7 are
-	 * blue).
+	 * blue). This imageType will be TYPE_INT_RGB
 	 *
 	 * @return the RGB value of the color.
 	 */
 	public int rgb() {
+		// TODO: Check if this messes up all of our images
 		return getInt(rgb.z) ^ (getInt(rgb.y) >> 8) ^ (getInt(rgb.x) >> 16);
 	}
 
