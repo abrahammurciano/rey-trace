@@ -21,6 +21,14 @@ public class VectorBase extends Triple {
 		super(x, y, z);
 	}
 
+	/**
+	 * Create a new {@link VectorBase} from the given coordinates.
+	 *
+	 * @param x The x-coordinate.
+	 * @param y The y-coordinate.
+	 * @param z The z-coordinate
+	 * @return The {@link VectorBase} with the given coordinates.
+	 */
 	public static VectorBase create(double x, double y, double z) {
 		return new VectorBase(x, y, z);
 	}

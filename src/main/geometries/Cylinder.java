@@ -69,7 +69,7 @@ public class Cylinder implements Geometry {
 	/**
 	 * This function will find intersection points (possibly none) between a {@link Ray} and an {@link Cylinder}.
 	 *
-	 * @param r The {@link Ray} to intersect
+	 * @param ray The {@link Ray} to intersect
 	 * @return a list (possibly empty) of intersection points
 	 */
 	@Override

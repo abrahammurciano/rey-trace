@@ -5,6 +5,12 @@ import java.util.List;
 import primitives.Point;
 import primitives.Ray;
 
+/**
+ * A collection of {@link Intersectible}s which aggregates the intersections between rays and all its elements.
+ *
+ * @author Abraham Murciano
+ * @author Eli Levin
+ */
 public class Geometries implements Intersectible {
 
 	private List<Intersectible> intersectibles = new LinkedList<>();

@@ -15,11 +15,20 @@ import math.matrices.RotationMatrix;
  * @author Eli Levin
  */
 public class Camera implements Iterable<Ray> {
+	/** The location at which the camera located. */
 	public final Point location;
+	/** The {@link Orientation} in which the camera is facing. */
 	final Orientation orientation;
+	/** The {@link ViewPlane} the camera is to shoot rays through. */
 	final ViewPlane view;
+	/** The distance between the {@link Camera} and the {@link ViewPlane}. */
 	final double distance;
 
+	/**
+	 * Constructs a camera from the given {@link CameraBuilder}.
+	 *
+	 * @param builder The {@link CameraBuilder} containing the data necessary to create the camera.
+	 */
 	Camera(CameraBuilder builder) {
 		this.location = builder.location();
 		this.orientation = new Orientation(builder.front(), builder.up());
@@ -69,11 +78,19 @@ public class Camera implements Iterable<Ray> {
 		return new CameraIterator(this);
 	}
 
+	/**
+	 * An iterator to iterate over the rays shot by the camera.
+	 */
 	public class CameraIterator implements Iterator<Ray> {
 
 		private final Point source;
 		private final Iterator<Point> viewPlaneIterator;
 
+		/**
+		 * Get an iterator to iterate over the rays shot by the camera.
+		 *
+		 * @param camera The camera whose rays to iterate over.
+		 */
 		public CameraIterator(Camera camera) {
 			this.viewPlaneIterator = camera.view.iterator();
 			this.source = camera.location;

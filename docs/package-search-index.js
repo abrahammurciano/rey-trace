@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"geometries"},{"l":"primitives"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"camera"},{"l":"geometries"},{"l":"math.compare"},{"l":"math.equations"},{"l":"math.matrices"},{"l":"primitives"}];updateSearchResults();

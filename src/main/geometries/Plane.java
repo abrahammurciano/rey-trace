@@ -17,8 +17,9 @@ import primitives.NormalizedVector;
  * @author Eli Levin
  */
 public class Plane implements Geometry {
-
+	/** A point on the plane. */
 	public final Point point;
+	/** The normal vector of the plane. */
 	public final NormalizedVector normal;
 
 	/**

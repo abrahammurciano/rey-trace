@@ -24,6 +24,14 @@ public class Vector extends VectorBase {
 		}
 	}
 
+	/**
+	 * Create a new {@link Vector} from the given coordinates.
+	 *
+	 * @param x The x-coordinate.
+	 * @param y The y-coordinate.
+	 * @param z The z-coordinate
+	 * @return The {@link Vector} with the given coordinates.
+	 */
 	public static Vector create(double x, double y, double z) {
 		return new Vector(x, y, z);
 	}

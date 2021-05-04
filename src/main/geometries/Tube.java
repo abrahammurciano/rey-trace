@@ -23,8 +23,11 @@ import math.matrices.FastMatrixMultSelf;
  * @author Abraham Murciano
  */
 public class Tube implements Geometry {
+	/** The axis {@link Ray} of the tube. */
 	public final Ray axis;
+	/** The radius of the tube. */
 	public final double radius;
+
 	private VectorBase toOrigin = null, fromOrigin = null;
 
 	/**

@@ -19,7 +19,9 @@ import math.equations.Quadratic;
  * @author Eli Levin
  */
 public class Sphere implements Geometry {
+	/** The center of the sphere. */
 	public final Point center;
+	/** The radius of the sphere. */
 	public final double radius;
 
 	/**

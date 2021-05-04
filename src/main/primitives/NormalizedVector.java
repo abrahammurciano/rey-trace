@@ -9,8 +9,11 @@ package primitives;
 
 public class NormalizedVector extends Vector {
 
+	/** The I unit vector */
 	public static final NormalizedVector I = new NormalizedVector(1, 0, 0);
+	/** The J unit vector */
 	public static final NormalizedVector J = new NormalizedVector(0, 1, 0);
+	/** The K unit vector */
 	public static final NormalizedVector K = new NormalizedVector(0, 0, 1);
 
 	/**

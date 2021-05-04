@@ -5,17 +5,22 @@ import primitives.NormalizedVector;
 
 /**
  * This class represents some orientation in three-dimensional space
+ *
+ * @author Abraham Murciano
+ * @author Eli Levin
  */
 public class Orientation {
+	/** The vector pointing front relative to this orientation. */
 	public final NormalizedVector front;
+	/** The vector pointing up relative to this orientation. */
 	public final NormalizedVector up;
+	/** The vector pointing right relative to this orientation. */
 	public final NormalizedVector right;
 
 	/**
 	 * Constructs an orientation given the front and up vectors.
 	 *
-	 * @param front The vector pointing forward with respect to the desired
-	 *              orientation.
+	 * @param front The vector pointing forward with respect to the desired orientation.
 	 * @param up    The vector pointing up with respect to the desired orientation.
 	 * @throws IllegalArgumentException if front and up are not perpendicular.
 	 */

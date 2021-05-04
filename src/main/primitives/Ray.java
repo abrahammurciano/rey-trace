@@ -11,13 +11,15 @@ import java.util.Objects;
  * @author Eli Levin
  */
 public class Ray {
+	/** The {@link Point} at which the ray starts. */
 	public final Point source;
+	/** The {@link NormalizedVector} which the ray is pointing towards. */
 	public final NormalizedVector direction;
 
 	/**
 	 * Constructs a {@link Ray} from a source {@link Point} and a direction {@link Vector}.
 	 *
-	 * @param source The {@link Point} at which the {@link Ray} starts.
+	 * @param source    The {@link Point} at which the {@link Ray} starts.
 	 * @param direction The {@link NormalizedVector} in which the {@link Ray} is directed.
 	 */
 	public Ray(Point source, NormalizedVector direction) {

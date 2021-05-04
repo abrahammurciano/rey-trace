@@ -7,8 +7,7 @@ package math.compare;
  * @author Eli Levin
  */
 public class DoubleCompare {
-	private DoubleCompare() {
-	}
+	private DoubleCompare() {}
 
 	/**
 	 * Check if two doubles are approximately equal.
@@ -81,7 +80,7 @@ public class DoubleCompare {
 	 *
 	 * @param a A double
 	 * @param b Another double
-	 * @return 0 if equal, positive if a > b, negative if a < b.
+	 * @return 0 if equal, positive if a is greater than b, negative if a is less than b.
 	 */
 	public static int compare(double a, double b) {
 		return eq(a, b) ? 0 : Double.compare(a, b);

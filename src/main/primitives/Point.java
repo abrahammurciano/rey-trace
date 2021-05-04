@@ -7,7 +7,7 @@ package primitives;
  * @author Eli Levin
  */
 public class Point extends Triple {
-
+	/** The point (0, 0, 0). */
 	public static final Point ORIGIN = new Point(0, 0, 0);
 
 	/**
@@ -21,6 +21,14 @@ public class Point extends Triple {
 		super(x, y, z);
 	}
 
+	/**
+	 * Create a new {@link Point} from the given coordinates.
+	 *
+	 * @param x The x-coordinate.
+	 * @param y The y-coordinate.
+	 * @param z The z-coordinate
+	 * @return The {@link Point} with the given coordinates.
+	 */
 	public static Point create(double x, double y, double z) {
 		return new Point(x, y, z);
 	}

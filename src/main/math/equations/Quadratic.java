@@ -11,9 +11,13 @@ import math.compare.DoubleCompare;
  */
 public class Quadratic extends Polynomial {
 
+	/** The coefficient of the quadratic term. */
 	public final double a;
+	/** The coefficient of the linear term. */
 	public final double b;
+	/** The constant. */
 	public final double c;
+	/** The discriminant of the quadratic equation. */
 	public final double discriminant;
 
 	/**
@@ -48,9 +52,9 @@ public class Quadratic extends Polynomial {
 		double minusB = -b;
 		double twoA = 2 * a;
 		if (DoubleCompare.eq(discriminant, 0)) {
-			return new double[] { minusB / twoA };
+			return new double[] {minusB / twoA};
 		}
 		double sqrt = Math.sqrt(discriminant);
-		return new double[] { (minusB + sqrt) / twoA, (minusB - sqrt) / twoA };
+		return new double[] {(minusB + sqrt) / twoA, (minusB - sqrt) / twoA};
 	}
 }

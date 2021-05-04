@@ -11,13 +11,25 @@ import primitives.Triple;
  */
 abstract class FastMatrixMultPartial {
 
+	/** Matrix entry at location (0, 0) (starting from top left). */
 	public final double xx;
+	/** Matrix entry at location (1, 1) (starting from top left). */
 	public final double yy;
+	/** Matrix entry at location (2, 2) (starting from top left). */
 	public final double zz;
+	/** Matrix entry at location (0, 1) (starting from top left). */
 	public final double xy;
+	/** Matrix entry at location (1, 2) (starting from top left). */
 	public final double yz;
+	/** Matrix entry at location (0, 2) (starting from top left). */
 	public final double xz;
 
+	/**
+	 * Multiply the two given vectors as if they were matrices.
+	 *
+	 * @param first  The first vector to multiply, as a 3x1 matrix.
+	 * @param second The second vector to multiply, as a 1x3 matrix.
+	 */
 	protected FastMatrixMultPartial(Triple first, Triple second) {
 		xx = first.x * second.x;
 		yy = first.y * second.y;

@@ -22,6 +22,7 @@ public class Polygon implements Geometry {
 
 	private List<Point> vertices;
 	private Plane plane; // The plane which all the points must reside on.
+	/** The number of vertices in the polygon. */
 	public final int size;
 
 	/**

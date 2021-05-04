@@ -151,6 +151,7 @@ public class CameraBuilder {
 	 * Specify the width and height of the view plane. This is an alternative to calling {@link #width(double)} and
 	 * {@link #height(double)} separately.
 	 *
+	 * @param width  The width of the view plane.
 	 * @param height The height of the view plane.
 	 * @return This {@link CameraBuilder}.
 	 */
