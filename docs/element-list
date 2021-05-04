@@ -1,6 +1,10 @@
 camera
 geometries
+lighting
 math.compare
 math.equations
 math.matrices
 primitives
+rendering
+rendering.rayTracing
+scene
