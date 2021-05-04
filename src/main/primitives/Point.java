@@ -1,5 +1,7 @@
 package primitives;
 
+import java.util.List;
+
 /**
  * The {@link Point} class represents a {@link Point} in three dimensional space.
  *
@@ -111,6 +113,17 @@ public class Point extends Triple {
 			double diff = aux - base;
 			return diff * diff;
 		}, target, Point::create).sum();
+	}
+
+	/**
+	 * Returns the closest point to this point from the given points.
+	 *
+	 * @param points The points from which to get the closest one.
+	 * @return The closest point to this one, or null if {@code points} is empty.
+	 */
+	public Point closest(List<Point> points) {
+		// TODO: implement
+		return null;
 	}
 
 	@Override
