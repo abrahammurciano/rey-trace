@@ -9,6 +9,10 @@ package primitives;
 
 public class NormalizedVector extends Vector {
 
+	public static final NormalizedVector I = new NormalizedVector(1, 0, 0);
+	public static final NormalizedVector J = new NormalizedVector(0, 1, 0);
+	public static final NormalizedVector K = new NormalizedVector(0, 0, 1);
+
 	/**
 	 * Constructs a {@link NormalizedVector} from a not necessarily normalized {@link Vector}
 	 *
@@ -22,8 +26,8 @@ public class NormalizedVector extends Vector {
 	 * This constructor relies on the length given being correct in order to normalize the vector. If it is incorrect,
 	 * the vector won't be normalized.
 	 *
-	 * @param head The head of the vector. It will be stored exactly as passed so make sure it makes a vector with
-	 *        length equal to one.
+	 * @param head   The head of the vector. It will be stored exactly as passed so make sure it makes a vector with
+	 *               length equal to one.
 	 * @param length The length of the vector formed by x, y, and z.
 	 * @throws ZeroVectorException if the given {@link Point} is the origin.
 	 */

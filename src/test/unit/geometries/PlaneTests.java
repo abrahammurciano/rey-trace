@@ -34,7 +34,7 @@ public class PlaneTests {
 	 */
 	@Test
 	public void contains() {
-		Plane plane = new Plane(new Point(0, 0, 0), new NormalizedVector(0, 0, 1));
+		Plane plane = new Plane(new Point(0, 0, 0), NormalizedVector.K);
 
 		// @formatter:off
 		//  _____            _            _
@@ -79,7 +79,7 @@ public class PlaneTests {
 	public void normal() {
 		Plane plane = new Plane(new Point(0, 0, 0), new Point(2, -1, 0), new Point(1, 1, 0));
 		NormalizedVector normal = plane.normal(new Point(0, 0, 0));
-		NormalizedVector expected_normal = new NormalizedVector(0, 0, 1);
+		NormalizedVector expected_normal = NormalizedVector.K;
 		Assert.assertTrue("Wrong normal for Polygon.", NormalCompare.eq(normal, expected_normal));
 	}
 

@@ -115,59 +115,59 @@ public class SphereTests {
 			sphere.intersect(ray).isEmpty());
 
 		// Ray starts before the sphere and goes through center (2 intersections)
-		ray = new Ray(new Point(-1, 0, 0), new NormalizedVector(1, 0, 0));
+		ray = new Ray(new Point(-1, 0, 0), NormalizedVector.I);
 		p1 = Point.ORIGIN;
 		p2 = new Point(2, 0, 0);
 		Assert.assertEquals("Wrong result for ray going through center of sphere.",
 			new HashSet<>(sphere.intersect(ray)), new HashSet<>(List.of(p1, p2)));
 
 		// Ray starts at surface and goes inside throuch center (one intersection)
-		ray = new Ray(Point.ORIGIN, new NormalizedVector(1, 0, 0));
+		ray = new Ray(Point.ORIGIN, NormalizedVector.I);
 		p1 = new Point(2, 0, 0);
 		Assert.assertEquals("Wrong result for ray starting at surface going through center of sphere.",
 			sphere.intersect(ray), List.of(p1));
 
 		// Ray starts inside and passes through center (one intersection)
-		ray = new Ray(new Point(0.5, 0, 0), new NormalizedVector(1, 0, 0));
+		ray = new Ray(new Point(0.5, 0, 0), NormalizedVector.I);
 		p1 = new Point(2, 0, 0);
 		Assert.assertEquals("Wrong result for ray starting inside and going through center of sphere.",
 			sphere.intersect(ray), List.of(p1));
 
 		// Ray starts at the center (one intersection)
-		ray = new Ray(new Point(1, 0, 0), new NormalizedVector(1, 0, 0));
+		ray = new Ray(new Point(1, 0, 0), NormalizedVector.I);
 		p1 = new Point(2, 0, 0);
 		Assert.assertEquals("Wrong result for ray starting at center of sphere.", sphere.intersect(ray), List.of(p1));
 
 		// Ray starts at sphere and goes outside directly away from center (no
 		// intersections)
-		ray = new Ray(new Point(2, 0, 0), new NormalizedVector(1, 0, 0));
+		ray = new Ray(new Point(2, 0, 0), NormalizedVector.I);
 		Assert.assertTrue(
 			"Expected no intersections for ray starting on surface and going directly away from center of sphere.",
 			sphere.intersect(ray).isEmpty());
 
 		// Ray starts after sphere and heads directly away from center (no
 		// intersections)
-		ray = new Ray(new Point(3, 0, 0), new NormalizedVector(1, 0, 0));
+		ray = new Ray(new Point(3, 0, 0), NormalizedVector.I);
 		Assert.assertTrue(
 			"Expected no intersections for ray starting after sphere and going directly away from center of sphere.",
 			sphere.intersect(ray).isEmpty());
 
 		// Tangent ray starts before the intersection (no intersections)
-		ray = new Ray(new Point(0, 0, 1), new NormalizedVector(1, 0, 0));
+		ray = new Ray(new Point(0, 0, 1), NormalizedVector.I);
 		Assert.assertTrue("Expected no intersections for tangent.", sphere.intersect(ray).isEmpty());
 
 		// Tangent ray starts at the intersection (no intersections)
-		ray = new Ray(new Point(1, 0, 1), new NormalizedVector(1, 0, 0));
+		ray = new Ray(new Point(1, 0, 1), NormalizedVector.I);
 		Assert.assertTrue("Expected no intersections for tangent starting at the intersection.",
 			sphere.intersect(ray).isEmpty());
 
 		// Tangent ray starts after the intersection (no intersections)
-		ray = new Ray(new Point(2, 0, 1), new NormalizedVector(1, 0, 0));
+		ray = new Ray(new Point(2, 0, 1), NormalizedVector.I);
 		Assert.assertTrue("Expected no intersections for tangent starting after intersection.",
 			sphere.intersect(ray).isEmpty());
 
 		// Ray's line is outside, ray is orthogonal to ray start to sphere's center line
-		ray = new Ray(new Point(1, 2, 2), new NormalizedVector(1, 0, 0));
+		ray = new Ray(new Point(1, 2, 2), NormalizedVector.I);
 		Assert.assertTrue("Expected no intersections for ray perpendicular to ray.source.vectorTo(sphere.center)",
 			sphere.intersect(ray).isEmpty());
 	}

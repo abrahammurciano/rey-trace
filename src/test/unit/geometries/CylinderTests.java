@@ -170,11 +170,11 @@ public class CylinderTests {
 			new HashSet<>(cyl.intersect(ray)));
 
 		// hits corner from outside near top
-		ray = new Ray(new Point(3, 4, 6), new NormalizedVector(1, 0, 0));
+		ray = new Ray(new Point(3, 4, 6), NormalizedVector.I);
 		Assert.assertEquals("Starts outside and hits corner near lid", List.of(new Point(6, 4, 6)), cyl.intersect(ray));
 
 		// hits corner from outside near base
-		ray = new Ray(new Point(0, -3, 0), new NormalizedVector(0, 1, 0));
+		ray = new Ray(new Point(0, -3, 0), NormalizedVector.J);
 		Assert.assertEquals("Starts outside and hist corner near base", List.of(new Point(0, 1, 0)),
 			cyl.intersect(ray));
 	}

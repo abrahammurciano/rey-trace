@@ -191,7 +191,7 @@ public class PolygonTests {
 		// @formatter:on
 
 		// Ray intersects polygon boundary
-		ray = new Ray(new Point(0.5, 0, 1), new NormalizedVector(0, 1, 0));
+		ray = new Ray(new Point(0.5, 0, 1), NormalizedVector.J);
 		Assert.assertTrue("Intersection on edge expected to be ignored.", polygon.intersect(ray).isEmpty());
 
 		// Ray intersects polygon corner

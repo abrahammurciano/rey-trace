@@ -57,14 +57,9 @@ public class Plane implements Geometry {
 	 * @return Whether or not the given point is on the plane.
 	 */
 	public boolean contains(Point p) {
-		// If the vector from p to another point is on the plane dot product the normal
-		// is zero (the
-		// vectors are perpendicular) then the point is on the plane.
-		try { // TODO: remove try/catch when VectorBase is merged
-			return DoubleCompare.eq(normal.dot(point.vectorTo(p)), 0);
-		} catch (ZeroVectorException e) {
-			return true; // if p equals the plane's defining point vectorTo will throw
-		}
+		// If the vector from p to another point is on the plane dot product the normal is zero (the vectors are
+		// perpendicular) then the point is on the plane.
+		return DoubleCompare.eq(normal.dot(point.vectorBaseTo(p)), 0);
 	}
 
 	@Override
@@ -78,12 +73,7 @@ public class Plane implements Geometry {
 		if (DoubleCompare.eq(ray_dot_normal, 0)) {
 			return Collections.emptyList(); // ray is parallel to plane
 		}
-		double distance;
-		try {// TODO: remove try catch when VectorBase is merged
-			distance = (ray.source.vectorTo(point)).dot(normal) / ray_dot_normal;
-		} catch (ZeroVectorException __) {
-			return Collections.emptyList(); // plane and ray start at same point
-		}
+		double distance = (ray.source.vectorBaseTo(point)).dot(normal) / ray_dot_normal;
 		if (DoubleCompare.leq(distance, 0)) {
 			return Collections.emptyList(); // pane is behind the ray
 		}

@@ -23,12 +23,28 @@ public class CameraBuilder {
 	 */
 	public CameraBuilder() {
 		location = Point.ORIGIN;
-		front = new NormalizedVector(0, 1, 0);
-		up = new NormalizedVector(0, 0, 1);
+		front = NormalizedVector.J;
+		up = NormalizedVector.K;
 		width = 19.2;
 		height = 10.8;
 		distance = 10;
 		resolution = new Resolution("1920x1080");
+	}
+
+	/**
+	 * Construct a camera builder with the values of a given {@link Camera}.
+	 *
+	 * @param camera The camera to take the values from.
+	 */
+	public CameraBuilder(Camera camera) {
+		this();
+		location(camera.location);
+		front(camera.orientation.front);
+		up(camera.orientation.up);
+		width(camera.view.width);
+		height(camera.view.height);
+		distance(camera.distance);
+		resolution(camera.view.resolution);
 	}
 
 	/**

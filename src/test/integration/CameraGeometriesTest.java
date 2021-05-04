@@ -35,7 +35,7 @@ public class CameraGeometriesTest {
 		// Only one ray intersects
 		// Unit sphere at (0, 0, -3) with two intersections
 		CameraBuilder builder = new CameraBuilder().location(Point.ORIGIN).front(new NormalizedVector(0, 0, -1))
-			.up(new NormalizedVector(0, 1, 0)).width(3).height(3).distance(1).resolution(new Resolution("3x3"));
+			.up(NormalizedVector.J).width(3).height(3).distance(1).resolution(new Resolution("3x3"));
 		Camera camera = builder.build();
 
 		Sphere sphere = new Sphere(new Point(0, 0, -3), 1);
@@ -117,7 +117,7 @@ public class CameraGeometriesTest {
 	@Test
 	public void testPlane() {
 		CameraBuilder builder = new CameraBuilder().dimensions(3, 3).distance(1).front(new NormalizedVector(0, 0, -1))
-			.up(new NormalizedVector(0, 1, 0)).resolution("3x3");
+			.up(NormalizedVector.J).resolution("3x3");
 		Camera camera = builder.build();
 
 		// Plane parallel to the view plane.

@@ -7,13 +7,14 @@ import primitives.NormalizedVector;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
+import primitives.VectorBase;
 import primitives.ZeroVectorException;
-import math.cartesian.CartesianProduct;
-import math.cartesian.CartesianProductSelf;
 import math.compare.DoubleCompare;
 import math.equations.Linear;
 import math.equations.Polynomial;
 import math.equations.Quadratic;
+import math.matrices.FastMatrixMult;
+import math.matrices.FastMatrixMultSelf;
 
 /**
  * A Tube is a 3D tube object that goes on to infinity.
@@ -24,7 +25,7 @@ import math.equations.Quadratic;
 public class Tube implements Geometry {
 	public final Ray axis;
 	public final double radius;
-	private Vector toOrigin = null, fromOrigin = null;
+	private VectorBase toOrigin = null, fromOrigin = null;
 
 	/**
 	 * Constructs a {@link Tube} with the source at the same source and direction as
@@ -41,10 +42,8 @@ public class Tube implements Geometry {
 		this.axis = axis;
 		this.radius = Math.abs(radius);
 
-		if (!axis.source.equals(Point.ORIGIN)) {
-			toOrigin = axis.source.vectorTo(Point.ORIGIN);
-			fromOrigin = toOrigin.reversed();
-		}
+		toOrigin = axis.source.vectorBaseTo(Point.ORIGIN);
+		fromOrigin = toOrigin.reversed();
 	}
 
 	/**
@@ -69,10 +68,7 @@ public class Tube implements Geometry {
 	public NormalizedVector normal(Point p) {
 		Vector sourceToP = axis.source.vectorTo(p);
 		double dotProduct = direction().dot(sourceToP);
-		if (DoubleCompare.eq(dotProduct, 0)) { // Would throw a zero vector exception if not checked
-			return sourceToP.normalized();
-		}
-		return sourceToP.subtract(direction().scale(dotProduct)).normalized();
+		return sourceToP.subtract(direction().scale(dotProduct, VectorBase::create)).normalized();
 	}
 
 	/**
@@ -90,10 +86,10 @@ public class Tube implements Geometry {
 		} else {
 			source = r.source;
 		}
-		CartesianProductSelf a = new CartesianProductSelf(axis.direction);
-		CartesianProductSelf p = new CartesianProductSelf(source); // p for point
-		CartesianProductSelf v = new CartesianProductSelf(r.direction); // v for vector
-		CartesianProduct pv = new CartesianProduct(source, r.direction); // pv for...
+		FastMatrixMultSelf a = new FastMatrixMultSelf(axis.direction);
+		FastMatrixMultSelf p = new FastMatrixMultSelf(source); // p for point
+		FastMatrixMultSelf v = new FastMatrixMultSelf(r.direction); // v for vector
+		FastMatrixMult pv = new FastMatrixMult(source, r.direction); // pv for...
 		// @formatter:off
 		double A =
 			(a.yy * v.xx) - 2*(a.xy * v.xy) + (a.xx * v.yy) +
@@ -136,9 +132,7 @@ public class Tube implements Geometry {
 			return;
 		}
 		Point p = r.travel(t);
-		if (fromOrigin != null) {
-			p = p.add(fromOrigin);
-		}
+		p = p.add(fromOrigin);
 		intersections.add(p);
 	}
 

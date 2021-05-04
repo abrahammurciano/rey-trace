@@ -1,6 +1,7 @@
 package camera;
 
 import primitives.Vector;
+import primitives.VectorBase;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import primitives.Point;
@@ -12,6 +13,10 @@ import primitives.Point;
  * @author Eli Levin
  */
 class ViewPlane implements Iterable<Point> {
+
+	final double width;
+	final double height;
+
 	/**
 	 * The top left point
 	 */
@@ -30,6 +35,8 @@ class ViewPlane implements Iterable<Point> {
 	public final Resolution resolution;
 
 	public ViewPlane(double width, double height, Point center, Resolution resolution, Orientation orientation) {
+		this.width = width;
+		this.height = height;
 		nextCol = orientation.right.scale(width / resolution.x);
 		nextRow = orientation.up.scale(-height / resolution.y);
 		topLeft = center.subtract(orientation.right.scale(width / 2)).add(orientation.up.scale(height / 2))
@@ -45,18 +52,9 @@ class ViewPlane implements Iterable<Point> {
 	 * @return The point at the center of the pixel.
 	 */
 	public Point point(int col, int row) {
-		// TODO: use this code instead once VectorBase is merged
 		// Passing VectorBase::create into scale allows scaling by 0, which allows getting the pixels at row 0 or column
 		// 0 without preemptive checking.
-		// return topLeft.add(nextCol.scale(col, VectorBase::create)).add(nextRow.scale(row, VectorBase::create));
-		Point p = topLeft;
-		if (col != 0) {
-			p = p.add(nextCol.scale(col));
-		}
-		if (row != 0) {
-			p = p.add(nextRow.scale(row));
-		}
-		return p;
+		return topLeft.add(nextCol.scale(col, VectorBase::create)).add(nextRow.scale(row, VectorBase::create));
 	}
 
 	@Override

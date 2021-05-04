@@ -1,8 +1,15 @@
-package math.cartesian;
+package math.matrices;
 
 import primitives.Triple;
 
-abstract class CartesianProductPartial {
+/**
+ * A base class for fast matrix multiplication between a 3x1 matrix (a {@link Triple}) and a single column vector (a
+ * {@link Triple}).
+ *
+ * @author Eli Levin
+ * @author Abraham Murciano
+ */
+abstract class FastMatrixMultPartial {
 
 	public final double xx;
 	public final double yy;
@@ -11,7 +18,7 @@ abstract class CartesianProductPartial {
 	public final double yz;
 	public final double xz;
 
-	protected CartesianProductPartial(Triple first, Triple second) {
+	protected FastMatrixMultPartial(Triple first, Triple second) {
 		xx = first.x * second.x;
 		yy = first.y * second.y;
 		zz = first.z * second.z;

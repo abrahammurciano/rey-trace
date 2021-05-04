@@ -19,7 +19,7 @@ import primitives.Ray;
 public class GeometriesTests {
 	@Test
 	public void testIntersect() {
-		NormalizedVector i = new NormalizedVector(1, 0, 0);
+		NormalizedVector i = NormalizedVector.I;
 		Ray ray = new Ray(Point.ORIGIN, i);
 
 		// @formatter:off

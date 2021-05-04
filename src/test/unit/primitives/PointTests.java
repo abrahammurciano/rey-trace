@@ -63,22 +63,6 @@ public class PointTests {
 	}
 
 	/**
-	 * Test Point.vectorFrom
-	 */
-	@Test
-	public void vectorFrom() {
-		Vector calc, actual;
-
-		// Test if vectorFrom() calculates the correct vector
-		calc = p.vectorFrom(new Point(2, 3, 4));
-		actual = new Vector(-1, -1, -1);
-		Assert.assertEquals("Incorrect vectorTo other point.", calc, actual);
-
-		// Test that it will throw ZeroVector if given the itself as the parameter
-		Assert.assertThrows("Expected zero vector", ZeroVectorException.class, () -> p.vectorFrom(p));
-	}
-
-	/**
 	 * Test Point.distance
 	 */
 	@Test
