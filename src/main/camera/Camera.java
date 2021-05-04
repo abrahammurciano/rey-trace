@@ -22,6 +22,29 @@ public class Camera implements Iterable<Ray> {
 		this.view = new ViewPlane(builder.width(), builder.height(),
 			builder.location().add(orientation.front.scale(builder.distance())), builder.resolution(), orientation);
 	}
+	// lots of code repetition here...
+	// But how to do without needless allocation?
+	// Could builder pattern help?
+	// public Camera moveAndRotate(Vector shift, NormalizedVector newFront, double twistAngle) {
+	// 	Matrix3x3 rotate = Matrix3x3.getRotation(orientation.front, newFront);
+	// 	Matrix3x3 twist = Matrix3x3.getRotation(newFront, twistAngle);
+	// 	Matrix3x3 rotateAndTwist = twist.multiply(rotate); // this may be backwards. matrix multiplication is hard
+	// 	return new Camera(location.add(shift), rotateAndTwist.multiply(orientation.front),
+	// 		rotateAndTwist.multiply(orientation.up), width, height, distance, view.resolution);
+	// }
+
+	// public Camera rotate(NormalizedVector newFront, double twistAngle) {
+	// 	Matrix3x3 rotate = Matrix3x3.getRotation(orientation.front, newFront);
+	// 	Matrix3x3 twist = Matrix3x3.getRotation(newFront, twistAngle);
+	// 	Matrix3x3 rotateAndTwist = twist.multiply(rotate); // this may be backwards. matrix multiplication is hard
+	// 	return new Camera(location, rotateAndTwist.multiply(orientation.front),
+	// 		rotateAndTwist.multiply(orientation.up), width, height, distance, view.resolution);
+	// }
+
+	// public Camera move(Vector shift) {
+	// 	return new Camera(location.add(shift), orientation.front, orientation.up, width, height, distance,
+	// 		view.resolution);
+	// }
 
 	/**
 	 * Calculate the {@link Ray} to the center of the pixel at the given column and row.
