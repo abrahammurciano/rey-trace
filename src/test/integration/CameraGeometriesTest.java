@@ -8,6 +8,8 @@ import geometries.Geometry;
 import geometries.Plane;
 import geometries.Sphere;
 import geometries.Triangle;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.Assert;
 import primitives.NormalizedVector;
 import primitives.Point;
@@ -114,42 +116,22 @@ public class CameraGeometriesTest {
 		// triangle in plane parallel to view pane, completely in view pane
 		// Only center ray should intersect
 		Triangle triangle = new Triangle(new Point(0, 5, 2), new Point(-3, 5, -1), new Point(3, 5,-1));
-		List<Point> intersections = new ArrayList<>(1);
-		for (Ray ray : camera) {
-			intersections.addAll(triangle.intersect(ray));
-		}
-		Assert.assertEquals("Wrong number of intersections for a parallel triangle", 1, intersections.size());
+		checkIntersectCount(camera, triangle, 1, "Wrong number of intersections for a parallel triangle");
 
 		// triangle in plane parallel to view pane, all rays intersect triangle
 		triangle = new Triangle(new Point(0, 5, 10), new Point(-30, 5, -10), new Point(30, 5,-10));
-		intersections = new ArrayList<>(9);
-		for (Ray ray : camera) {
-			intersections.addAll(triangle.intersect(ray));
-		}
-		Assert.assertEquals("Wrong number of intersections for a parallel triangle", 9, intersections.size());
+		checkIntersectCount(camera, triangle, 9, "Wrong number of intersections for a parallel triangle");
 
 		// triangle behind camera
 		triangle = new Triangle(new Point(0, -5, 10), new Point(-30, -5, -10), new Point(30, -5,-10));
-		intersections = new ArrayList<>();
-		for (Ray ray : camera) {
-			intersections.addAll(triangle.intersect(ray));
-		}
-		Assert.assertEquals("Wrong number of intersections for triangle behind camera", 0, intersections.size());
+		checkIntersectCount(camera, triangle, 0, "Wrong number of intersections for triangle behind camera");
 
 		// triangle partially in camera
 		triangle = new Triangle(new Point(0, 5, 10), new Point(-5, 5, -10), new Point(5, 5,-10));
-		intersections = new ArrayList<>(3);
-		for (Ray ray : camera) {
-			intersections.addAll(triangle.intersect(ray));
-		}
-		Assert.assertEquals("Wrong number of intersections for triangle partially in view", 3, intersections.size());
+		checkIntersectCount(camera, triangle, 3, "Wrong number of intersections for triangle partially in view");
 
 		// triangle perpendicular to view plane
 		triangle = new Triangle(new Point(0, 5, 0), new Point(-5, 2, 0), new Point(5, 2, 0));
-		intersections = new ArrayList<>();
-		for (Ray ray : camera) {
-			intersections.addAll(triangle.intersect(ray));
-		}
-		Assert.assertEquals("Wrong number of intersections for triangle partially in view", 0, intersections.size());
+		checkIntersectCount(camera, triangle, 0, "Wrong number of intersections for triangle partially in view");
 	}
 }
