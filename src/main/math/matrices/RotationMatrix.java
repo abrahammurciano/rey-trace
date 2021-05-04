@@ -30,7 +30,7 @@ public class RotationMatrix extends Matrix {
 	 * @param sinRoll  sin(roll)
 	 * @param cosRoll  cos(roll)
 	 */
-	public RotationMatrix(double sinPitch, double cosPitch, double sinYaw, double cosYaw, double sinRoll,
+	private RotationMatrix(double sinPitch, double cosPitch, double sinYaw, double cosYaw, double sinRoll,
 		double cosRoll) {
 		super(
 			new VectorBase(cosPitch * cosYaw, sinPitch * cosYaw * sinRoll - sinYaw * cosRoll,
