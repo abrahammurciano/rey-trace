@@ -13,6 +13,11 @@ import scene.Scene;
  */
 public class BasicRayTracer extends RayTracer {
 
+	/**
+	 * Construct a new BasicRayTracer for the given scene.
+	 * 
+	 * @param scene The scene to trace.
+	 */
 	protected BasicRayTracer(Scene scene) {
 		super(scene);
 		// TODO: implement
