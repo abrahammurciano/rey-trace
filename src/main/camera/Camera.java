@@ -38,17 +38,6 @@ public class Camera implements Iterable<Pixel> {
 	}
 
 	/**
-	 * Calculate the {@link Ray} to the center of the pixel at the given column and row.
-	 *
-	 * @param col The index of the column.
-	 * @param row The index of the row.
-	 * @return The ray to the center of the pixel.
-	 */
-	public Ray point(int col, int row) {
-		return new Ray(location, location.vectorTo(view.point(col, row)).normalized());
-	}
-
-	/**
 	 * Create a new camera which is shifted by the given {@link Vector}.
 	 *
 	 * @param offset The {@link Vector} by which to shift the camera.
