@@ -4,12 +4,12 @@ import primitives.NormalizedVector;
 import primitives.Point;
 
 /**
- * A builder class to simplify the construction of {@link Camera} objects.
+ * A settings class to simplify the construction of {@link Camera} objects.
  *
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class CameraBuilder {
+public class CameraSettings {
 	private Point location;
 	private NormalizedVector front;
 	private NormalizedVector up;
@@ -19,9 +19,9 @@ public class CameraBuilder {
 	private Resolution resolution;
 
 	/**
-	 * Default constructor for CameraBuilder.
+	 * Default constructor for CameraSettings.
 	 */
-	public CameraBuilder() {
+	public CameraSettings() {
 		location = Point.ORIGIN;
 		front = NormalizedVector.J;
 		up = NormalizedVector.K;
@@ -32,11 +32,11 @@ public class CameraBuilder {
 	}
 
 	/**
-	 * Construct a camera builder with the values of a given {@link Camera}.
+	 * Construct a camera settings with the values of a given {@link Camera}.
 	 *
 	 * @param camera The camera to take the values from.
 	 */
-	public CameraBuilder(Camera camera) {
+	public CameraSettings(Camera camera) {
 		this();
 		location(camera.location);
 		front(camera.orientation.front);
@@ -51,9 +51,9 @@ public class CameraBuilder {
 	 * Specify the location where the {@link Camera} will be placed. Default is the origin.
 	 *
 	 * @param location The {@link Point} where the {@link Camera} will be placed.
-	 * @return This {@link CameraBuilder}.
+	 * @return This {@link CameraSettings}.
 	 */
-	public CameraBuilder location(Point location) {
+	public CameraSettings location(Point location) {
 		this.location = location;
 		return this;
 	}
@@ -71,9 +71,9 @@ public class CameraBuilder {
 	 * Specify the direction the {@link Camera} will be facing. Default is the positive y-axis.
 	 *
 	 * @param front The direction the {@link Camera} will be facing.
-	 * @return This {@link CameraBuilder}.
+	 * @return This {@link CameraSettings}.
 	 */
-	public CameraBuilder front(NormalizedVector front) {
+	public CameraSettings front(NormalizedVector front) {
 		this.front = front;
 		return this;
 	}
@@ -91,9 +91,9 @@ public class CameraBuilder {
 	 * Specify the direction the {@link Camera} will consider "up". Default is the positive z-axis.
 	 *
 	 * @param up The direction to consider "up".
-	 * @return This {@link CameraBuilder}.
+	 * @return This {@link CameraSettings}.
 	 */
-	public CameraBuilder up(NormalizedVector up) {
+	public CameraSettings up(NormalizedVector up) {
 		this.up = up;
 		return this;
 	}
@@ -111,9 +111,9 @@ public class CameraBuilder {
 	 * Specify the width of the view plane. Default is 19.2 units.
 	 *
 	 * @param width The width of the view plane.
-	 * @return This {@link CameraBuilder}.
+	 * @return This {@link CameraSettings}.
 	 */
-	public CameraBuilder width(double width) {
+	public CameraSettings width(double width) {
 		this.width = width;
 		return this;
 	}
@@ -121,7 +121,7 @@ public class CameraBuilder {
 	/**
 	 * Get the width of the view plane.
 	 *
-	 * @return This {@link CameraBuilder}.
+	 * @return This {@link CameraSettings}.
 	 */
 	public double width() {
 		return width;
@@ -131,9 +131,9 @@ public class CameraBuilder {
 	 * Specify the height of the view plane. Default is 10.8 units.
 	 *
 	 * @param height The height of the view plane.
-	 * @return This {@link CameraBuilder}.
+	 * @return This {@link CameraSettings}.
 	 */
-	public CameraBuilder height(double height) {
+	public CameraSettings height(double height) {
 		this.height = height;
 		return this;
 	}
@@ -153,9 +153,9 @@ public class CameraBuilder {
 	 *
 	 * @param width  The width of the view plane.
 	 * @param height The height of the view plane.
-	 * @return This {@link CameraBuilder}.
+	 * @return This {@link CameraSettings}.
 	 */
-	public CameraBuilder dimensions(double width, double height) {
+	public CameraSettings dimensions(double width, double height) {
 		return width(width).height(height);
 	}
 
@@ -163,9 +163,9 @@ public class CameraBuilder {
 	 * Specify the distance between the {@link Camera} and the view plane. Default is 10 units.
 	 *
 	 * @param distance The distance between the {@link Camera} and the view plane.
-	 * @return This {@link CameraBuilder}.
+	 * @return This {@link CameraSettings}.
 	 */
-	public CameraBuilder distance(double distance) {
+	public CameraSettings distance(double distance) {
 		this.distance = distance;
 		return this;
 	}
@@ -183,9 +183,9 @@ public class CameraBuilder {
 	 * Specify the resolution of the {@link Camera}. Default is 1080p.
 	 *
 	 * @param resolution The resolution of the {@link Camera}.
-	 * @return This {@link CameraBuilder}.
+	 * @return This {@link CameraSettings}.
 	 */
-	public CameraBuilder resolution(Resolution resolution) {
+	public CameraSettings resolution(Resolution resolution) {
 		this.resolution = resolution;
 		return this;
 	}
@@ -195,29 +195,19 @@ public class CameraBuilder {
 	 * {@link #resolution(Resolution)}.
 	 *
 	 * @param resolution The resolution of the {@link Camera}.
-	 * @return This {@link CameraBuilder}.
+	 * @return This {@link CameraSettings}.
 	 */
-	public CameraBuilder resolution(String resolution) {
+	public CameraSettings resolution(String resolution) {
 		return resolution(new Resolution(resolution));
 	}
 
 	/**
 	 * Get the resolution of the {@link Camera}.
 	 *
-	 * @return This {@link CameraBuilder}.
+	 * @return This {@link CameraSettings}.
 	 */
 	public Resolution resolution() {
 		return resolution;
-	}
-
-	/**
-	 * Construct the {@link Camera} with the specified parameters.
-	 *
-	 * @return The {@link Camera} instance constructed with the specified
-	 *         parameters.
-	 */
-	public Camera build() {
-		return new Camera(this);
 	}
 
 }

@@ -14,7 +14,7 @@ import math.matrices.RotationMatrix;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class Camera implements Iterable<Ray> {
+public class Camera implements Iterable<Pixel> {
 	/** The location at which the camera located. */
 	public final Point location;
 	/** The {@link Orientation} in which the camera is facing. */
@@ -25,16 +25,16 @@ public class Camera implements Iterable<Ray> {
 	final double distance;
 
 	/**
-	 * Constructs a camera from the given {@link CameraBuilder}.
+	 * Constructs a camera from the given {@link CameraSettings}.
 	 *
-	 * @param builder The {@link CameraBuilder} containing the data necessary to create the camera.
+	 * @param settings The {@link CameraSettings} containing the data necessary to create the camera.
 	 */
-	Camera(CameraBuilder builder) {
-		this.location = builder.location();
-		this.orientation = new Orientation(builder.front(), builder.up());
-		this.distance = builder.distance();
-		this.view = new ViewPlane(builder.width(), builder.height(),
-			builder.location().add(orientation.front.scale(distance)), builder.resolution(), orientation);
+	public Camera(CameraSettings settings) {
+		this.location = settings.location();
+		this.orientation = new Orientation(settings.front(), settings.up());
+		this.distance = settings.distance();
+		this.view = new ViewPlane(settings.width(), settings.height(),
+			settings.location().add(orientation.front.scale(distance)), settings.resolution(), orientation);
 	}
 
 	/**
@@ -55,7 +55,7 @@ public class Camera implements Iterable<Ray> {
 	 * @return A new {@link Camera} shifted by the given {@link Vector}.
 	 */
 	public Camera shift(Vector offset) {
-		return new CameraBuilder(this).location(location.add(offset)).build();
+		return new Camera(new CameraSettings(this).location(location.add(offset)));
 	}
 
 	/**
@@ -69,44 +69,13 @@ public class Camera implements Iterable<Ray> {
 	 */
 	public Camera rotate(double pitch, double yaw, double roll) {
 		Matrix m = new RotationMatrix(pitch, yaw, roll);
-		return new CameraBuilder(this).front(m.multiply(orientation.front).normalized())
-			.up(m.multiply(orientation.up).normalized()).build();
+		return new Camera(new CameraSettings(this).front(m.multiply(orientation.front).normalized())
+			.up(m.multiply(orientation.up).normalized()));
 	}
 
 	@Override
-	public Iterator<Ray> iterator() {
+	public Iterator<Pixel> iterator() {
 		return new CameraIterator(this);
-	}
-
-	/**
-	 * An iterator to iterate over the rays shot by the camera.
-	 */
-	public class CameraIterator implements Iterator<Ray> {
-
-		private final Point source;
-		private final Iterator<Point> viewPlaneIterator;
-
-		/**
-		 * Get an iterator to iterate over the rays shot by the camera.
-		 *
-		 * @param camera The camera whose rays to iterate over.
-		 */
-		public CameraIterator(Camera camera) {
-			this.viewPlaneIterator = camera.view.iterator();
-			this.source = camera.location;
-		}
-
-		@Override
-		public boolean hasNext() {
-			return viewPlaneIterator.hasNext();
-		}
-
-		@Override
-		public Ray next() {
-			Point p = viewPlaneIterator.next();
-			return new Ray(source, source.vectorTo(p).normalized());
-		}
-
 	}
 
 }
