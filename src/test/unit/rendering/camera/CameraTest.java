@@ -1,4 +1,4 @@
-package unit.camera;
+package unit.rendering.camera;
 
 import java.util.ArrayList;
 import java.util.List;
