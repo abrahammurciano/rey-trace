@@ -50,6 +50,11 @@ public class NormalizedVector extends Vector {
 		this(new Vector(x, y, z));
 	}
 
+	@Override
+	public NormalizedVector normalized() {
+		return this;
+	}
+
 	/**
 	 * Calculates a new {@link NormalizedVector} with the opposite direction to this vector.
 	 *

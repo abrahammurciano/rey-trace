@@ -1,9 +1,6 @@
 package integration;
 
 import org.junit.Test;
-import camera.Camera;
-import camera.CameraBuilder;
-import camera.Resolution;
 import geometries.Geometry;
 import geometries.Plane;
 import geometries.Sphere;
@@ -11,7 +8,10 @@ import geometries.Triangle;
 import org.junit.Assert;
 import primitives.NormalizedVector;
 import primitives.Point;
-import primitives.Ray;
+import rendering.Resolution;
+import rendering.camera.Camera;
+import rendering.camera.CameraSettings;
+import rendering.camera.Pixel;
 
 /**
  * Tests the integration between the camera and the geometries. Namely, we check that the rays constructed by the camera
@@ -30,16 +30,16 @@ public class CameraGeometriesTest {
 
 		// Only one ray intersects
 		// Unit sphere at (0, 0, -3) with two intersections
-		CameraBuilder builder = new CameraBuilder().location(Point.ORIGIN).front(new NormalizedVector(0, 0, -1))
+		CameraSettings settings = new CameraSettings().location(Point.ORIGIN).front(new NormalizedVector(0, 0, -1))
 			.up(NormalizedVector.J).width(3).height(3).distance(1).resolution(new Resolution("3x3"));
 
-		Camera camera = builder.build();
+		Camera camera = new Camera(settings);
 		Sphere sphere = new Sphere(new Point(0, 0, -3), 1);
 		checkIntersectCount(camera, sphere, 2, "Unit sphere with two intersections");
 
 		// All rays intersect
 		// Sphere of radius 2.5 at (0, 0, -2.5) with 18 intersections
-		camera = builder.location(new Point(0, 0, 0.5)).build();
+		camera = new Camera(settings.location(new Point(0, 0, 0.5)));
 		sphere = new Sphere(new Point(0, 0, -2.5), 2.5);
 		checkIntersectCount(camera, sphere, 18, "Sphere of radius 2.5 at (0, 0, -2.5) with 18 intersections");
 
@@ -55,7 +55,7 @@ public class CameraGeometriesTest {
 
 		// Sphere behind camera
 		// Sphere of radius 4 centered at (0, 0, 0) with 9 intersections
-		camera = builder.location(Point.ORIGIN).build();
+		camera = new Camera(settings.location(Point.ORIGIN));
 		sphere = new Sphere(new Point(0, 0, 1), 0.5);
 		checkIntersectCount(camera, sphere, 0, "Sphere behind camera");
 	}
@@ -65,11 +65,11 @@ public class CameraGeometriesTest {
 	 */
 	@Test
 	public void testPlane() {
-		CameraBuilder builder = new CameraBuilder().dimensions(3, 3).distance(1).front(new NormalizedVector(0, 0, -1))
-			.up(NormalizedVector.J).resolution("3x3");
+		CameraSettings settings = new CameraSettings().dimensions(3, 3).distance(1)
+			.front(new NormalizedVector(0, 0, -1)).up(NormalizedVector.J).resolution("3x3");
 
 		// Plane parallel to the view plane.
-		Camera camera = builder.build();
+		Camera camera = new Camera(settings);
 		Plane plane = new Plane(new Point(0, 0, -2), new Point(1, 0, -2), new Point(2, 2, -2));
 		checkIntersectCount(camera, plane, 9, "Wrong number of intersections for plane parallel to view plane.");
 
@@ -91,9 +91,9 @@ public class CameraGeometriesTest {
 	 */
 	@Test
 	public void testTriangle() {
-		CameraBuilder builder = new CameraBuilder().dimensions(3, 3).distance(1).front(new NormalizedVector(0, 1, 0))
+		CameraSettings settings = new CameraSettings().dimensions(3, 3).distance(1).front(new NormalizedVector(0, 1, 0))
 			.up(new NormalizedVector(0, 0, 1)).resolution("3x3");
-		Camera camera = builder.build();
+		Camera camera = new Camera(settings);
 
 		// triangle in plane parallel to view pane, completely in view pane
 		// Only center ray should intersect
@@ -127,8 +127,8 @@ public class CameraGeometriesTest {
 	 */
 	private void checkIntersectCount(Camera camera, Geometry geometry, int expectedCount, String message) {
 		int actual = 0;
-		for (Ray ray : camera) {
-			actual += geometry.intersect(ray).size();
+		for (Pixel pixel : camera) {
+			actual += geometry.intersect(pixel.ray).size();
 		}
 		Assert.assertEquals(message, expectedCount, actual);
 	}

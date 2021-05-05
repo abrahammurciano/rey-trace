@@ -1,4 +1,4 @@
-package camera;
+package rendering;
 
 /**
  * Represents the resolution of an image. That is some number of pixels by some
