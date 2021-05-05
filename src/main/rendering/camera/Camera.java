@@ -1,8 +1,9 @@
-package camera;
+package rendering.camera;
 
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
+import rendering.Resolution;
 import java.util.Iterator;
 import math.matrices.Matrix;
 import math.matrices.RotationMatrix;
@@ -35,6 +36,15 @@ public class Camera implements Iterable<Pixel> {
 		this.distance = settings.distance();
 		this.view = new ViewPlane(settings.width(), settings.height(),
 			settings.location().add(orientation.front.scale(distance)), settings.resolution(), orientation);
+	}
+
+	/**
+	 * Gets the resolution of the {@link Camera}.
+	 *
+	 * @return The resolution of the {@link Camera}.
+	 */
+	public Resolution resolution() {
+		return view.resolution;
 	}
 
 	/**

@@ -1,4 +1,4 @@
-package camera;
+package rendering.camera;
 
 import math.compare.DoubleCompare;
 import primitives.NormalizedVector;

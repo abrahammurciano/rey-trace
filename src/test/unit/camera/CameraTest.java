@@ -5,11 +5,11 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
-import camera.Camera;
-import camera.CameraSettings;
 import primitives.NormalizedVector;
 import primitives.Point;
 import primitives.Ray;
+import rendering.camera.Camera;
+import rendering.camera.CameraSettings;
 
 /**
  * Testing Camera Class

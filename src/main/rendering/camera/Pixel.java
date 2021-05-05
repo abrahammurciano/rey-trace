@@ -1,4 +1,4 @@
-package camera;
+package rendering.camera;
 
 import primitives.Ray;
 

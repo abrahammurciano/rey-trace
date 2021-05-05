@@ -1,6 +1,7 @@
-package camera;
+package rendering.camera;
 
 import primitives.Vector;
+import rendering.Resolution;
 import primitives.Point;
 
 /**

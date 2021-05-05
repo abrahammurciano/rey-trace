@@ -1,10 +1,6 @@
 package integration;
 
 import org.junit.Test;
-import camera.Camera;
-import camera.CameraSettings;
-import camera.Pixel;
-import camera.Resolution;
 import geometries.Geometry;
 import geometries.Plane;
 import geometries.Sphere;
@@ -12,6 +8,10 @@ import geometries.Triangle;
 import org.junit.Assert;
 import primitives.NormalizedVector;
 import primitives.Point;
+import rendering.Resolution;
+import rendering.camera.Camera;
+import rendering.camera.CameraSettings;
+import rendering.camera.Pixel;
 
 /**
  * Tests the integration between the camera and the geometries. Namely, we check that the rays constructed by the camera

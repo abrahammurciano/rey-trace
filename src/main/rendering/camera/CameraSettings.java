@@ -1,7 +1,8 @@
-package camera;
+package rendering.camera;
 
 import primitives.NormalizedVector;
 import primitives.Point;
+import rendering.Resolution;
 
 /**
  * A settings class to simplify the construction of {@link Camera} objects.
@@ -44,7 +45,7 @@ public class CameraSettings {
 		width(camera.view.width);
 		height(camera.view.height);
 		distance(camera.distance);
-		resolution(camera.view.resolution);
+		resolution(camera.resolution());
 	}
 
 	/**

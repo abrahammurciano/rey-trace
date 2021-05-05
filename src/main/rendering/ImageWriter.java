@@ -14,7 +14,7 @@ public class ImageWriter {
 	 *
 	 * @param filename The name of the file to write to.
 	 */
-	public ImageWriter(String filename) {
+	public ImageWriter(String filename, Resolution resolution) {
 		// TODO: implement
 	}
 

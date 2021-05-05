@@ -1,4 +1,4 @@
-package camera;
+package rendering.camera;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
