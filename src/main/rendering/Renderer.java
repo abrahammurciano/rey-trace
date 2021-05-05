@@ -1,6 +1,8 @@
 package rendering;
 
+import java.util.Iterator;
 import camera.Camera;
+import camera.Pixel;
 import rendering.rayTracing.RayTracer;
 import scene.Scene;
 
@@ -11,6 +13,8 @@ import scene.Scene;
  * @author
  */
 public class Renderer {
+	private Camera camera;
+
 	/**
 	 * Construct a renderer with the provided data.
 	 *
@@ -20,13 +24,33 @@ public class Renderer {
 	 * @param filename  The filename to write the rendered image to.
 	 */
 	public Renderer(Scene scene, Camera camera, RayTracer rayTracer, String filename) {
-		// TODO: implement
+		this.camera = camera;
 	}
 
 	/**
 	 * Calculates the colours of each pixel, write them to the ImageWriter, then write the image to the output file.
+	 *
+	 * @param threads The number of threads to use to render the image.
 	 */
-	public void render() {
-		// TODO: implement
+	public void render(int threads) {
+		Iterator<Pixel> iterator = camera.iterator();
+		for (int i = 0; i < threads; ++i) {
+			new RenderThread(iterator).start();
+		}
+	}
+
+	private class RenderThread extends Thread {
+		private Iterator<Pixel> iterator;
+
+		public RenderThread(Iterator<Pixel> iterator) {
+			this.iterator = iterator;
+		}
+
+		@Override
+		public void run() {
+			synchronized (iterator) {
+				// TODO: complete
+			}
+		}
 	}
 }
