@@ -7,6 +7,7 @@ package primitives;
 public class Colour {
 
 	// Internal variable for keeping track of the rgb values
+	// x = Red, y = Green, z = Blue
 	private Vector rgb;
 
 	/**
@@ -47,14 +48,38 @@ public class Colour {
 	}
 
 	/**
-	 * Returns the RGB value representing the color. (Bits 24-31 are blank since alpha in unused, 16-23 are red, 8-15 are green, 0-7 are
-	 * blue). This imageType will be TYPE_INT_RGB
+	 * Get the integer value of red of this colour 
+	 * @return The integer value (0-255) of red
+	 */
+	public int red() {
+		return getInt(rgb.x);
+	}
+
+	/**
+	 * Get the integer value of green of this colour 
+	 * @return The integer value (0-255) of green
+	 */
+	public int green() {
+		return getInt(rgb.y);
+	}
+
+	/**
+	 * Get the integer value of blue of this colour 
+	 * @return The integer value (0-255) of blue
+	 */
+	public int blue() {
+		return getInt(rgb.z);
+	}
+
+	/**
+	 * Returns the RGB value representing the color. (Bits 24-31 are blank since alpha is unused, 16-23 are red, 8-15 are green, 0-7 are
+	 * blue). The imageType will be TYPE_INT_RGB
 	 *
 	 * @return the RGB value of the color.
 	 */
 	public int rgb() {
 		// TODO: Check if this messes up all of our images
-		return getInt(rgb.z) ^ (getInt(rgb.y) >> 8) ^ (getInt(rgb.x) >> 16);
+		return (red() << 16) ^ (green() << 8) ^ blue();
 	}
 
 	private int getInt(double value) {
