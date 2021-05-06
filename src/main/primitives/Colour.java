@@ -3,10 +3,13 @@ package primitives;
 /**
  * This class represents a digital colour, with the added functionality of adding and scaling colours.
  *
- * @author
- * @author
  */
 public class Colour {
+
+	// Internal variable for keeping track of the rgb values
+	// x = Red, y = Green, z = Blue
+	private Vector rgb;
+
 	/**
 	 * Construct a new colour from the given red, green, and blue values.
 	 *
@@ -15,10 +18,11 @@ public class Colour {
 	 * @param blue  The blue value (0 to 255).
 	 */
 	public Colour(int red, int green, int blue) {
-		// TODO: implement
-		// Idea: we can use a VectorBase internally to store the values, thus allowing us to delegate add and scale to
-		// VectorBase (see why I wanted to call this one Vector? It's more general and we can use it everywhere. also
-		// colour is a vector).
+		this(new Vector(red, green, blue));
+	}
+
+	private Colour(Vector rgb) {
+		this.rgb = rgb;
 	}
 
 	/**
@@ -29,8 +33,7 @@ public class Colour {
 	 * @return The new colour which is the sum of the two colours.
 	 */
 	public Colour add(Colour colour) {
-		// TODO: implement
-		return null;
+		return new Colour(this.rgb.add(colour.rgb));
 	}
 
 	/**
@@ -41,21 +44,49 @@ public class Colour {
 	 * @return The new colour which is the result of the scale.
 	 */
 	public Colour scale(double factor) {
-		// TODO: implement
-		return null;
+		return new Colour(this.rgb.scale(factor));
 	}
 
 	/**
-	 * Returns the RGB value representing the color. (Bits 24-31 are alpha, 16-23 are red, 8-15 are green, 0-7 are
-	 * blue).
+	 * Get the integer value of red of this colour 
+	 * @return The integer value (0-255) of red
+	 */
+	public int red() {
+		return getInt(rgb.x);
+	}
+
+	/**
+	 * Get the integer value of green of this colour 
+	 * @return The integer value (0-255) of green
+	 */
+	public int green() {
+		return getInt(rgb.y);
+	}
+
+	/**
+	 * Get the integer value of blue of this colour 
+	 * @return The integer value (0-255) of blue
+	 */
+	public int blue() {
+		return getInt(rgb.z);
+	}
+
+	/**
+	 * Returns the RGB value representing the color. (Bits 24-31 are blank since alpha is unused, 16-23 are red, 8-15 are green, 0-7 are
+	 * blue). The imageType will be TYPE_INT_RGB
 	 *
 	 * @return the RGB value of the color.
 	 */
 	public int rgb() {
-		// BufferedImage, as used by ImageWriter, needs only the RGB value (int) to write a pixel. So no point exposing
-		// the actual java colour. That is just implementation detail (if we want to use it... (bitwise operations are
-		// fun)).
-		// TODO: implement
-		return 0;
+		// TODO: Check if this messes up all of our images
+		return (red() << 16) ^ (green() << 8) ^ blue();
+	}
+
+	private int getInt(double value) {
+		if (value < 0)
+			return 0;
+		if (value > 255)
+			return 255;
+		return (int) Math.round(value);
 	}
 }
