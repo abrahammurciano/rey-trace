@@ -9,9 +9,9 @@ public class ImageWriterTest {
 
 	@Test
 	public void testWriteToFile() {
-		int width = 3;
-		int height = 3;
-		Colour orange = new Colour(252, 136, 3);
+		int width = 300;
+		int height = 300;
+		Colour orange = new Colour(10, 80, 200);
 		ImageWriter iw = new ImageWriter("TestImage", new Resolution(width, height));
 		for (int i = 0; i < width; ++i) {
 			for (int j = 0; j < height; ++j) {

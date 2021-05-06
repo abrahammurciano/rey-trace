@@ -18,7 +18,6 @@ public class ImageWriter {
 	// maybe use JFileChooser instead of passing a file name
 	private String filename;
 	private int width;
-	private int height;
 	private int[] pixels;
 
 	/**
@@ -30,7 +29,6 @@ public class ImageWriter {
 		image = new BufferedImage(resolution.x, resolution.y, BufferedImage.TYPE_INT_RGB);
 		raster = image.getRaster();
 		this.width = resolution.x;
-		this.height = resolution.y;
 		this.filename = filename;
 		this.pixels = new int[resolution.x * resolution.y];
 	}
@@ -43,9 +41,6 @@ public class ImageWriter {
 	 * @param colour The colour to be written to the pixel.
 	 */
 	public void setPixel(int row, int col, Colour colour) {
-		// for some reason this parameter has to be an array
-		// alternative is store store some large int array, then just copy it all over to the raster prior to writing to file
-		// int[] colourArray = new int[colour.rgb()];
 		pixels[row * width + col] = colour.rgb();
 	}
 
@@ -53,7 +48,7 @@ public class ImageWriter {
 	 * Write the image to disk.
 	 */
 	public void writeToFile() {
-		raster.setDataElements(0, 0, image.getWidth(), image.getHeight(), pixels);
+		raster.setDataElements(0, 0, this.width, image.getHeight(), pixels);
 		try {
 			ImageIO.write(image, "JPG", new File(filename));
 		} catch (IOException e) {
