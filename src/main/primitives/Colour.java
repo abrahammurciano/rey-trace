@@ -78,7 +78,7 @@ public class Colour {
 	}
 
 	/**
-	 * Returns the RGB value representing the color. (Bits 24-31 are blank since alpha is unused, 16-23 are red, 8-15
+	 * Returns the RGB value representing the color. (Bits 24-31 255 i.e. fully opaque, 16-23 are red, 8-15
 	 * are green, 0-7 are blue). The imageType will be TYPE_INT_RGB.
 	 *
 	 * @return the RGB value of the color.
