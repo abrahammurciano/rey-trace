@@ -3,7 +3,7 @@ package primitives;
 /**
  * An interface for a function that takes three doubles and creates some type of {@link Triple}
  */
-public interface TripleCreator {
+public interface TripleCreator<T> {
 	/**
 	 * A function that takes three doubles and creates some type of {@link Triple}.
 	 *
@@ -12,5 +12,5 @@ public interface TripleCreator {
 	 * @param z The value of the z coordinate.
 	 * @return The new {@link Triple} with the given coordinates.
 	 */
-	Triple create(double x, double y, double z);
+	T create(double x, double y, double z);
 }

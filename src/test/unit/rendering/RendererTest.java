@@ -1,6 +1,6 @@
 package unit.rendering;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import org.junit.Test;
 import geometries.Sphere;
 import geometries.Triangle;
@@ -13,7 +13,6 @@ import rendering.camera.Camera;
 import rendering.camera.CameraSettings;
 import rendering.rayTracing.BasicRayTracer;
 import scene.Scene;
-import scene.XmlSceneParser;
 
 /**
  * Testing Rendere Class
@@ -50,9 +49,10 @@ public class RendererTest {
 	public void basicRenderXml() {
 		Scene scene;
 		try {
-			scene = XmlSceneParser.parse("~/Downloads/basicRenderTestTwoColours.xml");
-		} catch (FileNotFoundException __) {
-			System.out.println("~/Downloads/basicRenderTestTwoColours.xml: file not found");
+			scene = new xml.XmlSceneParser().parse("/home/abraham/Downloads/basicRenderTestTwoColours.xml");
+		} catch (IOException __) {
+			System.out.println(
+				"/home/abraham/Downloads/basicRenderTestTwoColours.xml: file not found or could not be opened.");
 			return;
 		}
 

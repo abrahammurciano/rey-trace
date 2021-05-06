@@ -71,7 +71,7 @@ public class Tube implements Geometry {
 	public NormalizedVector normal(Point p) {
 		Vector sourceToP = axis.source.vectorTo(p);
 		double dotProduct = direction().dot(sourceToP);
-		return sourceToP.subtract(direction().scale(dotProduct, VectorBase::create)).normalized();
+		return sourceToP.subtract(direction().scale(dotProduct, VectorBase::new)).normalized();
 	}
 
 	/**

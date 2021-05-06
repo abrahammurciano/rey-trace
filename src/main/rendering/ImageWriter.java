@@ -5,14 +5,15 @@ import primitives.Colour;
 /**
  * This class is responsible for writing pixels to an image file.
  *
- * @author
- * @author
+ * @author Eli Levin
+ * @author Abraham Murciano
  */
 public class ImageWriter {
 	/**
 	 * Construct an image writer which will write to the given file.
 	 *
-	 * @param filename The name of the file to write to.
+	 * @param filename   The name of the file to write to.
+	 * @param resolution The resolution of the image.
 	 */
 	public ImageWriter(String filename, Resolution resolution) {
 		// TODO: implement

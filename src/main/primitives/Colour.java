@@ -3,12 +3,13 @@ package primitives;
 /**
  * This class represents a digital colour, with the added functionality of adding and scaling colours.
  *
- * @author
- * @author
+ * @author Eli Levin
+ * @author Abraham Murciano
  */
 public class Colour {
 	/**
-	 * Construct a new colour from the given red, green, and blue values.
+	 * Construct a new colour from the given red, green, and blue values. Negative values will be treated as 0 and
+	 * values over 255 will be treated as 255.
 	 *
 	 * @param red   The red value (0 to 255).
 	 * @param green The green value (0 to 255).

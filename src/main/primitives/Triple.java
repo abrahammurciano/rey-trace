@@ -33,13 +33,15 @@ public abstract class Triple {
 	 * Creates a new {@link Triple} of the subtype returned by {@code creator} which is a transformation of this
 	 * {@link Triple} by applying the given transformation to each of the coordinates.
 	 *
+	 * @param <T>            The type of Triple to return.
 	 * @param transformation A function which receives two doubles and returns another double.
 	 * @param aux            An auxiliary {@link Triple} whose corresponding coordinate may (or may not) be used in
 	 *                       the transformation function in order to calculate each of the new coordinates.
 	 * @param creator        A function which receives three doubles and returns a new {@link Triple}
 	 * @return The {@link Triple} made up of applying the transformation to each of the three coordinates.
 	 */
-	protected Triple transform(DoubleBinaryOperator transformation, Triple aux, TripleCreator creator) {
+	protected <T extends Triple> T transform(DoubleBinaryOperator transformation, Triple aux,
+		TripleCreator<T> creator) {
 		return creator.create(transformation.applyAsDouble(x, aux.x), transformation.applyAsDouble(y, aux.y),
 			transformation.applyAsDouble(z, aux.z));
 	}
@@ -48,12 +50,12 @@ public abstract class Triple {
 	 * Similar to {@link #transform(DoubleBinaryOperator, Triple, TripleCreator)} but does not require an auxiliary
 	 * {@link Triple}, since the transformation when called in this way does not depend on a second coordinate.
 	 *
+	 * @param <T>            The type of Triple to return.
 	 * @param transformation A function which receives a dingle double and returns another double.
 	 * @param creator        A function which receives three doubles and returns a new {@link Triple}
 	 * @return The {@link Triple} made up of applying the transformation to each of the three coordinates.
-	 * @throws ZeroVectorException if the transformation results in the zero Triple.
 	 */
-	protected Triple transform(DoubleUnaryOperator transformation, TripleCreator creator) {
+	protected <T extends Triple> T transform(DoubleUnaryOperator transformation, TripleCreator<T> creator) {
 		return creator.create(transformation.applyAsDouble(x), transformation.applyAsDouble(y),
 			transformation.applyAsDouble(z));
 	}
