@@ -12,7 +12,7 @@ import rendering.ImageWriter;
 import rendering.Resolution;
 
 public class ImageWriterTest {
-	final String fileName = "GridImage";
+	final String fileName = "images/GridImage.png";
 
 	@Test
 	public void testWriteToFile() {
@@ -32,12 +32,12 @@ public class ImageWriterTest {
 			}
 		}
 		iw.writeToFile();
-		assertImageCorrect("Error Message", fileName);
+		assertImageCorrect("Grid image does not look correct.", fileName);
 	}
 
 	private void assertImageCorrect(String errorMessage, String fileName) {
 		JFrame frame = new JFrame();
-		JLabel label = new JLabel(new ImageIcon(ImageWriter.PATH + fileName + ImageWriter.EXT));
+		JLabel label = new JLabel(new ImageIcon(fileName));
 		JScrollPane scrollPane = new JScrollPane(label);
 		frame.add(scrollPane);
 		frame.setVisible(true);

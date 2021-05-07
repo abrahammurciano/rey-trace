@@ -13,12 +13,6 @@ import primitives.Colour;
  */
 public class ImageWriter {
 
-	/**  
-	 * The path where the image will be stored
-	 */
-	public static final String PATH = "images/";
-	public static final String EXT = ".png";
-
 	private BufferedImage image;
 	private String filename;
 	private int width;
@@ -52,7 +46,7 @@ public class ImageWriter {
 	 */
 	public void writeToFile() {
 		try {
-			ImageIO.write(image, "PNG", new File( PATH + filename + EXT));
+			ImageIO.write(image, "PNG", new File(filename));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
