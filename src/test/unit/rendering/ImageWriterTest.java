@@ -41,7 +41,6 @@ public class ImageWriterTest {
 		JScrollPane scrollPane = new JScrollPane(label);
 		frame.add(scrollPane);
 		frame.setVisible(true);
-		frame.pack();
 		int feedback = JOptionPane.showConfirmDialog(frame,"Please confirm that the displayed image is correct.", "", JOptionPane.YES_NO_OPTION);
 		Assert.assertEquals(errorMessage, feedback, JOptionPane.YES_OPTION);
 	}
