@@ -79,7 +79,7 @@ public class Colour {
 	 */
 	public int rgb() {
 		// TODO: Check if this messes up all of our images
-		return (red() << 16) ^ (green() << 8) ^ blue();
+		return (0xFF000000) ^ (red() << 16) ^ (green() << 8) ^ blue();
 	}
 
 	private int getInt(double value) {

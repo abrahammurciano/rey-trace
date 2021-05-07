@@ -1,7 +1,7 @@
 package rendering;
 
 import java.awt.image.BufferedImage;
-import java.awt.image.WritableRaster;
+import java.awt.image.DataBufferInt;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -14,8 +14,6 @@ import primitives.Colour;
 public class ImageWriter {
 
 	private BufferedImage image;
-	private WritableRaster raster;
-	// maybe use JFileChooser instead of passing a file name
 	private String filename;
 	private int width;
 	private int[] pixels;
@@ -27,10 +25,9 @@ public class ImageWriter {
 	 */
 	public ImageWriter(String filename, Resolution resolution) {
 		image = new BufferedImage(resolution.x, resolution.y, BufferedImage.TYPE_INT_RGB);
-		raster = image.getRaster();
 		this.width = resolution.x;
 		this.filename = filename;
-		this.pixels = new int[resolution.x * resolution.y];
+		this.pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 	}
 
 	/**
@@ -48,9 +45,8 @@ public class ImageWriter {
 	 * Write the image to disk.
 	 */
 	public void writeToFile() {
-		raster.setDataElements(0, 0, this.width, image.getHeight(), pixels);
 		try {
-			ImageIO.write(image, "JPG", new File(filename));
+			ImageIO.write(image, "PNG", new File(filename));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
