@@ -3,6 +3,8 @@ package primitives;
 /**
  * This class represents a digital colour, with the added functionality of adding and scaling colours.
  *
+ * @author Eli Levin
+ * @author Abraham Murciano
  */
 public class Colour {
 
@@ -11,7 +13,8 @@ public class Colour {
 	private Vector rgb;
 
 	/**
-	 * Construct a new colour from the given red, green, and blue values.
+	 * Construct a new colour from the given red, green, and blue values. Negative values will be treated as 0 and
+	 * values over 255 will be treated as 255.
 	 *
 	 * @param red   The red value (0 to 255).
 	 * @param green The green value (0 to 255).
@@ -48,38 +51,40 @@ public class Colour {
 	}
 
 	/**
-	 * Get the integer value of red of this colour 
-	 * @return The integer value (0-255) of red
+	 * Get the integer value of red of this colour.
+	 *
+	 * @return The integer value (0-255) of red.
 	 */
 	public int red() {
 		return getInt(rgb.x);
 	}
 
 	/**
-	 * Get the integer value of green of this colour 
-	 * @return The integer value (0-255) of green
+	 * Get the integer value of green of this colour.
+	 *
+	 * @return The integer value (0-255) of green.
 	 */
 	public int green() {
 		return getInt(rgb.y);
 	}
 
 	/**
-	 * Get the integer value of blue of this colour 
-	 * @return The integer value (0-255) of blue
+	 * Get the integer value of blue of this colour.
+	 *
+	 * @return The integer value (0-255) of blue.
 	 */
 	public int blue() {
 		return getInt(rgb.z);
 	}
 
 	/**
-	 * Returns the RGB value representing the color. (Bits 24-31 are blank since alpha is unused, 16-23 are red, 8-15 are green, 0-7 are
-	 * blue). The imageType will be TYPE_INT_RGB
+	 * Returns the RGB value representing the color. (Bits 24-31 255 i.e. fully opaque, 16-23 are red, 8-15
+	 * are green, 0-7 are blue). The imageType will be TYPE_INT_RGB.
 	 *
 	 * @return the RGB value of the color.
 	 */
 	public int rgb() {
-		// TODO: Check if this messes up all of our images
-		return (red() << 16) ^ (green() << 8) ^ blue();
+		return 0xFF000000 ^ (red() << 16) ^ (green() << 8) ^ blue();
 	}
 
 	private int getInt(double value) {

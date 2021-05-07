@@ -20,14 +20,25 @@ public class Scene {
 	public final Geometries geometries;
 
 	/**
-	 * Constructor for the scene.
+	 * Constructor for the scene with no geometries.
 	 *
 	 * @param background The background colour of the scene.
 	 * @param ambient    The ambient lighting of the scene.
 	 */
 	public Scene(Colour background, AmbientLight ambient) {
+		this(background, ambient, new Geometries());
+	}
+
+	/**
+	 * Constructor for the scene.
+	 *
+	 * @param background The background colour of the scene.
+	 * @param ambient    The ambient colour of the scene.
+	 * @param geometries The geometries to initialise the scene with.
+	 */
+	public Scene(Colour background, AmbientLight ambient, Geometries geometries) {
 		this.background = background;
 		this.ambient = ambient;
-		this.geometries = new Geometries();
+		this.geometries = geometries;
 	}
 }

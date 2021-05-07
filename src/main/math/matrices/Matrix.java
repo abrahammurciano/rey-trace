@@ -44,12 +44,14 @@ public class Matrix {
 	/**
 	 * Multiply the matrix by a {@link Triple}.
 	 *
+	 * @param <T>     The type of Triple to return.
+	 *
 	 * @param triple  The {@link Triple} to multiply by the matrix.
 	 * @param creator A function which receives three doubles and returns some subtype of {@link Triple}.
 	 * @return The {@link Triple} resulting from the multiplication, of the concrete type as returned by
 	 *         {@code creator}.
 	 */
-	public Triple multiply(Triple triple, TripleCreator creator) {
+	public <T extends Triple> T multiply(Triple triple, TripleCreator<T> creator) {
 		return creator.create(r1.dot(triple), r2.dot(triple), r3.dot(triple));
 	}
 
@@ -60,7 +62,7 @@ public class Matrix {
 	 * @return The {@link Point} resulting from the multiplication.
 	 */
 	public Point multiply(Point p) {
-		return (Point) multiply(p, Point::create);
+		return multiply(p, Point::new);
 	}
 
 	/**
@@ -70,7 +72,7 @@ public class Matrix {
 	 * @return The {@link Vector} resulting from the multiplication.
 	 */
 	public Vector multiply(Vector v) {
-		return (Vector) multiply(v, Vector::create);
+		return multiply(v, Vector::new);
 	}
 
 	@Override

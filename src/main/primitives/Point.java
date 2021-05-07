@@ -24,25 +24,13 @@ public class Point extends Triple {
 	}
 
 	/**
-	 * Create a new {@link Point} from the given coordinates.
-	 *
-	 * @param x The x-coordinate.
-	 * @param y The y-coordinate.
-	 * @param z The z-coordinate
-	 * @return The {@link Point} with the given coordinates.
-	 */
-	public static Point create(double x, double y, double z) {
-		return new Point(x, y, z);
-	}
-
-	/**
 	 * Adds a {@link Vector} to this {@link Point} and returns the resulting {@link Point}.
 	 *
 	 * @param vector The {@link VectorBase} to add to this {@link Point}.
 	 * @return The {@link Point} resulting from adding the {@link Vector} to this {@link Point}.
 	 */
 	public Point add(VectorBase vector) {
-		return (Point) transform(Double::sum, vector, Point::create);
+		return transform(Double::sum, vector, Point::new);
 	}
 
 	/**
@@ -63,8 +51,8 @@ public class Point extends Triple {
 	 * @param creator A function which receives three doubles and returns a new {@link VectorBase}
 	 * @return The {@link Vector} from this {@link Point} to the given {@link Point}.
 	 */
-	private VectorBase vectorTo(Point target, VectorBaseCreator creator) {
-		return (VectorBase) transform((base, aux) -> aux - base, target, creator);
+	private <T extends VectorBase> T vectorTo(Point target, TripleCreator<T> creator) {
+		return transform((base, aux) -> aux - base, target, creator);
 	}
 
 	/**
@@ -75,7 +63,7 @@ public class Point extends Triple {
 	 * @return The {@link VectorBase} from this {@link Point} to the given {@link Point}.
 	 */
 	public VectorBase vectorBaseTo(Point target) {
-		return vectorTo(target, VectorBase::create);
+		return vectorTo(target, VectorBase::new);
 	}
 
 	/**
@@ -86,7 +74,7 @@ public class Point extends Triple {
 	 * @throws ZeroVectorException if the target is equal to this {@link Point}.
 	 */
 	public Vector vectorTo(Point target) {
-		return (Vector) vectorTo(target, Vector::create);
+		return vectorTo(target, Vector::new);
 	}
 
 	/**
@@ -112,7 +100,7 @@ public class Point extends Triple {
 		return transform((base, aux) -> {
 			double diff = aux - base;
 			return diff * diff;
-		}, target, Point::create).sum();
+		}, target, Point::new).sum();
 	}
 
 	/**

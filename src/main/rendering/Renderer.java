@@ -10,8 +10,8 @@ import rendering.rayTracing.RayTracer;
 /**
  * This class is responsible for communicating between a {@link RayTracer} and an {@link ImageWriter}.
  *
- * @author
- * @author
+ * @author Abraham Murciano
+ * @author Eli Levin
  */
 public class Renderer {
 	private Camera camera;

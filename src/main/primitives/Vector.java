@@ -25,18 +25,6 @@ public class Vector extends VectorBase {
 	}
 
 	/**
-	 * Create a new {@link Vector} from the given coordinates.
-	 *
-	 * @param x The x-coordinate.
-	 * @param y The y-coordinate.
-	 * @param z The z-coordinate
-	 * @return The {@link Vector} with the given coordinates.
-	 */
-	public static Vector create(double x, double y, double z) {
-		return new Vector(x, y, z);
-	}
-
-	/**
 	 * Adds two {@link Vector}s and returns a new {@link Vector}.
 	 *
 	 * @param triple The {@link Triple} which is to be added to this {@link Vector}.
@@ -45,7 +33,7 @@ public class Vector extends VectorBase {
 	 */
 	@Override
 	public Vector add(Triple triple) {
-		return (Vector) add(triple, Vector::create);
+		return add(triple, Vector::new);
 	}
 
 	/**
@@ -57,7 +45,7 @@ public class Vector extends VectorBase {
 	 */
 	@Override
 	public Vector subtract(VectorBase vector) {
-		return (Vector) subtract(vector, Vector::create);
+		return subtract(vector, Vector::new);
 	}
 
 	/**
@@ -69,7 +57,7 @@ public class Vector extends VectorBase {
 	 */
 	@Override
 	public Vector scale(double factor) {
-		return (Vector) scale(factor, Vector::create);
+		return scale(factor, Vector::new);
 	}
 
 	/**
@@ -80,7 +68,7 @@ public class Vector extends VectorBase {
 	 * @throws ZeroVectorException if the result vector is the zero vector.
 	 */
 	public Vector cross(Vector vector) {
-		return (Vector) cross(vector, Vector::create);
+		return cross(vector, Vector::new);
 	}
 
 	/**
@@ -107,6 +95,6 @@ public class Vector extends VectorBase {
 
 	@Override
 	public Vector reversed() {
-		return (Vector) super.reversed();
+		return scale(-1);
 	}
 }
