@@ -1,6 +1,7 @@
 *.docx
 .vscode
 *.class
+images
 
 # Eli's crap
 formatter
