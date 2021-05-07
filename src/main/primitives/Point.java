@@ -1,5 +1,6 @@
 package primitives;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -110,8 +111,19 @@ public class Point extends Triple {
 	 * @return The closest point to this one, or null if {@code points} is empty.
 	 */
 	public Point closest(List<Point> points) {
-		// TODO: implement
-		return null;
+		if (points.isEmpty()) {
+			return null;
+		}
+		Iterator<Point> iterator = points.iterator();
+		Point closest = iterator.next();
+		double dSquared = squareDistance(closest);
+		while (iterator.hasNext()) {
+			Point next = iterator.next();
+			if (squareDistance(next) < dSquared) {
+				closest = next;
+			}
+		}
+		return closest;
 	}
 
 	@Override
