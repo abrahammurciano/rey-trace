@@ -1,5 +1,8 @@
 package unit.primitives;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.NoSuchElementException;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -81,29 +84,48 @@ public class PointTests {
 	}
 
 	/**
-	 * Test Point.sum
+	 * Test Point.closest
 	 */
 	@Test
-	public void sum() {
-		double calc, actual;
+	public void closest() {
+		// @formatter:off
+		//  ____                        _
+		// | __ )  ___  _   _ _ __   __| | __ _ _ __ _   _
+		// |  _ \ / _ \| | | | '_ \ / _` |/ _` | '__| | | |
+		// | |_) | (_) | |_| | | | | (_| | (_| | |  | |_| |
+		// |____/ \___/ \__,_|_| |_|\__,_|\__,_|_|   \__, |
+		//  _____         _                          |___/
+		// |_   _|__  ___| |_ ___
+		//   | |/ _ \/ __| __/ __|
+		//   | |  __/\__ \ |_\__ \
+		//   |_|\___||___/\__|___/
+		// @formatter:on
 
-		// Test sum of elements of vector is correct
-		calc = p.sum();
-		actual = 6;
-		String incorrectSum = "Incorrect sum";
-		Assert.assertTrue(incorrectSum, DoubleCompare.eq(calc, actual));
+		// Empty list
+		Assert.assertThrows("Expected exception for empty list", NoSuchElementException.class,
+			() -> p.closest(Collections.emptyList()));
 
-		// Test some other point
-		Point newP = new Point(3.742, 2.589, -29.0381);
-		calc = newP.sum();
-		actual = -22.7071;
-		Assert.assertTrue(incorrectSum, DoubleCompare.eq(calc, actual));
+		// List with one element
+		List<Point> points = List.of(new Point(1, 2, 3));
+		Assert.assertEquals("Closest point of one element list is incorrect", p.closest(points), new Point(1, 2, 3));
 
-		// Test when sum should be zero
-		newP = new Point(1, 1, -2);
-		calc = newP.sum();
-		actual = 0;
-		Assert.assertTrue(incorrectSum, DoubleCompare.eq(calc, actual));
+		// @formatter:off
+		//  _____            _            _
+		// | ____|__ _ _   _(_)_   ____ _| | ___ _ __   ___ ___
+		// |  _| / _` | | | | \ \ / / _` | |/ _ \ '_ \ / __/ _ \
+		// | |__| (_| | |_| | |\ V / (_| | |  __/ | | | (_|  __/
+		// |_____\__, |\__,_|_| \_/ \__,_|_|\___|_| |_|\___\___|
+		//          |_|
+		//  ____            _   _ _   _
+		// |  _ \ __ _ _ __| |_(_) |_(_) ___  _ __  ___
+		// | |_) / _` | '__| __| | __| |/ _ \| '_ \/ __|
+		// |  __/ (_| | |  | |_| | |_| | (_) | | | \__ \
+		// |_|   \__,_|_|   \__|_|\__|_|\___/|_| |_|___/
+		// @formatter:on
+
+		// List with two elements
+		points = List.of(new Point(1, 2, 3), new Point(1, 2, 4));
+		Assert.assertEquals("Closest point of two element list is incorrect", p.closest(points), new Point(1, 2, 4));
 	}
 
 	/**
