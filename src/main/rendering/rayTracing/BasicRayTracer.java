@@ -1,6 +1,8 @@
 package rendering.rayTracing;
 
+import java.util.List;
 import primitives.Colour;
+import primitives.Point;
 import primitives.Ray;
 import scene.Scene;
 
@@ -20,13 +22,15 @@ public class BasicRayTracer extends RayTracer {
 	 */
 	public BasicRayTracer(Scene scene) {
 		super(scene);
-		// TODO: implement
+		// TODO: implement. Is anything else necessary here?
 	}
 
 	@Override
 	public Colour trace(Ray ray) {
-		// TODO: implement
-		return null;
+		List<Point> intersections = scene.geometries.intersect(ray);
+		if (intersections.isEmpty()) {
+			return scene.background;
+		} 
+		return scene.ambient.colour;
 	}
-
 }
