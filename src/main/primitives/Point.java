@@ -108,18 +108,18 @@ public class Point extends Triple {
 	 * Returns the closest point to this point from the given points.
 	 *
 	 * @param points The points from which to get the closest one.
-	 * @return The closest point to this one, or null if {@code points} is empty.
+	 * @return The closest point to this one.
+	 * @throws NoSuchElementException if the list is empty.
 	 */
 	public Point closest(List<Point> points) {
-		if (points.isEmpty()) {
-			return null;
-		}
 		Iterator<Point> iterator = points.iterator();
-		Point closest = iterator.next();
-		double dSquared = squareDistance(closest);
+		Point closest = iterator.next(); // this will throw if empty
+		double distance = squareDistance(closest);
 		while (iterator.hasNext()) {
 			Point next = iterator.next();
-			if (squareDistance(next) < dSquared) {
+			double nextDistance = squareDistance(next);
+			if (nextDistance < distance) {
+				distance = nextDistance; // save for future checks
 				closest = next;
 			}
 		}
