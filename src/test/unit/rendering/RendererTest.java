@@ -23,8 +23,6 @@ import scene.Scene;
  */
 public class RendererTest {
 
-	private static final String FILENAME = "images/basicRenderTestTwoColors.xml";
-
 	Camera camera = new Camera(new CameraSettings().front(NormalizedVector.K.reversed()).up(NormalizedVector.J)
 		.distance(100).dimensions(500, 500).resolution("1000x1000"));
 
@@ -41,7 +39,7 @@ public class RendererTest {
 			new Triangle(new Point(-100, 0, -100), new Point(0, -100, -100), new Point(-100, -100, -100)), // down left
 			new Triangle(new Point(100, 0, -100), new Point(0, -100, -100), new Point(100, -100, -100)));
 
-		new Renderer(camera, new BasicRayTracer(scene), "test1.jpg").render(10);
+		new Renderer(camera, new BasicRayTracer(scene), "images/test1.jpg").render(10);
 	}
 
 	/**
@@ -49,16 +47,18 @@ public class RendererTest {
 	 */
 	@Test
 	public void basicRenderXml() {
+		String inFile = "images/basicRenderTestTwoColors.xml";
+		String outFile = "images/test2.png";
 		Scene scene;
 		try {
-			scene = new xml.XmlSceneParser().parse(FILENAME);
+			scene = new xml.XmlSceneParser().parse(inFile);
 		} catch (IOException __) {
-			System.out.println(FILENAME + ": file not found or could not be opened.");
+			System.out.println(inFile + ": file not found or could not be opened.");
 			return;
 		}
 
-		new Renderer(camera, new BasicRayTracer(scene), "images/test2.png").render(10);
+		new Renderer(camera, new BasicRayTracer(scene), outFile).render(10);
 
-		Util.assertImageCorrect("XmlRenderedImage does not look correct", "images/test2.png");
+		Util.assertImageCorrect("XmlRenderedImage does not look correct", outFile);
 	}
 }
