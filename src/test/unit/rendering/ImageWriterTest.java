@@ -1,6 +1,5 @@
 package unit.rendering;
 
-import java.io.File;
 import org.junit.Test;
 import primitives.Colour;
 import rendering.ImageWriter;
