@@ -10,7 +10,10 @@ public class Colour {
 
 	// Internal variable for keeping track of the rgb values
 	// x = Red, y = Green, z = Blue
-	private Vector rgb;
+	private VectorBase rgb;
+
+	/** Black. */
+	public static final Colour BLACK = new Colour(0, 0, 0);
 
 	/**
 	 * Construct a new colour from the given red, green, and blue values. Negative values will be treated as 0 and
@@ -21,10 +24,10 @@ public class Colour {
 	 * @param blue  The blue value (0 to 255).
 	 */
 	public Colour(int red, int green, int blue) {
-		this(new Vector(red, green, blue));
+		this(new VectorBase(red, green, blue));
 	}
 
-	private Colour(Vector rgb) {
+	private Colour(VectorBase rgb) {
 		this.rgb = rgb;
 	}
 
@@ -93,5 +96,19 @@ public class Colour {
 		if (value > 255)
 			return 255;
 		return (int) Math.round(value);
+	}
+
+	/**
+	 * Calculate the average between any number of colours.
+	 *
+	 * @param colours The colours whose average to calculate.
+	 * @return The average colour of the given colours.
+	 */
+	public static Colour average(Colour... colours) {
+		Colour result = BLACK;
+		for (Colour colour : colours) {
+			result = result.add(colour);
+		}
+		return result.scale(1d / colours.length);
 	}
 }
