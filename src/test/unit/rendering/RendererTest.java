@@ -31,7 +31,7 @@ public class RendererTest {
 	 */
 	@Test
 	public void testRender() {
-		String filename = "images/test1.jpg";
+		String filename = "images/test1.png";
 		Scene scene = new Scene(new Colour(75, 127, 90), new AmbientLight(new Colour(255, 191, 191)));
 
 		scene.geometries.add(new Sphere(new Point(0, 0, -100), 50),
