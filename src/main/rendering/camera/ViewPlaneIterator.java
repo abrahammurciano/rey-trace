@@ -18,21 +18,12 @@ class ViewPlaneIterator implements Iterator<Point> {
 	}
 
 	/**
-	 * Get the row index of the next point to be returned by the iterator.
+	 * Get the row and column indices of the next point to be returned by the iterator.
 	 *
-	 * @return The row index of the next point.
+	 * @return The {@link Coordinates} of the next point.
 	 */
-	int nextRow() {
-		return row;
-	}
-
-	/**
-	 * Get the column index of the next point to be returned by the iterator.
-	 *
-	 * @return The column index of the next point.
-	 */
-	int nextCol() {
-		return col;
+	Coordinates nextCoordinates() {
+		return new Coordinates(row, col);
 	}
 
 	@Override

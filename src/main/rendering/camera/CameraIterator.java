@@ -37,14 +37,13 @@ public class CameraIterator implements Iterator<Pixel> {
 
 	@Override
 	public Pixel next() {
-		int row, col;
+		Coordinates coord;
 		Point p;
 		synchronized (this) {
-			row = viewPlaneIterator.nextRow();
-			col = viewPlaneIterator.nextCol();
+			coord = viewPlaneIterator.nextCoordinates();
 			p = viewPlaneIterator.next();
 		}
-		return new Pixel(row, col, new Ray(source, source.vectorTo(p).normalized()));
+		return new Pixel(coord, new Ray(source, source.vectorTo(p).normalized()));
 	}
 
 }

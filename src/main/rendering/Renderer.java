@@ -1,9 +1,14 @@
 package rendering;
 
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.function.Supplier;
+import primitives.Colour;
 import rendering.camera.Camera;
+import rendering.camera.CameraSettings;
+import rendering.camera.Coordinates;
 import rendering.camera.Pixel;
 import rendering.raytracing.RayTracer;
 
@@ -14,9 +19,12 @@ import rendering.raytracing.RayTracer;
  * @author Eli Levin
  */
 public class Renderer {
-	private Camera camera;
-	private ImageWriter writer;
-	private RayTracer rayTracer;
+	private final Camera camera;
+	private final ImageWriter writer;
+	private final RayTracer rayTracer;
+	private final Map<Coordinates, Colour> buffer = new HashMap<>();
+	private final int threads;
+	private final Resolution resolution;
 
 	/**
 	 * Construct a renderer with the provided data.
@@ -25,10 +33,13 @@ public class Renderer {
 	 * @param rayTracer The rayTracer to use to calculate the colour of each pixel.
 	 * @param filename  The filename to write the rendered image to.
 	 */
-	public Renderer(Camera camera, RayTracer rayTracer, String filename) {
-		this.camera = camera;
+	public Renderer(Camera camera, RayTracer rayTracer, String filename, int threads) {
+		this.resolution = camera.resolution();
+		Resolution enhanced = new Resolution(resolution.x * 2, resolution.y * 2);
+		this.camera = new Camera(new CameraSettings(camera).resolution(enhanced));
 		this.rayTracer = rayTracer;
 		this.writer = new ImageWriter(filename, camera.resolution());
+		this.threads = threads;
 	}
 
 	/**
@@ -36,10 +47,11 @@ public class Renderer {
 	 *
 	 * @param threads The number of threads to use to render the image.
 	 */
-	public void render(int threads) {
+	public void render() {
 		Iterator<Pixel> iterator = camera.iterator();
 		Thread[] children = startChildrenThreads(threads, () -> new RenderThread(iterator));
 		waitForChildren(children);
+		antiAliasing();
 		writer.writeToFile();
 	}
 
@@ -81,6 +93,18 @@ public class Renderer {
 		}
 	}
 
+	private void antiAliasing() {
+		for (int row = 0; row < resolution.x; ++row) {
+			for (int col = 0; col < resolution.y; ++col) {
+				Colour c1 = buffer.get(new Coordinates(row * 2, col * 2));
+				Colour c2 = buffer.get(new Coordinates(row * 2 + 1, col * 2));
+				Colour c3 = buffer.get(new Coordinates(row * 2, col * 2 + 1));
+				Colour c4 = buffer.get(new Coordinates(row * 2 + 1, col * 2 + 1));
+				writer.setPixel(row, col, Colour.average(c1, c2, c3, c4));
+			}
+		}
+	}
+
 	/**
 	 * When run, this thread will continuously consume {@link Pixel}s from its iterator, compute its colour using
 	 * {@code Renderer.rayTracer}, then write send it to {@code Renderer.writer}. Once the iterator has no more
@@ -98,7 +122,10 @@ public class Renderer {
 			while (true) {
 				try {
 					Pixel pixel = iterator.next();
-					writer.setPixel(pixel.row, pixel.col, rayTracer.trace(pixel.ray));
+					Colour colour = rayTracer.trace(pixel.ray);
+					synchronized (buffer) {
+						buffer.put(pixel.coordinates, colour);
+					}
 				} catch (NoSuchElementException e) {
 					return;
 				}
