@@ -39,7 +39,7 @@ public class RendererTest {
 			new Triangle(new Point(-100, 0, -100), new Point(0, -100, -100), new Point(-100, -100, -100)), // down left
 			new Triangle(new Point(100, 0, -100), new Point(0, -100, -100), new Point(100, -100, -100)));
 
-		new Renderer(camera, new BasicRayTracer(scene), "images/test1.jpg").render(10);
+		new Renderer(camera, new BasicRayTracer(scene), "images/test1.png").render(10, 1);
 	}
 
 	/**
@@ -57,7 +57,7 @@ public class RendererTest {
 			return;
 		}
 
-		new Renderer(camera, new BasicRayTracer(scene), outFile).render(10);
+		new Renderer(camera, new BasicRayTracer(scene), outFile).render(10, 3);
 
 		Util.assertImageCorrect("XmlRenderedImage does not look correct", outFile);
 	}

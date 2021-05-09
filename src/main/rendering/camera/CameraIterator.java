@@ -21,10 +21,11 @@ public class CameraIterator implements Iterator<Pixel> {
 	/**
 	 * Get an iterator to iterate over the rays shot by the camera.
 	 *
-	 * @param camera The camera whose rays to iterate over.
+	 * @param camera    The camera whose rays to iterate over.
+	 * @param subPixels The number of sub pixels in each dimension for each pixel.
 	 */
-	public CameraIterator(Camera camera) {
-		this.viewPlaneIterator = camera.view.iterator();
+	public CameraIterator(Camera camera, int subPixels) {
+		this.viewPlaneIterator = camera.view.iterator(subPixels);
 		this.source = camera.location;
 	}
 
@@ -38,13 +39,17 @@ public class CameraIterator implements Iterator<Pixel> {
 	@Override
 	public Pixel next() {
 		int row, col;
-		Point p;
+		Point[] points;
 		synchronized (this) {
 			row = viewPlaneIterator.nextRow();
 			col = viewPlaneIterator.nextCol();
-			p = viewPlaneIterator.next();
+			points = viewPlaneIterator.next();
 		}
-		return new Pixel(row, col, new Ray(source, source.vectorTo(p).normalized()));
+		Ray[] rays = new Ray[points.length];
+		for (int i = 0; i < rays.length; ++i) {
+			rays[i] = new Ray(source, source.vectorTo(points[i]).normalized());
+		}
+		return new Pixel(row, col, rays);
 	}
 
 }

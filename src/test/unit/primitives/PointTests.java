@@ -125,7 +125,7 @@ public class PointTests {
 
 		// List with two elements
 		points = List.of(new Point(1, 2, 3), new Point(1, 2, 4));
-		Assert.assertEquals("Closest point of two element list is incorrect", p.closest(points), new Point(1, 2, 4));
+		Assert.assertEquals("Closest point of two element list is incorrect", p.closest(points), new Point(1, 2, 3));
 	}
 
 	/**
