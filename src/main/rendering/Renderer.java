@@ -35,7 +35,7 @@ public class Renderer {
 	 */
 	public Renderer(Camera camera, RayTracer rayTracer, String filename, int threads) {
 		this.resolution = camera.resolution();
-		Resolution enhanced = new Resolution(resolution.x * 2, resolution.y * 2);
+		Resolution enhanced = new Resolution(resolution.x * 3, resolution.y * 3);
 		this.camera = new Camera(new CameraSettings(camera).resolution(enhanced));
 		this.rayTracer = rayTracer;
 		this.writer = new ImageWriter(filename, camera.resolution());
@@ -96,11 +96,16 @@ public class Renderer {
 	private void antiAliasing() {
 		for (int row = 0; row < resolution.x; ++row) {
 			for (int col = 0; col < resolution.y; ++col) {
-				Colour c1 = buffer.get(new Coordinates(row * 2, col * 2));
-				Colour c2 = buffer.get(new Coordinates(row * 2 + 1, col * 2));
-				Colour c3 = buffer.get(new Coordinates(row * 2, col * 2 + 1));
-				Colour c4 = buffer.get(new Coordinates(row * 2 + 1, col * 2 + 1));
-				writer.setPixel(row, col, Colour.average(c1, c2, c3, c4));
+				Colour c1 = buffer.get(new Coordinates(row * 3, col * 3));
+				Colour c2 = buffer.get(new Coordinates(row * 3 + 1, col * 3));
+				Colour c3 = buffer.get(new Coordinates(row * 3 + 2, col * 3));
+				Colour c4 = buffer.get(new Coordinates(row * 3, col * 3 + 1));
+				Colour c5 = buffer.get(new Coordinates(row * 3 + 1, col * 3 + 1));
+				Colour c6 = buffer.get(new Coordinates(row * 3 + 2, col * 3 + 1));
+				Colour c7 = buffer.get(new Coordinates(row * 3, col * 3 + 2));
+				Colour c8 = buffer.get(new Coordinates(row * 3 + 1, col * 3 + 2));
+				Colour c9 = buffer.get(new Coordinates(row * 3 + 2, col * 3 + 2));
+				writer.setPixel(row, col, Colour.average(c1, c2, c3, c4, c5, c6, c7, c8, c9));
 			}
 		}
 	}
