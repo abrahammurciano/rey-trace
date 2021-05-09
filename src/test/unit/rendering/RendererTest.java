@@ -11,7 +11,7 @@ import primitives.Point;
 import rendering.Renderer;
 import rendering.camera.Camera;
 import rendering.camera.CameraSettings;
-import rendering.rayTracing.BasicRayTracer;
+import rendering.raytracing.BasicRayTracer;
 import scene.Scene;
 
 /**
@@ -22,6 +22,8 @@ import scene.Scene;
  *
  */
 public class RendererTest {
+
+	private static final String FILENAME = "images/basicRenderTestTwoColors.xml";
 
 	Camera camera = new Camera(new CameraSettings().front(NormalizedVector.K.reversed()).up(NormalizedVector.J)
 		.distance(100).dimensions(500, 500).resolution("1000x1000"));
@@ -49,13 +51,14 @@ public class RendererTest {
 	public void basicRenderXml() {
 		Scene scene;
 		try {
-			scene = new xml.XmlSceneParser().parse("/home/abraham/Downloads/basicRenderTestTwoColours.xml");
+			scene = new xml.XmlSceneParser().parse(FILENAME);
 		} catch (IOException __) {
-			System.out.println(
-				"/home/abraham/Downloads/basicRenderTestTwoColours.xml: file not found or could not be opened.");
+			System.out.println(FILENAME + ": file not found or could not be opened.");
 			return;
 		}
 
-		new Renderer(camera, new BasicRayTracer(scene), "test2.jpg").render(10);
+		new Renderer(camera, new BasicRayTracer(scene), "images/test2.png").render(10);
+
+		Util.assertImageCorrect("XmlRenderedImage does not look correct", "images/test2.png");
 	}
 }

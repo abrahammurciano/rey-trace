@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
 import java.util.function.Supplier;
 import rendering.camera.Camera;
 import rendering.camera.Pixel;
-import rendering.rayTracing.RayTracer;
+import rendering.raytracing.RayTracer;
 
 /**
  * This class is responsible for communicating between a {@link RayTracer} and an {@link ImageWriter}.

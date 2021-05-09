@@ -1,4 +1,4 @@
-package rendering.rayTracing;
+package rendering.raytracing;
 
 import primitives.Colour;
 import primitives.Ray;
