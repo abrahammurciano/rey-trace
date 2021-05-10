@@ -2,7 +2,6 @@
 .vscode
 *.class
 images
-build
 bin
 
 # Eli's crap
