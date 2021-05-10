@@ -128,7 +128,7 @@ public class CameraGeometriesTest {
 	private void checkIntersectCount(Camera camera, Geometry geometry, int expectedCount, String message) {
 		int actual = 0;
 		for (Pixel pixel : camera) {
-			actual += geometry.intersect(pixel.ray).size();
+			actual += geometry.intersect(pixel.rays[0]).size();
 		}
 		Assert.assertEquals(message, expectedCount, actual);
 	}

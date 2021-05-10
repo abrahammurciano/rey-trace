@@ -74,7 +74,17 @@ public class Camera implements Iterable<Pixel> {
 
 	@Override
 	public Iterator<Pixel> iterator() {
-		return new CameraIterator(this);
+		return iterator(1);
+	}
+
+	/**
+	 * Get an iterator which iterates over the pixels of the camera.
+	 *
+	 * @param subPixels The number of sub pixels in each dimension for each pixel.
+	 * @return An iterator which iterates over the pixels of the camera.
+	 */
+	public Iterator<Pixel> iterator(int subPixels) {
+		return new CameraIterator(this, subPixels);
 	}
 
 }
