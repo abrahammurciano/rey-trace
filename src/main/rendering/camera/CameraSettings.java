@@ -24,7 +24,7 @@ public class CameraSettings {
 	 */
 	public CameraSettings() {
 		location = Point.ORIGIN;
-		front = NormalizedVector.J;
+		front = NormalizedVector.I;
 		up = NormalizedVector.K;
 		width = 19.2;
 		height = 10.8;

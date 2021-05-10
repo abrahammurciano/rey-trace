@@ -59,4 +59,23 @@ public class CameraTest {
 		Assert.assertEquals("Wrong rays for 4x4 view plane.", expected, actual2);
 	}
 
+	@Test
+	public void testRotate() {
+		Camera camera = new Camera(new CameraSettings());
+		Assert.assertEquals("Default camera front should be positive x", NormalizedVector.I,
+			new CameraSettings(camera).front());
+
+		CameraSettings settings = new CameraSettings(camera.rotate(90 * Math.PI / 180, 0, 0));
+		Assert.assertEquals("Pitch of 90 degrees should point down.", NormalizedVector.K.reversed(), settings.front());
+		Assert.assertEquals("Pitch of 90 degrees' up should point forward.", NormalizedVector.I, settings.up());
+
+		settings = new CameraSettings(camera.rotate(0, 90 * Math.PI / 180, 0));
+		Assert.assertEquals("Yaw of 90 degrees should point left.", NormalizedVector.J, settings.front());
+		Assert.assertEquals("Yaw of 90 degrees' up should point up.", NormalizedVector.K, settings.up());
+
+		settings = new CameraSettings(camera.rotate(0, 0, 90 * Math.PI / 180));
+		Assert.assertEquals("Roll of 90 degrees should point forward.", NormalizedVector.I, settings.front());
+		Assert.assertEquals("Roll of 90 degrees' up should point right.", NormalizedVector.J.reversed(), settings.up());
+	}
+
 }
