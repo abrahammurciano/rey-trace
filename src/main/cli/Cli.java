@@ -1,3 +1,5 @@
+package cli;
+
 import java.io.IOException;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -18,7 +20,7 @@ import xml.XmlParserException;
 import xml.XmlSceneParser;
 import xml.factories.attribute.XmlTripleFactory;
 
-public class Main {
+public class Cli {
 	public static void main(String[] args) {
 		Options options = new Options();
 
@@ -89,13 +91,13 @@ public class Main {
 			threads = threadsIn == null ? 8 : Integer.parseInt(threadsIn);
 
 			String pitchIn = cmd.getOptionValue("pitch");
-			pitch = pitchIn == null ? 0 : Integer.parseInt(pitchIn);
+			pitch = pitchIn == null ? 0 : Double.parseDouble(pitchIn);
 
 			String yawIn = cmd.getOptionValue("yaw");
-			yaw = yawIn == null ? 0 : Integer.parseInt(yawIn);
+			yaw = yawIn == null ? 0 : Double.parseDouble(yawIn);
 
 			String rollIn = cmd.getOptionValue("roll");
-			roll = rollIn == null ? 0 : Integer.parseInt(rollIn);
+			roll = rollIn == null ? 0 : Double.parseDouble(rollIn);
 
 			String[] remaining = cmd.getArgs();
 
@@ -129,7 +131,7 @@ public class Main {
 			return;
 		}
 		RayTracer rayTracer = new BasicRayTracer(scene);
-		new Renderer(camera, rayTracer, fileOut).render(threads);
+		new Renderer(camera, rayTracer, fileOut).render(threads, antiAliasing);
 	}
 
 	private static double toRadians(double degrees) {
