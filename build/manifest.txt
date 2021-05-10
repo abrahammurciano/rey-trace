@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+Main-Class: cli.Cli
+Class-Path: ../lib/main/commons-cli-1.4/commons-cli-1.4.jar ../lib/main/commons-io-2.8.0/commons-io-2.8.0.jar

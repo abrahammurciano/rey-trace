@@ -37,6 +37,6 @@ public class RotationMatrix extends Matrix {
 				sinPitch * cosYaw * cosRoll + sinYaw * sinRoll),
 			new VectorBase(cosPitch * sinYaw, sinYaw * sinPitch * sinRoll + cosYaw * cosRoll,
 				sinYaw * sinPitch * cosRoll - cosYaw * sinRoll),
-			new VectorBase(-sinYaw, cosYaw * sinRoll, cosPitch * cosRoll));
+			new VectorBase(-sinPitch, cosPitch * sinRoll, cosPitch * cosRoll));
 	}
 }

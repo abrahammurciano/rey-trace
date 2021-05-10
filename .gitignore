@@ -2,6 +2,7 @@
 .vscode
 *.class
 images
+bin
 
 # Eli's crap
 formatter
