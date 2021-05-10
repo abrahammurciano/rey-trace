@@ -31,4 +31,18 @@ public abstract class RayTracer {
 	 * @return The {@link Colour} resulting from the trace of the ray.
 	 */
 	public abstract Colour trace(Ray ray);
+
+	/**
+	 * Trace the given rays to calculate the average {@link Colour} the rays result in.
+	 *
+	 * @param rays The rays to trace in the scene.
+	 * @return The {@link Colour} resulting from the trace of the ray.
+	 */
+	public Colour trace(Ray... rays) {
+		Colour[] colours = new Colour[rays.length];
+		for (int i = 0; i < rays.length; ++i) {
+			colours[i] = trace(rays[i]);
+		}
+		return Colour.average(colours);
+	}
 }

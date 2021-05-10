@@ -34,10 +34,11 @@ public class Renderer {
 	/**
 	 * Calculates the colours of each pixel, write them to the ImageWriter, then write the image to the output file.
 	 *
-	 * @param threads The number of threads to use to render the image.
+	 * @param threads      The number of threads to use to render the image.
+	 * @param antialiasing The number of sub pixels to use to calculate the colour of each pixel.
 	 */
-	public void render(int threads) {
-		Iterator<Pixel> iterator = camera.iterator();
+	public void render(int threads, int antialiasing) {
+		Iterator<Pixel> iterator = camera.iterator(antialiasing);
 		Thread[] children = startChildrenThreads(threads, () -> new RenderThread(iterator));
 		waitForChildren(children);
 		writer.writeToFile();
@@ -98,7 +99,7 @@ public class Renderer {
 			while (true) {
 				try {
 					Pixel pixel = iterator.next();
-					writer.setPixel(pixel.row, pixel.col, rayTracer.trace(pixel.ray));
+					writer.setPixel(pixel.row, pixel.col, rayTracer.trace(pixel.rays));
 				} catch (NoSuchElementException e) {
 					return;
 				}

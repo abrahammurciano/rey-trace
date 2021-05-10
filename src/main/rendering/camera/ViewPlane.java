@@ -10,31 +10,27 @@ import primitives.Point;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-class ViewPlane implements Iterable<Point> {
+class ViewPlane implements Iterable<Point[]> {
 
+	/** The width of the view plane. */
 	final double width;
+	/** The height of the view plane. */
 	final double height;
-
-	/**
-	 * The top left point
-	 */
+	/** The top left point. */
 	final Point topLeft;
-
-	/**
-	 * Moves one pixel to the left
-	 */
+	/** Moves one pixel to the left. */
 	final Vector nextCol;
-
-	/**
-	 * Moves one pixel down
-	 */
+	/** Moves one pixel down. */
 	final Vector nextRowFirstCol;
-
-	public final Resolution resolution;
+	/** The resolution of the view plane. */
+	final Resolution resolution;
+	/** The orientation of the view plane. */
+	final Orientation orientation;
 
 	public ViewPlane(double width, double height, Point center, Resolution resolution, Orientation orientation) {
 		this.width = width;
 		this.height = height;
+		this.orientation = orientation;
 		nextCol = orientation.right.scale(width / resolution.x);
 		Vector nextRow = orientation.up.scale(-height / resolution.y);
 		nextRowFirstCol = nextRow.add(nextCol.scale(-(resolution.x - 1)));
@@ -45,6 +41,16 @@ class ViewPlane implements Iterable<Point> {
 
 	@Override
 	public ViewPlaneIterator iterator() {
-		return new ViewPlaneIterator(this);
+		return iterator(1);
+	}
+
+	/**
+	 * Get an iterator which returns an array of size subPixels x subPixels for each pixel.
+	 *
+	 * @param subPixels The number of sub pixels in each dimension for each pixel.
+	 * @return An iterator for this view plane.
+	 */
+	public ViewPlaneIterator iterator(int subPixels) {
+		return new ViewPlaneIterator(this, subPixels);
 	}
 }
