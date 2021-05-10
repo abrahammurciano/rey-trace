@@ -1,6 +1,7 @@
 package cli;
 
 import java.io.IOException;
+import java.util.function.Function;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -22,32 +23,7 @@ import xml.factories.attribute.XmlTripleFactory;
 
 public class Cli {
 	public static void main(String[] args) {
-		Options options = new Options();
-
-		options.addOption("r", "resolution", true, "Resolution of the output image. Default is 1920x1080.");
-
-		options.addOption("a", "anti-aliasing", true,
-			"The level of anti-aliasing to use. 1 means no anti-aliasing. 2 means moderate, 3 means extreme, and anything higher is simply overkill. Default is 2.");
-
-		options.addOption("l", "location", true, "Location of the camera. Default is (0,0,0).");
-
-		options.addOption("d", "distance", true, "Distance of the view plane from the camera. Default is 10.0 units.");
-
-		options.addOption("w", "width", true,
-			"Width of the view plane. Default is 19.2. It is recommended that the width be proportional to the height in the same ratio as in the resolution.");
-
-		options.addOption("h", "height", true,
-			"Height of the view plane. Default is 10.8. It is recommended that the width be proportional to the height in the same ratio as in the resolution.");
-
-		options.addOption("t", "threads", true, "Number of threads to use. Default is 8.");
-
-		options.addOption("P", "pitch", true,
-			"The pitch angle of the camera in degrees. Default is 0.0 (i.e. on the XY plane).");
-
-		options.addOption("Y", "yaw", true,
-			"The yaw angle of the camera in degrees. Default is 0.0 (i.e. on the XZ plane).");
-
-		options.addOption("R", "roll", true, "The roll angle of the camera in degrees. Default is 0.0.");
+		Options options = createOptions();
 
 		CommandLineParser parser = new DefaultParser();
 		HelpFormatter formatter = new HelpFormatter();
@@ -69,35 +45,27 @@ public class Cli {
 		try {
 			cmd = parser.parse(options, args);
 
-			String resolutionIn = cmd.getOptionValue("resolution");
-			resolution = resolutionIn == null ? new Resolution(1920, 1080) : new Resolution(resolutionIn);
+			checkHelp(cmd, formatter, options);
 
-			String antiAliasingIn = cmd.getOptionValue("anti-aliasing");
-			antiAliasing = antiAliasingIn == null ? 2 : Integer.parseInt(antiAliasingIn);
+			resolution = parseArg("resolution", Resolution::new, new Resolution(1920, 1080), cmd);
 
-			String locationIn = cmd.getOptionValue("location");
-			location = locationIn == null ? Point.ORIGIN : new XmlTripleFactory<Point>(Point::new).create(locationIn);
+			antiAliasing = parseArg("anti-aliasing", Integer::parseInt, 2, cmd);
 
-			String distanceIn = cmd.getOptionValue("distance");
-			distance = distanceIn == null ? 10 : Double.parseDouble(distanceIn);
+			location = parseArg("location", new XmlTripleFactory<Point>(Point::new)::create, Point.ORIGIN, cmd);
 
-			String widthIn = cmd.getOptionValue("width");
-			width = widthIn == null ? 19.2 : Double.parseDouble(widthIn);
+			distance = parseArg("distance", Double::parseDouble, 10d, cmd);
 
-			String heightIn = cmd.getOptionValue("height");
-			height = heightIn == null ? 10.8 : Double.parseDouble(heightIn);
+			width = parseArg("width", Double::parseDouble, 19.2d, cmd);
 
-			String threadsIn = cmd.getOptionValue("threads");
-			threads = threadsIn == null ? 8 : Integer.parseInt(threadsIn);
+			height = parseArg("height", Double::parseDouble, 10.8d, cmd);
 
-			String pitchIn = cmd.getOptionValue("pitch");
-			pitch = pitchIn == null ? 0 : Double.parseDouble(pitchIn);
+			threads = parseArg("threads", Integer::parseInt, 8, cmd);
 
-			String yawIn = cmd.getOptionValue("yaw");
-			yaw = yawIn == null ? 0 : Double.parseDouble(yawIn);
+			pitch = parseArg("pitch", Double::parseDouble, 0d, cmd);
 
-			String rollIn = cmd.getOptionValue("roll");
-			roll = rollIn == null ? 0 : Double.parseDouble(rollIn);
+			yaw = parseArg("yaw", Double::parseDouble, 0d, cmd);
+
+			roll = parseArg("roll", Double::parseDouble, 0d, cmd);
 
 			String[] remaining = cmd.getArgs();
 
@@ -132,6 +100,61 @@ public class Cli {
 		}
 		RayTracer rayTracer = new BasicRayTracer(scene);
 		new Renderer(camera, rayTracer, fileOut).render(threads, antiAliasing);
+	}
+
+	private static Options createOptions() {
+		Options options = new Options();
+
+		options.addOption("h", "help", false, "Print this help message.");
+
+		options.addOption("r", "resolution", true, "Resolution of the output image. Default is 1920x1080.");
+
+		options.addOption("a", "anti-aliasing", true,
+			"The level of anti-aliasing to use. 1 means no anti-aliasing. 2 means moderate, 3 means extreme, and anything higher is simply overkill. Default is 2.");
+
+		options.addOption("l", "location", true, "Location of the camera. Default is (0,0,0).");
+
+		options.addOption("d", "distance", true, "Distance of the view plane from the camera. Default is 10.0 units.");
+
+		options.addOption("w", "width", true,
+			"Width of the view plane. Default is 19.2. It is recommended that the width be proportional to the height in the same ratio as in the resolution.");
+
+		options.addOption("h", "height", true,
+			"Height of the view plane. Default is 10.8. It is recommended that the width be proportional to the height in the same ratio as in the resolution.");
+
+		options.addOption("t", "threads", true, "Number of threads to use. Default is 8.");
+
+		options.addOption("P", "pitch", true,
+			"The pitch angle of the camera in degrees. Default is 0.0 (i.e. on the XY plane).");
+
+		options.addOption("Y", "yaw", true,
+			"The yaw angle of the camera in degrees. Default is 0.0 (i.e. on the XZ plane).");
+
+		options.addOption("R", "roll", true, "The roll angle of the camera in degrees. Default is 0.0.");
+
+		return options;
+	}
+
+	private static void checkHelp(CommandLine cmd, HelpFormatter formatter, Options options) {
+		if (cmd.hasOption("help")) {
+			formatter.printHelp("reytrace [OPTIONS] <INFILE> [OUTFILE]", options);
+			System.exit(0);
+		}
+	}
+
+	/**
+	 * Parse an input from the command line.
+	 *
+	 * @param <T>          The type the input string will be parsed into.
+	 * @param name         The argument name.
+	 * @param parser       A function that takes a string and returns an object of type T.
+	 * @param defaultValue The value to return if the argument was absent.
+	 * @param cmd          The {@link CommandLine} object.
+	 * @return The parsed object of type T.
+	 */
+	private static <T> T parseArg(String name, Function<String, T> parser, T defaultValue, CommandLine cmd) {
+		String input = cmd.getOptionValue(name);
+		return input == null ? defaultValue : parser.apply(input);
 	}
 
 	private static double toRadians(double degrees) {
