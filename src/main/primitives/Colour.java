@@ -10,7 +10,7 @@ public class Colour {
 
 	// Internal variable for keeping track of the rgb values
 	// x = Red, y = Green, z = Blue
-	private VectorBase rgb;
+	private final VectorBase rgb;
 
 	/** Black. */
 	public static final Colour BLACK = new Colour(0, 0, 0);
