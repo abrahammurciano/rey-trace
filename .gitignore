@@ -8,7 +8,6 @@ bin
 formatter
 target
 .settings
-pom.xml
 .project
 .classpath
 .exrc
