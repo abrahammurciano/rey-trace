@@ -1,3 +1,4 @@
+cli
 geometries
 lighting
 math.compare
@@ -6,7 +7,7 @@ math.matrices
 primitives
 rendering
 rendering.camera
-rendering.rayTracing
+rendering.raytracing
 scene
 xml
 xml.factories.attribute

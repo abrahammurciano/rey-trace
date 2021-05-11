@@ -8,8 +8,8 @@ import scene.Scene;
  * This RayTracer only takes into account the ambient light of the scene with no regard to other light sources or the
  * colours of each geometry.
  *
- * @author
- * @author
+ * @author Eli Levin
+ * @author Abraham Murciano
  */
 public class BasicRayTracer extends RayTracer {
 

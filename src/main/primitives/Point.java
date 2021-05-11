@@ -2,6 +2,7 @@ package primitives;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * The {@link Point} class represents a {@link Point} in three dimensional space.

@@ -21,7 +21,18 @@ import xml.XmlParserException;
 import xml.XmlSceneParser;
 import xml.factories.attribute.XmlTripleFactory;
 
+/**
+ * A command line interface for the ray tracer.
+ *
+ * @author Abraham Murciano
+ * @author Eli Levin
+ */
 public class Cli {
+	/**
+	 * The main entry point for the program.
+	 *
+	 * @param args The command line arguments.
+	 */
 	public static void main(String[] args) {
 		Options options = createOptions();
 
