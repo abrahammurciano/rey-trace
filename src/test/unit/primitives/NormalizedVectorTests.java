@@ -45,8 +45,9 @@ public class NormalizedVectorTests {
 		// Parallel vectors
 		Assert.assertEquals("Antiparallel vectors gave wrong result.", base.subtract(new NormalizedVector(-1, -2, -3)),
 			new Vector(2 * 0.2672612419124244, 2 * 0.5345224838248488, 2 * 0.8017837257372732));
+		NormalizedVector v = new NormalizedVector(1, 2, 3);
 		Assert.assertThrows("A vector minus itself should throw a ZeroVectorException.", ZeroVectorException.class,
-			() -> base.subtract(new NormalizedVector(1, 2, 3)));
+			() -> base.subtract(v));
 	}
 
 	/**
