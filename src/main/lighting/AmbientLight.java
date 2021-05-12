@@ -12,9 +12,9 @@ import primitives.Colour;
 public class AmbientLight extends Light {
 
 	/**
-	 * A constructor to set the colour of the ambient light.
+	 * Construct an ambient light with the specified colour.
 	 *
-	 * @param colour The colour of the ambient light.
+	 * @param colour The colour to set the ambient light to.
 	 */
 	public AmbientLight(Colour colour) {
 		super(colour);
