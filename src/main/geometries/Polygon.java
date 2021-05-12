@@ -18,7 +18,7 @@ import primitives.NormalizedVector;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class Polygon implements Geometry {
+public class Polygon extends Geometry {
 
 	private List<Point> vertices;
 	private Plane plane; // The plane which all the points must reside on.
@@ -84,8 +84,8 @@ public class Polygon implements Geometry {
 	}
 
 	@Override
-	public List<Point> intersect(Ray ray) {
-		List<Point> candidates = plane.intersect(ray);
+	public List<Intersection> intersect(Ray ray) {
+		List<Intersection> candidates = plane.intersect(ray);
 		if (candidates.isEmpty()) { // The ray doesn't intersect the plane
 			return candidates;
 		}

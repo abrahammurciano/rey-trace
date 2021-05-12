@@ -16,7 +16,7 @@ import primitives.Ray;
  * @author Eli Levin
  * @author Abraham Murciano
  */
-public class Cylinder implements Geometry {
+public class Cylinder extends Geometry {
 	private double height;
 
 	private Tube middle;
@@ -73,8 +73,8 @@ public class Cylinder implements Geometry {
 	 * @return a list (possibly empty) of intersection points
 	 */
 	@Override
-	public List<Point> intersect(Ray ray) {
-		List<Point> intersections = new ArrayList<>(2);
+	public List<Intersection> intersect(Ray ray) {
+		List<Intersection> intersections = new ArrayList<>(2);
 		intersections.addAll(intersectLid(ray, bottom));
 		intersections.addAll(intersectLid(ray, top));
 		if (intersections.size() == 2) {
@@ -85,23 +85,23 @@ public class Cylinder implements Geometry {
 	}
 
 	// helper function
-	private List<Point> intersectMiddle(Ray ray) {
-		List<Point> intersections = middle.intersect(ray);
+	private List<Intersection> intersectMiddle(Ray ray) {
+		List<Intersection> intersections = middle.intersect(ray);
 		if (intersections.isEmpty()) {
 			return intersections;
 		}
-		intersections.removeIf(point -> {
-			double intersectionHeight = middle.axis.direction.dot(bottom.point.vectorBaseTo(point));
+		intersections.removeIf(intersection -> {
+			double intersectionHeight = middle.axis.direction.dot(bottom.point.vectorBaseTo(intersection.point));
 			return DoubleCompare.leq(intersectionHeight, 0) || DoubleCompare.geq(intersectionHeight, height);
 		});
 		return intersections;
 	}
 
 	// helper function
-	private List<Point> intersectLid(Ray ray, Plane lid) {
-		List<Point> intersection = lid.intersect(ray);
+	private List<Intersection> intersectLid(Ray ray, Plane lid) {
+		List<Intersection> intersection = lid.intersect(ray);
 		if (!intersection.isEmpty()
-			&& DoubleCompare.leq(intersection.get(0).squareDistance(lid.point), middle.radius * middle.radius)) {
+			&& DoubleCompare.leq(intersection.get(0).point.squareDistance(lid.point), middle.radius * middle.radius)) {
 			return intersection;
 		} else {
 			return Collections.emptyList();

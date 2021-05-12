@@ -22,7 +22,7 @@ import math.matrices.FastMatrixMultSelf;
  * @author Eli Levin
  * @author Abraham Murciano
  */
-public class Tube implements Geometry {
+public class Tube extends Geometry {
 	/** The axis {@link Ray} of the tube. */
 	public final Ray axis;
 	/** The radius of the tube. */
@@ -82,7 +82,7 @@ public class Tube implements Geometry {
 	 * @return a list (possibly empty) of intersection points
 	 */
 	@Override
-	public List<Point> intersect(Ray r) {
+	public List<Intersection> intersect(Ray r) {
 		Point source;
 		if (!axis.source.equals(Point.ORIGIN)) {
 			source = r.source.add(toOrigin);
@@ -121,7 +121,7 @@ public class Tube implements Geometry {
 			}
 			equation = quadratic;
 		}
-		List<Point> intersections = new ArrayList<>(2);
+		List<Intersection> intersections = new ArrayList<>(2);
 		Ray shiftedRay = new Ray(source, r.direction);
 		for (double t : equation.solutions()) {
 			fillList(intersections, shiftedRay, t);
@@ -130,13 +130,13 @@ public class Tube implements Geometry {
 	}
 
 	// helper function for intersection
-	private void fillList(List<Point> intersections, Ray r, double t) {
+	private void fillList(List<Intersection> intersections, Ray r, double t) {
 		if (DoubleCompare.leq(t, 0)) {
 			return;
 		}
 		Point p = r.travel(t);
 		p = p.add(fromOrigin);
-		intersections.add(p);
+		intersections.add(intersection(p));
 	}
 
 }

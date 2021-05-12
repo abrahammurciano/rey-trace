@@ -18,7 +18,7 @@ import math.equations.Quadratic;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class Sphere implements Geometry {
+public class Sphere extends Geometry {
 	/** The center of the sphere. */
 	public final Point center;
 	/** The radius of the sphere. */
@@ -53,7 +53,7 @@ public class Sphere implements Geometry {
 	}
 
 	@Override
-	public List<Point> intersect(Ray ray) {
+	public List<Intersection> intersect(Ray ray) {
 		VectorBase centerToRaySource = center.vectorBaseTo(ray.source);
 		double b = 2 * ray.direction.dot(centerToRaySource);
 		double c = centerToRaySource.squareLength() - radius * radius;
@@ -62,10 +62,10 @@ public class Sphere implements Geometry {
 		if (DoubleCompare.leq(discriminant, 0)) {
 			return Collections.emptyList(); // ray is tangent or doesn't intersect at all
 		}
-		List<Point> result = new ArrayList<>(2);
+		List<Intersection> result = new ArrayList<>(2);
 		for (double t : quadratic.solutions()) {
 			if (DoubleCompare.gt(t, 0)) {
-				result.add(ray.travel(t));
+				result.add(intersection(ray.travel(t)));
 			}
 		}
 		return result;

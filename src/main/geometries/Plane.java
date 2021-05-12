@@ -16,7 +16,7 @@ import primitives.NormalizedVector;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class Plane implements Geometry {
+public class Plane extends Geometry {
 	/** A point on the plane. */
 	public final Point point;
 	/** The normal vector of the plane. */
@@ -69,7 +69,7 @@ public class Plane implements Geometry {
 	}
 
 	@Override
-	public List<Point> intersect(Ray ray) {
+	public List<Intersection> intersect(Ray ray) {
 		double ray_dot_normal = ray.direction.dot(normal);
 		if (DoubleCompare.eq(ray_dot_normal, 0)) {
 			return Collections.emptyList(); // ray is parallel to plane
@@ -78,7 +78,7 @@ public class Plane implements Geometry {
 		if (DoubleCompare.leq(distance, 0)) {
 			return Collections.emptyList(); // pane is behind the ray
 		}
-		return List.of(ray.travel(distance));
+		return List.of(intersection(ray.travel(distance)));
 	}
 
 }
