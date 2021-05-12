@@ -6,6 +6,7 @@ import geometries.Sphere;
 import geometries.Triangle;
 import lighting.AmbientLight;
 import primitives.Colour;
+import primitives.Material;
 import primitives.NormalizedVector;
 import primitives.Point;
 import rendering.Renderer;
@@ -27,19 +28,28 @@ public class RendererTest {
 		.distance(100).dimensions(500, 500).resolution("1000x1000"));
 
 	/**
-	 * Produce a scene with basic 3D model and render it into a jpeg image.
+	 * Produce a scene with basic 3D model and render it into a png image.
 	 */
 	@Test
 	public void testRender() {
 		Scene scene = new Scene(new Colour(75, 127, 90), new AmbientLight(new Colour(255, 191, 191)));
 
-		scene.geometries.add(new Sphere(new Point(0, 0, -100), 50),
-			new Triangle(new Point(-100, 0, -100), new Point(0, 100, -100), new Point(-100, 100, -100)), // up left
-			new Triangle(new Point(100, 0, -100), new Point(0, 100, -100), new Point(100, 100, -100)), // up right
-			new Triangle(new Point(-100, 0, -100), new Point(0, -100, -100), new Point(-100, -100, -100)), // down left
-			new Triangle(new Point(100, 0, -100), new Point(0, -100, -100), new Point(100, -100, -100)));
+		Material green = new Material(new Colour(0, 255, 0), 0, 0, 0);
+		Material red = new Material(new Colour(255, 0, 0), 0, 0, 0);
+		Material blue = new Material(new Colour(0, 0, 255), 0, 0, 0);
+		Material black = new Material(new Colour(0, 0, 0), 0, 0, 0);
 
-		new Renderer(camera, new BasicRayTracer(scene), "images/test1.png").render(10, 1);
+		scene.geometries.add(new Sphere(black, new Point(0, 0, -100), 50),
+			new Triangle(green, new Point(-100, 0, -100), new Point(0, 100, -100), new Point(-100, 100, -100)),
+			new Triangle(black, new Point(100, 0, -100), new Point(0, 100, -100), new Point(100, 100, -100)),
+			new Triangle(red, new Point(-100, 0, -100), new Point(0, -100, -100), new Point(-100, -100, -100)),
+			new Triangle(blue, new Point(100, 0, -100), new Point(0, -100, -100), new Point(100, -100, -100)));
+
+
+		String outfile = "images/test1.png";
+		new Renderer(camera, new BasicRayTracer(scene), outfile).render(10, 1);
+
+		Util.assertImageCorrect("Rendered image does not look correct.", outfile);
 	}
 
 	/**

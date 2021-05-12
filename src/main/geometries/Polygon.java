@@ -5,11 +5,13 @@ import java.util.Collections;
 import java.util.List;
 
 import math.compare.DoubleCompare;
+
+import primitives.Material;
+import primitives.NormalizedVector;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 import primitives.ZeroVectorException;
-import primitives.NormalizedVector;
 
 /**
  * This class represents a polygon in three dimensional space. A polygon is a plane figure that is described by a finite
@@ -34,7 +36,8 @@ public class Polygon extends Geometry {
 	 *                                  non-convex polygon, consecutive vertices are repeated, or the last point is
 	 *                                  equal to the first point.
 	 */
-	public Polygon(Point... vertices) {
+	public Polygon(Material material, Point... vertices) {
+		super(material);
 		this.vertices = new ArrayList<>(vertices.length);
 
 		double sum = 0.0; // sum of exterior angles
@@ -69,7 +72,7 @@ public class Polygon extends Geometry {
 			throw new IllegalArgumentException("Error: A polygon must contain at least three vertices.");
 		}
 		// Construct the plane from the first three vertices (not in a straight line).
-		this.plane = new Plane(this.vertices.get(0), this.vertices.get(1), this.vertices.get(2));
+		this.plane = new Plane(material, this.vertices.get(0), this.vertices.get(1), this.vertices.get(2));
 	}
 
 	/**

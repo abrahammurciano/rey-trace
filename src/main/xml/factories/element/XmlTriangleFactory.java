@@ -12,7 +12,7 @@ import xml.factories.attribute.XmlTripleFactory;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class XmlTriangleFactory implements XmlGeometryFactory {
+public class XmlTriangleFactory extends XmlGeometryFactory {
 
 	@Override
 	public Triangle create(Element element) {
@@ -20,7 +20,7 @@ public class XmlTriangleFactory implements XmlGeometryFactory {
 		Point p0 = factory.create(element.getAttribute("p0"));
 		Point p1 = factory.create(element.getAttribute("p1"));
 		Point p2 = factory.create(element.getAttribute("p2"));
-		return new Triangle(p0, p1, p2);
+		return new Triangle(material(element), p0, p1, p2);
 	}
 
 }

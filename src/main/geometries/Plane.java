@@ -1,13 +1,15 @@
 package geometries;
 
-import primitives.Point;
-import primitives.Ray;
-import primitives.ZeroVectorException;
 import java.util.Collections;
 import java.util.List;
 
 import math.compare.DoubleCompare;
+
+import primitives.Material;
 import primitives.NormalizedVector;
+import primitives.Point;
+import primitives.Ray;
+import primitives.ZeroVectorException;
 
 /**
  * A {@link Plane} is a flat two dimensional surface in three dimensional space
@@ -29,7 +31,8 @@ public class Plane extends Geometry {
 	 * @param point  A point on the plane.
 	 * @param normal A normalized vector perpendicular to the plane.
 	 */
-	public Plane(Point point, NormalizedVector normal) {
+	public Plane(Material material, Point point, NormalizedVector normal) {
+		super(material);
 		this.point = point;
 		this.normal = normal;
 	}
@@ -42,7 +45,8 @@ public class Plane extends Geometry {
 	 * @param p3 A point on the plane.
 	 * @throws IllegalArgumentException if the three points are on a single line.
 	 */
-	public Plane(Point p1, Point p2, Point p3) {
+	public Plane(Material material, Point p1, Point p2, Point p3) {
+		super(material);
 		try {
 			this.normal = p1.vectorTo(p2).cross(p2.vectorTo(p3)).normalized();
 		} catch (ZeroVectorException e) {

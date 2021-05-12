@@ -55,15 +55,15 @@ public class PolygonTests {
 		// @formatter:on
 
 		// More than three points should not throw an exception.
-		new Polygon(Point.ORIGIN, new Point(2, -1, 0), p110, new Point(0.5, 1, 0));
+		new Polygon(null, Point.ORIGIN, new Point(2, -1, 0), p110, new Point(0.5, 1, 0));
 		// More than three significant points should not throw an exception.
-		new Polygon(Point.ORIGIN, new Point(1, -0.5, 0), new Point(2, -1, 0), p110, new Point(0.5, 1, 0));
+		new Polygon(null, Point.ORIGIN, new Point(1, -0.5, 0), new Point(2, -1, 0), p110, new Point(0.5, 1, 0));
 		// Less than three vertices should throw an exception.
 		Assert.assertThrows("Too few points should throw an exception.", IllegalArgumentException.class,
-			() -> new Polygon(Point.ORIGIN, p1));
+			() -> new Polygon(null, Point.ORIGIN, p1));
 		// Less than three significant vertices should throw an exception.
 		Assert.assertThrows("Too few significant points should throw an exception.", IllegalArgumentException.class,
-			() -> new Polygon(Point.ORIGIN, p1, p2, p3));
+			() -> new Polygon(null, Point.ORIGIN, p1, p2, p3));
 
 		// @formatter:off
 		//  ____                        _
@@ -79,9 +79,9 @@ public class PolygonTests {
 		// @formatter:on
 
 		// Exactly three points should not throw an exception.
-		new Polygon(Point.ORIGIN, p110, new Point(0.5, 1, 0));
+		new Polygon(null, Point.ORIGIN, p110, new Point(0.5, 1, 0));
 		// Exactly three significant points should not throw an exception.
-		new Polygon(Point.ORIGIN, new Point(1, -0.5, 0), new Point(2, -1, 0), p110);
+		new Polygon(null, Point.ORIGIN, new Point(1, -0.5, 0), new Point(2, -1, 0), p110);
 
 		// ===================================================
 		// Test that constructor accepts only convex polygons.
@@ -90,22 +90,22 @@ public class PolygonTests {
 		// Equivalence partition tests (there are no boundary values)
 
 		// Convex polygon
-		new Polygon(p001, p2, p110, p_1);
+		new Polygon(null, p001, p2, p110, p_1);
 
 		// Concave polygons
 		Assert.assertThrows("Concave polygons should throw an exception.", IllegalArgumentException.class,
-			() -> new Polygon(Point.ORIGIN, p120, p200, p110));
+			() -> new Polygon(null, Point.ORIGIN, p120, p200, p110));
 
 		// Complex polygon - Type 1
 		Assert.assertThrows("Complex polygon should throw an exception.", IllegalArgumentException.class,
-			() -> new Polygon(Point.ORIGIN, p120, p200, p020));
+			() -> new Polygon(null, Point.ORIGIN, p120, p200, p020));
 		// Complex polygon - Type 2
 		Assert.assertThrows("Complex star polygon should throw an exception.", IllegalArgumentException.class,
-			() -> new Polygon(Point.ORIGIN, p120, p200, p020, p210));
+			() -> new Polygon(null, Point.ORIGIN, p120, p200, p020, p210));
 
 		// Non-planar polygon
 		Assert.assertThrows("Non-planar polygon should throw an exception.", IllegalArgumentException.class,
-			() -> new Polygon(Point.ORIGIN, p120, p020, p101));
+			() -> new Polygon(null, Point.ORIGIN, p120, p020, p101));
 
 		// =====================================================
 		// Test that constructor doesn't accept repeated points.
@@ -127,10 +127,10 @@ public class PolygonTests {
 
 		// Repeated points in the middle
 		Assert.assertThrows("Repeated points should throw an exception.", IllegalArgumentException.class,
-			() -> new Polygon(p001, p2, p2, p110, p_1));
+			() -> new Polygon(null, p001, p2, p2, p110, p_1));
 		// Repeated end points
 		Assert.assertThrows("Repeated end points should throw an exception.", IllegalArgumentException.class,
-			() -> new Polygon(Point.ORIGIN, p010, p110, p100, Point.ORIGIN));
+			() -> new Polygon(null, Point.ORIGIN, p010, p110, p100, Point.ORIGIN));
 	}
 
 	/**
@@ -138,7 +138,7 @@ public class PolygonTests {
 	 */
 	@Test
 	public void testNormal() {
-		Polygon polygon = new Polygon(p001, p2, p110, p_1);
+		Polygon polygon = new Polygon(null, p001, p2, p110, p_1);
 		NormalizedVector normal = polygon.normal(Point.ORIGIN);
 		NormalizedVector expected_normal = new NormalizedVector(1, -1, 0);
 		Assert.assertTrue("Wrong normal for Polygon.", NormalCompare.eq(normal, expected_normal));
@@ -146,7 +146,7 @@ public class PolygonTests {
 
 	@Test
 	public void testIntersect() {
-		Polygon polygon = new Polygon(Point.ORIGIN, p100, new Point(1, 1, 1), new Point(0, 1, 1));
+		Polygon polygon = new Polygon(null, Point.ORIGIN, p100, new Point(1, 1, 1), new Point(0, 1, 1));
 
 		// @formatter:off
 		//  _____            _            _

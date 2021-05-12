@@ -37,12 +37,13 @@ public class GeometriesTests {
 		// @formatter:on
 
 		// Some shapes intersect
-		Sphere intersectingSphere = new Sphere(new Point(2, 0, 0), 1);
-		Plane nonIntersectingPlane = new Plane(new Point(0, 0, 1), i);
-		Triangle intersectingTriangle = new Triangle(new Point(4, 0, 1), new Point(4, 1, -1), new Point(4, -1, -1));
+		Sphere intersectingSphere = new Sphere(null, new Point(2, 0, 0), 1);
+		Plane nonIntersectingPlane = new Plane(null, new Point(0, 0, 1), i);
+		Triangle intersectingTriangle =
+			new Triangle(null, new Point(4, 0, 1), new Point(4, 1, -1), new Point(4, -1, -1));
 		Geometries geometries = new Geometries(intersectingSphere, nonIntersectingPlane, intersectingTriangle);
-		Assert.assertEquals("Wrong number of intersections when some shapes intersect",
-			geometries.intersect(ray).size(), 3);
+		Assert.assertEquals("Wrong number of intersections when some shapes intersect", 3,
+			geometries.intersect(ray).size());
 
 		// Boundary values test
 
@@ -57,12 +58,12 @@ public class GeometriesTests {
 
 		// Only one shape intersects
 		geometries = new Geometries(intersectingSphere, nonIntersectingPlane);
-		Assert.assertEquals("Wrong number of intersections when some shapes intersect",
-			geometries.intersect(ray).size(), 2);
+		Assert.assertEquals("Wrong number of intersections when some shapes intersect", 2,
+			geometries.intersect(ray).size());
 
 		// All shapes intersect
 		geometries = new Geometries(intersectingSphere, intersectingTriangle);
-		Assert.assertEquals("Wrong number of intersections when all shapes intersect", geometries.intersect(ray).size(),
-			3);
+		Assert.assertEquals("Wrong number of intersections when all shapes intersect", 3,
+			geometries.intersect(ray).size());
 	}
 }

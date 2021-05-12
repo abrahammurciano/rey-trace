@@ -1,5 +1,6 @@
 package geometries;
 
+import primitives.Material;
 import primitives.Point;
 
 /**
@@ -15,8 +16,8 @@ public class Triangle extends Polygon {
 	 * @param p3 A vertex of the triangle.
 	 * @throws IllegalArgumentException if the given {@link Point}s are colinear.
 	 */
-	public Triangle(Point p1, Point p2, Point p3) {
-		super(p1, p2, p3);
+	public Triangle(Material material, Point p1, Point p2, Point p3) {
+		super(material, p1, p2, p3);
 	}
 
 }

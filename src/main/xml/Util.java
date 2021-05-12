@@ -17,6 +17,18 @@ public class Util {
 	private Util() {}
 
 	/**
+	 * Get a the first direct children with a given name of the given XML element.
+	 *
+	 * @param parent The element whose children to find.
+	 * @param name   The name of the element to find.
+	 * @return The list of direct children of the given XML element.
+	 * @throws IndexOutOfBoundsException if the parent does not contain a direct child with the given name.
+	 */
+	public static Element getChild(Element parent, String name) {
+		return getChildren(parent, name).get(0);
+	}
+
+	/**
 	 * Get a list of direct children with a given name of the given XML element.
 	 *
 	 * @param parent The element whose children to find.
@@ -36,7 +48,6 @@ public class Util {
 	public static List<Element> getChildren(Element parent) {
 		return getChildren(parent, node -> true);
 	}
-
 
 	private static List<Element> getChildren(Element parent, Predicate<Node> predicate) {
 		List<Element> nodeList = new ArrayList<>();

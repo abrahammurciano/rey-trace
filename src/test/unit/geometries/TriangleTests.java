@@ -22,17 +22,17 @@ public class TriangleTests {
 	@Test
 	public void testColinearPoints() {
 		// Non colinear points
-		new Triangle(Point.ORIGIN, new Point(2, -1, 0), new Point(1, 1, 0));
+		new Triangle(null, Point.ORIGIN, new Point(2, -1, 0), new Point(1, 1, 0));
 		// Colinear points
 		Point p2 = new Point(1, 1, 1);
 		Point p3 = new Point(2, 2, 2);
 		Assert.assertThrows("Colinear points should throw an exception.", IllegalArgumentException.class,
-			() -> new Triangle(Point.ORIGIN, p2, p3));
+			() -> new Triangle(null, Point.ORIGIN, p2, p3));
 	}
 
 	@Test
 	public void testIntersect() {
-		Triangle triangle = new Triangle(Point.ORIGIN, new Point(1, 0, 0), new Point(1, 1, 1));
+		Triangle triangle = new Triangle(null, Point.ORIGIN, new Point(1, 0, 0), new Point(1, 1, 1));
 
 		// @formatter:off
 		//  _____            _            _

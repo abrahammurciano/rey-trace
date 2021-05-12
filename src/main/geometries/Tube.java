@@ -3,6 +3,7 @@ package geometries;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import primitives.Material;
 import primitives.NormalizedVector;
 import primitives.Point;
 import primitives.Ray;
@@ -38,7 +39,8 @@ public class Tube extends Geometry {
 	 * @param radius The distance from the axis to the surface.
 	 * @throws IllegalArgumentException if the radius is zero.
 	 */
-	public Tube(Ray axis, double radius) {
+	public Tube(Material material, Ray axis, double radius) {
+		super(material);
 		if (DoubleCompare.eq(radius, 0)) {
 			throw new IllegalArgumentException("Error: Radius must be non-zero.");
 		}

@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.List;
 
 import math.compare.DoubleCompare;
+import primitives.Material;
 import primitives.NormalizedVector;
 import primitives.Ray;
 
@@ -32,14 +33,15 @@ public class Cylinder extends Geometry {
 	 *
 	 * @throws IllegalArgumentException if the radius is zero or the height is not positive.
 	 */
-	public Cylinder(Ray ray, double radius, double height) {
-		middle = new Tube(ray, radius);
+	public Cylinder(Material material, Ray ray, double radius, double height) {
+		super(material);
+		middle = new Tube(material, ray, radius);
 		if (DoubleCompare.leq(height, 0)) { // if height is 0 it's a disk
 			throw new IllegalArgumentException("Error: Height must be a positive number.");
 		}
 		this.height = height;
-		bottom = new Plane(ray.source, direction());
-		top = new Plane(ray.source.add(direction().scale(height)), direction());
+		bottom = new Plane(material, ray.source, direction());
+		top = new Plane(material, ray.source.add(direction().scale(height)), direction());
 	}
 
 	/**

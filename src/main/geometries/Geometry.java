@@ -1,12 +1,20 @@
 package geometries;
 
-import primitives.Point;
+import primitives.Material;
 import primitives.NormalizedVector;
+import primitives.Point;
 
 /**
  * Represents a three dimensional shape
  */
 public abstract class Geometry implements Intersectible {
+	/** The material of this geometry. */
+	protected final Material material;
+
+	protected Geometry(Material material) {
+		this.material = material;
+	}
+
 	/**
 	 * Calculates the normal to the {@link Geometry} at the given {@link Point}. If the given {@link Point} is not on
 	 * the surface of the {@link Geometry} the resulting behaviour is undefined.

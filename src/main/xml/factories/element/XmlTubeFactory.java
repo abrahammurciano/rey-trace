@@ -15,7 +15,7 @@ import xml.factories.attribute.XmlTripleFactory;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class XmlTubeFactory implements XmlGeometryFactory {
+public class XmlTubeFactory extends XmlGeometryFactory {
 
 	@Override
 	public Tube create(Element element) {
@@ -24,7 +24,7 @@ public class XmlTubeFactory implements XmlGeometryFactory {
 			new XmlTripleFactory<NormalizedVector>(NormalizedVector::new).create(element.getAttribute("direction"));
 		Ray axis = new Ray(source, direction);
 		double radius = new XmlDoubleFactory().create(element.getAttribute("radius"));
-		return new Tube(axis, radius);
+		return new Tube(material(element), axis, radius);
 	}
 
 }

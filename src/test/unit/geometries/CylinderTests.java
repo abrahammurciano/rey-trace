@@ -19,7 +19,7 @@ public class CylinderTests {
 	@Test
 	public void normal() {
 		Ray ray = new Ray(new Point(3, 2, 1), new NormalizedVector(6, 5, 4));
-		Cylinder base = new Cylinder(ray, 5, 10);
+		Cylinder base = new Cylinder(null, ray, 5, 10);
 		NormalizedVector calc, actual1, actual2;
 
 		// @formatter:off
@@ -86,8 +86,8 @@ public class CylinderTests {
 
 	@Test
 	public void testIntersect() {
-		Cylinder cyl =
-			new Cylinder(new Ray(new Point(1, 0, 0), new NormalizedVector(1, 1, 1)), Math.sqrt(2), 5 * Math.sqrt(3));
+		Cylinder cyl = new Cylinder(null, new Ray(new Point(1, 0, 0), new NormalizedVector(1, 1, 1)), Math.sqrt(2),
+			5 * Math.sqrt(3));
 		Ray ray;
 
 		// @formatter:off

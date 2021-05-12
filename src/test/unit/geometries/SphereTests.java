@@ -17,7 +17,7 @@ import primitives.Vector;
  * @author Eli Levin
  */
 public class SphereTests {
-	public final Sphere s = new Sphere(new Point(1, 2, 3), 5);
+	public final Sphere s = new Sphere(null, new Point(1, 2, 3), 5);
 
 	@Test
 	public void testNormal() {
@@ -51,7 +51,7 @@ public class SphereTests {
 
 	@Test
 	public void testIntersect() {
-		Sphere sphere = new Sphere(new Point(1, 0, 0), 1);
+		Sphere sphere = new Sphere(null, new Point(1, 0, 0), 1);
 
 		// @formatter:off
 		//  _____            _            _

@@ -4,6 +4,7 @@ import primitives.ZeroVectorException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import primitives.Material;
 import primitives.NormalizedVector;
 import primitives.Point;
 import primitives.Ray;
@@ -32,7 +33,8 @@ public class Sphere extends Geometry {
 	 *               number will be assumed to be positive.
 	 * @throws IllegalArgumentException if the radius is zero.
 	 */
-	public Sphere(Point center, double radius) {
+	public Sphere(Material material, Point center, double radius) {
+		super(material);
 		if (DoubleCompare.eq(radius, 0)) {
 			throw new IllegalArgumentException("Error: Radius must not be zero.");
 		}

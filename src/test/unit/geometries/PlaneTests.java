@@ -23,12 +23,12 @@ public class PlaneTests {
 	@Test
 	public void testColinearPoints() {
 		// Non colinear points
-		new Plane(Point.ORIGIN, new Point(2, -1, 0), new Point(1, 1, 0));
+		new Plane(null, Point.ORIGIN, new Point(2, -1, 0), new Point(1, 1, 0));
 		// Colinear points
 		Point p2 = new Point(1, 1, 1);
 		Point p3 = new Point(2, 2, 2);
 		Assert.assertThrows("Colinear points should throw an exception.", IllegalArgumentException.class,
-			() -> new Plane(Point.ORIGIN, p2, p3));
+			() -> new Plane(null, Point.ORIGIN, p2, p3));
 	}
 
 	/**
@@ -36,7 +36,7 @@ public class PlaneTests {
 	 */
 	@Test
 	public void contains() {
-		Plane plane = new Plane(Point.ORIGIN, NormalizedVector.K);
+		Plane plane = new Plane(null, Point.ORIGIN, NormalizedVector.K);
 
 		// @formatter:off
 		//  _____            _            _
@@ -79,7 +79,7 @@ public class PlaneTests {
 	 */
 	@Test
 	public void normal() {
-		Plane plane = new Plane(Point.ORIGIN, new Point(2, -1, 0), new Point(1, 1, 0));
+		Plane plane = new Plane(null, Point.ORIGIN, new Point(2, -1, 0), new Point(1, 1, 0));
 		NormalizedVector normal = plane.normal(Point.ORIGIN);
 		NormalizedVector expected_normal = NormalizedVector.K;
 		Assert.assertTrue("Wrong normal for Polygon.", NormalCompare.eq(normal, expected_normal));
@@ -90,7 +90,7 @@ public class PlaneTests {
 	 */
 	@Test
 	public void testIntersect() {
-		Plane plane = new Plane(Point.ORIGIN, new Point(2, -1, 0), new Point(1, 1, 0));
+		Plane plane = new Plane(null, Point.ORIGIN, new Point(2, -1, 0), new Point(1, 1, 0));
 		Ray ray;
 
 		// @formatter:off

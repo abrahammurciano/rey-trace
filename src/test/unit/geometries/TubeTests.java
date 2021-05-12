@@ -13,7 +13,7 @@ public class TubeTests {
 	@Test
 	public void testNormal() {
 		Ray ray = new Ray(new Point(1, 2, 3), new NormalizedVector(4, 5, 6));
-		Tube tube = new Tube(ray, 3);
+		Tube tube = new Tube(null, ray, 3);
 		// find random point on tube by scaling the vector by some random number,
 		// then going perpendicular from there for a length of radius.
 		// Scale vector by 6.9
@@ -31,7 +31,7 @@ public class TubeTests {
 	public void testIntersect() {
 
 		Ray axis = new Ray(new Point(-1, 1, 0), new NormalizedVector(1, 1, 1));
-		Tube tube = new Tube(axis, Math.sqrt(2));
+		Tube tube = new Tube(null, axis, Math.sqrt(2));
 		Point p1 = new Point(2, 2, 2);
 		Point p2 = new Point(0, 4, 2);
 
@@ -102,7 +102,7 @@ public class TubeTests {
 			Util.getPoints(tube.intersect(ray)));
 
 		// tube's center is at origin
-		tube = new Tube(new Ray(Point.ORIGIN, new NormalizedVector(1, 1, 1)), Math.sqrt(2));
+		tube = new Tube(null, new Ray(Point.ORIGIN, new NormalizedVector(1, 1, 1)), Math.sqrt(2));
 		ray = new Ray(new Point(-1, 3, 1), new NormalizedVector(1, -1, 0));
 		Assert.assertEquals("Ray starts on axis and is orthogonal to it",
 			Set.of(new Point(0, 2, 1), new Point(2, 0, 1)), Util.getPoints(tube.intersect(ray)));
