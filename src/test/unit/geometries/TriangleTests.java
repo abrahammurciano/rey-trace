@@ -1,6 +1,6 @@
 package unit.geometries;
 
-import java.util.List;
+import java.util.Set;
 import org.junit.Assert;
 import org.junit.Test;
 import geometries.Triangle;
@@ -22,15 +22,17 @@ public class TriangleTests {
 	@Test
 	public void testColinearPoints() {
 		// Non colinear points
-		new Triangle(new Point(0, 0, 0), new Point(2, -1, 0), new Point(1, 1, 0));
+		new Triangle(Point.ORIGIN, new Point(2, -1, 0), new Point(1, 1, 0));
 		// Colinear points
+		Point p2 = new Point(1, 1, 1);
+		Point p3 = new Point(2, 2, 2);
 		Assert.assertThrows("Colinear points should throw an exception.", IllegalArgumentException.class,
-			() -> new Triangle(new Point(0, 0, 0), new Point(1, 1, 1), new Point(2, 2, 2)));
+			() -> new Triangle(Point.ORIGIN, p2, p3));
 	}
 
 	@Test
 	public void testIntersect() {
-		Triangle triangle = new Triangle(new Point(0, 0, 0), new Point(1, 0, 0), new Point(1, 1, 1));
+		Triangle triangle = new Triangle(Point.ORIGIN, new Point(1, 0, 0), new Point(1, 1, 1));
 
 		// @formatter:off
 		//  _____            _            _
@@ -48,8 +50,8 @@ public class TriangleTests {
 
 		// Intersection inside triangle
 		Ray ray = new Ray(new Point(0.5, 0, 1), new NormalizedVector(0.5, 1, -1));
-		Assert.assertEquals("Intersection expected but not found or wrong value.", triangle.intersect(ray),
-			List.of(new Point(0.75, 0.5, 0.5)));
+		Assert.assertEquals("Intersection expected but not found or wrong value.", Set.of(new Point(0.75, 0.5, 0.5)),
+			Util.getPoints(triangle.intersect(ray)));
 
 		// Intersection outside triangle (on outside of only one edge)
 		ray = new Ray(new Point(0.5, 0, 1), new NormalizedVector(2, 1, -1));
@@ -96,7 +98,7 @@ public class TriangleTests {
 		Assert.assertTrue("Expected no intersection from ray starting on boundary.", triangle.intersect(ray).isEmpty());
 
 		// Ray starts on corner
-		ray = new Ray(new Point(0, 0, 0), new NormalizedVector(0.5, 1, 0));
+		ray = new Ray(Point.ORIGIN, new NormalizedVector(0.5, 1, 0));
 		Assert.assertTrue("Expected no intersection from ray starting on corner.", triangle.intersect(ray).isEmpty());
 	}
 }

@@ -1,9 +1,6 @@
 package unit.geometries;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-
+import java.util.Set;
 import org.junit.Assert;
 import org.junit.Test;
 import geometries.Cylinder;
@@ -110,35 +107,34 @@ public class CylinderTests {
 		// start in middle and come out side
 		ray = new Ray(new Point(1, 1, 1), new NormalizedVector(-1, 2, 0));
 		Assert.assertEquals("Passes through bottom and comes out top",
-			new HashSet<>(List.of(new Point(0.6796227589829593, 1.6407544820340814, 1.0))),
-			new HashSet<>(cyl.intersect(ray)));
+			Set.of(new Point(0.6796227589829593, 1.6407544820340814, 1.0)), Util.getPoints(cyl.intersect(ray)));
 
 		// pass through bottom and side
-		ray = new Ray(new Point(0, 0, 0), new NormalizedVector(1, 0, 1));
+		ray = new Ray(Point.ORIGIN, new NormalizedVector(1, 0, 1));
 		Assert.assertEquals("Passes through bottom and comes out side",
-			new HashSet<>(List.of(new Point(0.5, 0, 0.5), new Point(2, 0, 2))), new HashSet<>(cyl.intersect(ray)));
+			Set.of(new Point(0.5, 0, 0.5), new Point(2, 0, 2)), Util.getPoints(cyl.intersect(ray)));
 
 		// pass through bottom and top
-		ray = new Ray(new Point(0, 0, 0), new NormalizedVector(3, 2, 2));
+		ray = new Ray(Point.ORIGIN, new NormalizedVector(3, 2, 2));
 		Assert.assertEquals("Passes through bottom and comes out top",
-			new HashSet<>(List.of(new Point(0.4285714285714286, 0.2857142857142857, 0.2857142857142857),
-				new Point(6.857142857142858, 4.571428571428571, 4.571428571428571))),
-			new HashSet<>(cyl.intersect(ray)));
+			Set.of(new Point(0.4285714285714286, 0.2857142857142857, 0.2857142857142857),
+				new Point(6.857142857142858, 4.571428571428571, 4.571428571428571)),
+			Util.getPoints(cyl.intersect(ray)));
 
 		// starts in middle and passes through bottom
 		ray = new Ray(new Point(2, 2, 2), new NormalizedVector(-1, -1, -1));
-		Assert.assertEquals("Starts in middle and passes through bottom",
-			new HashSet<>(List.of(new Point(1d / 3, 1d / 3, 1d / 3))), new HashSet<>(cyl.intersect(ray)));
+		Assert.assertEquals("Starts in middle and passes through bottom", Set.of(new Point(1d / 3, 1d / 3, 1d / 3)),
+			Util.getPoints(cyl.intersect(ray)));
 
 		// starts in middle and passes through top
 		ray = new Ray(new Point(2, 2, 2), new NormalizedVector(1, 1, 1));
 		Assert.assertEquals("Starts in middle and passes through top",
-			new HashSet<>(List.of(new Point(5.333333333333334, 5.333333333333334, 5.333333333333334))),
-			new HashSet<>(cyl.intersect(ray)));
+			Set.of(new Point(5.333333333333334, 5.333333333333334, 5.333333333333334)),
+			Util.getPoints(cyl.intersect(ray)));
 
 		// outside cylinder completely
 		ray = new Ray(new Point(-1, -1, -1), new NormalizedVector(-3, 7, 4));
-		Assert.assertEquals("outside cylinder completely", Collections.emptyList(), cyl.intersect(ray));
+		Assert.assertTrue("outside cylinder completely", cyl.intersect(ray).isEmpty());
 
 		// @formatter:off
 		//  ____                        _
@@ -155,27 +151,26 @@ public class CylinderTests {
 
 		// follows axis
 		ray = new Ray(new Point(0, -1, -1), new NormalizedVector(1, 1, 1));
-		Assert.assertEquals("Follows axis", new HashSet<>(List.of(new Point(1, 0, 0), new Point(6, 5, 5))),
-			new HashSet<>(cyl.intersect(ray)));
+		Assert.assertEquals("Follows axis", Set.of(new Point(1, 0, 0), new Point(6, 5, 5)),
+			Util.getPoints(cyl.intersect(ray)));
 
 		// follows axis and starts on bottom plane
 		ray = new Ray(new Point(1, 0, 0), new NormalizedVector(1, 1, 1));
-		Assert.assertEquals("Follows axis", new HashSet<>(List.of(new Point(6, 5, 5))),
-			new HashSet<>(cyl.intersect(ray)));
+		Assert.assertEquals("Follows axis", Set.of(new Point(6, 5, 5)), Util.getPoints(cyl.intersect(ray)));
 
 		// passes though bottom and CORNER(!) of cylinder
-		ray = new Ray(new Point(0, 0, 0), new NormalizedVector(3, 2, 3));
+		ray = new Ray(Point.ORIGIN, new NormalizedVector(3, 2, 3));
 		Assert.assertEquals("Passes through bottom and comes out corner",
-			new HashSet<>(List.of(new Point(0.375, 0.25, 0.375), new Point(6, 4, 6))),
-			new HashSet<>(cyl.intersect(ray)));
+			Set.of(new Point(0.375, 0.25, 0.375), new Point(6, 4, 6)), Util.getPoints(cyl.intersect(ray)));
 
 		// hits corner from outside near top
 		ray = new Ray(new Point(3, 4, 6), NormalizedVector.I);
-		Assert.assertEquals("Starts outside and hits corner near lid", List.of(new Point(6, 4, 6)), cyl.intersect(ray));
+		Assert.assertEquals("Starts outside and hits corner near lid", Set.of(new Point(6, 4, 6)),
+			Util.getPoints(cyl.intersect(ray)));
 
 		// hits corner from outside near base
 		ray = new Ray(new Point(0, -3, 0), NormalizedVector.J);
-		Assert.assertEquals("Starts outside and hist corner near base", List.of(new Point(0, 1, 0)),
-			cyl.intersect(ray));
+		Assert.assertEquals("Starts outside and hist corner near base", Set.of(new Point(0, 1, 0)),
+			Util.getPoints(cyl.intersect(ray)));
 	}
 }

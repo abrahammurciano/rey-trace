@@ -23,6 +23,6 @@ public abstract class Geometry implements Intersectible {
 	 * @return An {@link Intersection} with this geometry at the given point.
 	 */
 	protected Intersection intersection(Point point) {
-		return intersection(point);
+		return new Intersection(this, point);
 	}
 }

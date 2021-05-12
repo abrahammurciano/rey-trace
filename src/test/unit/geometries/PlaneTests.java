@@ -1,6 +1,6 @@
 package unit.geometries;
 
-import java.util.List;
+import java.util.Set;
 import org.junit.Assert;
 import org.junit.Test;
 import geometries.Plane;
@@ -23,10 +23,12 @@ public class PlaneTests {
 	@Test
 	public void testColinearPoints() {
 		// Non colinear points
-		new Plane(new Point(0, 0, 0), new Point(2, -1, 0), new Point(1, 1, 0));
+		new Plane(Point.ORIGIN, new Point(2, -1, 0), new Point(1, 1, 0));
 		// Colinear points
+		Point p2 = new Point(1, 1, 1);
+		Point p3 = new Point(2, 2, 2);
 		Assert.assertThrows("Colinear points should throw an exception.", IllegalArgumentException.class,
-			() -> new Plane(new Point(0, 0, 0), new Point(1, 1, 1), new Point(2, 2, 2)));
+			() -> new Plane(Point.ORIGIN, p2, p3));
 	}
 
 	/**
@@ -34,7 +36,7 @@ public class PlaneTests {
 	 */
 	@Test
 	public void contains() {
-		Plane plane = new Plane(new Point(0, 0, 0), NormalizedVector.K);
+		Plane plane = new Plane(Point.ORIGIN, NormalizedVector.K);
 
 		// @formatter:off
 		//  _____            _            _
@@ -69,7 +71,7 @@ public class PlaneTests {
 		// @formatter:on
 
 		// Plane's defining point
-		Assert.assertTrue("Plane claims to not contain its defining point.", plane.contains(new Point(0, 0, 0)));
+		Assert.assertTrue("Plane claims to not contain its defining point.", plane.contains(Point.ORIGIN));
 	}
 
 	/**
@@ -77,8 +79,8 @@ public class PlaneTests {
 	 */
 	@Test
 	public void normal() {
-		Plane plane = new Plane(new Point(0, 0, 0), new Point(2, -1, 0), new Point(1, 1, 0));
-		NormalizedVector normal = plane.normal(new Point(0, 0, 0));
+		Plane plane = new Plane(Point.ORIGIN, new Point(2, -1, 0), new Point(1, 1, 0));
+		NormalizedVector normal = plane.normal(Point.ORIGIN);
 		NormalizedVector expected_normal = NormalizedVector.K;
 		Assert.assertTrue("Wrong normal for Polygon.", NormalCompare.eq(normal, expected_normal));
 	}
@@ -88,7 +90,7 @@ public class PlaneTests {
 	 */
 	@Test
 	public void testIntersect() {
-		Plane plane = new Plane(new Point(0, 0, 0), new Point(2, -1, 0), new Point(1, 1, 0));
+		Plane plane = new Plane(Point.ORIGIN, new Point(2, -1, 0), new Point(1, 1, 0));
 		Ray ray;
 
 		// @formatter:off
@@ -107,8 +109,8 @@ public class PlaneTests {
 
 		// Does intersect
 		ray = new Ray(new Point(1, 1, 1), new NormalizedVector(1, 1, -1));
-		Assert.assertEquals("Expected intersection for intersecting ray.", plane.intersect(ray),
-			List.of(new Point(2, 2, 0)));
+		Assert.assertEquals("Expected intersection for intersecting ray.", Set.of(new Point(2, 2, 0)),
+			Util.getPoints(plane.intersect(ray)));
 
 		// Does not intersect (not parallel)
 		ray = new Ray(new Point(1, 1, -1), new NormalizedVector(1, 1, -1));
@@ -140,7 +142,7 @@ public class PlaneTests {
 		Assert.assertTrue("No plane intersection expected for ray starting on plane.", plane.intersect(ray).isEmpty());
 
 		// Ray starts on plane's internal point
-		ray = new Ray(new Point(0, 0, 0), new NormalizedVector(1, 1, 1));
+		ray = new Ray(Point.ORIGIN, new NormalizedVector(1, 1, 1));
 		Assert.assertTrue("No plane intersection expected for ray starting on plane's internal point.",
 			plane.intersect(ray).isEmpty());
 	}
