@@ -24,4 +24,15 @@ public class Material {
 		this.diffuse = diffuse;
 		this.specular = specular;
 	}
+
+	/**
+	 * Material constructor with no emission light.
+	 *
+	 * @param shine    The shine factor of the material.
+	 * @param diffuse  The diffuse coefficient of the material.
+	 * @param specular The specular coefficient of the material.
+	 */
+	public Material(int shine, double diffuse, double specular) {
+		this(Colour.BLACK, shine, diffuse, specular);
+	}
 }

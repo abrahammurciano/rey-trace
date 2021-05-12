@@ -15,10 +15,14 @@ public class XmlMaterialFactory implements XmlFactoryFromElement<Material> {
 
 	@Override
 	public Material create(Element element) {
-		Colour emission = COLOUR_FACTORY.create(element.getAttribute("emission"));
 		int shine = INTEGER_FACTORY.create(element.getAttribute("shine"));
 		double diffuse = DOUBLE_FACTORY.create(element.getAttribute("diffuse"));
 		double specular = DOUBLE_FACTORY.create(element.getAttribute("specular"));
+		String emissionAttr = element.getAttribute("emission");
+		if (emissionAttr.isEmpty()) {
+			return new Material(shine, diffuse, specular);
+		}
+		Colour emission = COLOUR_FACTORY.create(element.getAttribute("emission"));
 		return new Material(emission, shine, diffuse, specular);
 	}
 

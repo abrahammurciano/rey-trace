@@ -37,7 +37,7 @@ public class RendererTest {
 		Material green = new Material(new Colour(0, 255, 0), 0, 0, 0);
 		Material red = new Material(new Colour(255, 0, 0), 0, 0, 0);
 		Material blue = new Material(new Colour(0, 0, 255), 0, 0, 0);
-		Material black = new Material(new Colour(0, 0, 0), 0, 0, 0);
+		Material black = new Material(0, 0, 0);
 
 		scene.geometries.add(new Sphere(black, new Point(0, 0, -100), 50),
 			new Triangle(green, new Point(-100, 0, -100), new Point(0, 100, -100), new Point(-100, 100, -100)),
