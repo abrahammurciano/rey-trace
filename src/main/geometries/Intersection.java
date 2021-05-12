@@ -1,5 +1,6 @@
 package geometries;
 
+import primitives.NormalizedVector;
 import primitives.Point;
 
 /**
@@ -23,5 +24,14 @@ public class Intersection {
 	public Intersection(Geometry geometry, Point point) {
 		this.geometry = geometry;
 		this.point = point;
+	}
+
+	/**
+	 * Calculate the normal of the intersected geometry at the intersection point.
+	 *
+	 * @return The normal of the intersection.
+	 */
+	public NormalizedVector normal() {
+		return geometry.normal(point);
 	}
 }
