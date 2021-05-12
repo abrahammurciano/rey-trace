@@ -9,17 +9,14 @@ import primitives.Colour;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class AmbientLight {
-
-	/** The colour of the ambient light. */
-	public final Colour colour;
+public class AmbientLight extends Light {
 
 	/**
-	 * Construct an ambient light with the specified colour.
+	 * A constructor to set the colour of the ambient light.
 	 *
-	 * @param colour The colour to set the ambient light to.
+	 * @param colour The colour of the ambient light.
 	 */
 	public AmbientLight(Colour colour) {
-		this.colour = colour;
+		super(colour);
 	}
 }
