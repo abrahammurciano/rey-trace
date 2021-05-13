@@ -1,5 +1,7 @@
 package rendering.raytracing;
 
+import java.util.List;
+import geometries.Intersection;
 import primitives.Colour;
 import primitives.Ray;
 import scene.Scene;
@@ -24,6 +26,11 @@ public class BasicRayTracer extends RayTracer {
 
 	@Override
 	public Colour trace(Ray ray) {
-		return scene.geometries.intersect(ray).isEmpty() ? scene.background : scene.ambient.colour;
+		List<Intersection> intersections = scene.geometries.intersect(ray);
+		if (intersections.isEmpty()) {
+			return scene.background;
+		} else {
+			return scene.ambient.colour.add(ray.closest(intersections).geometry.material.emission);
+		}
 	}
 }

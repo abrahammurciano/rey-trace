@@ -1,8 +1,5 @@
 package unit.primitives;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.NoSuchElementException;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -81,51 +78,6 @@ public class PointTests {
 		calc = p.distance(new Point(1, 2, 3));
 		actual = 0;
 		Assert.assertTrue("Distance should be zero", DoubleCompare.eq(calc, actual));
-	}
-
-	/**
-	 * Test Point.closest
-	 */
-	@Test
-	public void closest() {
-		// @formatter:off
-		//  ____                        _
-		// | __ )  ___  _   _ _ __   __| | __ _ _ __ _   _
-		// |  _ \ / _ \| | | | '_ \ / _` |/ _` | '__| | | |
-		// | |_) | (_) | |_| | | | | (_| | (_| | |  | |_| |
-		// |____/ \___/ \__,_|_| |_|\__,_|\__,_|_|   \__, |
-		//  _____         _                          |___/
-		// |_   _|__  ___| |_ ___
-		//   | |/ _ \/ __| __/ __|
-		//   | |  __/\__ \ |_\__ \
-		//   |_|\___||___/\__|___/
-		// @formatter:on
-
-		// Empty list
-		Assert.assertThrows("Expected exception for empty list", NoSuchElementException.class,
-			() -> p.closest(Collections.emptyList()));
-
-		// List with one element
-		List<Point> points = List.of(new Point(1, 2, 3));
-		Assert.assertEquals("Closest point of one element list is incorrect", p.closest(points), new Point(1, 2, 3));
-
-		// @formatter:off
-		//  _____            _            _
-		// | ____|__ _ _   _(_)_   ____ _| | ___ _ __   ___ ___
-		// |  _| / _` | | | | \ \ / / _` | |/ _ \ '_ \ / __/ _ \
-		// | |__| (_| | |_| | |\ V / (_| | |  __/ | | | (_|  __/
-		// |_____\__, |\__,_|_| \_/ \__,_|_|\___|_| |_|\___\___|
-		//          |_|
-		//  ____            _   _ _   _
-		// |  _ \ __ _ _ __| |_(_) |_(_) ___  _ __  ___
-		// | |_) / _` | '__| __| | __| |/ _ \| '_ \/ __|
-		// |  __/ (_| | |  | |_| | |_| | (_) | | | \__ \
-		// |_|   \__,_|_|   \__|_|\__|_|\___/|_| |_|___/
-		// @formatter:on
-
-		// List with two elements
-		points = List.of(new Point(1, 2, 3), new Point(1, 2, 4));
-		Assert.assertEquals("Closest point of two element list is incorrect", p.closest(points), new Point(1, 2, 3));
 	}
 
 	/**

@@ -9,7 +9,7 @@ import primitives.Point;
  */
 public abstract class Geometry implements Intersectible {
 	/** The material of this geometry. */
-	protected final Material material;
+	public final Material material;
 
 	protected Geometry(Material material) {
 		this.material = material;
