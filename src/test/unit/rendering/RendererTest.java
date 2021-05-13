@@ -34,16 +34,13 @@ public class RendererTest {
 	public void testRender() {
 		Scene scene = new Scene(new Colour(75, 127, 90), new AmbientLight(new Colour(255, 191, 191)));
 
-		Material green = new Material(new Colour(0, 255, 0), 0, 0, 0);
-		Material red = new Material(new Colour(255, 0, 0), 0, 0, 0);
-		Material blue = new Material(new Colour(0, 0, 255), 0, 0, 0);
 		Material black = new Material(0, 0, 0);
 
 		scene.geometries.add(new Sphere(black, new Point(0, 0, -100), 50),
-			new Triangle(green, new Point(-100, 0, -100), new Point(0, 100, -100), new Point(-100, 100, -100)),
+			new Triangle(black, new Point(-100, 0, -100), new Point(0, 100, -100), new Point(-100, 100, -100)),
 			new Triangle(black, new Point(100, 0, -100), new Point(0, 100, -100), new Point(100, 100, -100)),
-			new Triangle(red, new Point(-100, 0, -100), new Point(0, -100, -100), new Point(-100, -100, -100)),
-			new Triangle(blue, new Point(100, 0, -100), new Point(0, -100, -100), new Point(100, -100, -100)));
+			new Triangle(black, new Point(-100, 0, -100), new Point(0, -100, -100), new Point(-100, -100, -100)),
+			new Triangle(black, new Point(100, 0, -100), new Point(0, -100, -100), new Point(100, -100, -100)));
 
 
 		String outfile = "images/test1.png";
@@ -57,8 +54,11 @@ public class RendererTest {
 	 */
 	@Test
 	public void basicRenderXml() {
-		String inFile = "images/basicRenderTestTwoColors.xml";
-		String outFile = "images/test2.png";
+		renderXml("images/ambient.xml", "images/ambient.png");
+		renderXml("images/emission.xml", "images/emission.png");
+	}
+
+	private void renderXml(String inFile, String outFile) {
 		Scene scene;
 		try {
 			scene = new xml.XmlSceneParser().parse(inFile);

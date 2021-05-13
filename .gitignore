@@ -1,7 +1,7 @@
 *.docx
 .vscode
 *.class
-images
+images/*.png
 bin
 lib
 
