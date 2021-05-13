@@ -1,7 +1,9 @@
 package scene;
 
+import java.util.List;
 import geometries.Geometries;
 import lighting.AmbientLight;
+import lighting.LightSource;
 import primitives.Colour;
 
 /**
@@ -18,6 +20,8 @@ public class Scene {
 	public final AmbientLight ambient;
 	/** The collection of geometries in the scene. */
 	public final Geometries geometries;
+	/** The light source of the scene. */
+	public final List<LightSource> lights;
 
 	/**
 	 * Constructor for the scene with no geometries.
@@ -25,8 +29,8 @@ public class Scene {
 	 * @param background The background colour of the scene.
 	 * @param ambient    The ambient lighting of the scene.
 	 */
-	public Scene(Colour background, AmbientLight ambient) {
-		this(background, ambient, new Geometries());
+	public Scene(Colour background, AmbientLight ambient, List<LightSource> lights) {
+		this(background, ambient, new Geometries(), lights);
 	}
 
 	/**
@@ -35,10 +39,12 @@ public class Scene {
 	 * @param background The background colour of the scene.
 	 * @param ambient    The ambient colour of the scene.
 	 * @param geometries The geometries to initialise the scene with.
+	 * @param lights2
 	 */
-	public Scene(Colour background, AmbientLight ambient, Geometries geometries) {
+	public Scene(Colour background, AmbientLight ambient, Geometries geometries, List<LightSource> lights) {
 		this.background = background;
 		this.ambient = ambient;
 		this.geometries = geometries;
+		this.lights = lights;
 	}
 }
