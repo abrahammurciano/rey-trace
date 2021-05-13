@@ -7,7 +7,7 @@ package primitives;
  * @author Eli Levin
  */
 public class Material {
-	/** The emission light color of the material. */
+	/** The emission light colour of the material. */
 	public final Colour emission;
 	/** The shine factor of the material. */
 	public final int shine;
@@ -19,7 +19,7 @@ public class Material {
 	/**
 	 * Material constructor.
 	 *
-	 * @param emission The emission light color of the material.
+	 * @param emission The emission light colour of the material.
 	 * @param shine    The shine factor of the material.
 	 * @param diffuse  The diffuse coefficient of the material.
 	 * @param specular The specular coefficient of the material.

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<scene background-color="75 127 190">
-	<ambient-light color="255 191 191" />
+<scene background-colour="75 127 190">
+	<ambient-light colour="255 191 191" />
 	<geometries>
 		<sphere center="0 0 -100" radius="50">
 			<material specular="0" diffuse="0" shine="0" />

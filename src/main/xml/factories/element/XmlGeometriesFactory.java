@@ -25,6 +25,7 @@ public class XmlGeometriesFactory implements XmlFactoryFromElement<Geometries> {
 	);
 	//@formatter:on
 
+	@Override
 	public Geometries create(Element element) {
 		Geometries geometries = new Geometries();
 		for (Element child : Util.getChildren(element)) {

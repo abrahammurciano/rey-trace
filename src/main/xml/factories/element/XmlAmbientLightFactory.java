@@ -18,12 +18,12 @@ public class XmlAmbientLightFactory implements XmlFactoryFromElement<AmbientLigh
 	/**
 	 * Constructs a new {@link AmbientLight} from an XML {@link Element}.
 	 *
-	 * @param element The XML element, containing an attribute "color" whose value can be parsed into a {@link Colour}.
+	 * @param element The XML element, containing an attribute "colour" whose value can be parsed into a {@link Colour}.
 	 * @return A new AmbientLight with the given values.
 	 * @throws XmlParserException if the XML element did not have a valid colour attribute.
 	 */
 	public AmbientLight create(Element element) {
-		return new AmbientLight(COLOUR_FACTORY.create(element.getAttribute("color")));
+		return new AmbientLight(COLOUR_FACTORY.create(element.getAttribute("colour")));
 	}
 
 }
