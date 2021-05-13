@@ -67,7 +67,7 @@ public class RendererTest {
 			return;
 		}
 
-		new Renderer(camera, new BasicRayTracer(scene), outFile).render(10, 3);
+		new Renderer(camera, new BasicRayTracer(scene), outFile).render(3, 3);
 
 		Util.assertImageCorrect("XmlRenderedImage does not look correct", outFile);
 	}
