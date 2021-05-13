@@ -30,7 +30,7 @@ public class BasicRayTracer extends RayTracer {
 		if (intersections.isEmpty()) {
 			return scene.background;
 		} else {
-			return scene.ambient.colour.add(ray.closest(intersections).geometry.material.emission);
+			return scene.ambient.colour.add(ray.closest(intersections).emission());
 		}
 	}
 }
