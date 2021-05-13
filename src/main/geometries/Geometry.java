@@ -1,12 +1,25 @@
 package geometries;
 
-import primitives.Point;
+import primitives.Material;
 import primitives.NormalizedVector;
+import primitives.Point;
 
 /**
  * Represents a three dimensional shape
  */
-public interface Geometry extends Intersectible {
+public abstract class Geometry implements Intersectible {
+	/** The material of this geometry. */
+	public final Material material;
+
+	/**
+	 * Construct a new Geometry with the given material.
+	 *
+	 * @param material The {@link Material} the geometry is made from.
+	 */
+	protected Geometry(Material material) {
+		this.material = material;
+	}
+
 	/**
 	 * Calculates the normal to the {@link Geometry} at the given {@link Point}. If the given {@link Point} is not on
 	 * the surface of the {@link Geometry} the resulting behaviour is undefined.
@@ -14,5 +27,15 @@ public interface Geometry extends Intersectible {
 	 * @param point The {@link Point} at which to calculate the normal.
 	 * @return A {@link NormalizedVector} perpendicular to the surface of the shape at the given {@link Point}.
 	 */
-	public NormalizedVector normal(Point point);
+	public abstract NormalizedVector normal(Point point);
+
+	/**
+	 * Create an intersection object with this geometry and the given {@link Point}.
+	 *
+	 * @param point The point at which the intersection occurs.
+	 * @return An {@link Intersection} with this geometry at the given point.
+	 */
+	protected Intersection intersection(Point point) {
+		return new Intersection(this, point);
+	}
 }

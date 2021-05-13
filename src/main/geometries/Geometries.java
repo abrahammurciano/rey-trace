@@ -2,7 +2,6 @@ package geometries;
 
 import java.util.LinkedList;
 import java.util.List;
-import primitives.Point;
 import primitives.Ray;
 
 /**
@@ -46,8 +45,8 @@ public class Geometries implements Intersectible {
 	}
 
 	@Override
-	public List<Point> intersect(Ray ray) {
-		List<Point> result = new LinkedList<>();
+	public List<Intersection> intersect(Ray ray) {
+		List<Intersection> result = new LinkedList<>();
 		for (Intersectible intersectible : intersectibles) {
 			result.addAll(intersectible.intersect(ray));
 		}

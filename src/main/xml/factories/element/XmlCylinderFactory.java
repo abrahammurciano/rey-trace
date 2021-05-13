@@ -15,7 +15,7 @@ import xml.factories.attribute.XmlTripleFactory;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class XmlCylinderFactory implements XmlGeometryFactory {
+public class XmlCylinderFactory extends XmlGeometryFactory {
 
 	private static final XmlTripleFactory<NormalizedVector> NORMALIZED_VECTOR_FACTORY =
 		new XmlTripleFactory<>(NormalizedVector::new);
@@ -29,7 +29,7 @@ public class XmlCylinderFactory implements XmlGeometryFactory {
 		Ray ray = new Ray(source, direction);
 		double radius = DOUBLE_FACTORY.create(element.getAttribute("radius"));
 		double height = DOUBLE_FACTORY.create(element.getAttribute("height"));
-		return new Cylinder(ray, radius, height);
+		return new Cylinder(material(element), ray, radius, height);
 	}
 
 }

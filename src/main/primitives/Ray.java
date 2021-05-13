@@ -1,6 +1,10 @@
 package primitives;
 
+import java.util.Iterator;
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Objects;
+import geometries.Intersection;
 
 /**
  * The {@link Ray} class represents a ray with it's base at the {@link Point}
@@ -35,6 +39,28 @@ public class Ray {
 	 */
 	public Point travel(double distance) {
 		return source.add(direction.scale(distance));
+	}
+
+	/**
+	 * Returns the closest intersection to this ray's source from the given intersections.
+	 *
+	 * @param intersections The intersections from which to get the closest one.
+	 * @return The closest intersection to the source of the ray.
+	 * @throws NoSuchElementException if the list is empty.
+	 */
+	public Intersection closest(List<Intersection> intersections) {
+		Iterator<Intersection> iterator = intersections.iterator();
+		Intersection closest = iterator.next(); // this will throw if empty
+		double distance = source.squareDistance(closest.point);
+		while (iterator.hasNext()) {
+			Intersection next = iterator.next();
+			double nextDistance = source.squareDistance(next.point);
+			if (nextDistance < distance) {
+				distance = nextDistance; // save for future checks
+				closest = next;
+			}
+		}
+		return closest;
 	}
 
 	/**

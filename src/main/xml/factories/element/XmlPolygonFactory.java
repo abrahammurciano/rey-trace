@@ -14,7 +14,7 @@ import xml.factories.attribute.XmlTripleFactory;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class XmlPolygonFactory implements XmlGeometryFactory {
+public class XmlPolygonFactory extends XmlGeometryFactory {
 
 	private XmlTripleFactory<Point> FACTORY = new XmlTripleFactory<>(Point::new);
 
@@ -25,7 +25,7 @@ public class XmlPolygonFactory implements XmlGeometryFactory {
 		for (String attr = element.getAttribute("p" + i); attr.length() > 0; ++i) {
 			points.add(FACTORY.create(attr));
 		}
-		return new Polygon(points.toArray(new Point[0]));
+		return new Polygon(material(element), points.toArray(new Point[0]));
 	}
 
 }

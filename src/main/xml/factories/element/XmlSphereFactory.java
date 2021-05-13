@@ -13,13 +13,12 @@ import xml.factories.attribute.XmlTripleFactory;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class XmlSphereFactory implements XmlGeometryFactory {
-
+public class XmlSphereFactory extends XmlGeometryFactory {
 	@Override
 	public Sphere create(Element element) {
 		Point center = new XmlTripleFactory<Point>(Point::new).create(element.getAttribute("center"));
 		double radius = new XmlDoubleFactory().create(element.getAttribute("radius"));
-		return new Sphere(center, radius);
+		return new Sphere(material(element), center, radius);
 	}
 
 }

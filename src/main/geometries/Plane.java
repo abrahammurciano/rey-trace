@@ -1,13 +1,15 @@
 package geometries;
 
-import primitives.Point;
-import primitives.Ray;
-import primitives.ZeroVectorException;
 import java.util.Collections;
 import java.util.List;
 
 import math.compare.DoubleCompare;
+
+import primitives.Material;
 import primitives.NormalizedVector;
+import primitives.Point;
+import primitives.Ray;
+import primitives.ZeroVectorException;
 
 /**
  * A {@link Plane} is a flat two dimensional surface in three dimensional space
@@ -16,7 +18,7 @@ import primitives.NormalizedVector;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class Plane implements Geometry {
+public class Plane extends Geometry {
 	/** A point on the plane. */
 	public final Point point;
 	/** The normal vector of the plane. */
@@ -26,10 +28,12 @@ public class Plane implements Geometry {
 	 * This constructor accepts a point on the plane and a vector perpendicular to
 	 * the plane.
 	 *
-	 * @param point  A point on the plane.
-	 * @param normal A normalized vector perpendicular to the plane.
+	 * @param material The {@link Material} the plane is made from.
+	 * @param point    A point on the plane.
+	 * @param normal   A normalized vector perpendicular to the plane.
 	 */
-	public Plane(Point point, NormalizedVector normal) {
+	public Plane(Material material, Point point, NormalizedVector normal) {
+		super(material);
 		this.point = point;
 		this.normal = normal;
 	}
@@ -37,12 +41,14 @@ public class Plane implements Geometry {
 	/**
 	 * This constructor accepts three distinct points on the plane.
 	 *
-	 * @param p1 A point on the plane.
-	 * @param p2 A point on the plane.
-	 * @param p3 A point on the plane.
+	 * @param material The {@link Material} the plane is made from.
+	 * @param p1       A point on the plane.
+	 * @param p2       A point on the plane.
+	 * @param p3       A point on the plane.
 	 * @throws IllegalArgumentException if the three points are on a single line.
 	 */
-	public Plane(Point p1, Point p2, Point p3) {
+	public Plane(Material material, Point p1, Point p2, Point p3) {
+		super(material);
 		try {
 			this.normal = p1.vectorTo(p2).cross(p2.vectorTo(p3)).normalized();
 		} catch (ZeroVectorException e) {
@@ -69,7 +75,7 @@ public class Plane implements Geometry {
 	}
 
 	@Override
-	public List<Point> intersect(Ray ray) {
+	public List<Intersection> intersect(Ray ray) {
 		double ray_dot_normal = ray.direction.dot(normal);
 		if (DoubleCompare.eq(ray_dot_normal, 0)) {
 			return Collections.emptyList(); // ray is parallel to plane
@@ -78,7 +84,7 @@ public class Plane implements Geometry {
 		if (DoubleCompare.leq(distance, 0)) {
 			return Collections.emptyList(); // pane is behind the ray
 		}
-		return List.of(ray.travel(distance));
+		return List.of(intersection(ray.travel(distance)));
 	}
 
 }

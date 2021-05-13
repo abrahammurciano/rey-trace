@@ -1,7 +1,6 @@
 package unit.geometries;
 
-import java.util.HashSet;
-import java.util.List;
+import java.util.Set;
 import org.junit.Assert;
 import org.junit.Test;
 import geometries.Sphere;
@@ -18,7 +17,7 @@ import primitives.Vector;
  * @author Eli Levin
  */
 public class SphereTests {
-	public final Sphere s = new Sphere(new Point(1, 2, 3), 5);
+	public final Sphere s = new Sphere(null, new Point(1, 2, 3), 5);
 
 	@Test
 	public void testNormal() {
@@ -52,7 +51,7 @@ public class SphereTests {
 
 	@Test
 	public void testIntersect() {
-		Sphere sphere = new Sphere(new Point(1, 0, 0), 1);
+		Sphere sphere = new Sphere(null, new Point(1, 0, 0), 1);
 
 		// @formatter:off
 		//  _____            _            _
@@ -77,13 +76,14 @@ public class SphereTests {
 		ray = new Ray(new Point(-1, 0, 0), new NormalizedVector(3, 1, 0));
 		Point p1 = new Point(0.06515307716504659, 0.35505102572168223, 0);
 		Point p2 = new Point(1.5348469228349528, 0.8449489742783177, 0);
-		Assert.assertEquals("Wrong result for ray crossing sphere.", new HashSet<>(sphere.intersect(ray)),
-			new HashSet<>(List.of(p1, p2)));
+		Assert.assertEquals("Wrong result for ray crossing sphere.", Set.of(p1, p2),
+			Util.getPoints(sphere.intersect(ray)));
 
 		// Ray starts inside the sphere (1 intersection)
 		ray = new Ray(new Point(1.5, 0.5, 0.5), new NormalizedVector(0, -1, -1));
 		p1 = new Point(1.5, -0.612372435695794, -0.612372435695794);
-		Assert.assertEquals("Wrong result for ray starting inside sphere.", sphere.intersect(ray), List.of(p1));
+		Assert.assertEquals("Wrong result for ray starting inside sphere.", Set.of(p1),
+			Util.getPoints(sphere.intersect(ray)));
 
 		// Ray starts after the sphere (no intersections)
 		ray = new Ray(new Point(1.5, -1, -1), new NormalizedVector(0, -1, -1));
@@ -106,7 +106,8 @@ public class SphereTests {
 		// intersection)
 		ray = new Ray(Point.ORIGIN, new NormalizedVector(1, 1, 0));
 		p1 = new Point(1, 1, 0);
-		Assert.assertEquals("Wrong result for ray staring on boundary going in", sphere.intersect(ray), List.of(p1));
+		Assert.assertEquals("Wrong result for ray staring on boundary going in", Set.of(p1),
+			Util.getPoints(sphere.intersect(ray)));
 
 		// Ray starts at surface and goes outside (not directly away from center) (no
 		// intersections)
@@ -118,25 +119,26 @@ public class SphereTests {
 		ray = new Ray(new Point(-1, 0, 0), NormalizedVector.I);
 		p1 = Point.ORIGIN;
 		p2 = new Point(2, 0, 0);
-		Assert.assertEquals("Wrong result for ray going through center of sphere.",
-			new HashSet<>(sphere.intersect(ray)), new HashSet<>(List.of(p1, p2)));
+		Assert.assertEquals("Wrong result for ray going through center of sphere.", Set.of(p1, p2),
+			Util.getPoints(sphere.intersect(ray)));
 
 		// Ray starts at surface and goes inside throuch center (one intersection)
 		ray = new Ray(Point.ORIGIN, NormalizedVector.I);
 		p1 = new Point(2, 0, 0);
-		Assert.assertEquals("Wrong result for ray starting at surface going through center of sphere.",
-			sphere.intersect(ray), List.of(p1));
+		Assert.assertEquals("Wrong result for ray starting at surface going through center of sphere.", Set.of(p1),
+			Util.getPoints(sphere.intersect(ray)));
 
 		// Ray starts inside and passes through center (one intersection)
 		ray = new Ray(new Point(0.5, 0, 0), NormalizedVector.I);
 		p1 = new Point(2, 0, 0);
-		Assert.assertEquals("Wrong result for ray starting inside and going through center of sphere.",
-			sphere.intersect(ray), List.of(p1));
+		Assert.assertEquals("Wrong result for ray starting inside and going through center of sphere.", Set.of(p1),
+			Util.getPoints(sphere.intersect(ray)));
 
 		// Ray starts at the center (one intersection)
 		ray = new Ray(new Point(1, 0, 0), NormalizedVector.I);
 		p1 = new Point(2, 0, 0);
-		Assert.assertEquals("Wrong result for ray starting at center of sphere.", sphere.intersect(ray), List.of(p1));
+		Assert.assertEquals("Wrong result for ray starting at center of sphere.", Set.of(p1),
+			Util.getPoints(sphere.intersect(ray)));
 
 		// Ray starts at sphere and goes outside directly away from center (no
 		// intersections)

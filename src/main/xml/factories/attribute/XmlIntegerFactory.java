@@ -8,12 +8,12 @@ import xml.XmlParserException;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class XmlDoubleFactory implements XmlFactoryFromAttribute<Double> {
+public class XmlIntegerFactory implements XmlFactoryFromAttribute<Integer> {
 
 	@Override
-	public Double create(String attribute) {
+	public Integer create(String attribute) {
 		try {
-			return Double.parseDouble(attribute);
+			return Integer.parseInt(attribute);
 		} catch (NumberFormatException e) {
 			throw new XmlParserException("Expected a double but found \"" + attribute + '"', e);
 		}

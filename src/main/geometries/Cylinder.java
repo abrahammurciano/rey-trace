@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.List;
 
 import math.compare.DoubleCompare;
+import primitives.Material;
 import primitives.NormalizedVector;
 import primitives.Ray;
 
@@ -16,7 +17,7 @@ import primitives.Ray;
  * @author Eli Levin
  * @author Abraham Murciano
  */
-public class Cylinder implements Geometry {
+public class Cylinder extends Geometry {
 	private double height;
 
 	private Tube middle;
@@ -26,20 +27,22 @@ public class Cylinder implements Geometry {
 	/**
 	 * This constructs a Cylinder.
 	 *
-	 * @param ray    The ray that makes up the center of the Cylinder.
-	 * @param radius A positive double that represents the radius.
-	 * @param height A positive double that represents the height of the Cylinder.
+	 * @param material The {@link Material} the cylinder is made from.
+	 * @param ray      The ray that makes up the center of the Cylinder.
+	 * @param radius   A positive double that represents the radius.
+	 * @param height   A positive double that represents the height of the Cylinder.
 	 *
 	 * @throws IllegalArgumentException if the radius is zero or the height is not positive.
 	 */
-	public Cylinder(Ray ray, double radius, double height) {
-		middle = new Tube(ray, radius);
+	public Cylinder(Material material, Ray ray, double radius, double height) {
+		super(material);
+		middle = new Tube(material, ray, radius);
 		if (DoubleCompare.leq(height, 0)) { // if height is 0 it's a disk
 			throw new IllegalArgumentException("Error: Height must be a positive number.");
 		}
 		this.height = height;
-		bottom = new Plane(ray.source, direction());
-		top = new Plane(ray.source.add(direction().scale(height)), direction());
+		bottom = new Plane(material, ray.source, direction());
+		top = new Plane(material, ray.source.add(direction().scale(height)), direction());
 	}
 
 	/**
@@ -73,8 +76,8 @@ public class Cylinder implements Geometry {
 	 * @return a list (possibly empty) of intersection points
 	 */
 	@Override
-	public List<Point> intersect(Ray ray) {
-		List<Point> intersections = new ArrayList<>(2);
+	public List<Intersection> intersect(Ray ray) {
+		List<Intersection> intersections = new ArrayList<>(2);
 		intersections.addAll(intersectLid(ray, bottom));
 		intersections.addAll(intersectLid(ray, top));
 		if (intersections.size() == 2) {
@@ -85,23 +88,23 @@ public class Cylinder implements Geometry {
 	}
 
 	// helper function
-	private List<Point> intersectMiddle(Ray ray) {
-		List<Point> intersections = middle.intersect(ray);
+	private List<Intersection> intersectMiddle(Ray ray) {
+		List<Intersection> intersections = middle.intersect(ray);
 		if (intersections.isEmpty()) {
 			return intersections;
 		}
-		intersections.removeIf(point -> {
-			double intersectionHeight = middle.axis.direction.dot(bottom.point.vectorBaseTo(point));
+		intersections.removeIf(intersection -> {
+			double intersectionHeight = middle.axis.direction.dot(bottom.point.vectorBaseTo(intersection.point));
 			return DoubleCompare.leq(intersectionHeight, 0) || DoubleCompare.geq(intersectionHeight, height);
 		});
 		return intersections;
 	}
 
 	// helper function
-	private List<Point> intersectLid(Ray ray, Plane lid) {
-		List<Point> intersection = lid.intersect(ray);
+	private List<Intersection> intersectLid(Ray ray, Plane lid) {
+		List<Intersection> intersection = lid.intersect(ray);
 		if (!intersection.isEmpty()
-			&& DoubleCompare.leq(intersection.get(0).squareDistance(lid.point), middle.radius * middle.radius)) {
+			&& DoubleCompare.leq(intersection.get(0).point.squareDistance(lid.point), middle.radius * middle.radius)) {
 			return intersection;
 		} else {
 			return Collections.emptyList();

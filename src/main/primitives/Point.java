@@ -1,9 +1,5 @@
 package primitives;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.NoSuchElementException;
-
 /**
  * The {@link Point} class represents a {@link Point} in three dimensional space.
  *
@@ -103,28 +99,6 @@ public class Point extends Triple {
 			double diff = aux - base;
 			return diff * diff;
 		}, target, Point::new).sum();
-	}
-
-	/**
-	 * Returns the closest point to this point from the given points.
-	 *
-	 * @param points The points from which to get the closest one.
-	 * @return The closest point to this one.
-	 * @throws NoSuchElementException if the list is empty.
-	 */
-	public Point closest(List<Point> points) {
-		Iterator<Point> iterator = points.iterator();
-		Point closest = iterator.next(); // this will throw if empty
-		double distance = squareDistance(closest);
-		while (iterator.hasNext()) {
-			Point next = iterator.next();
-			double nextDistance = squareDistance(next);
-			if (nextDistance < distance) {
-				distance = nextDistance; // save for future checks
-				closest = next;
-			}
-		}
-		return closest;
 	}
 
 	@Override

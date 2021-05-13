@@ -1,14 +1,7 @@
 cli
 geometries
 lighting
-math.compare
-math.equations
-math.matrices
 primitives
 rendering
-rendering.camera
-rendering.raytracing
 scene
 xml
-xml.factories.attribute
-xml.factories.element

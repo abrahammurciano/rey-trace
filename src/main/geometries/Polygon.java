@@ -5,11 +5,13 @@ import java.util.Collections;
 import java.util.List;
 
 import math.compare.DoubleCompare;
+
+import primitives.Material;
+import primitives.NormalizedVector;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 import primitives.ZeroVectorException;
-import primitives.NormalizedVector;
 
 /**
  * This class represents a polygon in three dimensional space. A polygon is a plane figure that is described by a finite
@@ -18,7 +20,7 @@ import primitives.NormalizedVector;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class Polygon implements Geometry {
+public class Polygon extends Geometry {
 
 	private List<Point> vertices;
 	private Plane plane; // The plane which all the points must reside on.
@@ -28,13 +30,15 @@ public class Polygon implements Geometry {
 	/**
 	 * This constructor accepts a list of the vertices of the polygon.
 	 *
+	 * @param material The {@link Material} the polygon is made from.
 	 * @param vertices A list of the vertices of the polygon, in order.
 	 * @throws IllegalArgumentException if there are less than three significant vertices, any of the vertices are not
 	 *                                  on the same plane as the rest, the vertices are out of order and thus form a
 	 *                                  non-convex polygon, consecutive vertices are repeated, or the last point is
 	 *                                  equal to the first point.
 	 */
-	public Polygon(Point... vertices) {
+	public Polygon(Material material, Point... vertices) {
+		super(material);
 		this.vertices = new ArrayList<>(vertices.length);
 
 		double sum = 0.0; // sum of exterior angles
@@ -69,7 +73,7 @@ public class Polygon implements Geometry {
 			throw new IllegalArgumentException("Error: A polygon must contain at least three vertices.");
 		}
 		// Construct the plane from the first three vertices (not in a straight line).
-		this.plane = new Plane(this.vertices.get(0), this.vertices.get(1), this.vertices.get(2));
+		this.plane = new Plane(material, this.vertices.get(0), this.vertices.get(1), this.vertices.get(2));
 	}
 
 	/**
@@ -84,8 +88,8 @@ public class Polygon implements Geometry {
 	}
 
 	@Override
-	public List<Point> intersect(Ray ray) {
-		List<Point> candidates = plane.intersect(ray);
+	public List<Intersection> intersect(Ray ray) {
+		List<Intersection> candidates = plane.intersect(ray);
 		if (candidates.isEmpty()) { // The ray doesn't intersect the plane
 			return candidates;
 		}

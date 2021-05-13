@@ -1,8 +1,9 @@
 *.docx
 .vscode
 *.class
-images
+images/*.png
 bin
+build
 lib
 
 # Eli's crap

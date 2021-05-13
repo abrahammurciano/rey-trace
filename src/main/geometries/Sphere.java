@@ -4,6 +4,7 @@ import primitives.ZeroVectorException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import primitives.Material;
 import primitives.NormalizedVector;
 import primitives.Point;
 import primitives.Ray;
@@ -18,7 +19,7 @@ import math.equations.Quadratic;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class Sphere implements Geometry {
+public class Sphere extends Geometry {
 	/** The center of the sphere. */
 	public final Point center;
 	/** The radius of the sphere. */
@@ -27,12 +28,14 @@ public class Sphere implements Geometry {
 	/**
 	 * Constructs a sphere from a given center point and a radius.
 	 *
-	 * @param center A {@link Point} representing the center of the circle.
-	 * @param radius A positive number representing the radius. If given a negative
-	 *               number will be assumed to be positive.
+	 * @param material The {@link Material} the sphere is made from.
+	 * @param center   A {@link Point} representing the center of the circle.
+	 * @param radius   A positive number representing the radius. If given a negative
+	 *                 number will be assumed to be positive.
 	 * @throws IllegalArgumentException if the radius is zero.
 	 */
-	public Sphere(Point center, double radius) {
+	public Sphere(Material material, Point center, double radius) {
+		super(material);
 		if (DoubleCompare.eq(radius, 0)) {
 			throw new IllegalArgumentException("Error: Radius must not be zero.");
 		}
@@ -53,7 +56,7 @@ public class Sphere implements Geometry {
 	}
 
 	@Override
-	public List<Point> intersect(Ray ray) {
+	public List<Intersection> intersect(Ray ray) {
 		VectorBase centerToRaySource = center.vectorBaseTo(ray.source);
 		double b = 2 * ray.direction.dot(centerToRaySource);
 		double c = centerToRaySource.squareLength() - radius * radius;
@@ -62,10 +65,10 @@ public class Sphere implements Geometry {
 		if (DoubleCompare.leq(discriminant, 0)) {
 			return Collections.emptyList(); // ray is tangent or doesn't intersect at all
 		}
-		List<Point> result = new ArrayList<>(2);
+		List<Intersection> result = new ArrayList<>(2);
 		for (double t : quadratic.solutions()) {
 			if (DoubleCompare.gt(t, 0)) {
-				result.add(ray.travel(t));
+				result.add(intersection(ray.travel(t)));
 			}
 		}
 		return result;

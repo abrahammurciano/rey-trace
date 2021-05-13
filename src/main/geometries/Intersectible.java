@@ -1,7 +1,6 @@
 package geometries;
 
 import java.util.List;
-import primitives.Point;
 import primitives.Ray;
 
 /**
@@ -18,6 +17,6 @@ public interface Intersectible {
 	 * @param ray The {@link Ray} to check for intersections.
 	 * @return A list of all the intersections with the given {@link Ray}.
 	 */
-	public List<Point> intersect(Ray ray);
+	public List<Intersection> intersect(Ray ray);
 
 }

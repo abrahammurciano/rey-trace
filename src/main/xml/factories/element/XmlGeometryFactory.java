@@ -2,6 +2,8 @@ package xml.factories.element;
 
 import org.w3c.dom.Element;
 import geometries.Geometry;
+import primitives.Material;
+import xml.Util;
 
 
 /**
@@ -10,12 +12,16 @@ import geometries.Geometry;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public interface XmlGeometryFactory extends XmlFactoryFromElement<Geometry> {
+public abstract class XmlGeometryFactory implements XmlFactoryFromElement<Geometry> {
+	private static final XmlMaterialFactory MATERIAL_FACTORY = new XmlMaterialFactory();
+
 	/**
-	 * Construct a new {@link Geometry} from an XML {@link Element}.
+	 * Given an XML element for a geometry, it will extract and return the material of it.
 	 *
-	 * @param element The XML {@link Element} representing the object to be created.
-	 * @return A new {@link Geometry} created from the XML {@link Element}.
+	 * @param element The XML element representing the geometry.
+	 * @return The material of the geometry according to the XML.
 	 */
-	Geometry create(Element element);
+	protected Material material(Element element) {
+		return MATERIAL_FACTORY.create(Util.getChild(element, "material"));
+	}
 }
