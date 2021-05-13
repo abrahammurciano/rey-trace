@@ -11,6 +11,11 @@ public abstract class Geometry implements Intersectible {
 	/** The material of this geometry. */
 	public final Material material;
 
+	/**
+	 * Construct a new Geometry with the given material.
+	 *
+	 * @param material The {@link Material} the geometry is made from.
+	 */
 	protected Geometry(Material material) {
 		this.material = material;
 	}

@@ -30,6 +30,7 @@ public class Polygon extends Geometry {
 	/**
 	 * This constructor accepts a list of the vertices of the polygon.
 	 *
+	 * @param material The {@link Material} the polygon is made from.
 	 * @param vertices A list of the vertices of the polygon, in order.
 	 * @throws IllegalArgumentException if there are less than three significant vertices, any of the vertices are not
 	 *                                  on the same plane as the rest, the vertices are out of order and thus form a

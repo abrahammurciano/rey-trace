@@ -35,8 +35,9 @@ public class Tube extends Geometry {
 	 * Constructs a {@link Tube} with the source at the same source and direction as
 	 * the given axis {@link Ray}.
 	 *
-	 * @param axis   The {@link Ray} from which to get the source and direction.
-	 * @param radius The distance from the axis to the surface.
+	 * @param material The {@link Material} the tube is made from.
+	 * @param axis     The {@link Ray} from which to get the source and direction.
+	 * @param radius   The distance from the axis to the surface.
 	 * @throws IllegalArgumentException if the radius is zero.
 	 */
 	public Tube(Material material, Ray axis, double radius) {

@@ -1,5 +1,11 @@
 package primitives;
 
+/**
+ * This class contains all the configurations which affect how light interacts with some surface.
+ *
+ * @author Abraham Murciano
+ * @author Eli Levin
+ */
 public class Material {
 	/** The emission light color of the material. */
 	public final Colour emission;

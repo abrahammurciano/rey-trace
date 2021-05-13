@@ -11,9 +11,10 @@ public class Triangle extends Polygon {
 	/**
 	 * Constructs a triangle from three {@link Point}s.
 	 *
-	 * @param p1 A vertex of the triangle.
-	 * @param p2 A vertex of the triangle.
-	 * @param p3 A vertex of the triangle.
+	 * @param material The {@link Material} the triangle is made from.
+	 * @param p1       A vertex of the triangle.
+	 * @param p2       A vertex of the triangle.
+	 * @param p3       A vertex of the triangle.
 	 * @throws IllegalArgumentException if the given {@link Point}s are colinear.
 	 */
 	public Triangle(Material material, Point p1, Point p2, Point p3) {

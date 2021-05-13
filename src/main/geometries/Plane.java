@@ -28,8 +28,9 @@ public class Plane extends Geometry {
 	 * This constructor accepts a point on the plane and a vector perpendicular to
 	 * the plane.
 	 *
-	 * @param point  A point on the plane.
-	 * @param normal A normalized vector perpendicular to the plane.
+	 * @param material The {@link Material} the plane is made from.
+	 * @param point    A point on the plane.
+	 * @param normal   A normalized vector perpendicular to the plane.
 	 */
 	public Plane(Material material, Point point, NormalizedVector normal) {
 		super(material);
@@ -40,9 +41,10 @@ public class Plane extends Geometry {
 	/**
 	 * This constructor accepts three distinct points on the plane.
 	 *
-	 * @param p1 A point on the plane.
-	 * @param p2 A point on the plane.
-	 * @param p3 A point on the plane.
+	 * @param material The {@link Material} the plane is made from.
+	 * @param p1       A point on the plane.
+	 * @param p2       A point on the plane.
+	 * @param p3       A point on the plane.
 	 * @throws IllegalArgumentException if the three points are on a single line.
 	 */
 	public Plane(Material material, Point p1, Point p2, Point p3) {

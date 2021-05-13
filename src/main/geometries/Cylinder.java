@@ -27,9 +27,10 @@ public class Cylinder extends Geometry {
 	/**
 	 * This constructs a Cylinder.
 	 *
-	 * @param ray    The ray that makes up the center of the Cylinder.
-	 * @param radius A positive double that represents the radius.
-	 * @param height A positive double that represents the height of the Cylinder.
+	 * @param material The {@link Material} the cylinder is made from.
+	 * @param ray      The ray that makes up the center of the Cylinder.
+	 * @param radius   A positive double that represents the radius.
+	 * @param height   A positive double that represents the height of the Cylinder.
 	 *
 	 * @throws IllegalArgumentException if the radius is zero or the height is not positive.
 	 */

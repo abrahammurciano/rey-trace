@@ -28,9 +28,10 @@ public class Sphere extends Geometry {
 	/**
 	 * Constructs a sphere from a given center point and a radius.
 	 *
-	 * @param center A {@link Point} representing the center of the circle.
-	 * @param radius A positive number representing the radius. If given a negative
-	 *               number will be assumed to be positive.
+	 * @param material The {@link Material} the sphere is made from.
+	 * @param center   A {@link Point} representing the center of the circle.
+	 * @param radius   A positive number representing the radius. If given a negative
+	 *                 number will be assumed to be positive.
 	 * @throws IllegalArgumentException if the radius is zero.
 	 */
 	public Sphere(Material material, Point center, double radius) {
