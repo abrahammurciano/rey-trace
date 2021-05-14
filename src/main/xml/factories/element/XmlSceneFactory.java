@@ -7,6 +7,7 @@ import lighting.AmbientLight;
 import lighting.LightSource;
 import primitives.Colour;
 import scene.Scene;
+import scene.camera.Camera;
 import xml.Util;
 import xml.XmlParserException;
 import xml.factories.attribute.XmlColourFactory;
@@ -39,6 +40,13 @@ public class XmlSceneFactory implements XmlFactoryFromElement<Scene> {
 
 		List<LightSource> lights = new XmlLightSourcesFactory().create(Util.getChild(element, "lights"));
 
-		return new Scene(background, ambient, geometries, lights);
+		Camera camera;
+		try {
+			camera = new XmlCameraFactory().create(Util.getChild(element, "camera"));
+		} catch (XmlParserException __) {
+			camera = new Camera();
+		}
+
+		return new Scene(background, ambient, geometries, lights, camera);
 	}
 }

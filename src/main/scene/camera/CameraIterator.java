@@ -1,4 +1,4 @@
-package rendering.camera;
+package scene.camera;
 
 import java.util.Iterator;
 

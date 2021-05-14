@@ -9,9 +9,9 @@ import org.junit.Assert;
 import primitives.NormalizedVector;
 import primitives.Point;
 import rendering.Resolution;
-import rendering.camera.Camera;
-import rendering.camera.CameraSettings;
-import rendering.camera.Pixel;
+import scene.camera.Camera;
+import scene.camera.CameraSettings;
+import scene.camera.Pixel;
 
 /**
  * Tests the integration between the camera and the geometries. Namely, we check that the rays constructed by the camera

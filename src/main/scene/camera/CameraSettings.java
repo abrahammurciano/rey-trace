@@ -1,4 +1,4 @@
-package rendering.camera;
+package scene.camera;
 
 import primitives.NormalizedVector;
 import primitives.Point;

@@ -8,8 +8,8 @@ import org.junit.Test;
 import primitives.NormalizedVector;
 import primitives.Point;
 import primitives.Ray;
-import rendering.camera.Camera;
-import rendering.camera.CameraSettings;
+import scene.camera.Camera;
+import scene.camera.CameraSettings;
 
 /**
  * Testing Camera Class

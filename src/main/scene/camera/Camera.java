@@ -1,4 +1,4 @@
-package rendering.camera;
+package scene.camera;
 
 import primitives.Point;
 import primitives.Ray;
@@ -36,6 +36,13 @@ public class Camera implements Iterable<Pixel> {
 		this.distance = settings.distance();
 		this.view = new ViewPlane(settings.width(), settings.height(),
 			settings.position().add(orientation.front.scale(distance)), settings.resolution(), orientation);
+	}
+
+	/**
+	 * Default constructor for camera.
+	 */
+	public Camera() {
+		this(new CameraSettings());
 	}
 
 	/**

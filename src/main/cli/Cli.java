@@ -9,17 +9,12 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.io.FilenameUtils;
-import primitives.Point;
 import rendering.Renderer;
-import rendering.Resolution;
-import rendering.camera.Camera;
-import rendering.camera.CameraSettings;
 import rendering.raytracing.BasicRayTracer;
 import rendering.raytracing.RayTracer;
 import scene.Scene;
 import xml.XmlParserException;
 import xml.XmlSceneParser;
-import xml.factories.attribute.XmlTripleFactory;
 
 /**
  * A command line interface for the ray tracer.
@@ -40,16 +35,8 @@ public class Cli {
 		HelpFormatter formatter = new HelpFormatter();
 		CommandLine cmd;
 
-		Resolution resolution;
 		int antiAliasing;
-		Point position;
-		double distance;
-		double width;
-		double height;
 		int threads;
-		double pitch;
-		double yaw;
-		double roll;
 		String fileIn;
 		String fileOut;
 
@@ -58,25 +45,9 @@ public class Cli {
 
 			checkHelp(cmd, formatter, options);
 
-			resolution = parseArg("resolution", Resolution::new, new Resolution(1920, 1080), cmd);
-
 			antiAliasing = parseArg("anti-aliasing", Integer::parseInt, 2, cmd);
 
-			position = parseArg("position", new XmlTripleFactory<Point>(Point::new)::create, Point.ORIGIN, cmd);
-
-			distance = parseArg("distance", Double::parseDouble, 10d, cmd);
-
-			width = parseArg("width", Double::parseDouble, 19.2d, cmd);
-
-			height = parseArg("height", Double::parseDouble, 10.8d, cmd);
-
 			threads = parseArg("threads", Integer::parseInt, 8, cmd);
-
-			pitch = parseArg("pitch", Double::parseDouble, 0d, cmd);
-
-			yaw = parseArg("yaw", Double::parseDouble, 0d, cmd);
-
-			roll = parseArg("roll", Double::parseDouble, 0d, cmd);
 
 			String[] remaining = cmd.getArgs();
 
@@ -98,9 +69,6 @@ public class Cli {
 			return;
 		}
 
-		CameraSettings settings =
-			new CameraSettings().resolution(resolution).distance(distance).dimensions(width, height).position(position);
-		Camera camera = new Camera(settings).rotate(toRadians(pitch), toRadians(yaw), toRadians(roll));
 		Scene scene;
 		try {
 			scene = new XmlSceneParser().parse(fileIn);
@@ -110,7 +78,7 @@ public class Cli {
 			return;
 		}
 		RayTracer rayTracer = new BasicRayTracer(scene);
-		new Renderer(camera, rayTracer, fileOut).render(threads, antiAliasing);
+		new Renderer(scene.camera(), rayTracer, fileOut).render(threads, antiAliasing);
 	}
 
 	private static Options createOptions() {
@@ -118,30 +86,10 @@ public class Cli {
 
 		options.addOption("h", "help", false, "Print this help message.");
 
-		options.addOption("r", "resolution", true, "Resolution of the output image. Default is 1920x1080.");
-
 		options.addOption("a", "anti-aliasing", true,
 			"The level of anti-aliasing to use. 1 means no anti-aliasing. 2 means moderate, 3 means extreme, and anything higher is simply overkill. Default is 2.");
 
-		options.addOption("p", "position", true, "Location of the camera. Default is (0,0,0).");
-
-		options.addOption("d", "distance", true, "Distance of the view plane from the camera. Default is 10.0 units.");
-
-		options.addOption("w", "width", true,
-			"Width of the view plane. Default is 19.2. It is recommended that the width be proportional to the height in the same ratio as in the resolution.");
-
-		options.addOption("h", "height", true,
-			"Height of the view plane. Default is 10.8. It is recommended that the width be proportional to the height in the same ratio as in the resolution.");
-
 		options.addOption("t", "threads", true, "Number of threads to use. Default is 8.");
-
-		options.addOption("P", "pitch", true,
-			"The pitch angle of the camera in degrees. Default is 0.0 (i.e. on the XY plane).");
-
-		options.addOption("Y", "yaw", true,
-			"The yaw angle of the camera in degrees. Default is 0.0 (i.e. on the XZ plane).");
-
-		options.addOption("R", "roll", true, "The roll angle of the camera in degrees. Default is 0.0.");
 
 		return options;
 	}
@@ -166,9 +114,5 @@ public class Cli {
 	private static <T> T parseArg(String name, Function<String, T> parser, T defaultValue, CommandLine cmd) {
 		String input = cmd.getOptionValue(name);
 		return input == null ? defaultValue : parser.apply(input);
-	}
-
-	private static double toRadians(double degrees) {
-		return degrees * Math.PI / 180;
 	}
 }
