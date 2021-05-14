@@ -16,8 +16,8 @@ import math.matrices.RotationMatrix;
  * @author Eli Levin
  */
 public class Camera implements Iterable<Pixel> {
-	/** The location at which the camera located. */
-	public final Point location;
+	/** The position at which the camera located. */
+	public final Point position;
 	/** The {@link Orientation} in which the camera is facing. */
 	final Orientation orientation;
 	/** The {@link ViewPlane} the camera is to shoot rays through. */
@@ -31,11 +31,11 @@ public class Camera implements Iterable<Pixel> {
 	 * @param settings The {@link CameraSettings} containing the data necessary to create the camera.
 	 */
 	public Camera(CameraSettings settings) {
-		this.location = settings.location();
+		this.position = settings.position();
 		this.orientation = new Orientation(settings.front(), settings.up());
 		this.distance = settings.distance();
 		this.view = new ViewPlane(settings.width(), settings.height(),
-			settings.location().add(orientation.front.scale(distance)), settings.resolution(), orientation);
+			settings.position().add(orientation.front.scale(distance)), settings.resolution(), orientation);
 	}
 
 	/**
@@ -54,7 +54,7 @@ public class Camera implements Iterable<Pixel> {
 	 * @return A new {@link Camera} shifted by the given {@link Vector}.
 	 */
 	public Camera shift(Vector offset) {
-		return new Camera(new CameraSettings(this).location(location.add(offset)));
+		return new Camera(new CameraSettings(this).position(position.add(offset)));
 	}
 
 	/**

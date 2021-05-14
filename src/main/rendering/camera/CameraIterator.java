@@ -26,7 +26,7 @@ public class CameraIterator implements Iterator<Pixel> {
 	 */
 	public CameraIterator(Camera camera, int subPixels) {
 		this.viewPlaneIterator = camera.view.iterator(subPixels);
-		this.source = camera.location;
+		this.source = camera.position;
 	}
 
 	@Override

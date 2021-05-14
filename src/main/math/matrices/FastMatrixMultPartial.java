@@ -11,17 +11,17 @@ import primitives.Triple;
  */
 abstract class FastMatrixMultPartial {
 
-	/** Matrix entry at location (0, 0) (starting from top left). */
+	/** Matrix entry at position (0, 0) (starting from top left). */
 	public final double xx;
-	/** Matrix entry at location (1, 1) (starting from top left). */
+	/** Matrix entry at position (1, 1) (starting from top left). */
 	public final double yy;
-	/** Matrix entry at location (2, 2) (starting from top left). */
+	/** Matrix entry at position (2, 2) (starting from top left). */
 	public final double zz;
-	/** Matrix entry at location (0, 1) (starting from top left). */
+	/** Matrix entry at position (0, 1) (starting from top left). */
 	public final double xy;
-	/** Matrix entry at location (1, 2) (starting from top left). */
+	/** Matrix entry at position (1, 2) (starting from top left). */
 	public final double yz;
-	/** Matrix entry at location (0, 2) (starting from top left). */
+	/** Matrix entry at position (0, 2) (starting from top left). */
 	public final double xz;
 
 	/**

@@ -11,7 +11,7 @@ import rendering.Resolution;
  * @author Eli Levin
  */
 public class CameraSettings {
-	private Point location;
+	private Point position;
 	private NormalizedVector front;
 	private NormalizedVector up;
 	private double width;
@@ -23,7 +23,7 @@ public class CameraSettings {
 	 * Default constructor for CameraSettings.
 	 */
 	public CameraSettings() {
-		location = Point.ORIGIN;
+		position = Point.ORIGIN;
 		front = NormalizedVector.I;
 		up = NormalizedVector.K;
 		width = 19.2;
@@ -39,7 +39,7 @@ public class CameraSettings {
 	 */
 	public CameraSettings(Camera camera) {
 		this();
-		location(camera.location);
+		position(camera.position);
 		front(camera.orientation.front);
 		up(camera.orientation.up);
 		width(camera.view.width);
@@ -49,23 +49,23 @@ public class CameraSettings {
 	}
 
 	/**
-	 * Specify the location where the {@link Camera} will be placed. Default is the origin.
+	 * Specify the position where the {@link Camera} will be placed. Default is the origin.
 	 *
-	 * @param location The {@link Point} where the {@link Camera} will be placed.
+	 * @param position The {@link Point} where the {@link Camera} will be placed.
 	 * @return This {@link CameraSettings}.
 	 */
-	public CameraSettings location(Point location) {
-		this.location = location;
+	public CameraSettings position(Point position) {
+		this.position = position;
 		return this;
 	}
 
 	/**
-	 * Get the location where the {@link Camera} will be placed.
+	 * Get the position where the {@link Camera} will be placed.
 	 *
-	 * @return The location where the {@link Camera} will be placed.
+	 * @return The position where the {@link Camera} will be placed.
 	 */
-	public Point location() {
-		return location;
+	public Point position() {
+		return position;
 	}
 
 	/**

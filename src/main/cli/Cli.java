@@ -42,7 +42,7 @@ public class Cli {
 
 		Resolution resolution;
 		int antiAliasing;
-		Point location;
+		Point position;
 		double distance;
 		double width;
 		double height;
@@ -62,7 +62,7 @@ public class Cli {
 
 			antiAliasing = parseArg("anti-aliasing", Integer::parseInt, 2, cmd);
 
-			location = parseArg("location", new XmlTripleFactory<Point>(Point::new)::create, Point.ORIGIN, cmd);
+			position = parseArg("position", new XmlTripleFactory<Point>(Point::new)::create, Point.ORIGIN, cmd);
 
 			distance = parseArg("distance", Double::parseDouble, 10d, cmd);
 
@@ -93,13 +93,13 @@ public class Cli {
 			System.exit(2);
 			return;
 		} catch (XmlParserException e) {
-			System.out.println("Error parsing XML or location parameter: " + e.getLocalizedMessage());
+			System.out.println("Error parsing XML or position parameter: " + e.getLocalizedMessage());
 			System.exit(4);
 			return;
 		}
 
 		CameraSettings settings =
-			new CameraSettings().resolution(resolution).distance(distance).dimensions(width, height).location(location);
+			new CameraSettings().resolution(resolution).distance(distance).dimensions(width, height).position(position);
 		Camera camera = new Camera(settings).rotate(toRadians(pitch), toRadians(yaw), toRadians(roll));
 		Scene scene;
 		try {
@@ -123,7 +123,7 @@ public class Cli {
 		options.addOption("a", "anti-aliasing", true,
 			"The level of anti-aliasing to use. 1 means no anti-aliasing. 2 means moderate, 3 means extreme, and anything higher is simply overkill. Default is 2.");
 
-		options.addOption("l", "location", true, "Location of the camera. Default is (0,0,0).");
+		options.addOption("p", "position", true, "Location of the camera. Default is (0,0,0).");
 
 		options.addOption("d", "distance", true, "Distance of the view plane from the camera. Default is 10.0 units.");
 

@@ -30,7 +30,7 @@ public class CameraGeometriesTest {
 
 		// Only one ray intersects
 		// Unit sphere at (0, 0, -3) with two intersections
-		CameraSettings settings = new CameraSettings().location(Point.ORIGIN).front(new NormalizedVector(0, 0, -1))
+		CameraSettings settings = new CameraSettings().position(Point.ORIGIN).front(new NormalizedVector(0, 0, -1))
 			.up(NormalizedVector.J).width(3).height(3).distance(1).resolution(new Resolution("3x3"));
 
 		Camera camera = new Camera(settings);
@@ -39,7 +39,7 @@ public class CameraGeometriesTest {
 
 		// All rays intersect
 		// Sphere of radius 2.5 at (0, 0, -2.5) with 18 intersections
-		camera = new Camera(settings.location(new Point(0, 0, 0.5)));
+		camera = new Camera(settings.position(new Point(0, 0, 0.5)));
 		sphere = new Sphere(null, new Point(0, 0, -2.5), 2.5);
 		checkIntersectCount(camera, sphere, 18, "Sphere of radius 2.5 at (0, 0, -2.5) with 18 intersections");
 
@@ -55,7 +55,7 @@ public class CameraGeometriesTest {
 
 		// Sphere behind camera
 		// Sphere of radius 4 centered at (0, 0, 0) with 9 intersections
-		camera = new Camera(settings.location(Point.ORIGIN));
+		camera = new Camera(settings.position(Point.ORIGIN));
 		sphere = new Sphere(null, new Point(0, 0, 1), 0.5);
 		checkIntersectCount(camera, sphere, 0, "Sphere behind camera");
 	}
