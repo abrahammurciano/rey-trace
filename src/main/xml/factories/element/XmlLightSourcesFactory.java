@@ -18,8 +18,8 @@ public class XmlLightSourcesFactory implements XmlFactoryFromElement<List<LightS
 	//@formatter:off
 	private static final Map<String, XmlLightFactory> FACTORIES = Map.ofEntries(
 		entry("spotlight", new XmlSpotLightFactory()),
-		entry("pointlight", new XmlPointLightFactory()),
-		entry("directionallight", new XmlDirectionalLightFactory())
+		entry("point-light", new XmlPointLightFactory()),
+		entry("directional-light", new XmlDirectionalLightFactory())
 	);
 	//@formatter:on
 	@Override
