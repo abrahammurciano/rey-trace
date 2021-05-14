@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <scene background-colour="0 0 0">
+	<camera front="0 0 -1" up="0 1 0" distance="100" width="500" height="500" resolution="1000x1000" />
 	<ambient-light colour="51 51 51" />
 	<geometries>
 		<sphere center="0 0 -100" radius="50">

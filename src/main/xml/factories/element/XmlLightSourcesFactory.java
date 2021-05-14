@@ -29,6 +29,7 @@ public class XmlLightSourcesFactory implements XmlFactoryFromElement<List<LightS
 		for (Element light : lightElements) {
 			lights.add(FACTORIES.get(light.getNodeName()).create(light));
 		}
+		return lights;
 	}
 
 }
