@@ -19,7 +19,22 @@ public class PointLight extends LightSource {
     private Point position;
 
     /**
-     * Construct a {@link PointLight} from a {@link Colour} and a {@link Quadratic}
+     * Construct a {@link PointLight} from a {@link Colour} and 3 doubles that represent the attenuation constants.
+     * 
+     * @param colour   The colour of the light
+     * @param position The position in space of the light source
+	 * @param a The quadratic factor
+	 * @param b The linear factor
+	 * @param c The constant factor
+     */
+    public PointLight(Colour colour, Point position, double a, double b, double c) {
+        super(colour);
+        this.position = position;
+        this.factors = new Quadratic(a,b,c);
+    }
+
+    /**
+     * Construct a {@link PointLight} from a {@link Colour}, a {@link Point} and a {@link Quadratic}
      * 
      * @param colour   The colour of the light
      * @param position The position in space of the light source
