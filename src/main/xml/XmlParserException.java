@@ -19,10 +19,10 @@ public class XmlParserException extends RuntimeException {
 	/**
 	 * Construct this exception with a message and an inner exception.
 	 *
-	 * @param string The error message.
-	 * @param cause  The inner exception.
+	 * @param message The error message.
+	 * @param cause   The inner exception.
 	 */
-	public XmlParserException(String string, Throwable cause) {
-		super(string, cause);
+	public XmlParserException(String message, Throwable cause) {
+		super(message, cause);
 	}
 }
