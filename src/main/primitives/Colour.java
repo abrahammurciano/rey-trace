@@ -23,7 +23,7 @@ public class Colour {
 	 * @param green The green value (0 to 255).
 	 * @param blue  The blue value (0 to 255).
 	 */
-	public Colour(int red, int green, int blue) {
+	public Colour(double red, double green, double blue) {
 		this(new VectorBase(red, green, blue));
 	}
 
