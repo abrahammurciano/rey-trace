@@ -15,58 +15,84 @@ import primitives.Point;
  */
 public class PointLight extends LightSource {
 
-    private Quadratic factors;
-    private Point position;
-
-    /**
-     * Construct a {@link PointLight} from a {@link Colour} and 3 doubles that represent the attenuation constants.
-     * 
-     * @param colour   The colour of the light
-     * @param position The position in space of the light source
-	 * @param a The quadratic factor
-	 * @param b The linear factor
-	 * @param c The constant factor
-     */
-    public PointLight(Colour colour, Point position, double a, double b, double c) {
-        super(colour);
-        this.position = position;
-        this.factors = new Quadratic(a,b,c);
-    }
-
-    /**
-     * Construct a {@link PointLight} from a {@link Colour}, a {@link Point} and a {@link Quadratic}
-     * 
-     * @param colour   The colour of the light
-     * @param position The position in space of the light source
-     * @param factors  The quadratic equation that contains the attenuations factors
-     */
-    public PointLight(Colour colour, Point position, Quadratic factors) {
-        super(colour);
-        this.position = position;
-        this.factors = factors;
-    }
-
-    /**
-     * Calculate the colour of the light that this light source is projecting onto a
-     * given point.
-     *
-     * @param point The point at which to calculate the colour of the light.
-     * @return The colour of the light at the given point.
-     */
-    @Override
-    public Colour colourAt(Point point) {
-        double d = position.distance(point);
-        return colour.scale(1 / factors.sub(d));
-    }
+	private Point position;
+	private double c;
+	private double l;
+	private double q;
 
 	/**
-	 * Calculate a {@link NormalizedVector} from the source of the light to the given point.
+	 * Construct a {@link PointLight} from a {@link Colour} and 3 doubles that
+	 * represent the attenuation constants.
+	 * 
+	 * @param colour   The colour of the light
+	 * @param position The position in space of the light source
+	 * @param a        The quadratic factor
+	 * @param b        The linear factor
+	 * @param c        The constant factor
+	 */
+	public PointLight(Colour colour, Point position, double c, double l, double q) {
+		super(colour);
+		this.position = position;
+		this.c = c;
+		this.l = l;
+		this.q = q;
+	}
+
+	// dumbest name in the world
+	protected double attenuate(double d) {
+		return d * q * q + d * l + c;
+
+	}
+
+	/**
+	 * Calculate the colour of the light that this light source is projecting onto a
+	 * given point.
+	 *
+	 * @param point The point at which to calculate the colour of the light.
+	 * @return The colour of the light at the given point.
+	 */
+	@Override
+	public Colour colourAt(Point point) {
+		double d = position.distance(point);
+		return colour.scale(1 / attenuate(d));
+	}
+
+	/**
+	 * Calculate a {@link NormalizedVector} from the source of the light to the
+	 * given point.
 	 *
 	 * @param point The point the vector will point to from the light source.
 	 * @return The normalized vector from the light source to the given point.
 	 */
-    @Override
-    public NormalizedVector vectorTo(Point point) {
-        return position.vectorTo(point).normalized();
-    }
+	@Override
+	public NormalizedVector vectorTo(Point point) {
+		return position.vectorTo(point).normalized();
+	}
+
+	/**
+	 * @param c The new constant attenuation factor
+	 * @return The changed light
+	 */
+	public PointLight setC(double c) {
+		this.c = c;
+		return this;
+	}
+
+	/**
+	 * @param c The new linear attenuation factor
+	 * @return The changed light
+	 */
+	public PointLight setL(double l) {
+		this.l = l;
+		return this;
+	}
+
+	/**
+	 * @param c The new quadratic attenuation factor
+	 * @return The changed light
+	 */
+	public PointLight setQ(double q) {
+		this.q = q;
+		return this;
+	}
 }

@@ -57,13 +57,4 @@ public class Quadratic extends Polynomial {
 		double sqrt = Math.sqrt(discriminant);
 		return new double[] {(minusB + sqrt) / twoA, (minusB - sqrt) / twoA};
 	}
-
-    /**
-     * Get the value of the quadratic for a given x value 
-     * @param x The x value
-     * @return The value of the polynomial
-     */
-    public double sub(double x) {
-        return a*x*x + b*x + c;
-    }
 }
