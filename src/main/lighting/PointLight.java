@@ -15,14 +15,15 @@ import primitives.Point;
  */
 public class PointLight extends LightSource {
 
-	private Point position;
-	private double c;
-	private double l;
-	private double q;
+	protected Point position;
+	protected double c;
+	protected double l;
+	protected double q;
 
 	/**
-	 * Construct a {@link PointLight} from a {@link Colour} and 3 doubles that
-	 * represent the attenuation constants.
+	 * Construct a {@link PointLight} from a {@link Colour}
+	 * and 3 doubles that represent the attenuation
+	 * constants.
 	 * 
 	 * @param colour   The colour of the light
 	 * @param position The position in space of the light source
@@ -67,32 +68,5 @@ public class PointLight extends LightSource {
 	@Override
 	public NormalizedVector vectorTo(Point point) {
 		return position.vectorTo(point).normalized();
-	}
-
-	/**
-	 * @param c The new constant attenuation factor
-	 * @return The changed light
-	 */
-	public PointLight setC(double c) {
-		this.c = c;
-		return this;
-	}
-
-	/**
-	 * @param c The new linear attenuation factor
-	 * @return The changed light
-	 */
-	public PointLight setL(double l) {
-		this.l = l;
-		return this;
-	}
-
-	/**
-	 * @param c The new quadratic attenuation factor
-	 * @return The changed light
-	 */
-	public PointLight setQ(double q) {
-		this.q = q;
-		return this;
 	}
 }
