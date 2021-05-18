@@ -15,10 +15,8 @@ import primitives.Point;
  */
 public class PointLight extends LightSource {
 
+	private Quadratic factors;
 	protected Point position;
-	protected double c;
-	protected double l;
-	protected double q;
 
 	/**
 	 * Construct a {@link PointLight} from a {@link Colour}
@@ -31,18 +29,10 @@ public class PointLight extends LightSource {
 	 * @param b        The linear factor
 	 * @param c        The constant factor
 	 */
-	public PointLight(Colour colour, Point position, double c, double l, double q) {
+	public PointLight(Colour colour, Point position, double q, double l, double c) {
 		super(colour);
 		this.position = position;
-		this.c = c;
-		this.l = l;
-		this.q = q;
-	}
-
-	// dumbest name in the world
-	protected double attenuate(double d) {
-		return d * q * q + d * l + c;
-
+		this.factors = new Quadratic(q,l,c);
 	}
 
 	/**
@@ -55,7 +45,7 @@ public class PointLight extends LightSource {
 	@Override
 	public Colour colourAt(Point point) {
 		double d = position.distance(point);
-		return colour.scale(1 / attenuate(d));
+		return colour.scale(1 / factors.sub(d));
 	}
 
 	/**
