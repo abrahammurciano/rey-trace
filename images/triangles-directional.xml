@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scene background-colour="0 0 0">
+	<camera position="0 0 1000" front="0 0 -1" up="0 1 0" distance="1000" width="150" height="150" resolution="200x200" />
+	<ambient-light colour="38 38 38" />
+	<lights>
+		<directional-light colour="300 150 150" direction="0 0 -1" />
+	</lights>
+	<geometries>
+		<triangle p0="-150 -150 -150" p1="150 -150 -150" p2="75 75 -150">
+			<material specular="0.2" diffuse="0.8" shine="300" />
+		</triangle>
+		<triangle p0="-150 -150 -150" p1="-70 70 -50" p2="75 75 -150">
+			<material diffuse="0.8" specular="0.2" shine="300" />
+		</triangle>
+	</geometries>
+</scene>

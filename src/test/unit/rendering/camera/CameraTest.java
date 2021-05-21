@@ -8,8 +8,8 @@ import org.junit.Test;
 import primitives.NormalizedVector;
 import primitives.Point;
 import primitives.Ray;
-import rendering.camera.Camera;
-import rendering.camera.CameraSettings;
+import scene.camera.Camera;
+import scene.camera.CameraSettings;
 
 /**
  * Testing Camera Class
@@ -30,13 +30,13 @@ public class CameraTest {
 		CameraSettings settings =
 			new CameraSettings().front(new NormalizedVector(0, -1, 0)).dimensions(6, 6).distance(10).resolution("3x3");
 		Camera camera = new Camera(settings);
-		Point location = camera.location;
+		Point position = camera.position;
 
-		List<Ray> expected = List.of(new Ray(location, new NormalizedVector(2, -10, 2)),
-			new Ray(location, new NormalizedVector(0, -10, 2)), new Ray(location, new NormalizedVector(-2, -10, 2)),
-			new Ray(location, new NormalizedVector(2, -10, 0)), new Ray(location, new NormalizedVector(0, -10, 0)),
-			new Ray(location, new NormalizedVector(-2, -10, 0)), new Ray(location, new NormalizedVector(2, -10, -2)),
-			new Ray(location, new NormalizedVector(0, -10, -2)), new Ray(location, new NormalizedVector(-2, -10, -2)));
+		List<Ray> expected = List.of(new Ray(position, new NormalizedVector(2, -10, 2)),
+			new Ray(position, new NormalizedVector(0, -10, 2)), new Ray(position, new NormalizedVector(-2, -10, 2)),
+			new Ray(position, new NormalizedVector(2, -10, 0)), new Ray(position, new NormalizedVector(0, -10, 0)),
+			new Ray(position, new NormalizedVector(-2, -10, 0)), new Ray(position, new NormalizedVector(2, -10, -2)),
+			new Ray(position, new NormalizedVector(0, -10, -2)), new Ray(position, new NormalizedVector(-2, -10, -2)));
 
 		List<Ray> actual1 = new ArrayList<>(9);
 		camera.forEach(pixel -> actual1.add(pixel.rays[0]));
@@ -44,15 +44,15 @@ public class CameraTest {
 
 		camera = new Camera(settings.dimensions(8, 8).resolution("4x4"));
 
-		expected = List.of(new Ray(location, new NormalizedVector(3, -10, 3)),
-			new Ray(location, new NormalizedVector(1, -10, 3)), new Ray(location, new NormalizedVector(-1, -10, 3)),
-			new Ray(location, new NormalizedVector(-3, -10, 3)), new Ray(location, new NormalizedVector(3, -10, 1)),
-			new Ray(location, new NormalizedVector(1, -10, 1)), new Ray(location, new NormalizedVector(-1, -10, 1)),
-			new Ray(location, new NormalizedVector(-3, -10, 1)), new Ray(location, new NormalizedVector(3, -10, -1)),
-			new Ray(location, new NormalizedVector(1, -10, -1)), new Ray(location, new NormalizedVector(-1, -10, -1)),
-			new Ray(location, new NormalizedVector(-3, -10, -1)), new Ray(location, new NormalizedVector(3, -10, -3)),
-			new Ray(location, new NormalizedVector(1, -10, -3)), new Ray(location, new NormalizedVector(-1, -10, -3)),
-			new Ray(location, new NormalizedVector(-3, -10, -3)));
+		expected = List.of(new Ray(position, new NormalizedVector(3, -10, 3)),
+			new Ray(position, new NormalizedVector(1, -10, 3)), new Ray(position, new NormalizedVector(-1, -10, 3)),
+			new Ray(position, new NormalizedVector(-3, -10, 3)), new Ray(position, new NormalizedVector(3, -10, 1)),
+			new Ray(position, new NormalizedVector(1, -10, 1)), new Ray(position, new NormalizedVector(-1, -10, 1)),
+			new Ray(position, new NormalizedVector(-3, -10, 1)), new Ray(position, new NormalizedVector(3, -10, -1)),
+			new Ray(position, new NormalizedVector(1, -10, -1)), new Ray(position, new NormalizedVector(-1, -10, -1)),
+			new Ray(position, new NormalizedVector(-3, -10, -1)), new Ray(position, new NormalizedVector(3, -10, -3)),
+			new Ray(position, new NormalizedVector(1, -10, -3)), new Ray(position, new NormalizedVector(-1, -10, -3)),
+			new Ray(position, new NormalizedVector(-3, -10, -3)));
 
 		List<Ray> actual2 = new ArrayList<>(16);
 		camera.forEach(pixel -> actual2.add(pixel.rays[0]));

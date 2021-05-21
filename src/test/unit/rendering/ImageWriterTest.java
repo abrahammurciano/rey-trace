@@ -1,5 +1,6 @@
 package unit.rendering;
 
+import org.junit.Assert;
 import org.junit.Test;
 import primitives.Colour;
 import rendering.ImageWriter;
@@ -25,6 +26,6 @@ public class ImageWriterTest {
 			}
 		}
 		iw.writeToFile();
-		Util.assertImageCorrect("Grid image does not look correct.", FILENAME);
+		Assert.assertTrue("Grid image does not look correct.", Util.checkImageCorrect(FILENAME));
 	}
 }

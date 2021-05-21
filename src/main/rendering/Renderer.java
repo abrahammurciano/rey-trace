@@ -3,8 +3,8 @@ package rendering;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.function.Supplier;
-import rendering.camera.Camera;
-import rendering.camera.Pixel;
+import scene.camera.Camera;
+import scene.camera.Pixel;
 import rendering.raytracing.RayTracer;
 
 /**

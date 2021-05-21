@@ -22,10 +22,14 @@ public class Util {
 	 * @param parent The element whose children to find.
 	 * @param name   The name of the element to find.
 	 * @return The list of direct children of the given XML element.
-	 * @throws IndexOutOfBoundsException if the parent does not contain a direct child with the given name.
+	 * @throws XmlParserException if the parent does not contain a direct child with the given name.
 	 */
 	public static Element getChild(Element parent, String name) {
-		return getChildren(parent, name).get(0);
+		try {
+			return getChildren(parent, name).get(0);
+		} catch (ArrayIndexOutOfBoundsException e) {
+			throw new XmlParserException("Element " + name + " is missing from " + parent.getNodeName(), e);
+		}
 	}
 
 	/**

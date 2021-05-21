@@ -2,6 +2,7 @@ package rendering.raytracing;
 
 import java.util.List;
 import geometries.Intersection;
+import lighting.LightSource;
 import primitives.Colour;
 import primitives.Ray;
 import scene.Scene;
@@ -30,7 +31,16 @@ public class BasicRayTracer extends RayTracer {
 		if (intersections.isEmpty()) {
 			return scene.background;
 		} else {
-			return scene.ambient.colour.add(ray.closest(intersections).emission());
+			return colour(ray.closest(intersections));
 		}
+	}
+
+	private Colour colour(Intersection intersection) {
+		Colour result = scene.ambient.colour;
+		for (LightSource light : scene.lights) {
+			// TODO: replace this with result.add(diffuse(...).add(specular(...)))
+			result = result.add(light.colourAt(intersection.point));
+		}
+		return result;
 	}
 }

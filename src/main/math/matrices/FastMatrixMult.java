@@ -6,11 +6,11 @@ import primitives.Triple;
  * Fast matrix multiplication between a 3x1 matrix and a 1x3 matrix.
  */
 public class FastMatrixMult extends FastMatrixMultPartial {
-	/** Matrix entry at location (1, 0) (starting from top left). */
+	/** Matrix entry at position (1, 0) (starting from top left). */
 	public final double yx;
-	/** Matrix entry at location (2, 0) (starting from top left). */
+	/** Matrix entry at position (2, 0) (starting from top left). */
 	public final double zx;
-	/** Matrix entry at location (2, 1) (starting from top left). */
+	/** Matrix entry at position (2, 1) (starting from top left). */
 	public final double zy;
 
 	/**
