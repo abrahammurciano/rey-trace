@@ -1,6 +1,7 @@
 package xml.factories.element;
 
 import org.w3c.dom.Element;
+import lighting.PointLight;
 import primitives.Point;
 import xml.factories.attribute.XmlDoubleFactory;
 import xml.factories.attribute.XmlTripleFactory;

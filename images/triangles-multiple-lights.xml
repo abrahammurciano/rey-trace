@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scene background-colour="0 0 0">
+	<camera position="0 0 1000" front="0 0 -1" up="0 1 0" distance="1000" width="150" height="150" resolution="500x500" />
+	<lights>
+		<directional-light colour="500 300 0" direction="1 1 -1" />
+		<point-light colour="500 300 0" position="-50 -50 50" linear="0.00001" quadratic="0.000001" />
+		<spotlight colour="500 300 0" direction="1 1 -2" position="-50 -50 50" linear="0.00001" quadratic="0.00000001" />
+	</lights>
+	<geometries>
+		<triangle p0="-150 -150 -150" p1="150 -150 -150" p2="75 75 -150">
+			<material specular="0.2" diffuse="0.8" shine="300" />
+		</triangle>
+		<triangle p0="-150 -150 -150" p1="-70 70 -50" p2="75 75 -150">
+			<material diffuse="0.8" specular="0.2" shine="300" />
+		</triangle>
+	</geometries>
+</scene>
