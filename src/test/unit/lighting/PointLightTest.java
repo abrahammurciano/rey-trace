@@ -27,7 +27,7 @@ public class PointLightTest {
 	 */
 	@Test
 	public void testTrianglesPointLight() {
-		Assert.assertTrue("Rendered image with emission light does not look correct",
+		Assert.assertTrue("Rendered image with point light on triangles does not look correct",
 			Util.renderXml("images/triangles-point-light.xml", "images/triangles-point-light.png"));
 	}
 }
