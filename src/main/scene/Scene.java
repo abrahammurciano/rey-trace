@@ -63,13 +63,4 @@ public class Scene {
 	public Camera camera() {
 		return camera;
 	}
-
-	/**
-	 * Replace the scenes camera with a new one.
-	 *
-	 * @param camera The new camera.
-	 */
-	public void replaceCamera(Camera camera) {
-		this.camera = camera;
-	}
 }

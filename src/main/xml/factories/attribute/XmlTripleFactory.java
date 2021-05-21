@@ -1,5 +1,7 @@
 package xml.factories.attribute;
 
+import java.util.NoSuchElementException;
+import java.util.Scanner;
 import primitives.Triple;
 import primitives.TripleCreator;
 import xml.XmlParserException;
@@ -30,10 +32,9 @@ public class XmlTripleFactory<T extends Triple> implements XmlFactoryFromAttribu
 	 * @throws XmlParserException if the input string was malformed.
 	 */
 	public T create(String attribute) {
-		try {
-			double[] values = AttributeParser.threeDoubles(attribute);
-			return creator.create(values[0], values[1], values[2]);
-		} catch (ArrayIndexOutOfBoundsException e) {
+		try (Scanner scanner = new Scanner(attribute)) {
+			return creator.create(scanner.nextDouble(), scanner.nextDouble(), scanner.nextDouble());
+		} catch (NoSuchElementException e) {
 			throw new XmlParserException("Expected a string with three numbers but saw \"" + attribute + '"', e);
 		}
 	}

@@ -76,6 +76,11 @@ public class Cli {
 			System.out.println("Error: Coutld not open file \"" + fileIn + "\".");
 			System.exit(3);
 			return;
+		} catch (XmlParserException e) {
+			System.out.println(e.toString());
+			System.out.println("There is an error in the XML file. Please check it and try again.");
+			System.exit(5);
+			return;
 		}
 		RayTracer rayTracer = new BasicRayTracer(scene);
 		new Renderer(scene.camera(), rayTracer, fileOut).render(threads, antiAliasing);

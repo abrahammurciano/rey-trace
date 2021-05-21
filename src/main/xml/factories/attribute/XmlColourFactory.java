@@ -1,5 +1,7 @@
 package xml.factories.attribute;
 
+import java.util.NoSuchElementException;
+import java.util.Scanner;
 import primitives.Colour;
 import xml.XmlParserException;
 
@@ -19,10 +21,9 @@ public class XmlColourFactory implements XmlFactoryFromAttribute<Colour> {
 	 * @throws XmlParserException if the input string was malformed.
 	 */
 	public Colour create(String attribute) {
-		try {
-			int[] values = AttributeParser.threeInts(attribute);
-			return new Colour(values[0], values[1], values[2]);
-		} catch (ArrayIndexOutOfBoundsException e) {
+		try (Scanner scanner = new Scanner(attribute)) {
+			return new Colour(scanner.nextDouble(), scanner.nextDouble(), scanner.nextDouble());
+		} catch (NoSuchElementException e) {
 			throw new XmlParserException("Expected a string with three numbers but saw \"" + attribute + '"', e);
 		}
 	}
