@@ -1,6 +1,5 @@
 package lighting;
 
-import math.compare.DoubleCompare;
 import primitives.Colour;
 import primitives.NormalizedVector;
 import primitives.Point;
@@ -15,12 +14,12 @@ import primitives.Point;
  */
 public class SpotLight extends PointLight {
 
-	protected NormalizedVector direction;
+	private final NormalizedVector direction;
 
 	/**
 	 * Construct a {@link SpotLight} from a {@link Colour}, a direction, and 3
 	 * doubles that represent the attenuation constants.
-	 * 
+	 *
 	 * @param colour    The colour of the light
 	 * @param position  The position in space of the light source
 	 * @param direction The direction of the spot light
@@ -28,7 +27,7 @@ public class SpotLight extends PointLight {
 	 * @param l         The linear factor
 	 * @param c         The constant factor
 	 */
-	public SpotLight(Colour colour, Point position, double q, double l, double c, NormalizedVector direction) {
+	public SpotLight(Colour colour, Point position, NormalizedVector direction, double q, double l, double c) {
 		super(colour, position, q, l, c);
 		this.direction = direction;
 	}
@@ -42,8 +41,17 @@ public class SpotLight extends PointLight {
 	 */
 	@Override
 	public Colour colourAt(Point point) {
-		double cosA = direction.dot(vectorTo(point));
-		return super.colourAt(point).scale(cosA > 0 ? cosA : 0);
+		return super.colourAt(point).scale(Math.max(factor(point), 0));
+	}
+
+	/**
+	 * Calculate the factor by which to scale the colour at a given point, based on the direction of the spotlight.
+	 *
+	 * @param point The intersection point of the light at which to calculate the factor.
+	 * @return The factor to scale the colour at a point.
+	 */
+	protected double factor(Point point) {
+		return direction.dot(vectorTo(point));
 	}
 
 }
