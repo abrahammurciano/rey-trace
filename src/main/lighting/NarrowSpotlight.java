@@ -13,12 +13,12 @@ import primitives.Point;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class NarrowSpotLight extends SpotLight {
+public class NarrowSpotlight extends Spotlight {
 
 	private final double divergence;
 
 	/**
-	 * Construct a {@link SpotLight} from a {@link Colour}, a direction, and 3 doubles that represent the attenuation
+	 * Construct a {@link Spotlight} from a {@link Colour}, a direction, and 3 doubles that represent the attenuation
 	 * constants and the divergence factor.
 	 *
 	 * @param colour     The colour of the light
@@ -29,7 +29,7 @@ public class NarrowSpotLight extends SpotLight {
 	 * @param c          The constant factor
 	 * @param divergence The divergence factor, between 0 and 1. (The closer to 0, the wider the spotlight)
 	 */
-	public NarrowSpotLight(Colour colour, Point position, double q, double l, double c, NormalizedVector direction,
+	public NarrowSpotlight(Colour colour, Point position, NormalizedVector direction, double q, double l, double c,
 		double divergence) {
 		super(colour, position, direction, q, l, c);
 		if (DoubleCompare.leq(divergence, 0) || DoubleCompare.geq(divergence, 1)) {
