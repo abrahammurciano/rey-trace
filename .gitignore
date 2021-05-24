@@ -4,7 +4,6 @@
 images/*.png
 bin
 build
-lib
 
 # Eli's crap
 formatter
