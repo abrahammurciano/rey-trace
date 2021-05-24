@@ -54,6 +54,17 @@ public class Colour {
 	}
 
 	/**
+	 * Scale this colour by three factors, one for each channel, and return a new colour. To scale a colour means to
+	 * multiply the red, green, and blue values by some scale factor for each channel.
+	 *
+	 * @param factors The three factors to scale a channel of this colour by.
+	 * @return The new colour which is the result of the scale.
+	 */
+	public Colour scale(Factors factors) {
+		return new Colour(this.rgb.transform((c, f) -> c * f, factors.values, Vector::new));
+	}
+
+	/**
 	 * Get the integer value of red of this colour.
 	 *
 	 * @return The integer value (0-255) of red.

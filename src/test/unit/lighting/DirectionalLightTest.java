@@ -27,7 +27,7 @@ public class DirectionalLightTest {
 	 */
 	@Test
 	public void testTrianglesDirectional() {
-		Assert.assertTrue("Rendered image with emission light does not look correct",
+		Assert.assertTrue("Rendered image with directional light on triangles does not look correct",
 			Util.renderXml("images/triangles-directional.xml", "images/triangles-directional.png"));
 	}
 }

@@ -22,6 +22,7 @@ public interface XmlFactoryFromAttribute<T> {
 	 * @param attribute    The name of the attribute string.
 	 * @param defaultValue The default value to return if the attribute does not exist.
 	 * @return The object of type T created from the attribute string.
+	 * @throws XmlParserException if the attribute was in the wrong format.
 	 */
 	public default T create(String attribute, T defaultValue) {
 		return attribute.isEmpty() ? defaultValue : create(attribute);

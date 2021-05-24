@@ -12,12 +12,12 @@ import primitives.Point;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class SpotLight extends PointLight {
+public class Spotlight extends PointLight {
 
 	private final NormalizedVector direction;
 
 	/**
-	 * Construct a {@link SpotLight} from a {@link Colour}, a direction, and 3
+	 * Construct a {@link Spotlight} from a {@link Colour}, a direction, and 3
 	 * doubles that represent the attenuation constants.
 	 *
 	 * @param colour    The colour of the light
@@ -27,7 +27,7 @@ public class SpotLight extends PointLight {
 	 * @param l         The linear factor
 	 * @param c         The constant factor
 	 */
-	public SpotLight(Colour colour, Point position, NormalizedVector direction, double q, double l, double c) {
+	public Spotlight(Colour colour, Point position, NormalizedVector direction, double q, double l, double c) {
 		super(colour, position, q, l, c);
 		this.direction = direction;
 	}

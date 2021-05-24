@@ -40,8 +40,7 @@ public abstract class Triple {
 	 * @param creator        A function which receives three doubles and returns a new {@link Triple}
 	 * @return The {@link Triple} made up of applying the transformation to each of the three coordinates.
 	 */
-	protected <T extends Triple> T transform(DoubleBinaryOperator transformation, Triple aux,
-		TripleCreator<T> creator) {
+	<T extends Triple> T transform(DoubleBinaryOperator transformation, Triple aux, TripleCreator<T> creator) {
 		return creator.create(transformation.applyAsDouble(x, aux.x), transformation.applyAsDouble(y, aux.y),
 			transformation.applyAsDouble(z, aux.z));
 	}
@@ -55,7 +54,7 @@ public abstract class Triple {
 	 * @param creator        A function which receives three doubles and returns a new {@link Triple}
 	 * @return The {@link Triple} made up of applying the transformation to each of the three coordinates.
 	 */
-	protected <T extends Triple> T transform(DoubleUnaryOperator transformation, TripleCreator<T> creator) {
+	<T extends Triple> T transform(DoubleUnaryOperator transformation, TripleCreator<T> creator) {
 		return creator.create(transformation.applyAsDouble(x), transformation.applyAsDouble(y),
 			transformation.applyAsDouble(z));
 	}
