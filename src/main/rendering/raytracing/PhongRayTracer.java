@@ -64,7 +64,7 @@ public class PhongRayTracer extends RayTracer {
 	}
 
 	private Colour diffuse(Colour colour, Material material, double normalDotLight) {
-		return colour.scale(material.diffuse).scale(normalDotLight);
+		return colour.scale(material.diffuse).scale(Math.abs(normalDotLight));
 	}
 
 	private Colour specular(Colour colour, Material material, double reflectedDotV) {

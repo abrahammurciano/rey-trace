@@ -27,7 +27,7 @@ public class Util {
 	public static Element getChild(Element parent, String name) {
 		try {
 			return getChildren(parent, name).get(0);
-		} catch (ArrayIndexOutOfBoundsException e) {
+		} catch (IndexOutOfBoundsException e) {
 			throw new XmlParserException("Element " + name + " is missing from " + parent.getNodeName(), e);
 		}
 	}

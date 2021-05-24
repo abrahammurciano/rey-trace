@@ -61,7 +61,7 @@ public class Colour {
 	 * @return The new colour which is the result of the scale.
 	 */
 	public Colour scale(Factors factors) {
-		return new Colour(this.rgb.transform((c, f) -> c * f, factors.values, Vector::new));
+		return new Colour(this.rgb.transform((c, f) -> c * f, factors.values, VectorBase::new));
 	}
 
 	/**

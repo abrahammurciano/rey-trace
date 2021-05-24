@@ -20,7 +20,7 @@ public class XmlSpotlightFactory extends XmlLightFactory {
 		NormalizedVector direction = DIRECTION_FACTORY.create(element.getAttribute("direction"));
 		double quadratic = DOUBLE_FACTORY.create(element.getAttribute("quadratic"), 0d);
 		double linear = DOUBLE_FACTORY.create(element.getAttribute("linear"), 0d);
-		double constant = DOUBLE_FACTORY.create(element.getAttribute("constant"), 0d);
+		double constant = DOUBLE_FACTORY.create(element.getAttribute("constant"), 1d);
 		return new Spotlight(colour(element), position, direction, quadratic, linear, constant);
 	}
 

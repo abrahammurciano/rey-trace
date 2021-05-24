@@ -17,7 +17,7 @@ public class XmlPointLightFactory extends XmlLightFactory {
 
 		double quadratic = DOUBLE_FACTORY.create(element.getAttribute("quadratic"), 0d);
 		double linear = DOUBLE_FACTORY.create(element.getAttribute("linear"), 0d);
-		double constant = DOUBLE_FACTORY.create(element.getAttribute("constant"), 0d);
+		double constant = DOUBLE_FACTORY.create(element.getAttribute("constant"), 1d);
 		return new PointLight(colour(element), position, quadratic, linear, constant);
 	}
 

@@ -19,7 +19,7 @@ public class LightingTests {
 	@Test
 	public void testSphereMultiLights() {
 		Assert.assertTrue("Renedered image with many lights on sphere does not look correct",
-			Util.renderXml("images/sphere-multiple-lights.xml", "images/sphere-narrow-multiple-lights.png"));
+			Util.renderXml("images/sphere-multiple-lights.xml", "images/sphere-multiple-lights.png"));
 	}
 
 	/**
