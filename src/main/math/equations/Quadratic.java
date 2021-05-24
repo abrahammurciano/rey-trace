@@ -58,7 +58,7 @@ public class Quadratic extends Polynomial {
 		return new double[] {(minusB + sqrt) / twoA, (minusB - sqrt) / twoA};
 	}
 
-    /**
+	/**
      * Get the value of the quadratic for a given x value 
      * @param x The x value
      * @return The value of the polynomial

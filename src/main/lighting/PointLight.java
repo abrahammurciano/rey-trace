@@ -10,25 +10,27 @@ import primitives.Point;
  * with respect to distance, similar to a light bulb.
  *
  *
- * @author Abraham Murciano
  * @author Eli Levin
+ * @author Abraham Murciano
  */
 public class PointLight extends LightSource {
 
-	private Quadratic factors;
-	private Point position;
+	private final Quadratic factors;
+	private final Point position;
 
 	/**
-	 * Construct a {@link PointLight} from a {@link Colour} and a {@link Quadratic}
+	 * Construct a {@link PointLight} from a {@link Colour} and 3 doubles that represent the attenuation constants.
 	 *
 	 * @param colour   The colour of the light
 	 * @param position The position in space of the light source
-	 * @param factors  The quadratic equation that contains the attenuations factors
+	 * @param q        The quadratic factor
+	 * @param l        The linear factor
+	 * @param c        The constant factor
 	 */
-	public PointLight(Colour colour, Point position, Quadratic factors) {
+	public PointLight(Colour colour, Point position, double q, double l, double c) {
 		super(colour);
 		this.position = position;
-		this.factors = factors;
+		this.factors = new Quadratic(q, l, c);
 	}
 
 	/**
@@ -45,7 +47,8 @@ public class PointLight extends LightSource {
 	}
 
 	/**
-	 * Calculate a {@link NormalizedVector} from the source of the light to the given point.
+	 * Calculate a {@link NormalizedVector} from the source of the light to the
+	 * given point.
 	 *
 	 * @param point The point the vector will point to from the light source.
 	 * @return The normalized vector from the light source to the given point.
