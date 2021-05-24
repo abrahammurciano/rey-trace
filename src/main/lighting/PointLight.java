@@ -10,48 +10,53 @@ import primitives.Point;
  * with respect to distance, similar to a light bulb.
  *
  *
- * @author Abraham Murciano
  * @author Eli Levin
+ * @author Abraham Murciano
  */
 public class PointLight extends LightSource {
 
-    private Quadratic factors;
-    private Point position;
-
-    /**
-     * Construct a {@link PointLight} from a {@link Colour} and a {@link Quadratic}
-     * 
-     * @param colour   The colour of the light
-     * @param position The position in space of the light source
-     * @param factors  The quadratic equation that contains the attenuations factors
-     */
-    public PointLight(Colour colour, Point position, Quadratic factors) {
-        super(colour);
-        this.position = position;
-        this.factors = factors;
-    }
-
-    /**
-     * Calculate the colour of the light that this light source is projecting onto a
-     * given point.
-     *
-     * @param point The point at which to calculate the colour of the light.
-     * @return The colour of the light at the given point.
-     */
-    @Override
-    public Colour colourAt(Point point) {
-        double d = position.distance(point);
-        return colour.scale(1 / factors.sub(d));
-    }
+	private final Quadratic factors;
+	private final Point position;
 
 	/**
-	 * Calculate a {@link NormalizedVector} from the source of the light to the given point.
+	 * Construct a {@link PointLight} from a {@link Colour}
+	 * and 3 doubles that represent the attenuation
+	 * constants.
+	 *
+	 * @param colour   The colour of the light
+	 * @param position The position in space of the light source
+	 * @param q        The quadratic factor
+	 * @param l        The linear factor
+	 * @param c        The constant factor
+	 */
+	public PointLight(Colour colour, Point position, double q, double l, double c) {
+		super(colour);
+		this.position = position;
+		this.factors = new Quadratic(q, l, c);
+	}
+
+	/**
+	 * Calculate the colour of the light that this light source is projecting onto a
+	 * given point.
+	 *
+	 * @param point The point at which to calculate the colour of the light.
+	 * @return The colour of the light at the given point.
+	 */
+	@Override
+	public Colour colourAt(Point point) {
+		double d = position.distance(point);
+		return colour.scale(1 / factors.sub(d));
+	}
+
+	/**
+	 * Calculate a {@link NormalizedVector} from the source of the light to the
+	 * given point.
 	 *
 	 * @param point The point the vector will point to from the light source.
 	 * @return The normalized vector from the light source to the given point.
 	 */
-    @Override
-    public NormalizedVector vectorTo(Point point) {
-        return position.vectorTo(point).normalized();
-    }
+	@Override
+	public NormalizedVector vectorTo(Point point) {
+		return position.vectorTo(point).normalized();
+	}
 }
