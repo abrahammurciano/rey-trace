@@ -19,9 +19,7 @@ public class PointLight extends LightSource {
 	private final Point position;
 
 	/**
-	 * Construct a {@link PointLight} from a {@link Colour}
-	 * and 3 doubles that represent the attenuation
-	 * constants.
+	 * Construct a {@link PointLight} from a {@link Colour} and 3 doubles that represent the attenuation constants.
 	 *
 	 * @param colour   The colour of the light
 	 * @param position The position in space of the light source

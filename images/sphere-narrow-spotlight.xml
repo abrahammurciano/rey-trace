@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scene background-colour="0 0 0">
+	<camera position="0 0 1000" front="0 0 -1" up="0 1 0" distance="1000" width="150" height="150" resolution="500x500" />
+	<lights>
+		<narrow-spotlight colour="500 300 0" direction="1 1 -2" position="-50 -50 50" linear="0.00001" quadratic="0.00000001" divergence="100" sharpness="20" />
+	</lights>
+	<geometries>
+		<sphere center="0 0 -50" radius="50">
+			<material emission="0 0 255" specular="0.5" diffuse="0.5" shine="100" />
+		</sphere>
+	</geometries>
+</scene>

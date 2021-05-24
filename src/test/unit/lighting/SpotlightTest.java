@@ -17,7 +17,7 @@ public class SpotlightTest {
 	 * Produce a with spotlight shining on a sphere.
 	 */
 	@Test
-	public void testSphereDirectional() {
+	public void testSphereSpotlight() {
 		Assert.assertTrue("Renedered image with spotlight on sphere does not look correct",
 			Util.renderXml("images/sphere-spotlight.xml", "images/sphere-spotlight.png"));
 	}
@@ -26,8 +26,8 @@ public class SpotlightTest {
 	 * Produce a scene with spotlight shining on two triangles.
 	 */
 	@Test
-	public void testTrianglesDirectional() {
-		Assert.assertTrue("Rendered image with emission light does not look correct",
+	public void testTrianglesSpotlight() {
+		Assert.assertTrue("Rendered image with spotlight on triangles does not look correct",
 			Util.renderXml("images/triangles-spotlight.xml", "images/triangles-spotlight.png"));
 	}
 }
