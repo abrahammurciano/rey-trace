@@ -10,7 +10,7 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.io.FilenameUtils;
 import rendering.Renderer;
-import rendering.raytracing.BasicRayTracer;
+import rendering.raytracing.PhongRayTracer;
 import rendering.raytracing.RayTracer;
 import scene.Scene;
 import xml.XmlParserException;
@@ -88,7 +88,7 @@ public class Cli {
 			System.exit(5);
 			return;
 		}
-		RayTracer rayTracer = new BasicRayTracer(scene);
+		RayTracer rayTracer = new PhongRayTracer(scene);
 		new Renderer(scene.camera(), rayTracer, fileOut).render(threads, antiAliasing);
 	}
 
