@@ -17,7 +17,8 @@ import static java.util.Map.entry;
 public class XmlLightSourcesFactory implements XmlFactoryFromElement<List<LightSource>> {
 	//@formatter:off
 	private static final Map<String, XmlLightFactory> FACTORIES = Map.ofEntries(
-		entry("spotlight", new XmlSpotLightFactory()),
+		entry("spotlight", new XmlSpotlightFactory()),
+		entry("narrow-spotlight", new XmlNarrowSpotlightFactory()),
 		entry("point-light", new XmlPointLightFactory()),
 		entry("directional-light", new XmlDirectionalLightFactory())
 	);
