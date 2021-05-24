@@ -23,6 +23,8 @@ import xml.XmlSceneParser;
  * @author Eli Levin
  */
 public class Cli {
+	private static final String SYNOPSIS = "reytrace [OPTIONS] <INFILE> [OUTFILE]";
+
 	/**
 	 * The main entry point for the program.
 	 *
@@ -45,18 +47,22 @@ public class Cli {
 
 			checkHelp(cmd, formatter, options);
 
-			antiAliasing = parseArg("anti-aliasing", Integer::parseInt, 2, cmd);
+			antiAliasing = parseArg("anti-aliasing", Integer::parseInt, 3, cmd);
 
-			threads = parseArg("threads", Integer::parseInt, 8, cmd);
+			threads = parseArg("threads", Integer::parseInt, 3, cmd);
 
 			String[] remaining = cmd.getArgs();
-
+			if (remaining.length == 0) {
+				System.out.println("Required argument <INFILE> missing");
+				formatter.printHelp(SYNOPSIS, options);
+				System.exit(6);
+			}
 			fileIn = remaining[0];
 			fileOut = remaining.length > 1 ? remaining[1] : FilenameUtils.removeExtension(fileIn) + ".png";
 
 		} catch (ParseException | ArrayIndexOutOfBoundsException e) {
 			System.out.println(e.getMessage());
-			formatter.printHelp("reytrace [OPTIONS] <INFILE> [OUTFILE]", options);
+			formatter.printHelp(SYNOPSIS, options);
 			System.exit(1);
 			return;
 		} catch (NumberFormatException e) {
@@ -101,7 +107,7 @@ public class Cli {
 
 	private static void checkHelp(CommandLine cmd, HelpFormatter formatter, Options options) {
 		if (cmd.hasOption("help")) {
-			formatter.printHelp("reytrace [OPTIONS] <INFILE> [OUTFILE]", options);
+			formatter.printHelp(SYNOPSIS, options);
 			System.exit(0);
 		}
 	}

@@ -18,13 +18,13 @@ docs: $(shell find $(SRC) -type f)
 
 fresh: clean all
 
-install: all
+install: rey-trace.jar
 	mkdir -p $(INSTALL)
 	echo '#!/bin/bash' > $(INSTALL)/launch.sh
-	echo 'java -jar $(PROG).jar' >> $(INSTALL)/launch.sh
+	echo 'java -jar $(INSTALL)/$(PROG).jar "$$@"' >> $(INSTALL)/launch.sh
 	cp $(PROJ)/$(PROG).jar $(INSTALL)/
 	chmod +x $(INSTALL)/launch.sh
-	ln -s $(INSTALL)/launch.sh /usr/bin/$(PROG)
+	ln -sf $(INSTALL)/launch.sh /usr/bin/$(PROG)
 
 clean:
 	rm -rf $(BUILD)
