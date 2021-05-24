@@ -15,27 +15,27 @@ import primitives.Point;
  */
 public class NarrowSpotlight extends Spotlight {
 
-	private final double divergence;
+	private final double focus;
 
 	/**
 	 * Construct a {@link Spotlight} from a {@link Colour}, a direction, and 3 doubles that represent the attenuation
-	 * constants and the divergence factor.
+	 * constants and the focus factor.
 	 *
-	 * @param colour     The colour of the light
-	 * @param position   The position in space of the light source
-	 * @param direction  The direction of the spot light
-	 * @param q          The quadratic factor
-	 * @param l          The linear factor
-	 * @param c          The constant factor
-	 * @param divergence The divergence factor, between 0 and 1. (The closer to 0, the wider the spotlight)
+	 * @param colour    The colour of the light
+	 * @param position  The position in space of the light source
+	 * @param direction The direction of the spot light
+	 * @param q         The quadratic factor
+	 * @param l         The linear factor
+	 * @param c         The constant factor
+	 * @param focus     The focus factor, between 0 and 1. (The closer to 0, the wider the spotlight)
 	 */
 	public NarrowSpotlight(Colour colour, Point position, NormalizedVector direction, double q, double l, double c,
-		double divergence) {
+		double focus) {
 		super(colour, position, direction, q, l, c);
-		if (DoubleCompare.leq(divergence, 0) || DoubleCompare.geq(divergence, 1)) {
+		if (DoubleCompare.leq(focus, 0) || DoubleCompare.geq(focus, 1)) {
 			throw new IllegalArgumentException("Divergence must be between 0 and 1.");
 		}
-		this.divergence = divergence;
+		this.focus = focus;
 	}
 
 	@Override
@@ -46,7 +46,7 @@ public class NarrowSpotlight extends Spotlight {
 		// c=0
 		// d=1
 		// f(t) = (t-a/1-a)
-		return (super.factor(point) - divergence) / (1 - divergence);
+		return (super.factor(point) - focus) / (1 - focus);
 	}
 
 }

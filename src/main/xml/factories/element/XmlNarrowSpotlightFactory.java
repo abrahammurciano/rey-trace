@@ -20,9 +20,9 @@ public class XmlNarrowSpotlightFactory extends XmlLightFactory {
 		NormalizedVector direction = DIRECTION_FACTORY.create(element.getAttribute("direction"));
 		double quadratic = DOUBLE_FACTORY.create(element.getAttribute("quadratic"), 0d);
 		double linear = DOUBLE_FACTORY.create(element.getAttribute("linear"), 0d);
-		double constant = DOUBLE_FACTORY.create(element.getAttribute("constant"), 0d);
-		double divergence = DOUBLE_FACTORY.create(element.getAttribute("divergence"));
-		return new NarrowSpotlight(colour(element), position, direction, quadratic, linear, constant, divergence);
+		double constant = DOUBLE_FACTORY.create(element.getAttribute("constant"), 1d);
+		double focus = DOUBLE_FACTORY.create(element.getAttribute("focus"));
+		return new NarrowSpotlight(colour(element), position, direction, quadratic, linear, constant, focus);
 	}
 
 }

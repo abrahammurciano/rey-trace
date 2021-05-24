@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import scene.Scene;
 import rendering.Renderer;
-import rendering.raytracing.BasicRayTracer;
+import rendering.raytracing.PhongRayTracer;
 
 public class Util {
 	private Util() {}
@@ -22,7 +22,7 @@ public class Util {
 			return true;
 		}
 
-		new Renderer(scene.camera(), new BasicRayTracer(scene), outFile).render(3, 3);
+		new Renderer(scene.camera(), new PhongRayTracer(scene), outFile).render(3, 3);
 
 		return checkImageCorrect(outFile);
 	}

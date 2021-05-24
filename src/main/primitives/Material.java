@@ -22,10 +22,10 @@ public class Material {
 	 * Material constructor.
 	 *
 	 * @param emission The emission light colour of the material.
-	 * @param shine    The shine exponent of the material.
-	 * @param ambient  The ambient coefficient of the material.
-	 * @param diffuse  The diffuse coefficient of the material.
-	 * @param specular The specular coefficient of the material.
+	 * @param shine    The shine exponent of the material. Should be non-negative.
+	 * @param ambient  The ambient coefficient of the material. Should be between 0 and 1.
+	 * @param diffuse  The diffuse coefficient of the material. Should be between 0 and 1.
+	 * @param specular The specular coefficient of the material. Should be between 0 and 1.
 	 */
 	public Material(Colour emission, double shine, Factors ambient, Factors diffuse, Factors specular) {
 		this.emission = emission;
