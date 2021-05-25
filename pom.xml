@@ -81,7 +81,7 @@
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>3.0.0</version>
         </plugin>
-			<!-- Make package with: mvn clean package assembliy:single -->
+			<!-- Make package with: mvn clean package assembly:single -->
 		<plugin>
 			<artifactId>maven-assembly-plugin</artifactId>
 			<version>3.3.0</version>

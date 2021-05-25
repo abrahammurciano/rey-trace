@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scene background-colour="0 0 0">
+	<camera position="0 0 1000" front="0 0 -1" up="0 1 0" distance="1000" width="200" height="200" resolution="1000x1000" />
+	<ambient-light colour="38.25 38.25 38.25" />
+	<lights>
+		<narrow-spotlight colour="500 250 250" position="0 -10 10" direction="-0 -2 -1" quadratic="0.000005" linear="0.0001" focus="0.5" />
+	</lights>
+	<geometries>
+		<plane p0="1 1 0" p1="-1 -1 0" p2="1 -1 0">
+			<material specular="0.5" diffuse="0.5" shine="300" />
+		</plane>
+		<sphere center="0 -70 5" radius="10">
+			<material emission="10 10 10" specular="0.6" diffuse="0.5" shine="10" />
+		</sphere>
+	</geometries>
+</scene>
