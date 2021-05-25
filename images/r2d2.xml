@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scene background-colour="0 0 0">
+	<camera position="1000 0 50" distance="1000" width="192" height="108" resolution="1920x1080" pitch="-1" yaw="180" />
+	<ambient-light colour="10 10 10" />
+	<lights>
+		<directional-light colour="150 150 150" direction="2 -2 -1" />
+	</lights>
+	<geometries>
+		<sphere center="0 0 50" radius="25">
+			<material specular="0.5" diffuse="0.5" shine="200" />
+		</sphere>
+		<cylinder source="0 0 0" radius="25" height="50" direction="0 0 1">
+			<material specular="1" diffuse="1" shine="50" />
+		</cylinder>
+	</geometries>
+</scene>
