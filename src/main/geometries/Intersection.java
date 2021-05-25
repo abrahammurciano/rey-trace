@@ -36,6 +36,11 @@ public class Intersection {
 		return geometry.normal(point);
 	}
 
+	/**
+	 * Get the emission light of the object at this intersection.
+	 *
+	 * @return The emission light of the object at this intersection.
+	 */
 	public Colour emission() {
 		return geometry.material.emission;
 	}

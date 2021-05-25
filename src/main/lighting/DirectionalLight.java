@@ -14,6 +14,12 @@ public class DirectionalLight extends LightSource {
 
 	private NormalizedVector direction;
 
+	/**
+	 * Construct a directional light.
+	 *
+	 * @param colour    The colour of the light.
+	 * @param direction The direction of the light.
+	 */
 	public DirectionalLight(Colour colour, NormalizedVector direction) {
 		super(colour);
 		this.direction = direction;

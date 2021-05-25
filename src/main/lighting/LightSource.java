@@ -11,6 +11,11 @@ import primitives.Point;
  * @author Eli Levin
  */
 public abstract class LightSource extends Light {
+	/**
+	 * Set the colour of the light source.
+	 *
+	 * @param colour The colour of the light source.
+	 */
 	protected LightSource(Colour colour) {
 		super(colour);
 	}
