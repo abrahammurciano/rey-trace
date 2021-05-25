@@ -17,6 +17,17 @@ public class Util {
 	private Util() {}
 
 	/**
+	 * Returns whether or not the given XML element has a child of the given name.
+	 *
+	 * @param parent The element whose children to find.
+	 * @param name   The name of the element to find.
+	 * @return whether or not the given XML element has a child of the given name.
+	 */
+	public static boolean hasChild(Element parent, String name) {
+		return !getChildren(parent, name).isEmpty();
+	}
+
+	/**
 	 * Get a the first direct children with a given name of the given XML element.
 	 *
 	 * @param parent The element whose children to find.

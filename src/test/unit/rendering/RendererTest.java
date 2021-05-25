@@ -17,8 +17,8 @@ public class RendererTest {
 	 */
 	@Test
 	public void testRenderAmbient() {
-		// Assert.assertTrue("Renedered image with ambient light does not look correct",
-		// 	Util.renderXml("images/ambient.xml", "images/ambient.png"));
+		Assert.assertTrue("Renedered image with ambient light does not look correct",
+			Util.renderXml("images/ambient.xml", "images/ambient.png"));
 	}
 
 	/**
@@ -26,7 +26,7 @@ public class RendererTest {
 	 */
 	@Test
 	public void testRenderEmission() {
-		// Assert.assertTrue("Rendered image with emission light does not look correct",
-		// 	Util.renderXml("images/emission.xml", "images/emission.png"));
+		Assert.assertTrue("Rendered image with emission light does not look correct",
+			Util.renderXml("images/emission.xml", "images/emission.png"));
 	}
 }

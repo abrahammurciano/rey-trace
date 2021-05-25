@@ -1,5 +1,6 @@
 package xml.factories.element;
 
+import java.util.Collections;
 import java.util.List;
 import org.w3c.dom.Element;
 import geometries.Geometries;
@@ -38,7 +39,9 @@ public class XmlSceneFactory implements XmlFactoryFromElement<Scene> {
 
 		Geometries geometries = new XmlGeometriesFactory().create(Util.getChild(element, "geometries"));
 
-		List<LightSource> lights = new XmlLightSourcesFactory().create(Util.getChild(element, "lights"));
+		List<LightSource> lights =
+			Util.hasChild(element, "lights") ? new XmlLightSourcesFactory().create(Util.getChild(element, "lights"))
+				: Collections.emptyList();
 
 		Camera camera;
 		try {
