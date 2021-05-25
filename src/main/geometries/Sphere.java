@@ -56,7 +56,8 @@ public class Sphere extends Geometry {
 	}
 
 	@Override
-	public List<Intersection> intersect(Ray ray) {
+	public List<Intersection> intersect(Ray ray, double maxSquareDistance) {
+		// TODO: limit by distance
 		VectorBase centerToRaySource = center.vectorBaseTo(ray.source);
 		double b = 2 * ray.direction.dot(centerToRaySource);
 		double c = centerToRaySource.squareLength() - radius * radius;

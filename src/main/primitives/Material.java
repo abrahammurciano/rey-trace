@@ -11,12 +11,16 @@ public class Material {
 	public final Colour emission;
 	/** The shine exponent of the material. */
 	public final double shine;
-	/** The ambient coefficient of the material */
+	/** The ambient coefficients of the material */
 	public final Factors ambient;
-	/** The diffuse coefficient of the material. */
+	/** The diffuse coefficients of the material. */
 	public final Factors diffuse;
-	/** The specular coefficient of the material. */
+	/** The specular coefficients of the material. */
 	public final Factors specular;
+	/** The reflective coefficients of the material. */
+	public final Factors reflectivity;
+	/** The transparency coefficients of the material */
+	public final Factors transparency;
 
 	/**
 	 * Material constructor.
@@ -27,11 +31,14 @@ public class Material {
 	 * @param diffuse  The diffuse coefficient of the material. Should be between 0 and 1.
 	 * @param specular The specular coefficient of the material. Should be between 0 and 1.
 	 */
-	public Material(Colour emission, double shine, Factors ambient, Factors diffuse, Factors specular) {
+	public Material(Colour emission, double shine, Factors ambient, Factors diffuse, Factors specular,
+		Factors reflectivity, Factors transparency) {
 		this.emission = emission;
 		this.shine = shine;
 		this.ambient = ambient;
 		this.diffuse = diffuse;
 		this.specular = specular;
+		this.reflectivity = reflectivity;
+		this.transparency = transparency;
 	}
 }

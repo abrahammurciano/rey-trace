@@ -77,15 +77,9 @@ public class Tube extends Geometry {
 		return sourceToP.subtract(direction().scale(dotProduct, VectorBase::new)).normalized();
 	}
 
-	/**
-	 * This function will find intersection points (possibly none) between a
-	 * {@link Ray} and an {@link Tube}.
-	 *
-	 * @param r The {@link Ray} to intersect
-	 * @return a list (possibly empty) of intersection points
-	 */
 	@Override
-	public List<Intersection> intersect(Ray r) {
+	public List<Intersection> intersect(Ray r, double maxSquareDistance) {
+		// TODO: limit by distance
 		Point source;
 		if (!axis.source.equals(Point.ORIGIN)) {
 			source = r.source.add(toOrigin);

@@ -45,7 +45,8 @@ public class Geometries implements Intersectible {
 	}
 
 	@Override
-	public List<Intersection> intersect(Ray ray) {
+	public List<Intersection> intersect(Ray ray, double maxSquareDistance) {
+		// TODO: limit by distance
 		List<Intersection> result = new LinkedList<>();
 		for (Intersectible intersectible : intersectibles) {
 			result.addAll(intersectible.intersect(ray));

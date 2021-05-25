@@ -30,4 +30,12 @@ public abstract class LightSource extends Light {
 	 * @return The normalized vector from the light source to the given point.
 	 */
 	public abstract NormalizedVector vectorTo(Point point);
+
+	/**
+	 * Return the squared distance between the light source and the given point.
+	 *
+	 * @param point The point whose squared distance from the light source is to be calculated.
+	 * @return The square of the distance between the light source and the given point.
+	 */
+	public abstract double squareDistance(Point point);
 }

@@ -57,4 +57,10 @@ public class PointLight extends LightSource {
 	public NormalizedVector vectorTo(Point point) {
 		return position.vectorTo(point).normalized();
 	}
+
+	@Override
+	public double squareDistance(Point point) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

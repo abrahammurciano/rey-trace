@@ -88,7 +88,8 @@ public class Polygon extends Geometry {
 	}
 
 	@Override
-	public List<Intersection> intersect(Ray ray) {
+	public List<Intersection> intersect(Ray ray, double maxSquareDistance) {
+		// TODO: limit by distance
 		List<Intersection> candidates = plane.intersect(ray);
 		if (candidates.isEmpty()) { // The ray doesn't intersect the plane
 			return candidates;

@@ -75,7 +75,8 @@ public class Plane extends Geometry {
 	}
 
 	@Override
-	public List<Intersection> intersect(Ray ray) {
+	public List<Intersection> intersect(Ray ray, double maxSquareDistance) {
+		// TODO: limit by distance
 		double ray_dot_normal = ray.direction.dot(normal);
 		if (DoubleCompare.eq(ray_dot_normal, 0)) {
 			return Collections.emptyList(); // ray is parallel to plane

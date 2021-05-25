@@ -40,4 +40,10 @@ public class DirectionalLight extends LightSource {
 	public NormalizedVector vectorTo(Point point) {
 		return direction;
 	}
+
+	@Override
+	public double squareDistance(Point point) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

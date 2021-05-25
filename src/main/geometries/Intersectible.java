@@ -17,6 +17,18 @@ public interface Intersectible {
 	 * @param ray The {@link Ray} to check for intersections.
 	 * @return A list of all the intersections with the given {@link Ray}.
 	 */
-	public List<Intersection> intersect(Ray ray);
+	public default List<Intersection> intersect(Ray ray) {
+		return intersect(ray, Double.POSITIVE_INFINITY);
+	}
+
+	/**
+	 * Calculates all the intersections between a given {@link Ray} and this object within a distance equal to the
+	 * square root of {@code maxSquareDistance}.
+	 *
+	 * @param ray               The {@link Ray} to check for intersections.
+	 * @param maxSquareDistance The square of the maximum distance along the ray for which to check intersections.
+	 * @return A list of all the intersections with the given {@link Ray}.
+	 */
+	public List<Intersection> intersect(Ray ray, double maxSquareDistance);
 
 }

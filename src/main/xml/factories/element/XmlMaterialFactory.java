@@ -16,12 +16,14 @@ public class XmlMaterialFactory implements XmlFactoryFromElement<Material> {
 
 	@Override
 	public Material create(Element element) {
+		Colour emission = COLOUR_FACTORY.create(element.getAttribute("emission"), Colour.BLACK);
 		double shine = DOUBLE_FACTORY.create(element.getAttribute("shine"));
 		Factors diffuse = FACTORS_FACTORY.create(element.getAttribute("diffuse"));
 		Factors specular = FACTORS_FACTORY.create(element.getAttribute("specular"));
-		Factors ambient = FACTORS_FACTORY.create(element.getAttribute("ambient"), new Factors(1, 1, 1));
-		Colour emission = COLOUR_FACTORY.create(element.getAttribute("emission"), Colour.BLACK);
-		return new Material(emission, shine, ambient, diffuse, specular);
+		Factors ambient = FACTORS_FACTORY.create(element.getAttribute("ambient"), Factors.MAX);
+		Factors reflectivity = FACTORS_FACTORY.create(element.getAttribute("reflectivity"), Factors.MIN);
+		Factors transparency = FACTORS_FACTORY.create(element.getAttribute("transparency"), Factors.MIN);
+		return new Material(emission, shine, ambient, diffuse, specular, reflectivity, transparency);
 	}
 
 }

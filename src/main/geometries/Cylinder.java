@@ -69,14 +69,9 @@ public class Cylinder extends Geometry {
 		}
 	}
 
-	/**
-	 * This function will find intersection points (possibly none) between a {@link Ray} and an {@link Cylinder}.
-	 *
-	 * @param ray The {@link Ray} to intersect
-	 * @return a list (possibly empty) of intersection points
-	 */
 	@Override
-	public List<Intersection> intersect(Ray ray) {
+	public List<Intersection> intersect(Ray ray, double maxSquareDistance) {
+		// TODO: limit by distance
 		List<Intersection> intersections = new ArrayList<>(2);
 		intersections.addAll(intersectLid(ray, bottom));
 		intersections.addAll(intersectLid(ray, top));
