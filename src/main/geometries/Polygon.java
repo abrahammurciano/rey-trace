@@ -98,12 +98,12 @@ public class Polygon extends Geometry {
 		// Check if the plane intersection is within the polygon
 		Point p1 = vertices.get(0);
 		Point p2 = vertices.get(1);
-		Vector normal = ray.source.vectorTo(p1).cross(p1.vectorTo(p2)); // No zero vectors bc ray intersects the plane
+		Vector normal = ray.start.vectorTo(p1).cross(p1.vectorTo(p2)); // No zero vectors bc ray intersects the plane
 		int comparison = DoubleCompare.compare(normal.dot(ray.direction), 0);
 		for (int i = 2; i <= size; ++i) { // Loop through consecutive points
 			p1 = p2;
 			p2 = vertices.get(i % size);
-			normal = ray.source.vectorTo(p1).cross(p1.vectorTo(p2));
+			normal = ray.start.vectorTo(p1).cross(p1.vectorTo(p2));
 			if (comparison != DoubleCompare.compare(normal.dot(ray.direction), 0)) {
 				return Collections.emptyList();
 			}

@@ -41,8 +41,8 @@ public class Cylinder extends Geometry {
 			throw new IllegalArgumentException("Error: Height must be a positive number.");
 		}
 		this.height = height;
-		bottom = new Plane(material, ray.source, direction());
-		top = new Plane(material, ray.source.add(direction().scale(height)), direction());
+		bottom = new Plane(material, ray.start, direction());
+		top = new Plane(material, ray.start.add(direction().scale(height)), direction());
 	}
 
 	/**

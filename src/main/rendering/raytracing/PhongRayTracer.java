@@ -9,7 +9,7 @@ import primitives.Factors;
 import primitives.Material;
 import primitives.NormalizedVector;
 import primitives.Ray;
-import primitives.ShadowRay;
+import primitives.LineSegment;
 import scene.Scene;
 
 /**
@@ -63,7 +63,8 @@ public class PhongRayTracer extends RayTracer {
 		Colour result = Colour.BLACK;
 		for (LightSource light : scene.lights) {
 			NormalizedVector fromLight = light.vectorTo(intersection.point);
-			Factors transparency = transparency(new ShadowRay(intersection.point, fromLight.reversed(), light));
+			Factors transparency = transparency(
+				new LineSegment(intersection.point, fromLight.reversed(), light.squareDistance(intersection.point)));
 			if (transparency.lt(minEffectCoefficient)) {
 				continue;
 			}
@@ -103,7 +104,7 @@ public class PhongRayTracer extends RayTracer {
 	 * @param shadow The shadow ray; from the intersection to the light source.
 	 * @return the transparency the ray encounters between its source and the light source.
 	 */
-	private Factors transparency(ShadowRay shadow) {
+	private Factors transparency(LineSegment shadow) {
 		// TODO: implement
 		// Use the new geometries.intersect
 		return Factors.MIN;

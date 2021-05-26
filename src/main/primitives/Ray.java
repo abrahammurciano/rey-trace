@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import geometries.Intersection;
+import math.compare.DoubleCompare;
 
 /**
  * The {@link Ray} class represents a ray with it's base at the {@link Point}
@@ -14,31 +15,16 @@ import geometries.Intersection;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class Ray {
-	/** The {@link Point} at which the ray starts. */
-	public final Point source;
-	/** The {@link NormalizedVector} which the ray is pointing towards. */
-	public final NormalizedVector direction;
+public class Ray extends LineSegment {
 
 	/**
 	 * Constructs a {@link Ray} from a source {@link Point} and a direction {@link Vector}.
 	 *
-	 * @param source    The {@link Point} at which the {@link Ray} starts.
+	 * @param start     The {@link Point} at which the {@link Ray} starts.
 	 * @param direction The {@link NormalizedVector} in which the {@link Ray} is directed.
 	 */
-	public Ray(Point source, NormalizedVector direction) {
-		this.source = source;
-		this.direction = direction;
-	}
-
-	/**
-	 * Calculate the point along the ray after traveling "distance" units in the ray's direction.
-	 *
-	 * @param distance The distance to travel in the ray's direction.
-	 * @return The point on the ray after travelling "distance" units.
-	 */
-	public Point travel(double distance) {
-		return source.add(direction.scale(distance));
+	public Ray(Point start, NormalizedVector direction) {
+		super(start, direction, Double.POSITIVE_INFINITY);
 	}
 
 	/**
@@ -51,16 +37,21 @@ public class Ray {
 	public Intersection closest(List<Intersection> intersections) {
 		Iterator<Intersection> iterator = intersections.iterator();
 		Intersection closest = iterator.next(); // this will throw if empty
-		double distance = source.squareDistance(closest.point);
+		double distance = start.squareDistance(closest.point);
 		while (iterator.hasNext()) {
 			Intersection next = iterator.next();
-			double nextDistance = source.squareDistance(next.point);
+			double nextDistance = start.squareDistance(next.point);
 			if (nextDistance < distance) {
 				distance = nextDistance; // save for future checks
 				closest = next;
 			}
 		}
 		return closest;
+	}
+
+	@Override
+	protected boolean withinDistance(double distance) {
+		return DoubleCompare.gt(distance, 0);
 	}
 
 	/**
@@ -74,7 +65,7 @@ public class Ray {
 			return false;
 		}
 		Ray ray = (Ray) o;
-		return Objects.equals(source, ray.source) && Objects.equals(direction, ray.direction);
+		return Objects.equals(start, ray.start) && Objects.equals(direction, ray.direction);
 	}
 
 	/**
@@ -82,7 +73,7 @@ public class Ray {
 	 */
 	@Override
 	public int hashCode() {
-		return source.hashCode() ^ direction.hashCode();
+		return start.hashCode() ^ direction.hashCode();
 	}
 
 	/**
@@ -91,6 +82,6 @@ public class Ray {
 	@Override
 	public String toString() {
 		// ((0, 0, 0), (1, 1, 1))
-		return "(" + source + ", " + direction + ")";
+		return "(" + start + ", " + direction + ")";
 	}
 }

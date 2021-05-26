@@ -81,7 +81,7 @@ public class Plane extends Geometry {
 		if (DoubleCompare.eq(ray_dot_normal, 0)) {
 			return Collections.emptyList(); // ray is parallel to plane
 		}
-		double distance = (ray.source.vectorBaseTo(point)).dot(normal) / ray_dot_normal;
+		double distance = (ray.start.vectorBaseTo(point)).dot(normal) / ray_dot_normal;
 		if (DoubleCompare.leq(distance, 0)) {
 			return Collections.emptyList(); // pane is behind the ray
 		}

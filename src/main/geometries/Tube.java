@@ -48,7 +48,7 @@ public class Tube extends Geometry {
 		this.axis = axis;
 		this.radius = Math.abs(radius);
 
-		toOrigin = axis.source.vectorBaseTo(Point.ORIGIN);
+		toOrigin = axis.start.vectorBaseTo(Point.ORIGIN);
 		fromOrigin = toOrigin.reversed();
 	}
 
@@ -72,7 +72,7 @@ public class Tube extends Geometry {
 	 */
 	@Override
 	public NormalizedVector normal(Point p) {
-		Vector sourceToP = axis.source.vectorTo(p);
+		Vector sourceToP = axis.start.vectorTo(p);
 		double dotProduct = direction().dot(sourceToP);
 		return sourceToP.subtract(direction().scale(dotProduct, VectorBase::new)).normalized();
 	}
@@ -81,10 +81,10 @@ public class Tube extends Geometry {
 	public List<Intersection> intersect(Ray r, double maxSquareDistance) {
 		// TODO: limit by distance
 		Point source;
-		if (!axis.source.equals(Point.ORIGIN)) {
-			source = r.source.add(toOrigin);
+		if (!axis.start.equals(Point.ORIGIN)) {
+			source = r.start.add(toOrigin);
 		} else {
-			source = r.source;
+			source = r.start;
 		}
 		FastMatrixMultSelf a = new FastMatrixMultSelf(axis.direction);
 		FastMatrixMultSelf p = new FastMatrixMultSelf(source); // p for point

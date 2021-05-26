@@ -58,7 +58,7 @@ public class Sphere extends Geometry {
 	@Override
 	public List<Intersection> intersect(Ray ray, double maxSquareDistance) {
 		// TODO: limit by distance
-		VectorBase centerToRaySource = center.vectorBaseTo(ray.source);
+		VectorBase centerToRaySource = center.vectorBaseTo(ray.start);
 		double b = 2 * ray.direction.dot(centerToRaySource);
 		double c = centerToRaySource.squareLength() - radius * radius;
 		Quadratic quadratic = new Quadratic(1, b, c);
