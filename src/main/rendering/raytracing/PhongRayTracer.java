@@ -83,9 +83,11 @@ public class PhongRayTracer extends RayTracer {
 		return result;
 	}
 
-	private Colour globalEffects(Intersection intersection, Ray fromCamera, int level, double effectCoefficient) {
-		// TODO: implement
-		return null;
+	private Colour globalEffects(Intersection intersection, Ray fromCamera, int level, Factors effectCoefficient) {
+		if (level == 0 || effectCoefficient.lt(minEffectCoefficient)) {
+			return Colour.BLACK;
+		}
+		intersection.geometry.material.reflectivity.scale()
 	}
 
 	private Colour diffuse(Colour colour, Material material, double normalDotLight) {
