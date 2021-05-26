@@ -2,7 +2,7 @@ package geometries;
 
 import java.util.LinkedList;
 import java.util.List;
-import primitives.Ray;
+import primitives.LineSegment;
 
 /**
  * A collection of {@link Intersectible}s which aggregates the intersections between rays and all its elements.
@@ -45,11 +45,10 @@ public class Geometries implements Intersectible {
 	}
 
 	@Override
-	public List<Intersection> intersect(Ray ray, double maxSquareDistance) {
-		// TODO: limit by distance
+	public List<Intersection> intersect(LineSegment line) {
 		List<Intersection> result = new LinkedList<>();
 		for (Intersectible intersectible : intersectibles) {
-			result.addAll(intersectible.intersect(ray));
+			result.addAll(intersectible.intersect(line));
 		}
 		return result;
 	}

@@ -3,6 +3,7 @@ package geometries;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import primitives.LineSegment;
 import primitives.Material;
 import primitives.NormalizedVector;
 import primitives.Point;
@@ -78,18 +79,12 @@ public class Tube extends Geometry {
 	}
 
 	@Override
-	public List<Intersection> intersect(Ray r, double maxSquareDistance) {
-		// TODO: limit by distance
-		Point source;
-		if (!axis.start.equals(Point.ORIGIN)) {
-			source = r.start.add(toOrigin);
-		} else {
-			source = r.start;
-		}
+	public List<Intersection> intersect(LineSegment line) {
+		Point source = line.start.add(toOrigin);
 		FastMatrixMultSelf a = new FastMatrixMultSelf(axis.direction);
 		FastMatrixMultSelf p = new FastMatrixMultSelf(source); // p for point
-		FastMatrixMultSelf v = new FastMatrixMultSelf(r.direction); // v for vector
-		FastMatrixMult pv = new FastMatrixMult(source, r.direction); // pv for...
+		FastMatrixMultSelf v = new FastMatrixMultSelf(line.direction); // v for vector
+		FastMatrixMult pv = new FastMatrixMult(source, line.direction); // pv for...
 		// @formatter:off
 		double A =
 			(a.yy * v.xx) - 2*(a.xy * v.xy) + (a.xx * v.yy) +
@@ -119,21 +114,20 @@ public class Tube extends Geometry {
 			equation = quadratic;
 		}
 		List<Intersection> intersections = new ArrayList<>(2);
-		Ray shiftedRay = new Ray(source, r.direction);
+		LineSegment shiftedLine = new Ray(source, line.direction);
 		for (double t : equation.solutions()) {
-			fillList(intersections, shiftedRay, t);
+			fillList(intersections, shiftedLine, t);
 		}
 		return intersections;
 	}
 
 	// helper function for intersection
-	private void fillList(List<Intersection> intersections, Ray r, double t) {
-		if (DoubleCompare.leq(t, 0)) {
-			return;
+	private void fillList(List<Intersection> intersections, LineSegment line, double t) {
+		Point p = line.travel(t);
+		if (p != null) {
+			p = p.add(fromOrigin);
+			intersections.add(intersection(p));
 		}
-		Point p = r.travel(t);
-		p = p.add(fromOrigin);
-		intersections.add(intersection(p));
 	}
 
 }

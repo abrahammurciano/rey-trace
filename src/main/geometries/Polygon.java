@@ -5,11 +5,10 @@ import java.util.Collections;
 import java.util.List;
 
 import math.compare.DoubleCompare;
-
+import primitives.LineSegment;
 import primitives.Material;
 import primitives.NormalizedVector;
 import primitives.Point;
-import primitives.Ray;
 import primitives.Vector;
 import primitives.ZeroVectorException;
 
@@ -88,9 +87,8 @@ public class Polygon extends Geometry {
 	}
 
 	@Override
-	public List<Intersection> intersect(Ray ray, double maxSquareDistance) {
-		// TODO: limit by distance
-		List<Intersection> candidates = plane.intersect(ray);
+	public List<Intersection> intersect(LineSegment line) {
+		List<Intersection> candidates = plane.intersect(line);
 		if (candidates.isEmpty()) { // The ray doesn't intersect the plane
 			return candidates;
 		}
@@ -98,13 +96,13 @@ public class Polygon extends Geometry {
 		// Check if the plane intersection is within the polygon
 		Point p1 = vertices.get(0);
 		Point p2 = vertices.get(1);
-		Vector normal = ray.start.vectorTo(p1).cross(p1.vectorTo(p2)); // No zero vectors bc ray intersects the plane
-		int comparison = DoubleCompare.compare(normal.dot(ray.direction), 0);
+		Vector normal = line.start.vectorTo(p1).cross(p1.vectorTo(p2)); // No zero vectors bc ray intersects the plane
+		int comparison = DoubleCompare.compare(normal.dot(line.direction), 0);
 		for (int i = 2; i <= size; ++i) { // Loop through consecutive points
 			p1 = p2;
 			p2 = vertices.get(i % size);
-			normal = ray.start.vectorTo(p1).cross(p1.vectorTo(p2));
-			if (comparison != DoubleCompare.compare(normal.dot(ray.direction), 0)) {
+			normal = line.start.vectorTo(p1).cross(p1.vectorTo(p2));
+			if (comparison != DoubleCompare.compare(normal.dot(line.direction), 0)) {
 				return Collections.emptyList();
 			}
 		}
