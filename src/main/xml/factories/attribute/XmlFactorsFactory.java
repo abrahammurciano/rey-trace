@@ -27,8 +27,7 @@ public class XmlFactorsFactory implements XmlFactoryFromAttribute<Factors> {
 			return new Factors(scanner.nextDouble(), scanner.nextDouble(), scanner.nextDouble());
 		} catch (NoSuchElementException e) {
 			try {
-				double value = DOUBLE_FACTORY.create(attribute);
-				return new Factors(value, value, value);
+				return new Factors(DOUBLE_FACTORY.create(attribute));
 			} catch (XmlParserException __) {
 				throw new XmlParserException("Expected a string with one or three numbers but saw \"" + attribute + '"',
 					e);
