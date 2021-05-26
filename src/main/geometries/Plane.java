@@ -4,11 +4,10 @@ import java.util.Collections;
 import java.util.List;
 
 import math.compare.DoubleCompare;
-
+import primitives.LineSegment;
 import primitives.Material;
 import primitives.NormalizedVector;
 import primitives.Point;
-import primitives.Ray;
 import primitives.ZeroVectorException;
 
 /**
@@ -75,17 +74,14 @@ public class Plane extends Geometry {
 	}
 
 	@Override
-	public List<Intersection> intersect(Ray ray, double maxSquareDistance) {
-		// TODO: limit by distance
-		double ray_dot_normal = ray.direction.dot(normal);
+	public List<Intersection> intersect(LineSegment line) {
+		double ray_dot_normal = line.direction.dot(normal);
 		if (DoubleCompare.eq(ray_dot_normal, 0)) {
 			return Collections.emptyList(); // ray is parallel to plane
 		}
-		double distance = (ray.start.vectorBaseTo(point)).dot(normal) / ray_dot_normal;
-		if (DoubleCompare.leq(distance, 0)) {
-			return Collections.emptyList(); // pane is behind the ray
-		}
-		return List.of(intersection(ray.travel(distance)));
+		double distance = (line.start.vectorBaseTo(point)).dot(normal) / ray_dot_normal;
+		Point intersectionPoint = line.travel(distance);
+		return intersectionPoint != null ? List.of(intersection(intersectionPoint)) : Collections.emptyList();
 	}
 
 }

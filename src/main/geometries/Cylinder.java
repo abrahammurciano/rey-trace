@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.List;
 
 import math.compare.DoubleCompare;
+import primitives.LineSegment;
 import primitives.Material;
 import primitives.NormalizedVector;
 import primitives.Ray;
@@ -70,21 +71,20 @@ public class Cylinder extends Geometry {
 	}
 
 	@Override
-	public List<Intersection> intersect(Ray ray, double maxSquareDistance) {
-		// TODO: limit by distance
+	public List<Intersection> intersect(LineSegment line) {
 		List<Intersection> intersections = new ArrayList<>(2);
-		intersections.addAll(intersectLid(ray, bottom));
-		intersections.addAll(intersectLid(ray, top));
+		intersections.addAll(intersectLid(line, bottom));
+		intersections.addAll(intersectLid(line, top));
 		if (intersections.size() == 2) {
 			return intersections;
 		}
-		intersections.addAll(intersectMiddle(ray));
+		intersections.addAll(intersectMiddle(line));
 		return intersections;
 	}
 
 	// helper function
-	private List<Intersection> intersectMiddle(Ray ray) {
-		List<Intersection> intersections = middle.intersect(ray);
+	private List<Intersection> intersectMiddle(LineSegment line) {
+		List<Intersection> intersections = middle.intersect(line);
 		if (intersections.isEmpty()) {
 			return intersections;
 		}
@@ -96,8 +96,8 @@ public class Cylinder extends Geometry {
 	}
 
 	// helper function
-	private List<Intersection> intersectLid(Ray ray, Plane lid) {
-		List<Intersection> intersection = lid.intersect(ray);
+	private List<Intersection> intersectLid(LineSegment line, Plane lid) {
+		List<Intersection> intersection = lid.intersect(line);
 		if (!intersection.isEmpty()
 			&& DoubleCompare.leq(intersection.get(0).point.squareDistance(lid.point), middle.radius * middle.radius)) {
 			return intersection;
