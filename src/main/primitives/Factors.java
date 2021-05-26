@@ -20,7 +20,11 @@ public class Factors {
 	 * @param blue  The blue factor.
 	 */
 	public Factors(double red, double green, double blue) {
-		this.values = new VectorBase(red, green, blue);
+		this(new VectorBase(red, green, blue));
+	}
+
+	private Factors(VectorBase values) {
+		this.values = values;
 	}
 
 	/**
@@ -31,5 +35,9 @@ public class Factors {
 	 */
 	public boolean lt(double threshold) {
 		return values.x < threshold && values.y < threshold && values.z < threshold;
+	}
+
+	public Factors scale(Factors transparency) {
+		return new Factors(values.transform((a, b) -> a * b, transparency.values, VectorBase::new));
 	}
 }

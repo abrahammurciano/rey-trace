@@ -105,9 +105,15 @@ public class PhongRayTracer extends RayTracer {
 	 * @return the transparency the ray encounters between its source and the light source.
 	 */
 	private Factors transparency(LineSegment shadow) {
-		// TODO: implement
-		// Use the new geometries.intersect
-		return Factors.MIN;
+		Factors transparency = Factors.MAX;
+		List<Intersection> blockers = scene.geometries.intersect(shadow);
+		for (Intersection blocker : blockers) {
+			transparency = transparency.scale(blocker.geometry.material.transparency);
+			if (transparency.lt(minEffectCoefficient)) {
+				return Factors.MIN;
+			}
+		}
+		return transparency;
 	}
 
 }
