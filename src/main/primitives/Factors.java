@@ -6,9 +6,9 @@ package primitives;
  */
 public class Factors {
 	/** The maximum value of Factors. That is (1, 1, 1). */
-	public static final Factors MAX = new Factors(1, 1, 1);
+	public static final Factors ONE = new Factors(1);
 	/** The minimum value of Factors. That is (0, 0, 0). */
-	public static final Factors MIN = new Factors(0, 0, 0);
+	public static final Factors ZERO = new Factors(0);
 
 	final VectorBase values;
 
@@ -21,6 +21,15 @@ public class Factors {
 	 */
 	public Factors(double red, double green, double blue) {
 		this(new VectorBase(red, green, blue));
+	}
+
+	/**
+	 * Construct a factors object with the same value for all channels.
+	 *
+	 * @param value The value for all channels.
+	 */
+	public Factors(double value) {
+		this(new VectorBase(value, value, value));
 	}
 
 	private Factors(VectorBase values) {
@@ -37,7 +46,7 @@ public class Factors {
 		return values.x < threshold && values.y < threshold && values.z < threshold;
 	}
 
-	public Factors scale(Factors transparency) {
-		return new Factors(values.transform((a, b) -> a * b, transparency.values, VectorBase::new));
+	public Factors scale(Factors factors) {
+		return new Factors(values.transform((a, b) -> a * b, factors.values, VectorBase::new));
 	}
 }
