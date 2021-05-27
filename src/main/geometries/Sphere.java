@@ -4,10 +4,10 @@ import primitives.ZeroVectorException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import primitives.LineSegment;
 import primitives.Material;
 import primitives.NormalizedVector;
 import primitives.Point;
-import primitives.Ray;
 import primitives.VectorBase;
 import math.compare.DoubleCompare;
 import math.equations.Quadratic;
@@ -56,10 +56,9 @@ public class Sphere extends Geometry {
 	}
 
 	@Override
-	public List<Intersection> intersect(Ray ray, double maxSquareDistance) {
-		// TODO: limit by distance
-		VectorBase centerToRaySource = center.vectorBaseTo(ray.start);
-		double b = 2 * ray.direction.dot(centerToRaySource);
+	public List<Intersection> intersect(LineSegment line) {
+		VectorBase centerToRaySource = center.vectorBaseTo(line.start);
+		double b = 2 * line.direction.dot(centerToRaySource);
 		double c = centerToRaySource.squareLength() - radius * radius;
 		Quadratic quadratic = new Quadratic(1, b, c);
 		double discriminant = quadratic.discriminant;
@@ -68,8 +67,9 @@ public class Sphere extends Geometry {
 		}
 		List<Intersection> result = new ArrayList<>(2);
 		for (double t : quadratic.solutions()) {
-			if (DoubleCompare.gt(t, 0)) {
-				result.add(intersection(ray.travel(t)));
+			Point intersectionPoint = line.travel(t);
+			if (intersectionPoint != null) {
+				result.add(intersection(intersectionPoint));
 			}
 		}
 		return result;
