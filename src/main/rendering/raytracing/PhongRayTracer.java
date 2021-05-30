@@ -79,7 +79,8 @@ public class PhongRayTracer extends RayTracer {
 			double reflectedDotV = reflectedVector(fromLight, normal).dot(fromCamera.reversed());
 			Colour colour = light.colourAt(intersection.point).scale(transparency);
 			Material material = intersection.geometry.material;
-			result.add(diffuse(colour, material, normalDotLight)).add(specular(colour, material, reflectedDotV));
+			result =
+				result.add(diffuse(colour, material, normalDotLight)).add(specular(colour, material, reflectedDotV));
 		}
 		return result;
 	}
