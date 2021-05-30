@@ -29,4 +29,13 @@ public class RendererTest {
 		Assert.assertTrue("Rendered image with emission light does not look correct",
 			Util.renderXml("images/emission.xml", "images/emission.png"));
 	}
+
+	/**
+	 * Produce a scene with a sphere inside a transparent sphere into images/refract-two-spheres.png
+	 */
+	@Test
+	public void refractTwoSpheres() {
+		Assert.assertTrue("Sphere in transparent sphere does not look correct",
+			Util.renderXml("images/refract-two-spheres.xml", "images/refract-two-spheres.png"));
+	}
 }

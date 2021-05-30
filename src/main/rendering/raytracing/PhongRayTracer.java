@@ -39,7 +39,7 @@ public class PhongRayTracer extends RayTracer {
 
 	@Override
 	public Colour trace(Ray ray) {
-		return trace(ray, maxRecursionLevel, new Factors(minEffectCoefficient));
+		return trace(ray, maxRecursionLevel, Factors.ONE);
 	}
 
 	private Colour trace(Ray ray, int level, Factors effectCoefficient) {
