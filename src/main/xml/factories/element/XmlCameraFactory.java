@@ -50,7 +50,7 @@ public class XmlCameraFactory extends XmlFactoryFromElement<Camera> {
 		Function<T, CameraSettings> setter) {
 		String attribute = element.getAttribute(attrName);
 		if (!attribute.isEmpty()) {
-			T obj = factory.create(element, attribute);
+			T obj = factory.create(element, attrName);
 			setter.apply(obj);
 		}
 	}
