@@ -11,7 +11,7 @@ import xml.XmlParserException;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class XmlFactorsFactory implements XmlFactoryFromAttribute<Factors> {
+public class XmlFactorsFactory extends XmlFactoryFromAttribute<Factors> {
 	private static final XmlDoubleFactory DOUBLE_FACTORY = new XmlDoubleFactory();
 
 	/**
@@ -22,7 +22,7 @@ public class XmlFactorsFactory implements XmlFactoryFromAttribute<Factors> {
 	 * @return A new colour with the given values.
 	 * @throws XmlParserException if the input string was malformed.
 	 */
-	public Factors create(String attribute) {
+	protected Factors create(String attribute) {
 		try (Scanner scanner = new Scanner(attribute)) {
 			return new Factors(scanner.nextDouble(), scanner.nextDouble(), scanner.nextDouble());
 		} catch (NoSuchElementException e) {

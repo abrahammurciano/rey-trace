@@ -12,7 +12,7 @@ import xml.Util;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public abstract class XmlGeometryFactory implements XmlFactoryFromElement<Geometry> {
+public abstract class XmlGeometryFactory extends XmlFactoryFromElement<Geometry> {
 	private static final XmlMaterialFactory MATERIAL_FACTORY = new XmlMaterialFactory();
 
 	/**

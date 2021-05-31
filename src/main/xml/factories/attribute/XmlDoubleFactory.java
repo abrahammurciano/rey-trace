@@ -8,10 +8,10 @@ import xml.XmlParserException;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class XmlDoubleFactory implements XmlFactoryFromAttribute<Double> {
+public class XmlDoubleFactory extends XmlFactoryFromAttribute<Double> {
 
 	@Override
-	public Double create(String attribute) {
+	protected Double create(String attribute) {
 		try {
 			return Double.parseDouble(attribute);
 		} catch (NumberFormatException e) {

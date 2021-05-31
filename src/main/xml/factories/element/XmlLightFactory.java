@@ -13,7 +13,7 @@ import xml.factories.attribute.XmlColourFactory;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public abstract class XmlLightFactory implements XmlFactoryFromElement<LightSource> {
+public abstract class XmlLightFactory extends XmlFactoryFromElement<LightSource> {
 	private static final XmlColourFactory COLOUR_FACTORY = new XmlColourFactory();
 
 	/**
@@ -23,6 +23,6 @@ public abstract class XmlLightFactory implements XmlFactoryFromElement<LightSour
 	 * @return The colour of the light source according to the XML.
 	 */
 	protected Colour colour(Element element) {
-		return COLOUR_FACTORY.create(element.getAttribute("colour"));
+		return COLOUR_FACTORY.create(element, "colour");
 	}
 }

@@ -12,7 +12,7 @@ import xml.XmlParserException;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class XmlAmbientLightFactory implements XmlFactoryFromElement<AmbientLight> {
+public class XmlAmbientLightFactory extends XmlFactoryFromElement<AmbientLight> {
 	private static final XmlColourFactory COLOUR_FACTORY = new XmlColourFactory();
 
 	/**
@@ -22,8 +22,8 @@ public class XmlAmbientLightFactory implements XmlFactoryFromElement<AmbientLigh
 	 * @return A new AmbientLight with the given values.
 	 * @throws XmlParserException if the XML element did not have a valid colour attribute.
 	 */
-	public AmbientLight create(Element element) {
-		return new AmbientLight(COLOUR_FACTORY.create(element.getAttribute("colour")));
+	public AmbientLight createHelper(Element element) {
+		return new AmbientLight(COLOUR_FACTORY.create(element, "colour"));
 	}
 
 }

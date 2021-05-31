@@ -17,7 +17,7 @@ import xml.factories.attribute.XmlTripleFactory;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class XmlCameraFactory implements XmlFactoryFromElement<Camera> {
+public class XmlCameraFactory extends XmlFactoryFromElement<Camera> {
 
 	private static final XmlTripleFactory<Point> POINT_FACTORY = new XmlTripleFactory<>(Point::new);
 	private static final XmlTripleFactory<NormalizedVector> VECTOR_FACTORY =
@@ -26,30 +26,31 @@ public class XmlCameraFactory implements XmlFactoryFromElement<Camera> {
 	private static final XmlResolutionFactory RESOLUTION_FACTORY = new XmlResolutionFactory();
 
 	@Override
-	public Camera create(Element element) {
+	public Camera createHelper(Element element) {
 		CameraSettings settings = new CameraSettings();
 
-		loadSetting(element.getAttribute("position"), POINT_FACTORY, settings::position);
-		loadSetting(element.getAttribute("front"), VECTOR_FACTORY, settings::front);
-		loadSetting(element.getAttribute("up"), VECTOR_FACTORY, settings::up);
-		loadSetting(element.getAttribute("width"), DOUBLE_FACTORY, settings::width);
-		loadSetting(element.getAttribute("height"), DOUBLE_FACTORY, settings::height);
-		loadSetting(element.getAttribute("distance"), DOUBLE_FACTORY, settings::distance);
-		loadSetting(element.getAttribute("resolution"), RESOLUTION_FACTORY, settings::resolution);
+		loadSetting(element, "position", POINT_FACTORY, settings::position);
+		loadSetting(element, "front", VECTOR_FACTORY, settings::front);
+		loadSetting(element, "up", VECTOR_FACTORY, settings::up);
+		loadSetting(element, "width", DOUBLE_FACTORY, settings::width);
+		loadSetting(element, "height", DOUBLE_FACTORY, settings::height);
+		loadSetting(element, "distance", DOUBLE_FACTORY, settings::distance);
+		loadSetting(element, "resolution", RESOLUTION_FACTORY, settings::resolution);
 
 		Camera camera = new Camera(settings);
 
-		double pitch = DOUBLE_FACTORY.create(element.getAttribute("pitch"), 0d);
-		double yaw = DOUBLE_FACTORY.create(element.getAttribute("yaw"), 0d);
-		double roll = DOUBLE_FACTORY.create(element.getAttribute("roll"), 0d);
+		double pitch = DOUBLE_FACTORY.create(element, "pitch", 0d);
+		double yaw = DOUBLE_FACTORY.create(element, "yaw", 0d);
+		double roll = DOUBLE_FACTORY.create(element, "roll", 0d);
 
 		return camera.rotate(toRadians(pitch), toRadians(yaw), toRadians(roll));
 	}
 
-	private <T> void loadSetting(String attribute, XmlFactoryFromAttribute<T> factory,
+	private <T> void loadSetting(Element element, String attrName, XmlFactoryFromAttribute<T> factory,
 		Function<T, CameraSettings> setter) {
+		String attribute = element.getAttribute(attrName);
 		if (!attribute.isEmpty()) {
-			T obj = factory.create(attribute);
+			T obj = factory.create(element, attribute);
 			setter.apply(obj);
 		}
 	}
