@@ -6,10 +6,13 @@
 	</lights>
 	<geometries>
 		<sphere center="0 0 -50" radius="50">
-			<material emission="0 0 255" specular="0.3" diffuse="0.4" shine="100" transparency="0.99" />
+			<material emission="0 0 255" specular="0.3" diffuse="0.4" shine="100" transparency="0.3" />
 		</sphere>
 		<sphere center="0 0 -50" radius="25">
 			<material emission="255 0 0" specular="0.5" diffuse="0.5" shine="100" />
 		</sphere>
+		<plane p0="1 1 -500" p1="-1 -1 -500" p2="1 -1 -500">
+			<material specular="0.0" diffuse="0.0" shine="10" />
+		</plane>
 	</geometries>
 </scene>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scene background-colour="0 0 0">
+	<camera position="0 0 1000" front="0 0 -1" up="0 1 0" distance="1000" width="200" height="200" resolution="600x600" />
+    <ambient-light colour="38.25 38.25 38.25" />
+	<lights>
+		<spotlight colour="700 400 400" direction="0 0 -1" position="60 50 0" linear="4E-5" quadratic="2E-7" />
+	</lights>
+	<geometries>
+		<sphere center="60 50 -50" radius="30">
+			<material emission="0 0 255" specular="0.2" diffuse="0.2" shine="30" transparency="0.6" />
+		</sphere>
+		<triangle p0="-150 -150 -115" p1="150 -150 -135" p2="75 75 -150">
+			<material emission="20 20 20" specular="0.5" diffuse="0.5" shine="60" />
+		</triangle>
+		<triangle p0="-150 -150 -115" p1="-70 70 -140" p2="75 75 -150">
+			<material emission="20 20 20" specular="0.5" diffuse="0.5" shine="60" />
+		</triangle>
+	</geometries>
+</scene>
