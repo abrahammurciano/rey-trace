@@ -49,7 +49,6 @@ public class DirectionalLight extends LightSource {
 
 	@Override
 	public double squareDistance(Point point) {
-		// TODO Auto-generated method stub
-		return 0;
+		return Double.POSITIVE_INFINITY;
 	}
 }

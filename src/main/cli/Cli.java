@@ -88,7 +88,7 @@ public class Cli {
 			System.exit(5);
 			return;
 		}
-		RayTracer rayTracer = new PhongRayTracer(scene);
+		RayTracer rayTracer = new PhongRayTracer(scene, 10, 0.001);
 		new Renderer(scene.camera(), rayTracer, fileOut).render(threads, antiAliasing);
 	}
 
