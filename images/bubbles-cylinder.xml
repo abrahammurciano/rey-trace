@@ -4,12 +4,10 @@
 	<ambient-light colour="38.25 38.25 38.25" />
 	<lights>
 		<point-light colour="500 500 500" position="0 100 115" linear="0.000001" quadratic="0.000005" />
-		<directional-light colour="150 150 50" direction="0 0 -1" />
 	</lights>
 	<geometries>
 		<cylinder source="0 -300 -400" direction="0 1 0" radius="200" height="1000">
 			<material ambient="0.87 0.75 0.2" specular="0.5" diffuse="0.83 0.68 0.2" shine="500" reflectivity="1" />
-			<!-- <material ambient="1" specular="0.5" diffuse="0.5" shine="500" reflectivity="1" /> -->
 		</cylinder>
 		<sphere center="40 0  -30" radius="20">
 			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity=".3"/>

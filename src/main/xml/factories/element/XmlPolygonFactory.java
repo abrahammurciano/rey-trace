@@ -2,6 +2,7 @@ package xml.factories.element;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import org.w3c.dom.Element;
 import geometries.Polygon;
 import primitives.Point;
@@ -21,9 +22,17 @@ public class XmlPolygonFactory extends XmlGeometryFactory {
 	@Override
 	public Polygon create(Element element) {
 		List<Point> points = new LinkedList<>();
-		int i = 1;
-		for (String attr = element.getAttribute("p" + i); attr.length() > 0; ++i) {
-			points.add(FACTORY.create(attr));
+		Integer i = 0;
+        String attr, name;
+		while(true) {
+            name = "p" + i.toString();
+            attr = element.getAttribute(name);
+            try {
+                points.add(FACTORY.create(attr));
+            } catch(NoSuchElementException e) { // wrong exception?
+                break;
+            }
+            ++i;
 		}
 		return new Polygon(material(element), points.toArray(new Point[0]));
 	}
