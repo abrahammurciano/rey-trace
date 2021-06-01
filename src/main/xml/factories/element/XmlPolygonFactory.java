@@ -23,19 +23,6 @@ public class XmlPolygonFactory extends XmlGeometryFactory {
 	@Override
 	public Polygon createHelper(Element element) {
 		List<Point> points = new LinkedList<>();
-// <<<<<<< HEAD
-// 		Integer i = 0;
-//         String attr, name;
-// 		while(true) {
-//             name = "p" + i.toString();
-//             attr = element.getAttribute(name);
-//             try {
-//                 points.add(FACTORY.create(attr));
-//             } catch(NoSuchElementException e) { // wrong exception?
-//                 break;
-//             }
-//             ++i;
-// =======
 		for (int i = 1; !element.getAttribute("p" + i).isEmpty(); ++i) {
 			points.add(FACTORY.create(element, "p" + i));
 		}
@@ -43,7 +30,6 @@ public class XmlPolygonFactory extends XmlGeometryFactory {
 			return new Polygon(material(element), points.toArray(new Point[0]));
 		} catch (IllegalArgumentException e) {
 			throw new XmlParserException("The given points cannot form a valid convex polygon.", e);
-// >>>>>>> xml-errors
 		}
 	}
 

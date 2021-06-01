@@ -115,6 +115,15 @@ public class RendererTest {
 	 * Produce a scene with a sphere inside a transparent sphere into images/refract-two-spheres.png
 	 */
 	@Test
+	public void trianglesSphereRotated() {
+		Assert.assertTrue("Sphere in transparent sphere does not look correct",
+			Util.renderXml("images/triangles-sphere-rotated.xml", "images/triangles-sphere-rotated.png"));
+	}
+
+	/**
+	 * Produce a scene with a sphere inside a transparent sphere into images/refract-two-spheres.png
+	 */
+	@Test
 	public void bubblesCylinder() {
 		Assert.assertTrue("Sphere in transparent sphere does not look correct",
 			Util.renderXml("images/bubbles-cylinder.xml", "images/bubbles-cylinder.png"));
@@ -127,5 +136,14 @@ public class RendererTest {
 	public void bonusObjects() {
 		Assert.assertTrue("Sphere in transparent sphere does not look correct",
 			Util.renderXml("images/bonus-objects.xml", "images/bonus-objects.png"));
+	}
+
+	/**
+	 * Produce a scene with a sphere inside a transparent sphere into images/refract-two-spheres.png
+	 */
+	@Test
+	public void bonusObjectsRotated() {
+		Assert.assertTrue("Sphere in transparent sphere does not look correct",
+			Util.renderXml("images/bonus-objects-rotated.xml", "images/bonus-objects-rotated.png"));
 	}
 }
