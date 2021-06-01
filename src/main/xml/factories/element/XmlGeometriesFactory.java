@@ -4,6 +4,7 @@ import java.util.Map;
 import org.w3c.dom.Element;
 import geometries.Geometries;
 import xml.Util;
+import xml.XmlParserException;
 import static java.util.Map.entry;
 
 
@@ -13,7 +14,7 @@ import static java.util.Map.entry;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class XmlGeometriesFactory implements XmlFactoryFromElement<Geometries> {
+public class XmlGeometriesFactory extends XmlFactoryFromElement<Geometries> {
 	//@formatter:off
 	private static final Map<String, XmlGeometryFactory> FACTORIES = Map.ofEntries(
 		entry("cylinder", new XmlCylinderFactory()),
@@ -26,10 +27,14 @@ public class XmlGeometriesFactory implements XmlFactoryFromElement<Geometries> {
 	//@formatter:on
 
 	@Override
-	public Geometries create(Element element) {
+	public Geometries createHelper(Element element) {
 		Geometries geometries = new Geometries();
 		for (Element child : Util.getChildren(element)) {
-			geometries.add(FACTORIES.get(child.getNodeName()).create(child));
+			try {
+				geometries.add(FACTORIES.get(child.getNodeName()).create(child));
+			} catch (NullPointerException e) {
+				throw new XmlParserException("Unknown geometry \"" + child.getNodeName() + "\" in <geometries>.", e);
+			}
 		}
 		return geometries;
 	}

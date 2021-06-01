@@ -6,6 +6,7 @@ import java.util.NoSuchElementException;
 import org.w3c.dom.Element;
 import geometries.Polygon;
 import primitives.Point;
+import xml.XmlParserException;
 import xml.factories.attribute.XmlTripleFactory;
 
 
@@ -20,21 +21,30 @@ public class XmlPolygonFactory extends XmlGeometryFactory {
 	private XmlTripleFactory<Point> FACTORY = new XmlTripleFactory<>(Point::new);
 
 	@Override
-	public Polygon create(Element element) {
+	public Polygon createHelper(Element element) {
 		List<Point> points = new LinkedList<>();
-		Integer i = 0;
-        String attr, name;
-		while(true) {
-            name = "p" + i.toString();
-            attr = element.getAttribute(name);
-            try {
-                points.add(FACTORY.create(attr));
-            } catch(NoSuchElementException e) { // wrong exception?
-                break;
-            }
-            ++i;
+// <<<<<<< HEAD
+// 		Integer i = 0;
+//         String attr, name;
+// 		while(true) {
+//             name = "p" + i.toString();
+//             attr = element.getAttribute(name);
+//             try {
+//                 points.add(FACTORY.create(attr));
+//             } catch(NoSuchElementException e) { // wrong exception?
+//                 break;
+//             }
+//             ++i;
+// =======
+		for (int i = 1; !element.getAttribute("p" + i).isEmpty(); ++i) {
+			points.add(FACTORY.create(element, "p" + i));
 		}
-		return new Polygon(material(element), points.toArray(new Point[0]));
+		try {
+			return new Polygon(material(element), points.toArray(new Point[0]));
+		} catch (IllegalArgumentException e) {
+			throw new XmlParserException("The given points cannot form a valid convex polygon.", e);
+// >>>>>>> xml-errors
+		}
 	}
 
 }

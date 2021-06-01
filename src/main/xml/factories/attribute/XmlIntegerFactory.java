@@ -8,10 +8,10 @@ import xml.XmlParserException;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class XmlIntegerFactory implements XmlFactoryFromAttribute<Integer> {
+public class XmlIntegerFactory extends XmlFactoryFromAttribute<Integer> {
 
 	@Override
-	public Integer create(String attribute) {
+	protected Integer create(String attribute) {
 		try {
 			return Integer.parseInt(attribute);
 		} catch (NumberFormatException e) {

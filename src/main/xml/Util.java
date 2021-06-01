@@ -39,7 +39,7 @@ public class Util {
 		try {
 			return getChildren(parent, name).get(0);
 		} catch (IndexOutOfBoundsException e) {
-			throw new XmlParserException("Element " + name + " is missing from " + parent.getNodeName(), e);
+			throw new XmlParserException("Child element \"" + name + "\" is missing", e);
 		}
 	}
 

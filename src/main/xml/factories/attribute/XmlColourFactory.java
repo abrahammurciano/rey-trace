@@ -11,7 +11,7 @@ import xml.XmlParserException;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class XmlColourFactory implements XmlFactoryFromAttribute<Colour> {
+public class XmlColourFactory extends XmlFactoryFromAttribute<Colour> {
 	/**
 	 * Constructs a new {@link Colour} from an XML attribute string.
 	 *
@@ -20,7 +20,7 @@ public class XmlColourFactory implements XmlFactoryFromAttribute<Colour> {
 	 * @return A new colour with the given values.
 	 * @throws XmlParserException if the input string was malformed.
 	 */
-	public Colour create(String attribute) {
+	protected Colour create(String attribute) {
 		try (Scanner scanner = new Scanner(attribute)) {
 			return new Colour(scanner.nextDouble(), scanner.nextDouble(), scanner.nextDouble());
 		} catch (NoSuchElementException e) {

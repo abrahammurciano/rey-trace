@@ -16,8 +16,8 @@ public class XmlDirectionalLightFactory extends XmlLightFactory {
 		new XmlTripleFactory<>(NormalizedVector::new);
 
 	@Override
-	public DirectionalLight create(Element element) {
-		NormalizedVector direction = DIRECTION_FACTORY.create(element.getAttribute("direction"));
+	public DirectionalLight createHelper(Element element) {
+		NormalizedVector direction = DIRECTION_FACTORY.create(element, "direction");
 		return new DirectionalLight(colour(element), direction);
 	}
 

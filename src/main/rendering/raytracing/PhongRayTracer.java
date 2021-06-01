@@ -10,6 +10,7 @@ import primitives.Material;
 import primitives.NormalizedVector;
 import primitives.Ray;
 import primitives.Vector;
+import primitives.ZeroVectorException;
 import primitives.LineSegment;
 import scene.Scene;
 
@@ -112,7 +113,11 @@ public class PhongRayTracer extends RayTracer {
 	}
 
 	private NormalizedVector reflectedVector(Vector incident, NormalizedVector normal) {
-		return incident.add(normal.scale(-2 * normal.dot(incident))).normalized();
+		try {
+			return incident.add(normal.scale(-2 * normal.dot(incident))).normalized();
+		} catch (ZeroVectorException __) {
+			return incident.normalized();
+		}
 	}
 
 	private Colour diffuse(Colour colour, Material material, double normalDotLight) {
