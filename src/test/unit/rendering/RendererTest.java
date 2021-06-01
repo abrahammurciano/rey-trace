@@ -110,4 +110,13 @@ public class RendererTest {
 		Assert.assertTrue("Sphere in transparent sphere does not look correct",
 			Util.renderXml("images/triangles-sphere.xml", "images/triangles-sphere.png"));
 	}
+
+	/**
+	 * Produce a scene with a sphere inside a transparent sphere into images/refract-two-spheres.png
+	 */
+	@Test
+	public void manyObjects() {
+		Assert.assertTrue("Sphere in transparent sphere does not look correct",
+			Util.renderXml("images/bubbles-cylinder.xml", "images/bubbles-cylinder.png"));
+	}
 }

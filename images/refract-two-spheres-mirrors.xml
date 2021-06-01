@@ -7,7 +7,7 @@
 	</lights>
 	<geometries>
 		<sphere center="-950 -900 -1000" radius="400">
-			<material emission="100 20 20" specular="0.25" diffuse="0.25" shine="20" transparency="0.5" />
+			<material emission="0 0 100" specular="0.25" diffuse="0.25" shine="20" transparency="0.5" />
 		</sphere>
 		<sphere center="-950 -900 -1000" radius="200">
 			<material emission="100 20 20" specular="0.25" diffuse="0.25" shine="20" />
