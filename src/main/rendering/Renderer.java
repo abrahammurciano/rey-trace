@@ -1,8 +1,12 @@
 package rendering;
 
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.function.Supplier;
+import cli.JobTrackable;
+import cli.JobTracker;
 import scene.camera.Camera;
 import scene.camera.Pixel;
 import rendering.raytracing.RayTracer;
@@ -13,10 +17,11 @@ import rendering.raytracing.RayTracer;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class Renderer {
+public class Renderer implements JobTrackable {
 	private Camera camera;
 	private ImageWriter writer;
 	private RayTracer rayTracer;
+	private List<JobTracker> jobTrackers = new LinkedList<>();
 
 	/**
 	 * Construct a renderer with the provided data.
@@ -42,6 +47,7 @@ public class Renderer {
 		Thread[] children = startChildrenThreads(threads, () -> new RenderThread(iterator));
 		waitForChildren(children);
 		writer.writeToFile();
+		finished();
 	}
 
 	/**
@@ -100,10 +106,22 @@ public class Renderer {
 				try {
 					Pixel pixel = iterator.next();
 					writer.setPixel(pixel.row, pixel.col, rayTracer.trace(pixel.rays));
+					completeOneJob();
 				} catch (NoSuchElementException e) {
 					return;
 				}
 			}
 		}
+	}
+
+	@Override
+	public List<JobTracker> jobTrackers() {
+		return jobTrackers;
+	}
+
+	@Override
+	public int totalJobs() {
+		Resolution resolution = camera.resolution();
+		return resolution.x * resolution.y;
 	}
 }
