@@ -6,6 +6,7 @@ import java.util.Map;
 import org.w3c.dom.Element;
 import lighting.LightSource;
 import xml.Util;
+import xml.XmlParserException;
 import static java.util.Map.entry;
 
 /**
@@ -14,7 +15,7 @@ import static java.util.Map.entry;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class XmlLightSourcesFactory implements XmlFactoryFromElement<List<LightSource>> {
+public class XmlLightSourcesFactory extends XmlFactoryFromElement<List<LightSource>> {
 	//@formatter:off
 	private static final Map<String, XmlLightFactory> FACTORIES = Map.ofEntries(
 		entry("spotlight", new XmlSpotlightFactory()),
@@ -24,11 +25,15 @@ public class XmlLightSourcesFactory implements XmlFactoryFromElement<List<LightS
 	);
 	//@formatter:on
 	@Override
-	public List<LightSource> create(Element element) {
+	public List<LightSource> createHelper(Element element) {
 		List<Element> lightElements = Util.getChildren(element);
 		List<LightSource> lights = new ArrayList<>(lightElements.size());
 		for (Element light : lightElements) {
-			lights.add(FACTORIES.get(light.getNodeName()).create(light));
+			try {
+				lights.add(FACTORIES.get(light.getNodeName()).create(light));
+			} catch (NullPointerException e) {
+				throw new XmlParserException("Unknown light source " + light.getNodeName() + "\" in <lights>.", e);
+			}
 		}
 		return lights;
 	}

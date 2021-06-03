@@ -18,12 +18,12 @@ import xml.factories.attribute.XmlTripleFactory;
 public class XmlTubeFactory extends XmlGeometryFactory {
 
 	@Override
-	public Tube create(Element element) {
-		Point source = new XmlTripleFactory<Point>(Point::new).create(element.getAttribute("source"));
+	public Tube createHelper(Element element) {
+		Point source = new XmlTripleFactory<Point>(Point::new).create(element, "source");
 		NormalizedVector direction =
-			new XmlTripleFactory<NormalizedVector>(NormalizedVector::new).create(element.getAttribute("direction"));
+			new XmlTripleFactory<NormalizedVector>(NormalizedVector::new).create(element, "direction");
 		Ray axis = new Ray(source, direction);
-		double radius = new XmlDoubleFactory().create(element.getAttribute("radius"));
+		double radius = new XmlDoubleFactory().create(element, "radius");
 		return new Tube(material(element), axis, radius);
 	}
 

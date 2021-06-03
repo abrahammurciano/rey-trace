@@ -12,7 +12,7 @@ import xml.XmlParserException;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class XmlTripleFactory<T extends Triple> implements XmlFactoryFromAttribute<T> {
+public class XmlTripleFactory<T extends Triple> extends XmlFactoryFromAttribute<T> {
 	private TripleCreator<T> creator;
 
 	/**
@@ -31,7 +31,7 @@ public class XmlTripleFactory<T extends Triple> implements XmlFactoryFromAttribu
 	 * @return A new triple with the given coordinates.
 	 * @throws XmlParserException if the input string was malformed.
 	 */
-	public T create(String attribute) {
+	protected T create(String attribute) {
 		try (Scanner scanner = new Scanner(attribute)) {
 			return creator.create(scanner.nextDouble(), scanner.nextDouble(), scanner.nextDouble());
 		} catch (NoSuchElementException e) {

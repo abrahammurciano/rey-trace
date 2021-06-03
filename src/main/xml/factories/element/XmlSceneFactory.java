@@ -19,16 +19,10 @@ import xml.factories.attribute.XmlColourFactory;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class XmlSceneFactory implements XmlFactoryFromElement<Scene> {
-	/**
-	 * Constructs a new {@link Scene} from an XML {@link Element}.
-	 *
-	 * @param element The XML {@link Element} representing the scene.
-	 * @return A scene with the data specified by the XML.
-	 * @throws XmlParserException if the XML was malformed.
-	 */
-	public Scene create(Element element) {
-		Colour background = new XmlColourFactory().create(element.getAttribute("background-colour"));
+public class XmlSceneFactory extends XmlFactoryFromElement<Scene> {
+	@Override
+	public Scene createHelper(Element element) {
+		Colour background = new XmlColourFactory().create(element, "background-colour");
 
 		AmbientLight ambient;
 		try {

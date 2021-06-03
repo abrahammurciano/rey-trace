@@ -15,9 +15,9 @@ import xml.factories.attribute.XmlTripleFactory;
  */
 public class XmlSphereFactory extends XmlGeometryFactory {
 	@Override
-	public Sphere create(Element element) {
-		Point center = new XmlTripleFactory<Point>(Point::new).create(element.getAttribute("center"));
-		double radius = new XmlDoubleFactory().create(element.getAttribute("radius"));
+	public Sphere createHelper(Element element) {
+		Point center = new XmlTripleFactory<Point>(Point::new).create(element, "center");
+		double radius = new XmlDoubleFactory().create(element, "radius");
 		return new Sphere(material(element), center, radius);
 	}
 

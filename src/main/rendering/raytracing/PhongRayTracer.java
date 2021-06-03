@@ -10,6 +10,7 @@ import primitives.Material;
 import primitives.NormalizedVector;
 import primitives.Ray;
 import primitives.Vector;
+import primitives.ZeroVectorException;
 import primitives.LineSegment;
 import scene.Scene;
 
@@ -39,7 +40,7 @@ public class PhongRayTracer extends RayTracer {
 
 	@Override
 	public Colour trace(Ray ray) {
-		return trace(ray, maxRecursionLevel, new Factors(minEffectCoefficient));
+		return trace(ray, maxRecursionLevel, Factors.ONE);
 	}
 
 	private Colour trace(Ray ray, int level, Factors effectCoefficient) {
@@ -79,7 +80,8 @@ public class PhongRayTracer extends RayTracer {
 			double reflectedDotV = reflectedVector(fromLight, normal).dot(fromCamera.reversed());
 			Colour colour = light.colourAt(intersection.point).scale(transparency);
 			Material material = intersection.geometry.material;
-			result.add(diffuse(colour, material, normalDotLight)).add(specular(colour, material, reflectedDotV));
+			result =
+				result.add(diffuse(colour, material, normalDotLight)).add(specular(colour, material, reflectedDotV));
 		}
 		return result;
 	}
@@ -109,7 +111,11 @@ public class PhongRayTracer extends RayTracer {
 	}
 
 	private NormalizedVector reflectedVector(Vector incident, NormalizedVector normal) {
-		return incident.add(normal.scale(-2 * normal.dot(incident))).normalized();
+		try {
+			return incident.add(normal.scale(-2 * normal.dot(incident))).normalized();
+		} catch (ZeroVectorException __) {
+			return incident.normalized();
+		}
 	}
 
 	private Colour diffuse(Colour colour, Material material, double normalDotLight) {

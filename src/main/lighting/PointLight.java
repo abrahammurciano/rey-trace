@@ -60,7 +60,6 @@ public class PointLight extends LightSource {
 
 	@Override
 	public double squareDistance(Point point) {
-		// TODO Auto-generated method stub
-		return 0;
+		return position.squareDistance(point);
 	}
 }

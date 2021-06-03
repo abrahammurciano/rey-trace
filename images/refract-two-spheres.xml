@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scene background-colour="0 0 0">
+	<camera position="0 0 1000" front="0 0 -1" up="0 1 0" distance="1000" width="150" height="150" resolution="500x500" />
+	<lights>
+		<spotlight colour="1000 600 0" direction="-1 -1 -2" position="-100 -100 500" linear="0.0004" quadratic="0.0000006" />
+	</lights>
+	<geometries>
+		<sphere center="0 0 -50" radius="50">
+			<material emission="0 0 255" specular="0.3" diffuse="0.4" shine="100" transparency="0.99" />
+		</sphere>
+		<sphere center="0 0 -50" radius="25">
+			<material emission="255 0 0" specular="0.5" diffuse="0.5" shine="100" />
+		</sphere>
+	</geometries>
+</scene>

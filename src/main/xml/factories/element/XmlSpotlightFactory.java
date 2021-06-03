@@ -15,12 +15,12 @@ public class XmlSpotlightFactory extends XmlLightFactory {
 	private static final XmlDoubleFactory DOUBLE_FACTORY = new XmlDoubleFactory();
 
 	@Override
-	public Spotlight create(Element element) {
-		Point position = POINT_FACTORY.create(element.getAttribute("position"));
-		NormalizedVector direction = DIRECTION_FACTORY.create(element.getAttribute("direction"));
-		double quadratic = DOUBLE_FACTORY.create(element.getAttribute("quadratic"), 0d);
-		double linear = DOUBLE_FACTORY.create(element.getAttribute("linear"), 0d);
-		double constant = DOUBLE_FACTORY.create(element.getAttribute("constant"), 1d);
+	public Spotlight createHelper(Element element) {
+		Point position = POINT_FACTORY.create(element, "position");
+		NormalizedVector direction = DIRECTION_FACTORY.create(element, "direction");
+		double quadratic = DOUBLE_FACTORY.create(element, "quadratic", 0d);
+		double linear = DOUBLE_FACTORY.create(element, "linear", 0d);
+		double constant = DOUBLE_FACTORY.create(element, "constant", 1d);
 		return new Spotlight(colour(element), position, direction, quadratic, linear, constant);
 	}
 

@@ -15,11 +15,11 @@ import xml.factories.attribute.XmlTripleFactory;
 public class XmlTriangleFactory extends XmlGeometryFactory {
 
 	@Override
-	public Triangle create(Element element) {
+	public Triangle createHelper(Element element) {
 		XmlTripleFactory<Point> factory = new XmlTripleFactory<>(Point::new);
-		Point p0 = factory.create(element.getAttribute("p0"));
-		Point p1 = factory.create(element.getAttribute("p1"));
-		Point p2 = factory.create(element.getAttribute("p2"));
+		Point p0 = factory.create(element, "p0");
+		Point p1 = factory.create(element, "p1");
+		Point p2 = factory.create(element, "p2");
 		return new Triangle(material(element), p0, p1, p2);
 	}
 
