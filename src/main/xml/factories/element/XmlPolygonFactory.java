@@ -2,6 +2,7 @@ package xml.factories.element;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import org.w3c.dom.Element;
 import geometries.Polygon;
 import primitives.Point;

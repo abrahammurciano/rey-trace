@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scene background-colour="0 0 0">
+	<camera position="0 0 1000" front="0 0 -1" up="0 1 0" distance="1000" width="1000" height="1000" resolution="1080x1080" pitch="15" yaw="15" roll="15" />
+	<ambient-light colour="38.25 38.25 38.25" />
+	<lights>
+		<point-light colour="500 500 500" position="300 -200 -20" linear="0.000001" quadratic="0.000005" />
+		<point-light colour="500 500 500" position="-300 250 -30" linear="0.000001" quadratic="0.000005" />
+	</lights>
+	<geometries>
+		<cylinder source="0 200 -400" direction="1 1 1" radius="70" height="300">
+			<material ambient="0.87 0.75 0.2" specular="0.5" diffuse="0.83 0.68 0.2" shine="500" reflectivity="1" />
+		</cylinder>
+		<cylinder source="300 -200 -400" direction="-1 2 0" radius="40" height="500">
+			<material ambient=".3 0 .4" specular="0.5" diffuse="0.3 0 0.4" shine="500" reflectivity="1" />
+		</cylinder>
+		<sphere center="40 0  -30" radius="20">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity=".3"/>
+		</sphere>
+		<sphere center="-30 30 -30" radius="25">
+			<material ambient="1 0 1" specular="0.5" diffuse="0 0 1" shine="30" reflectivity=".3"/>
+		</sphere>
+		<sphere center="30 120 -50" radius="40">
+			<material ambient="1 0 1" specular="0.5" diffuse="1 0 1" shine="30" reflectivity=".3"/>
+		</sphere>
+		<sphere center="-30 -120 -60" radius="50">
+			<material ambient="0 1 0" specular="0.5" diffuse="0 1 0" shine="30" reflectivity=".3"/>
+		</sphere>
+		<sphere center="-300 250 -30" radius="50">
+			<material ambient="0.1" specular="0.5" diffuse="0.1" shine="300" reflectivity=".3" transparency="0.9"/>
+		</sphere>
+		<sphere center="300 -200 -20" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="300" reflectivity=".1" transparency="0.7"/>
+		</sphere>
+		<plane p0="1 1 -4000" p1="-1 -1 -4000" p2="1 -1 -4000">
+			<material specular="0.5" diffuse="0.5" shine="20" />
+		</plane>
+		<polygon p0="-370 -70 -50" p1="-450 -250 100" p2="-120 -450 -20" p3="-40 -270 -170">
+			<material specular="0.5" diffuse="0.5" shine="20" />
+		</polygon>
+	</geometries>
+</scene>

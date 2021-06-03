@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scene background-colour="0 0 0">
+	<camera position="0 0 10000" front="0 0 -1" up="0 1 0" distance="10000" width="2500" height="2500" resolution="500x500" />
+    <ambient-light colour="25 25 25" />
+	<lights>
+		<spotlight colour="1020 400 400" direction="-1 -1 -4" position="-750 -750 -150" linear="0.00001" quadratic="0.000005" />
+	</lights>
+	<geometries>
+		<sphere center="-950 -900 -1000" radius="400">
+			<material emission="0 0 100" specular="0.25" diffuse="0.25" shine="20" transparency="0.5" />
+		</sphere>
+		<sphere center="-950 -900 -1000" radius="200">
+			<material emission="100 20 20" specular="0.25" diffuse="0.25" shine="20" />
+		</sphere>
+		<triangle p0="1500 -1500 -1500" p1="-1500 1500 -1500" p2="670 670 3000">
+			<material emission="20 20 20" specular="0.5" diffuse="0.5" shine="100" reflectivity="1"/>
+		</triangle>
+		<triangle p0="1500 -1500 -1500" p1="-1500 1500 -1500" p2="-1500 -1500 -2000">
+			<material emission="20 20 20" specular="0.5" diffuse="0.5" shine="100" reflectivity="0.5"/>
+		</triangle>
+	</geometries>
+</scene>
