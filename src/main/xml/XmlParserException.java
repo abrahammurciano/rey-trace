@@ -11,7 +11,7 @@ import org.w3c.dom.Element;
  * @author Eli Levin
  */
 public class XmlParserException extends RuntimeException {
-
+	/** The list of elements leading to the element that caused this exception. */
 	private final List<Element> trace = new LinkedList<>();
 
 	/**

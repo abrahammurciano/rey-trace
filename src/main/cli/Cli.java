@@ -25,6 +25,11 @@ import xml.XmlSceneParser;
 public class Cli {
 	private static final String SYNOPSIS = "reytrace [OPTIONS] <INFILE> [OUTFILE]";
 
+	private static final int ANTI_ALIASING_DEFAULT = 3;
+	private static final int THREADS_DEFAULT = 3;
+	private static final int RECURSION_DEFAULT = 4;
+	private static final double MIN_COEFFICIENT_DEFAULT = 0.01;
+
 	/**
 	 * The main entry point for the program.
 	 *
@@ -39,6 +44,8 @@ public class Cli {
 
 		int antiAliasing;
 		int threads;
+		int recursion;
+		double minCoefficient;
 		String fileIn;
 		String fileOut;
 
@@ -47,9 +54,13 @@ public class Cli {
 
 			checkHelp(cmd, formatter, options);
 
-			antiAliasing = parseArg("anti-aliasing", Integer::parseInt, 3, cmd);
+			antiAliasing = parseArg("anti-aliasing", Integer::parseInt, ANTI_ALIASING_DEFAULT, cmd);
 
-			threads = parseArg("threads", Integer::parseInt, 3, cmd);
+			threads = parseArg("threads", Integer::parseInt, THREADS_DEFAULT, cmd);
+
+			recursion = parseArg("recursion", Integer::parseInt, RECURSION_DEFAULT, cmd);
+
+			minCoefficient = parseArg("min-coefficient", Double::parseDouble, MIN_COEFFICIENT_DEFAULT, cmd);
 
 			String[] remaining = cmd.getArgs();
 			if (remaining.length == 0) {
@@ -88,7 +99,7 @@ public class Cli {
 			System.exit(5);
 			return;
 		}
-		RayTracer rayTracer = new PhongRayTracer(scene, 10, 0.001);
+		RayTracer rayTracer = new PhongRayTracer(scene, recursion, minCoefficient);
 		new Renderer(scene.camera(), rayTracer, fileOut).render(threads, antiAliasing);
 	}
 
@@ -98,9 +109,15 @@ public class Cli {
 		options.addOption("h", "help", false, "Print this help message.");
 
 		options.addOption("a", "anti-aliasing", true,
-			"The level of anti-aliasing to use. 1 means no anti-aliasing. 2 means moderate, 3 means extreme, and anything higher is simply overkill. Default is 2.");
+			"The level of anti-aliasing to use. 1 means no anti-aliasing. 2 means moderate, 3 means extreme, and anything higher is simply overkill. Default is "
+				+ ANTI_ALIASING_DEFAULT + ".");
 
-		options.addOption("t", "threads", true, "Number of threads to use. Default is 8.");
+		options.addOption("t", "threads", true, "Number of threads to use. Default is " + THREADS_DEFAULT + ".");
+		options.addOption("r", "recursion", true,
+			"Maximum recursion level for reflections and refractions. Default is " + RECURSION_DEFAULT + ".");
+		options.addOption("c", "min-coefficient", true,
+			"Minimum effect coefficient. This is the minimum coefficient to consider worthwhile to calculate effects such as reflections, refractions, and shadows. Default is "
+				+ MIN_COEFFICIENT_DEFAULT + ".");
 
 		return options;
 	}

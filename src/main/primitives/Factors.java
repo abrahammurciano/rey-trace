@@ -46,6 +46,12 @@ public class Factors {
 		return values.x < threshold && values.y < threshold && values.z < threshold;
 	}
 
+	/**
+	 * Scale each factor by the corresponding given factor.
+	 *
+	 * @param factors The given factors to scale these factors by.
+	 * @return A new Factors object where each factor is the product of the two corresponding factors.
+	 */
 	public Factors scale(Factors factors) {
 		return new Factors(values.transform((a, b) -> a * b, factors.values, VectorBase::new));
 	}

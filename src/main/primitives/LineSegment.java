@@ -14,22 +14,30 @@ public class LineSegment {
 	/** The {@link NormalizedVector} which the ray is pointing towards. */
 	public final NormalizedVector direction;
 	/** The square of the distance between the source and the light source. */
-	public final double squareDistance;
+	public final double squareLength;
 
 	/**
-	 * Construct a shadow ray.
+	 * Construct a line segment between start and end.
 	 *
-	 * @param start The point where the line segment starts.
-	 * @param end   The point where the line segment ends.
+	 * @param start The {@link Point} where the line segment starts.
+	 * @param end   The {@link Point} where the line segment ends.
 	 */
 	public LineSegment(Point start, Point end) {
 		this(start, start.vectorTo(end).normalized(), start.squareDistance(end));
 	}
 
-	public LineSegment(Point start, NormalizedVector direction, double squareDistance) {
+	/**
+	 * Construct a line segment starting at start, heading in the given direction, with length equal to the square root
+	 * of {@code squareLength} (which may be infinity).
+	 *
+	 * @param start        The {@link Point} where the line segment starts.
+	 * @param direction    The direction from the start to the end of the line segment.
+	 * @param squareLength The square of the length of the line segment (may be infinity).
+	 */
+	public LineSegment(Point start, NormalizedVector direction, double squareLength) {
 		this.start = start;
 		this.direction = direction;
-		this.squareDistance = squareDistance;
+		this.squareLength = squareLength;
 	}
 
 	/**
@@ -52,6 +60,6 @@ public class LineSegment {
 	 * @return whether or not the distance squared is less than squareDistance.
 	 */
 	protected boolean withinDistance(double distance) {
-		return DoubleCompare.gt(distance, 0) && distance * distance < squareDistance;
+		return DoubleCompare.gt(distance, 0) && distance * distance < squareLength;
 	}
 }
