@@ -1,6 +1,7 @@
 package cli;
 
 import java.io.IOException;
+import java.util.Random;
 import java.util.function.Function;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -23,7 +24,7 @@ import xml.XmlSceneParser;
  * @author Eli Levin
  */
 public class Cli {
-	private static final String SYNOPSIS = "reytrace [OPTIONS] <INFILE> [OUTFILE]";
+	private static final String SYNOPSIS = "reytrace [OPTIONS] <INFILES>";
 
 	private static final int ANTI_ALIASING_DEFAULT = 3;
 	private static final int THREADS_DEFAULT = 3;
@@ -42,55 +43,52 @@ public class Cli {
 		HelpFormatter formatter = new HelpFormatter();
 		CommandLine cmd;
 
-		int antiAliasing;
-		int threads;
-		int recursion;
-		double minCoefficient;
-		String fileIn;
-		String fileOut;
-
 		try {
 			cmd = parser.parse(options, args);
 
 			checkHelp(cmd, formatter, options);
 
-			antiAliasing = parseArg("anti-aliasing", Integer::parseInt, ANTI_ALIASING_DEFAULT, cmd);
+			int antiAliasing = parseArg("anti-aliasing", Integer::parseInt, ANTI_ALIASING_DEFAULT, cmd);
 
-			threads = parseArg("threads", Integer::parseInt, THREADS_DEFAULT, cmd);
+			int threads = parseArg("threads", Integer::parseInt, THREADS_DEFAULT, cmd);
 
-			recursion = parseArg("recursion", Integer::parseInt, RECURSION_DEFAULT, cmd);
+			int recursion = parseArg("recursion", Integer::parseInt, RECURSION_DEFAULT, cmd);
 
-			minCoefficient = parseArg("min-coefficient", Double::parseDouble, MIN_COEFFICIENT_DEFAULT, cmd);
+			double minCoefficient = parseArg("min-coefficient", Double::parseDouble, MIN_COEFFICIENT_DEFAULT, cmd);
 
-			String[] remaining = cmd.getArgs();
-			if (remaining.length == 0) {
-				System.out.println("Required argument <INFILE> missing");
+			String[] infiles = cmd.getArgs();
+			if (infiles.length == 0) {
+				System.out.println("Required argument <INFILES> missing");
 				formatter.printHelp(SYNOPSIS, options);
 				System.exit(6);
 			}
-			fileIn = remaining[0];
-			fileOut = remaining.length > 1 ? remaining[1] : FilenameUtils.removeExtension(fileIn) + ".png";
+			int i = 0;
+			for (String infile : infiles) {
+				System.out.println("(" + ++i + '/' + infiles.length + ") " + infile);
+				renderXml(infile, FilenameUtils.removeExtension(infile) + ".png", antiAliasing, threads, recursion,
+					minCoefficient);
+			}
 
-		} catch (ParseException | ArrayIndexOutOfBoundsException e) {
+		} catch (ParseException e) {
 			System.out.println(e.getMessage());
 			formatter.printHelp(SYNOPSIS, options);
 			System.exit(1);
-			return;
 		} catch (NumberFormatException e) {
 			System.out.println("Error parsing a number: " + e.getLocalizedMessage());
 			System.exit(2);
-			return;
 		} catch (XmlParserException e) {
 			System.out.println("Error parsing XML or position parameter: " + e.getLocalizedMessage());
 			System.exit(4);
-			return;
 		}
+	}
 
+	private static void renderXml(String infile, String outfile, int antiAliasing, int threads, int recursion,
+		double minCoefficient) {
 		Scene scene;
 		try {
-			scene = new XmlSceneParser().parse(fileIn);
+			scene = new XmlSceneParser().parse(infile);
 		} catch (IOException e) {
-			System.out.println("Error: Coutld not open file \"" + fileIn + "\".");
+			System.out.println("Error: Coutld not open file \"" + infile + "\".");
 			System.exit(3);
 			return;
 		} catch (XmlParserException e) {
@@ -100,8 +98,8 @@ public class Cli {
 			return;
 		}
 		RayTracer rayTracer = new PhongRayTracer(scene, recursion, minCoefficient);
-		Renderer renderer = new Renderer(scene.camera(), rayTracer, fileOut);
-		renderer.register(new ProgressBar(renderer.totalJobs(), 80));
+		Renderer renderer = new Renderer(scene.camera(), rayTracer, outfile);
+		renderer.register(new ProgressBar(renderer.totalJobs(), 80, new Random().nextInt(1000) + 9500));
 		renderer.render(threads, antiAliasing);
 	}
 
