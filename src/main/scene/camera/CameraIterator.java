@@ -15,8 +15,8 @@ import primitives.Ray;
  */
 public class CameraIterator implements Iterator<Pixel> {
 
-	private final Point source;
-	private final ViewPlaneIterator viewPlaneIterator;
+	private final PixelGridIterator viewPlaneIterator;
+	private final PixelGrid sensor;
 
 	/**
 	 * Get an iterator to iterate over the rays shot by the camera.
@@ -25,8 +25,8 @@ public class CameraIterator implements Iterator<Pixel> {
 	 * @param subPixels The number of sub pixels in each dimension for each pixel.
 	 */
 	public CameraIterator(Camera camera, int subPixels) {
-		this.viewPlaneIterator = camera.view.iterator(subPixels);
-		this.source = camera.position;
+		this.viewPlaneIterator = camera.viewPlane.iterator(subPixels);
+		this.sensor = camera.sensor;
 	}
 
 	@Override
@@ -39,15 +39,20 @@ public class CameraIterator implements Iterator<Pixel> {
 	@Override
 	public Pixel next() {
 		int row, col;
-		Point[] points;
+		Point[] viewPlanePoints;
 		synchronized (this) {
 			row = viewPlaneIterator.nextRow();
 			col = viewPlaneIterator.nextCol();
-			points = viewPlaneIterator.next();
+			viewPlanePoints = viewPlaneIterator.next();
 		}
-		Ray[] rays = new Ray[points.length];
-		for (int i = 0; i < rays.length; ++i) {
-			rays[i] = new Ray(source, source.vectorTo(points[i]).normalized());
+		int sensorPixels = sensor.numPixels();
+		Ray[] rays = new Ray[viewPlanePoints.length * sensorPixels];
+		for (int i = 0; i < viewPlanePoints.length; ++i) {
+			int j = 0;
+			for (Point[] sensorPoints : sensor) {
+				rays[i * sensorPixels + j++] =
+					new Ray(sensorPoints[0], sensorPoints[0].vectorTo(viewPlanePoints[i]).normalized());
+			}
 		}
 		return new Pixel(row, col, rays);
 	}

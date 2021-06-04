@@ -53,11 +53,10 @@ public class PhongRayTracer extends RayTracer {
 	}
 
 	private Colour colour(Intersection intersection, Ray fromCamera, int level, Factors effectCoefficient) {
-		Colour result = intersection.geometry.material.emission
-			.add(localEffects(intersection, fromCamera.direction));
-        if (level == maxRecursionLevel) {
+		Colour result = intersection.geometry.material.emission.add(localEffects(intersection, fromCamera.direction));
+		if (level == maxRecursionLevel) {
 			result = result.add(scene.ambient.colour.scale(intersection.geometry.material.ambient));
-        }
+		}
 		if (level > 0) {
 			result = globalEffects(result, intersection, fromCamera, level, effectCoefficient);
 		}
@@ -107,7 +106,8 @@ public class PhongRayTracer extends RayTracer {
 		Intersection intersection, Supplier<NormalizedVector> directionSupplier, int level) {
 		Factors newFactors = materialFactors.scale(accumulatedFactors);
 		if (!newFactors.lt(minEffectCoefficient)) {
-			result = result.add(trace(new Ray(intersection.point, directionSupplier.get()), level - 1, newFactors));
+			result = result.add(trace(new Ray(intersection.point, directionSupplier.get()), level - 1, newFactors)
+				.scale(materialFactors));
 		}
 		return result;
 	}

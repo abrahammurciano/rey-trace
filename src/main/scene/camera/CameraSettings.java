@@ -18,6 +18,8 @@ public class CameraSettings {
 	private double height;
 	private double distance;
 	private Resolution resolution;
+	private double sensorSize;
+	private int sensorPixels;
 
 	/**
 	 * Default constructor for CameraSettings.
@@ -30,6 +32,8 @@ public class CameraSettings {
 		height = 10.8;
 		distance = 10;
 		resolution = new Resolution("1920x1080");
+		sensorSize = 1;
+		sensorPixels = 1;
 	}
 
 	/**
@@ -39,13 +43,15 @@ public class CameraSettings {
 	 */
 	public CameraSettings(Camera camera) {
 		this();
-		position(camera.position);
+		position(camera.position());
 		front(camera.orientation.front);
 		up(camera.orientation.up);
-		width(camera.view.width);
-		height(camera.view.height);
+		width(camera.viewPlane.width);
+		height(camera.viewPlane.height);
 		distance(camera.distance);
 		resolution(camera.resolution());
+		sensorSize(camera.sensor.height);
+		sensorPixels(camera.sensor.resolution.x);
 	}
 
 	/**
@@ -205,10 +211,50 @@ public class CameraSettings {
 	/**
 	 * Get the resolution of the {@link Camera}.
 	 *
-	 * @return This {@link CameraSettings}.
+	 * @return The resolution.
 	 */
 	public Resolution resolution() {
 		return resolution;
+	}
+
+	/**
+	 * Specify the size of the {@link Camera}'s sensor. The larger the size, the shorter the focal range.
+	 *
+	 * @param sensorSize The size for the sensor.
+	 * @return This {@link CameraSettings}.
+	 */
+	public CameraSettings sensorSize(double sensorSize) {
+		this.sensorSize = sensorSize;
+		return this;
+	}
+
+	/**
+	 * Get the size of the sensor of the {@link Camera}.
+	 *
+	 * @return The sensor size.
+	 */
+	public double sensorSize() {
+		return sensorSize;
+	}
+
+	/**
+	 * Specify the number of pixels along the x and y axes of the {@link Camera}'s sensor.
+	 *
+	 * @param sensorPixels The number of pixels for the sensor.
+	 * @return This {@link CameraSettings}.
+	 */
+	public CameraSettings sensorPixels(int sensorPixels) {
+		this.sensorPixels = sensorPixels;
+		return this;
+	}
+
+	/**
+	 * Get the number of pixels along the x and y axes of the {@link Camera}'s sensor.
+	 *
+	 * @return The number of pixels for the sensor's x and y axes.
+	 */
+	public int sensorPixels() {
+		return sensorPixels;
 	}
 
 }

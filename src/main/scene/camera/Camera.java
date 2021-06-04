@@ -16,13 +16,13 @@ import math.matrices.RotationMatrix;
  * @author Eli Levin
  */
 public class Camera implements Iterable<Pixel> {
-	/** The position at which the camera located. */
-	public final Point position;
+	/** The {@link PixelGrid} where all rays are shot from. */
+	public final PixelGrid sensor;
 	/** The {@link Orientation} in which the camera is facing. */
 	final Orientation orientation;
-	/** The {@link ViewPlane} the camera is to shoot rays through. */
-	final ViewPlane view;
-	/** The distance between the {@link Camera} and the {@link ViewPlane}. */
+	/** The {@link PixelGrid} the camera is to shoot rays through. */
+	final PixelGrid viewPlane;
+	/** The distance between the {@link Camera} and the {@link PixelGrid}. */
 	final double distance;
 
 	/**
@@ -31,10 +31,11 @@ public class Camera implements Iterable<Pixel> {
 	 * @param settings The {@link CameraSettings} containing the data necessary to create the camera.
 	 */
 	public Camera(CameraSettings settings) {
-		this.position = settings.position();
 		this.orientation = new Orientation(settings.front(), settings.up());
+		this.sensor = new PixelGrid(settings.sensorSize(), settings.sensorSize(), settings.position(),
+			new Resolution(settings.sensorPixels(), settings.sensorPixels()), orientation);
 		this.distance = settings.distance();
-		this.view = new ViewPlane(settings.width(), settings.height(),
+		this.viewPlane = new PixelGrid(settings.width(), settings.height(),
 			settings.position().add(orientation.front.scale(distance)), settings.resolution(), orientation);
 	}
 
@@ -51,7 +52,16 @@ public class Camera implements Iterable<Pixel> {
 	 * @return The resolution of the {@link Camera}.
 	 */
 	public Resolution resolution() {
-		return view.resolution;
+		return viewPlane.resolution;
+	}
+
+	/**
+	 * Gets the point where the camera is located.
+	 *
+	 * @return the {@link Point} where the camera is located.
+	 */
+	public Point position() {
+		return sensor.center;
 	}
 
 	/**
@@ -61,7 +71,7 @@ public class Camera implements Iterable<Pixel> {
 	 * @return A new {@link Camera} shifted by the given {@link Vector}.
 	 */
 	public Camera shift(Vector offset) {
-		return new Camera(new CameraSettings(this).position(position.add(offset)));
+		return new Camera(new CameraSettings(this).position(sensor.center.add(offset)));
 	}
 
 	/**
