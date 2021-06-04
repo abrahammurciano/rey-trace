@@ -43,11 +43,12 @@ public class Renderer implements JobTrackable {
 	 * @param antialiasing The number of sub pixels to use to calculate the colour of each pixel.
 	 */
 	public void render(int threads, int antialiasing) {
-		Iterator<Pixel> iterator = camera.iterator(antialiasing);
-		Thread[] children = startChildrenThreads(threads, () -> new RenderThread(iterator));
-		waitForChildren(children);
-		writer.writeToFile();
-		finished();
+		performTask(() -> {
+			Iterator<Pixel> iterator = camera.iterator(antialiasing);
+			Thread[] children = startChildrenThreads(threads, () -> new RenderThread(iterator));
+			waitForChildren(children);
+			writer.writeToFile();
+		});
 	}
 
 	/**

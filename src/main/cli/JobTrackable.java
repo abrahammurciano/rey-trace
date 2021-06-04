@@ -28,10 +28,23 @@ public interface JobTrackable {
 	}
 
 	/**
+	 * Let all registered trackers know that the task has been started.
+	 */
+	public default void start() {
+		jobTrackers().forEach(JobTracker::start);
+	}
+
+	/**
 	 * Let all registered trackers know that the task has been completed.
 	 */
 	public default void finished() {
 		jobTrackers().forEach(JobTracker::finished);
+	}
+
+	public default void performTask(Runnable task) {
+		start();
+		task.run();
+		finished();
 	}
 
 	/**

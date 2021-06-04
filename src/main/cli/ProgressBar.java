@@ -1,6 +1,8 @@
 package cli;
 
 import java.text.DecimalFormat;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 
 /**
  * This class prints the progress of a task to standard output.
@@ -12,17 +14,22 @@ public class ProgressBar implements JobTracker {
 	private int totalJobs;
 	private int completedJobs;
 	private int length;
+	private int updateFrequency;
+	private Instant start;
 
 	/**
 	 * Construct a progress bar.
 	 *
-	 * @param totalJobs The total number of jobs to be completed.
-	 * @param length    The number of characters to try to take up when printing progress updates.
+	 * @param totalJobs       The total number of jobs to be completed.
+	 * @param length          The number of characters to try to take up when printing progress updates.
+	 * @param updateFrequency The number of jobs to complete before updating the progress bar.
 	 */
-	public ProgressBar(int totalJobs, int length) {
+	public ProgressBar(int totalJobs, int length, int updateFrequency) {
 		this.totalJobs = totalJobs;
 		this.length = length;
+		this.updateFrequency = updateFrequency;
 		this.completedJobs = 0;
+		this.start = Instant.now();
 	}
 
 	/**
@@ -53,10 +60,15 @@ public class ProgressBar implements JobTracker {
 	}
 
 	@Override
+	public void start() {
+		this.start = Instant.now();
+	}
+
+	@Override
 	public void completeOneJob() {
 		boolean print;
 		synchronized (this) {
-			print = ++completedJobs % 10000 == 0;
+			print = ++completedJobs % updateFrequency == 0;
 		}
 		if (print) {
 			System.out.print(toString());
@@ -69,19 +81,26 @@ public class ProgressBar implements JobTracker {
 		System.out.println(toString());
 	}
 
+	private String alignRight(String text, int length) {
+		if (text.length() > length) {
+			return text;
+		}
+		int spaces = length - text.length();
+		return " ".repeat(spaces) + text;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		String totalJobsStr = Integer.toString(totalJobs);
-		String completedJobsStr = Integer.toString(completedJobs);
-		int spaces = totalJobsStr.length() - completedJobsStr.length();
-		sb.append(" ".repeat(spaces));
-		sb.append(completedJobsStr);
+		sb.append(alignRight(Integer.toString(completedJobs), totalJobsStr.length()));
 		sb.append('/');
 		sb.append(totalJobsStr);
 		sb.append("  ");
-		sb.append(new DecimalFormat("#0.0").format(percent() * 100));
-		sb.append("%  [");
+		sb.append(alignRight(new DecimalFormat("#0.0").format(percent() * 100), 5));
+		sb.append("%  ");
+		sb.append(alignRight(Long.toString(start.until(Instant.now(), ChronoUnit.SECONDS)), 3));
+		sb.append("s  [");
 		int totalBarLength = length - sb.length() - 1;
 		int completedBarLength = (int) (percent() * totalBarLength);
 		sb.append("#".repeat(completedBarLength));
