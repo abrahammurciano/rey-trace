@@ -8,6 +8,7 @@ import scene.camera.Camera;
 import scene.camera.CameraSettings;
 import xml.factories.attribute.XmlDoubleFactory;
 import xml.factories.attribute.XmlFactoryFromAttribute;
+import xml.factories.attribute.XmlIntegerFactory;
 import xml.factories.attribute.XmlResolutionFactory;
 import xml.factories.attribute.XmlTripleFactory;
 
@@ -23,6 +24,7 @@ public class XmlCameraFactory extends XmlFactoryFromElement<Camera> {
 	private static final XmlTripleFactory<NormalizedVector> VECTOR_FACTORY =
 		new XmlTripleFactory<>(NormalizedVector::new);
 	private static final XmlDoubleFactory DOUBLE_FACTORY = new XmlDoubleFactory();
+	private static final XmlIntegerFactory INT_FACTORY = new XmlIntegerFactory();
 	private static final XmlResolutionFactory RESOLUTION_FACTORY = new XmlResolutionFactory();
 
 	@Override
@@ -36,6 +38,8 @@ public class XmlCameraFactory extends XmlFactoryFromElement<Camera> {
 		loadSetting(element, "height", DOUBLE_FACTORY, settings::height);
 		loadSetting(element, "distance", DOUBLE_FACTORY, settings::distance);
 		loadSetting(element, "resolution", RESOLUTION_FACTORY, settings::resolution);
+		loadSetting(element, "sensor-size", DOUBLE_FACTORY, settings::sensorSize);
+		loadSetting(element, "sensor-pixels", INT_FACTORY, settings::sensorPixels);
 
 		Camera camera = new Camera(settings);
 

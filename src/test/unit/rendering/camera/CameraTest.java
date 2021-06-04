@@ -30,7 +30,7 @@ public class CameraTest {
 		CameraSettings settings =
 			new CameraSettings().front(new NormalizedVector(0, -1, 0)).dimensions(6, 6).distance(10).resolution("3x3");
 		Camera camera = new Camera(settings);
-		Point position = camera.position;
+		Point position = camera.position();
 
 		List<Ray> expected = List.of(new Ray(position, new NormalizedVector(2, -10, 2)),
 			new Ray(position, new NormalizedVector(0, -10, 2)), new Ray(position, new NormalizedVector(-2, -10, 2)),

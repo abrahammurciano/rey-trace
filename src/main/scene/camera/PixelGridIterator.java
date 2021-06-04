@@ -6,9 +6,9 @@ import primitives.Point;
 import primitives.Vector;
 import rendering.Resolution;
 
-class ViewPlaneIterator implements Iterator<Point[]> {
+class PixelGridIterator implements Iterator<Point[]> {
 
-	private final ViewPlane view;
+	private final PixelGrid view;
 	private Point[] current;
 	private int col = 0;
 	private int row = 0;
@@ -21,7 +21,7 @@ class ViewPlaneIterator implements Iterator<Point[]> {
 	 * @param subPixels The number of sub pixels to return for each pixel. For example, 3 means a 3x3 grid for each
 	 *                  pixel, so 9 points would be returned for each iteration.
 	 */
-	ViewPlaneIterator(ViewPlane view, int subPixels) {
+	PixelGridIterator(PixelGrid view, int subPixels) {
 		this.view = view;
 		if (subPixels == 1) { // base case
 			this.current = new Point[] {view.topLeft}; // set to singleton array
@@ -30,7 +30,7 @@ class ViewPlaneIterator implements Iterator<Point[]> {
 		this.current = new Point[subPixels * subPixels];
 
 		// Make a mini view plane that splits the first pixel into subPixels by subPixels little rectangles.
-		ViewPlaneIterator subIterator = new ViewPlane(view.width / view.resolution.x, view.height / view.resolution.y,
+		PixelGridIterator subIterator = new PixelGrid(view.width / view.resolution.x, view.height / view.resolution.y,
 			view.topLeft, new Resolution(subPixels, subPixels), view.orientation).iterator();
 
 		for (int i = 0; i < current.length; ++i) {
