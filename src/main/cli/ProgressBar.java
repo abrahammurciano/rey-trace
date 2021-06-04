@@ -16,6 +16,8 @@ public class ProgressBar implements JobTracker {
 	private int length;
 	private int updateFrequency;
 	private Instant start;
+	private String completed;
+	private String uncompleted;
 
 	/**
 	 * Construct a progress bar.
@@ -23,11 +25,15 @@ public class ProgressBar implements JobTracker {
 	 * @param totalJobs       The total number of jobs to be completed.
 	 * @param length          The number of characters to try to take up when printing progress updates.
 	 * @param updateFrequency The number of jobs to complete before updating the progress bar.
+	 * @param completed       The character to use in the completed section of the progress bar.
+	 * @param uncompleted     The character to use in the uncompleted section of the progress bar.
 	 */
-	public ProgressBar(int totalJobs, int length, int updateFrequency) {
+	public ProgressBar(int totalJobs, int length, int updateFrequency, char completed, char uncompleted) {
 		this.totalJobs = totalJobs;
 		this.length = length;
 		this.updateFrequency = updateFrequency;
+		this.completed = Character.toString(completed);
+		this.uncompleted = Character.toString(uncompleted);
 		this.completedJobs = 0;
 		this.start = Instant.now();
 	}
@@ -103,8 +109,8 @@ public class ProgressBar implements JobTracker {
 		sb.append("s  [");
 		int totalBarLength = length - sb.length() - 1;
 		int completedBarLength = (int) (percent() * totalBarLength);
-		sb.append("#".repeat(completedBarLength));
-		sb.append(" ".repeat(totalBarLength - completedBarLength));
+		sb.append(completed.repeat(completedBarLength));
+		sb.append(uncompleted.repeat(totalBarLength - completedBarLength));
 		sb.append("]\r");
 		return sb.toString();
 	}
