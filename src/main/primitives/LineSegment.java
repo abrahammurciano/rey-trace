@@ -49,7 +49,11 @@ public class LineSegment {
 	 *         line segment.
 	 */
 	public Point travel(double distance) {
-		return withinDistance(distance) ? start.add(direction.scale(distance)) : null;
+		try {
+			return withinDistance(distance) ? start.add(direction.scale(distance)) : null;
+		} catch (ZeroVectorException __) {
+			return null;
+		}
 	}
 
 	/**
