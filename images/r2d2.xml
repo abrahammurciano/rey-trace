@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <scene background-colour="150 200 255">
-	<camera position="1000 0 100" distance="1000" width="384" height="216" resolution="1920x1080" yaw="180" pitch="3" />
+	<camera position="707 -707 100" distance="1000" width="384" height="216" resolution="1920x1080" yaw="135" pitch="3" />
 	<ambient-light colour="100 100 100" />
 	<lights>
 		<directional-light colour="128 128 128" direction="-1 1 -2" />
@@ -13,7 +13,7 @@
 		</plane>
 		<!-- head -->
 		<sphere center="0 0 90" radius="25">
-			<material specular="0.6" diffuse="0.2 0.2 0.25" shine="500" reflectivity="0.1" />
+			<material specular="0.6" diffuse="0.2 0.2 0.25" shine="500" />
 		</sphere>
 		<!-- body -->
 		<cylinder source="0 0 90" radius="25" height="60" direction="0 -2 -5">
@@ -30,6 +30,9 @@
 			<material specular="1 1 1" diffuse="1 1 1" shine="100" />
 		</polygon>
 		<polygon p1="12 -50 0" p2="5 -35 16" p3="5 -25 16" p4="12 -10 0">
+			<material specular="1 1 1" diffuse="1 1 1" shine="100" />
+		</polygon>
+		<polygon p1="-5 -25 16" p2="-5 -35 16" p3="5 -35 16" p4="5 -25 16">
 			<material specular="1 1 1" diffuse="1 1 1" shine="100" />
 		</polygon>
 	</geometries>
