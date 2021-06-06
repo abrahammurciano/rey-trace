@@ -3,6 +3,7 @@ package xml.factories.element;
 import java.util.Map;
 import org.w3c.dom.Element;
 import geometries.Geometries;
+import geometries.Intersectible;
 import xml.Util;
 import xml.XmlParserException;
 import static java.util.Map.entry;
@@ -16,7 +17,8 @@ import static java.util.Map.entry;
  */
 public class XmlGeometriesFactory extends XmlFactoryFromElement<Geometries> {
 	//@formatter:off
-	private static final Map<String, XmlGeometryFactory> FACTORIES = Map.ofEntries(
+	private static final Map<String, XmlFactoryFromElement<? extends Intersectible>> FACTORIES = Map.ofEntries(
+		entry("geometries", new XmlGeometriesFactory()),
 		entry("cylinder", new XmlCylinderFactory()),
 		entry("plane", new XmlPlaneFactory()),
 		entry("polygon", new XmlPolygonFactory()),
