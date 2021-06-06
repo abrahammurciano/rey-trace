@@ -97,9 +97,9 @@ public class Cli {
 			return;
 		}
 		RayTracer rayTracer = new PhongRayTracer(scene, recursion, minCoefficient);
-		Renderer renderer = new Renderer(scene.camera(), rayTracer, outfile);
+		Renderer renderer = new Renderer(scene.camera(), rayTracer, outfile, threads, antiAliasing);
 		renderer.register(new ProgressBar(renderer.totalJobs(), 80, '#', '-'));
-		renderer.render(threads, antiAliasing);
+		renderer.render();
 	}
 
 	private static Options createOptions() {

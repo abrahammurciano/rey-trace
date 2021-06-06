@@ -9,7 +9,7 @@ import java.time.temporal.ChronoUnit;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class ProgressBar implements JobTracker {
+public class ProgressBar implements TaskTracker {
 	private int totalJobs;
 	private int completedJobs;
 	private int length;
@@ -70,10 +70,11 @@ public class ProgressBar implements JobTracker {
 	}
 
 	@Override
-	public void completeOneJob() {
+	public void completeJobs(int number) {
 		boolean print;
 		synchronized (this) {
-			print = ++completedJobs % updateFrequency == 0;
+			completedJobs += number;
+			print = completedJobs % updateFrequency == 0;
 		}
 		if (print) {
 			System.out.print(toString());

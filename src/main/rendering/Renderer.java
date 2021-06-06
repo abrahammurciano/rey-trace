@@ -5,8 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.function.Supplier;
-import cli.JobTrackable;
-import cli.JobTracker;
+import cli.Task;
+import cli.TaskTracker;
 import scene.camera.Camera;
 import scene.camera.Pixel;
 import rendering.raytracing.RayTracer;
@@ -17,38 +17,45 @@ import rendering.raytracing.RayTracer;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class Renderer implements JobTrackable {
+public class Renderer implements Task {
 	private Camera camera;
 	private ImageWriter writer;
 	private RayTracer rayTracer;
-	private List<JobTracker> jobTrackers = new LinkedList<>();
+	private List<TaskTracker> taskTrackers = new LinkedList<>();
+	private int threads;
+	private int antialiasing;
 
 	/**
 	 * Construct a renderer with the provided data.
 	 *
-	 * @param camera    The camera to use to render the scene.
-	 * @param rayTracer The rayTracer to use to calculate the colour of each pixel.
-	 * @param filename  The filename to write the rendered image to.
+	 * @param camera       The camera to use to render the scene.
+	 * @param rayTracer    The rayTracer to use to calculate the colour of each pixel.
+	 * @param filename     The filename to write the rendered image to.
+	 * @param threads      The number of threads to use to render the image.
+	 * @param antialiasing The number of sub pixels to use to calculate the colour of each pixel.
 	 */
-	public Renderer(Camera camera, RayTracer rayTracer, String filename) {
+	public Renderer(Camera camera, RayTracer rayTracer, String filename, int threads, int antialiasing) {
 		this.camera = camera;
 		this.rayTracer = rayTracer;
+		this.threads = threads;
+		this.antialiasing = antialiasing;
 		this.writer = new ImageWriter(filename, camera.resolution());
 	}
 
 	/**
 	 * Calculates the colours of each pixel, write them to the ImageWriter, then write the image to the output file.
 	 *
-	 * @param threads      The number of threads to use to render the image.
-	 * @param antialiasing The number of sub pixels to use to calculate the colour of each pixel.
 	 */
-	public void render(int threads, int antialiasing) {
-		performTask(() -> {
-			Iterator<Pixel> iterator = camera.iterator(antialiasing);
-			Thread[] children = startChildrenThreads(threads, () -> new RenderThread(iterator));
-			waitForChildren(children);
-			writer.writeToFile();
-		});
+	public void render() {
+		performTask();
+	}
+
+	@Override
+	public void task() {
+		Iterator<Pixel> iterator = camera.iterator(antialiasing);
+		Thread[] children = startChildrenThreads(() -> new RenderThread(iterator));
+		waitForChildren(children);
+		writer.writeToFile();
 	}
 
 	/**
@@ -59,7 +66,7 @@ public class Renderer implements JobTrackable {
 	 * @param constructor A function which creates new threads.
 	 * @return An array of the created threads.
 	 */
-	private Thread[] startChildrenThreads(int threads, Supplier<Thread> constructor) {
+	private Thread[] startChildrenThreads(Supplier<Thread> constructor) {
 		Thread[] children = new Thread[threads];
 		for (int i = 0; i < threads; ++i) {
 			children[i] = constructor.get();
@@ -107,7 +114,7 @@ public class Renderer implements JobTrackable {
 				try {
 					Pixel pixel = iterator.next();
 					writer.setPixel(pixel.row, pixel.col, rayTracer.trace(pixel.rays));
-					completeOneJob();
+					completeJobs(1);
 				} catch (NoSuchElementException e) {
 					return;
 				}
@@ -116,8 +123,8 @@ public class Renderer implements JobTrackable {
 	}
 
 	@Override
-	public List<JobTracker> jobTrackers() {
-		return jobTrackers;
+	public List<TaskTracker> taskTrackers() {
+		return taskTrackers;
 	}
 
 	@Override
