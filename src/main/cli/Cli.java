@@ -1,7 +1,6 @@
 package cli;
 
 import java.io.IOException;
-import java.util.Random;
 import java.util.function.Function;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -99,7 +98,7 @@ public class Cli {
 		}
 		RayTracer rayTracer = new PhongRayTracer(scene, recursion, minCoefficient);
 		Renderer renderer = new Renderer(scene.camera(), rayTracer, outfile);
-		renderer.register(new ProgressBar(renderer.totalJobs(), 80, new Random().nextInt(1000) + 9500, '#', '-'));
+		renderer.register(new ProgressBar(renderer.totalJobs(), 80, '#', '-'));
 		renderer.render(threads, antiAliasing);
 	}
 

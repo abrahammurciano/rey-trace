@@ -1,6 +1,5 @@
 package cli;
 
-import java.text.DecimalFormat;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
@@ -28,10 +27,10 @@ public class ProgressBar implements JobTracker {
 	 * @param completed       The character to use in the completed section of the progress bar.
 	 * @param uncompleted     The character to use in the uncompleted section of the progress bar.
 	 */
-	public ProgressBar(int totalJobs, int length, int updateFrequency, char completed, char uncompleted) {
+	public ProgressBar(int totalJobs, int length, char completed, char uncompleted) {
 		this.totalJobs = totalJobs;
 		this.length = length;
-		this.updateFrequency = updateFrequency;
+		this.updateFrequency = totalJobs / 100;
 		this.completed = Character.toString(completed);
 		this.uncompleted = Character.toString(uncompleted);
 		this.completedJobs = 0;
@@ -103,9 +102,14 @@ public class ProgressBar implements JobTracker {
 		sb.append('/');
 		sb.append(totalJobsStr);
 		sb.append("  ");
-		sb.append(alignRight(new DecimalFormat("#0.0").format(percent() * 100), 5));
+		double percent = percent();
+		sb.append(alignRight(Integer.toString((int) (percent * 100)), 3));
 		sb.append("%  ");
-		sb.append(alignRight(Long.toString(start.until(Instant.now(), ChronoUnit.SECONDS)), 3));
+		Instant now = Instant.now();
+		long secondsPassed = start.until(now, ChronoUnit.SECONDS);
+		sb.append(alignRight(Long.toString(secondsPassed), 3));
+		sb.append("s /");
+		sb.append(alignRight(Integer.toString((int) (start.until(now, ChronoUnit.MILLIS) / (percent * 1000))), 3));
 		sb.append("s  [");
 		int totalBarLength = length - sb.length() - 1;
 		int completedBarLength = (int) (percent() * totalBarLength);
