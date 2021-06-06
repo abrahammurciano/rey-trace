@@ -64,6 +64,12 @@ public class XmlParserException extends RuntimeException {
 		for (Element element : trace) {
 			sb.append(" in ");
 			sb.append(element.getTagName());
+			String name = element.getAttribute("name");
+			if (!name.isEmpty()) {
+				sb.append(" (");
+				sb.append(name);
+				sb.append(')');
+			}
 			sb.append('\n');
 		}
 		return sb.toString();
