@@ -56,12 +56,20 @@ public class XmlParserException extends RuntimeException {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(getMessage());
-		sb.append("\nThis error was directly caused by the following error.\n");
-		sb.append(getCause().getMessage());
+		if (getCause() != null) {
+			sb.append("\nThis error was directly caused by the following error.\n");
+			sb.append(getCause().getMessage());
+		}
 		sb.append("\nThis error occurred");
 		for (Element element : trace) {
 			sb.append(" in ");
 			sb.append(element.getTagName());
+			String name = element.getAttribute("name");
+			if (!name.isEmpty()) {
+				sb.append(" (");
+				sb.append(name);
+				sb.append(')');
+			}
 			sb.append('\n');
 		}
 		return sb.toString();

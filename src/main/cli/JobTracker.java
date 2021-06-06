@@ -9,6 +9,11 @@ package cli;
  */
 public interface JobTracker {
 	/**
+	 * React to the starting of the entire task.
+	 */
+	void start();
+
+	/**
 	 * React to the completion of one job.
 	 */
 	void completeOneJob();
