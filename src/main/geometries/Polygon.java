@@ -109,4 +109,10 @@ public class Polygon extends Geometry {
 		return candidates;
 	}
 
+	@Override
+	public BoundingBox border() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

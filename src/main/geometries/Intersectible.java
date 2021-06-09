@@ -19,4 +19,6 @@ public interface Intersectible {
 	 */
 	public List<Intersection> intersect(LineSegment line);
 
+	public BoundingBox border();
+
 }

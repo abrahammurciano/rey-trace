@@ -105,4 +105,10 @@ public class Cylinder extends Geometry {
 			return Collections.emptyList();
 		}
 	}
+
+	@Override
+	public BoundingBox border() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
