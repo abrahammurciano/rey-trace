@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import primitives.LineSegment;
 import java.util.ArrayDeque;
+import java.util.Collections;
 import java.util.Deque;
 
 /**
@@ -17,6 +18,7 @@ import java.util.Deque;
 public class Geometries implements Intersectible, Iterable<Geometry> {
 
 	private List<Intersectible> intersectibles = new LinkedList<>();
+	private BoundingBox border;
 
 	/**
 	 * Construct a collection of geometries given an array of {@link Intersectible}s or given any number of
@@ -35,6 +37,7 @@ public class Geometries implements Intersectible, Iterable<Geometry> {
 	 */
 	public void add(Intersectible intersectible) {
 		intersectibles.add(intersectible);
+		border = border.union(intersectible.border());
 	}
 
 	/**
@@ -70,6 +73,9 @@ public class Geometries implements Intersectible, Iterable<Geometry> {
 
 	@Override
 	public List<Intersection> intersect(LineSegment line) {
+		if (!border().intersects(line)) {
+			return Collections.emptyList();
+		}
 		List<Intersection> result = new LinkedList<>();
 		for (Intersectible intersectible : intersectibles) {
 			result.addAll(intersectible.intersect(line));
@@ -79,8 +85,7 @@ public class Geometries implements Intersectible, Iterable<Geometry> {
 
 	@Override
 	public BoundingBox border() {
-		// TODO Auto-generated method stub
-		return null;
+		return border;
 	}
 
 	@Override

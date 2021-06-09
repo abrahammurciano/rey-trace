@@ -96,6 +96,7 @@ public class Cli {
 			System.exit(5);
 			return;
 		}
+		scene.geometries.optimize();
 		RayTracer rayTracer = new PhongRayTracer(scene, recursion, minCoefficient);
 		Renderer renderer = new Renderer(scene.camera(), rayTracer, outfile, threads, antiAliasing);
 		renderer.register(new ProgressBar(renderer.totalJobs(), 80, '#', '-'));
