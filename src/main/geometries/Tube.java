@@ -24,7 +24,7 @@ import math.matrices.FastMatrixMultSelf;
  * @author Eli Levin
  * @author Abraham Murciano
  */
-public class Tube extends Geometry {
+public class Tube extends InfiniteGeometry {
 	/** The axis {@link Ray} of the tube. */
 	public final Ray axis;
 	/** The radius of the tube. */

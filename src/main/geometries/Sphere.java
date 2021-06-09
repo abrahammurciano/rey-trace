@@ -74,4 +74,10 @@ public class Sphere extends Geometry {
 		}
 		return result;
 	}
+
+	@Override
+	public BoundingBox border() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

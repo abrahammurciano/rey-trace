@@ -17,7 +17,7 @@ import primitives.ZeroVectorException;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class Plane extends Geometry {
+public class Plane extends InfiniteGeometry {
 	/** A point on the plane. */
 	public final Point point;
 	/** The normal vector of the plane. */

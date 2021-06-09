@@ -1,5 +1,6 @@
 package geometries;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import primitives.LineSegment;
@@ -10,7 +11,7 @@ import primitives.LineSegment;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class Geometries implements Intersectible {
+public class Geometries implements Intersectible, Iterable<Geometry> {
 
 	private List<Intersectible> intersectibles = new LinkedList<>();
 
@@ -44,6 +45,22 @@ public class Geometries implements Intersectible {
 		}
 	}
 
+	private void constructHierarchy() {
+		// TODO: implement
+		// first flatten geometries (to bring all infinite geometries to top level)
+		// then put all finite geometries in a sub-geometries (use g.border().isFinite())
+		// then construct that one with a recursive helper function
+	}
+
+	private void flatten() {
+		// TODO: implement (use geometries iterator)
+	}
+
+	private void constructHierarchyHelper() {
+		// TODO: implement
+		// this is where the fun begins
+	}
+
 	@Override
 	public List<Intersection> intersect(LineSegment line) {
 		List<Intersection> result = new LinkedList<>();
@@ -51,5 +68,17 @@ public class Geometries implements Intersectible {
 			result.addAll(intersectible.intersect(line));
 		}
 		return result;
+	}
+
+	@Override
+	public BoundingBox border() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Iterator<Geometry> iterator() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
