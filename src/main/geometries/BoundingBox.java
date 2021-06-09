@@ -12,6 +12,15 @@ class BoundingBox {
 		// TODO: implement
 	}
 
+	/**
+	 * Create a bounding box containing only a single {@link Point}.
+	 *
+	 * @param point The only point contained in the bounding box.
+	 */
+	public BoundingBox(Point point) {
+		this(point, point);
+	}
+
 	boolean intersects(LineSegment line) {
 		// TODO: implement
 		return false;
