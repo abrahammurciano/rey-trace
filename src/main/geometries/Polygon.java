@@ -21,8 +21,9 @@ import primitives.ZeroVectorException;
  */
 public class Polygon extends Geometry {
 
-	private List<Point> vertices;
-	private Plane plane; // The plane which all the points must reside on.
+	private final List<Point> vertices;
+	private final Plane plane; // The plane which all the points must reside on.
+	private final BoundingBox border;
 	/** The number of vertices in the polygon. */
 	public final int size;
 
@@ -71,8 +72,17 @@ public class Polygon extends Geometry {
 		if (this.size < 3) {
 			throw new IllegalArgumentException("Error: A polygon must contain at least three vertices.");
 		}
+		this.border = calcBorder(vertices);
 		// Construct the plane from the first three vertices (not in a straight line).
 		this.plane = new Plane(material, this.vertices.get(0), this.vertices.get(1), this.vertices.get(2));
+	}
+
+	static BoundingBox calcBorder(Point[] vertices) {
+		BoundingBox result = new BoundingBox(vertices[0]);
+		for (int i = 1; i < vertices.length; i++) {
+			result = result.union(new BoundingBox(vertices[i]));
+		}
+		return result;
 	}
 
 	/**
@@ -111,8 +121,7 @@ public class Polygon extends Geometry {
 
 	@Override
 	public BoundingBox border() {
-		// TODO Auto-generated method stub
-		return null;
+		return border;
 	}
 
 }

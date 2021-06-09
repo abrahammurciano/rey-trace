@@ -8,6 +8,7 @@ import primitives.LineSegment;
 import primitives.Material;
 import primitives.NormalizedVector;
 import primitives.Point;
+import primitives.Vector;
 import primitives.VectorBase;
 import math.compare.DoubleCompare;
 import math.equations.Quadratic;
@@ -25,6 +26,8 @@ public class Sphere extends Geometry {
 	/** The radius of the sphere. */
 	public final double radius;
 
+	private final BoundingBox border;
+
 	/**
 	 * Constructs a sphere from a given center point and a radius.
 	 *
@@ -41,6 +44,12 @@ public class Sphere extends Geometry {
 		}
 		this.center = center;
 		this.radius = Math.abs(radius);
+		this.border = calcBorder(center, radius);
+	}
+
+	static BoundingBox calcBorder(Point center, double radius) {
+		Vector toBorderCorner = new Vector(radius, radius, radius);
+		return new BoundingBox(center.add(toBorderCorner), center.subtract(toBorderCorner));
 	}
 
 	/**
@@ -77,7 +86,6 @@ public class Sphere extends Geometry {
 
 	@Override
 	public BoundingBox border() {
-		// TODO Auto-generated method stub
-		return null;
+		return border;
 	}
 }
