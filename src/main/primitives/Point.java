@@ -105,6 +105,14 @@ public class Point extends Triple {
 		}, target, Point::new).sum();
 	}
 
+	public Point minimumest(Point target) {
+		return transform((base, aux) -> Math.min(base, aux), target ,Point::new);
+	}
+
+	public Point maximumest(Point target) {
+		return transform((base, aux) -> Math.max(base, aux), target ,Point::new);
+	}
+
 	@Override
 	public String toString() {
 		return "(" + super.toString() + ")";
