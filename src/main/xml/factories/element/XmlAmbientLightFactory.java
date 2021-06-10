@@ -22,7 +22,7 @@ public class XmlAmbientLightFactory extends XmlFactoryFromElement<AmbientLight> 
 	 * @return A new AmbientLight with the given values.
 	 * @throws XmlParserException if the XML element did not have a valid colour attribute.
 	 */
-	public AmbientLight createHelper(Element element) {
+	protected AmbientLight createHelper(Element element) {
 		return new AmbientLight(COLOUR_FACTORY.create(element, "colour"));
 	}
 

@@ -2,7 +2,7 @@ package unit.geometries;
 
 import org.junit.Assert;
 import org.junit.Test;
-import geometries.Geometries;
+import geometries.GeometryList;
 import geometries.Plane;
 import geometries.Sphere;
 import geometries.Triangle;
@@ -41,28 +41,28 @@ public class GeometriesTests {
 		Plane nonIntersectingPlane = new Plane(null, new Point(0, 0, 1), i);
 		Triangle intersectingTriangle =
 			new Triangle(null, new Point(4, 0, 1), new Point(4, 1, -1), new Point(4, -1, -1));
-		Geometries geometries = new Geometries(intersectingSphere, nonIntersectingPlane, intersectingTriangle);
+		GeometryList geometries = new GeometryList(intersectingSphere, nonIntersectingPlane, intersectingTriangle);
 		Assert.assertEquals("Wrong number of intersections when some shapes intersect", 3,
 			geometries.intersect(ray).size());
 
 		// Boundary values test
 
 		// Empty geometries
-		geometries = new Geometries();
+		geometries = new GeometryList();
 		Assert.assertTrue("Empty geometries returned intersections.", geometries.intersect(ray).isEmpty());
 
 		// No geometries intersect
-		geometries = new Geometries(nonIntersectingPlane);
+		geometries = new GeometryList(nonIntersectingPlane);
 		Assert.assertTrue("Expected no intersections when no geometries intersect.",
 			geometries.intersect(ray).isEmpty());
 
 		// Only one shape intersects
-		geometries = new Geometries(intersectingSphere, nonIntersectingPlane);
+		geometries = new GeometryList(intersectingSphere, nonIntersectingPlane);
 		Assert.assertEquals("Wrong number of intersections when some shapes intersect", 2,
 			geometries.intersect(ray).size());
 
 		// All shapes intersect
-		geometries = new Geometries(intersectingSphere, intersectingTriangle);
+		geometries = new GeometryList(intersectingSphere, intersectingTriangle);
 		Assert.assertEquals("Wrong number of intersections when all shapes intersect", 3,
 			geometries.intersect(ray).size());
 	}

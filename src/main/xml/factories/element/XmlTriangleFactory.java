@@ -15,7 +15,7 @@ import xml.factories.attribute.XmlTripleFactory;
 public class XmlTriangleFactory extends XmlGeometryFactory {
 
 	@Override
-	public Triangle createHelper(Element element) {
+	protected Triangle createHelper(Element element) {
 		XmlTripleFactory<Point> factory = new XmlTripleFactory<>(Point::new);
 		Point p0 = factory.create(element, "p0");
 		Point p1 = factory.create(element, "p1");

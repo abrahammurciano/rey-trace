@@ -9,8 +9,10 @@ package primitives;
 public class Point extends Triple {
 	/** The point (0, 0, 0). */
 	public static final Point ORIGIN = new Point(0, 0, 0);
+	/** The point (-INF, -INF, -INF). */
 	public static final Point NEGATIVE_INFINITY =
 		new Point(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY);
+	/** The point (INF, INF, INF). */
 	public static final Point POSITIVE_INFINITY =
 		new Point(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
 

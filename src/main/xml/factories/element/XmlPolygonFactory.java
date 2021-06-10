@@ -20,7 +20,7 @@ public class XmlPolygonFactory extends XmlGeometryFactory {
 	private XmlTripleFactory<Point> FACTORY = new XmlTripleFactory<>(Point::new);
 
 	@Override
-	public Polygon createHelper(Element element) {
+	protected Polygon createHelper(Element element) {
 		List<Point> points = new LinkedList<>();
 		for (int i = 1; !element.getAttribute("p" + i).isEmpty(); ++i) {
 			points.add(FACTORY.create(element, "p" + i));

@@ -10,7 +10,7 @@ import primitives.Point;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-class PixelGrid implements Iterable<Point[]> {
+abstract class PixelGrid<T> implements Iterable<Pixel<T>> {
 
 	/** The width of the pixel grid. */
 	final double width;
@@ -29,7 +29,7 @@ class PixelGrid implements Iterable<Point[]> {
 	/** The center of the pixel grid. */
 	final Point center;
 
-	public PixelGrid(double width, double height, Point center, Resolution resolution, Orientation orientation) {
+	protected PixelGrid(double width, double height, Point center, Resolution resolution, Orientation orientation) {
 		this.width = width;
 		this.height = height;
 		this.orientation = orientation;
@@ -40,21 +40,6 @@ class PixelGrid implements Iterable<Point[]> {
 		topLeft = center.subtract(orientation.right.scale(width / 2)).add(orientation.up.scale(height / 2))
 			.add(nextCol.scale(0.5)).add(nextRow.scale(0.5));
 		this.resolution = resolution;
-	}
-
-	@Override
-	public PixelGridIterator iterator() {
-		return iterator(1);
-	}
-
-	/**
-	 * Get an iterator which returns an array of size subPixels x subPixels for each pixel.
-	 *
-	 * @param subPixels The number of sub pixels in each dimension for each pixel.
-	 * @return An iterator for this pixel grid.
-	 */
-	public PixelGridIterator iterator(int subPixels) {
-		return new PixelGridIterator(this, subPixels);
 	}
 
 	/**

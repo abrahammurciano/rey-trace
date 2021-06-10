@@ -1,12 +1,13 @@
 package geometries;
 
-import java.util.Iterator;
+import util.EfficientIterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import primitives.LineSegment;
 import java.util.ArrayDeque;
+import java.util.Collections;
 import java.util.Deque;
+import java.util.Iterator;
 
 /**
  * A collection of {@link Intersectible}s which aggregates the intersections between rays and all its elements.
@@ -14,38 +15,52 @@ import java.util.Deque;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class Geometries implements Intersectible, Iterable<Geometry> {
+public class GeometryList implements Intersectible, Iterable<Geometry> {
 
 	private List<Intersectible> intersectibles = new LinkedList<>();
+	private BoundingBox border;
 
 	/**
 	 * Construct a collection of geometries given an array of {@link Intersectible}s or given any number of
 	 * {@link Intersectible}s.
 	 *
-	 * @param intersectibles The {@link Intersectible}s to initialise the collection to.
+	 * @param geometries The {@link GeometryList}s to initialise the collection to.
 	 */
-	public Geometries(Intersectible... intersectibles) {
-		add(intersectibles);
+	public GeometryList(Geometry... geometries) {
+		add(geometries);
 	}
 
 	/**
-	 * Add a single {@link Intersectible} to the collection.
+	 * Add a single {@link Geometry} to the collection.
 	 *
-	 * @param intersectible The {@link Intersectible} to add.
+	 * @param geometry The {@link Geometry} to add.
 	 */
-	public void add(Intersectible intersectible) {
-		intersectibles.add(intersectible);
+	public void add(Geometry geometry) {
+		intersectibles.add(geometry);
+		border = border.union(geometry.border());
 	}
 
 	/**
-	 * Add many {@link Intersectible}s to the collection.
+	 * Add many {@link Geometry}s to the collection.
 	 *
-	 * @param intersectibles The {@link Intersectible}s to add.
+	 * @param geometries The {@link Geometry}s to add.
 	 */
-	public void add(Intersectible... intersectibles) {
-		for (Intersectible intersectible : intersectibles) {
-			add(intersectible);
+	public void add(Geometry... geometries) {
+		for (Geometry geometry : geometries) {
+			add(geometry);
 		}
+	}
+
+	/**
+	 * Add all the {@link Geometry}s in the given {@link GeometryList} to the collection.
+	 *
+	 * @param geometries The {@link GeometryList} whose elements to add.
+	 */
+	public void add(GeometryList geometries) {
+		for (Geometry geometry : geometries) {
+			intersectibles.add(geometry);
+		}
+		border = border.union(geometries.border());
 	}
 
 	/**
@@ -59,10 +74,6 @@ public class Geometries implements Intersectible, Iterable<Geometry> {
 		// then construct that one with the constructHierarchy recursive helper function
 	}
 
-	private void flatten() {
-		// TODO: implement (use geometries iterator)
-	}
-
 	private void constructHierarchy() {
 		// TODO: implement
 		// this is where the fun begins
@@ -70,6 +81,9 @@ public class Geometries implements Intersectible, Iterable<Geometry> {
 
 	@Override
 	public List<Intersection> intersect(LineSegment line) {
+		if (!border().intersects(line)) {
+			return Collections.emptyList();
+		}
 		List<Intersection> result = new LinkedList<>();
 		for (Intersectible intersectible : intersectibles) {
 			result.addAll(intersectible.intersect(line));
@@ -79,8 +93,7 @@ public class Geometries implements Intersectible, Iterable<Geometry> {
 
 	@Override
 	public BoundingBox border() {
-		// TODO Auto-generated method stub
-		return null;
+		return border;
 	}
 
 	@Override
@@ -91,59 +104,40 @@ public class Geometries implements Intersectible, Iterable<Geometry> {
 	/**
 	 * Iterates over the leaves of the geometries hierarchy as if they were a flat collection of {@link Geometry}s.
 	 */
-	public class GeometriesIterator implements Iterator<Geometry> {
+	public class GeometriesIterator extends EfficientIterator<Geometry> {
 
 		private Deque<Iterator<Intersectible>> iterators;
-		private Geometry next;
 
 		/**
-		 * Construct an iterator which iterates over the geometries in the given {@link Geometries}.
+		 * Construct an iterator which iterates over the geometries in the given {@link GeometryList}.
 		 *
 		 * @param geometries The collection of geometries to iterate over.
 		 */
-		GeometriesIterator(Geometries geometries) {
+		GeometriesIterator(GeometryList geometries) {
 			this.iterators = new ArrayDeque<>();
 			iterators.add(geometries.intersectibles.iterator());
-			calcNext();
+			setNext();
 		}
 
 		@Override
-		public boolean hasNext() {
-			return next != null;
-		}
-
-		/**
-		 * Assigns the next geometry to fetch to the field {@code next}. If there are no more geometries, it assigns
-		 * {@code null}.
-		 */
-		private void calcNext() {
+		protected void setNext() {
 			if (iterators.isEmpty()) {
-				next = null;
-				return;
-			}
-			Iterator<Intersectible> top = iterators.peek();
-			if (top.hasNext()) {
-				Intersectible node = top.next();
-				if (node instanceof Geometry) { // node is a leaf
-					next = (Geometry) node;
-				} else { // intermediate node
-					iterators.add(((Geometries) node).intersectibles.iterator());
-					calcNext();
-				}
+				hasNext = false;
 			} else {
-				iterators.pop();
-				calcNext();
+				Iterator<Intersectible> top = iterators.peek();
+				if (top.hasNext()) {
+					Intersectible node = top.next();
+					if (node instanceof Geometry) { // node is a leaf
+						next = (Geometry) node;
+					} else { // intermediate node
+						iterators.add(((GeometryList) node).intersectibles.iterator());
+						setNext();
+					}
+				} else {
+					iterators.pop();
+					setNext();
+				}
 			}
-		}
-
-		@Override
-		public Geometry next() {
-			if (!hasNext()) {
-				throw new NoSuchElementException("There are no more geometries in this Geometries.");
-			}
-			Geometry result = next;
-			calcNext();
-			return result;
 		}
 
 	}

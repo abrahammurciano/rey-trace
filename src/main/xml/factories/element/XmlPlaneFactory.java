@@ -16,7 +16,7 @@ public class XmlPlaneFactory extends XmlGeometryFactory {
 	private static final XmlTripleFactory<Point> FACTORY = new XmlTripleFactory<>(Point::new);
 
 	@Override
-	public Plane createHelper(Element element) {
+	protected Plane createHelper(Element element) {
 		Point p0 = FACTORY.create(element, "p0");
 		Point p1 = FACTORY.create(element, "p1");
 		Point p2 = FACTORY.create(element, "p2");

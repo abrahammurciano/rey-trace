@@ -8,7 +8,7 @@ import java.util.function.Supplier;
 import cli.Task;
 import cli.TaskTracker;
 import scene.camera.Camera;
-import scene.camera.Pixel;
+import scene.camera.CameraPixel;
 import rendering.raytracing.RayTracer;
 
 /**
@@ -23,22 +23,19 @@ public class Renderer implements Task {
 	private RayTracer rayTracer;
 	private List<TaskTracker> taskTrackers = new LinkedList<>();
 	private int threads;
-	private int antialiasing;
 
 	/**
 	 * Construct a renderer with the provided data.
 	 *
-	 * @param camera       The camera to use to render the scene.
-	 * @param rayTracer    The rayTracer to use to calculate the colour of each pixel.
-	 * @param filename     The filename to write the rendered image to.
-	 * @param threads      The number of threads to use to render the image.
-	 * @param antialiasing The number of sub pixels to use to calculate the colour of each pixel.
+	 * @param camera    The camera to use to render the scene.
+	 * @param rayTracer The rayTracer to use to calculate the colour of each pixel.
+	 * @param filename  The filename to write the rendered image to.
+	 * @param threads   The number of threads to use to render the image.
 	 */
-	public Renderer(Camera camera, RayTracer rayTracer, String filename, int threads, int antialiasing) {
+	public Renderer(Camera camera, RayTracer rayTracer, String filename, int threads) {
 		this.camera = camera;
 		this.rayTracer = rayTracer;
 		this.threads = threads;
-		this.antialiasing = antialiasing;
 		this.writer = new ImageWriter(filename, camera.resolution());
 	}
 
@@ -52,7 +49,7 @@ public class Renderer implements Task {
 
 	@Override
 	public void task() {
-		Iterator<Pixel> iterator = camera.iterator(antialiasing);
+		Iterator<CameraPixel> iterator = camera.iterator();
 		Thread[] children = startChildrenThreads(() -> new RenderThread(iterator));
 		waitForChildren(children);
 		writer.writeToFile();
@@ -97,14 +94,14 @@ public class Renderer implements Task {
 	}
 
 	/**
-	 * When run, this thread will continuously consume {@link Pixel}s from its iterator, compute its colour using
+	 * When run, this thread will continuously consume {@link CameraPixel}s from its iterator, compute its colour using
 	 * {@code Renderer.rayTracer}, then write send it to {@code Renderer.writer}. Once the iterator has no more
 	 * elements, the thread ends.
 	 */
 	private class RenderThread extends Thread {
-		private Iterator<Pixel> iterator;
+		private Iterator<CameraPixel> iterator;
 
-		public RenderThread(Iterator<Pixel> iterator) {
+		public RenderThread(Iterator<CameraPixel> iterator) {
 			this.iterator = iterator;
 		}
 
@@ -112,8 +109,8 @@ public class Renderer implements Task {
 		public void run() {
 			while (true) {
 				try {
-					Pixel pixel = iterator.next();
-					writer.setPixel(pixel.row, pixel.col, rayTracer.trace(pixel.rays));
+					CameraPixel pixel = iterator.next();
+					writer.setPixel(pixel.row, pixel.col, rayTracer.trace(pixel.representation));
 					completeJobs(1);
 				} catch (NoSuchElementException e) {
 					return;
