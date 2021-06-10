@@ -59,6 +59,13 @@ public class Cli {
 		}
 	}
 
+	/**
+	 * Ray traces the xml files listed in the given args, applying the specified options.
+	 *
+	 * @param args The command line arguments to configure the program.
+	 * @throws IOException    if the file could not be opened.
+	 * @throws ParseException if the args were not in the expected format.
+	 */
 	public static void runCommand(String... args) throws IOException, ParseException {
 		CommandLineParser parser = new DefaultParser();
 		CommandLine cmd;
