@@ -14,7 +14,7 @@ import util.EfficientIterator;
  * calling {@link next()} need not have a {@code synchronized} block, but if it first checks {@link #hasNext()} and then
  * expects {@link #next()} not to throw an exception, those two calls must be in the same {@code synchronized} block.
  */
-public class CameraIterator extends EfficientIterator<CameraPixel> {
+public class CameraIterator extends EfficientIterator<Pixel<Ray[]>> {
 
 	private final Iterator<Pixel<Point[]>> viewPlaneIterator;
 	private final SinglePixelGrid sensor;
@@ -22,8 +22,7 @@ public class CameraIterator extends EfficientIterator<CameraPixel> {
 	/**
 	 * Get an iterator to iterate over the rays shot by the camera.
 	 *
-	 * @param camera    The camera whose rays to iterate over.
-	 * @param subPixels The number of sub pixels in each dimension for each pixel.
+	 * @param camera The camera whose rays to iterate over.
 	 */
 	public CameraIterator(Camera camera) {
 		this.viewPlaneIterator = camera.viewPlane.iterator();
@@ -39,17 +38,17 @@ public class CameraIterator extends EfficientIterator<CameraPixel> {
 	@Override
 	protected void setNext() {
 		Pixel<Point[]> pixel = viewPlaneIterator.next();
-		Point[] subPixels = pixel.representation;
+		Point[] subPixels = pixel.data;
 		int sensorSize = sensor.numPixels();
 		Ray[] rays = new Ray[subPixels.length * sensorSize];
 		for (int i = 0; i < subPixels.length; ++i) {
 			int j = 0;
 			for (Pixel<Point> sensorPixel : sensor) {
 				rays[i * sensorSize + j++] =
-					new Ray(sensorPixel.representation, sensorPixel.representation.vectorTo(subPixels[i]).normalized());
+					new Ray(sensorPixel.data, sensorPixel.data.vectorTo(subPixels[i]).normalized());
 			}
 		}
-		next = new CameraPixel(pixel.row, pixel.col, rays);
+		next = new Pixel<Ray[]>(rays, pixel.row, pixel.col);
 	}
 
 }

@@ -39,7 +39,7 @@ public class CameraTest {
 			new Ray(position, new NormalizedVector(0, -10, -2)), new Ray(position, new NormalizedVector(-2, -10, -2)));
 
 		List<Ray> actual1 = new ArrayList<>(9);
-		camera.forEach(pixel -> actual1.add(pixel.representation[0]));
+		camera.forEach(pixel -> actual1.add(pixel.data[0]));
 		Assert.assertEquals("Wrong rays for 3x3 view plane.", expected, actual1);
 
 		camera = new Camera(settings.dimensions(8, 8).resolution("4x4"));
@@ -55,7 +55,7 @@ public class CameraTest {
 			new Ray(position, new NormalizedVector(-3, -10, -3)));
 
 		List<Ray> actual2 = new ArrayList<>(16);
-		camera.forEach(pixel -> actual2.add(pixel.representation[0]));
+		camera.forEach(pixel -> actual2.add(pixel.data[0]));
 		Assert.assertEquals("Wrong rays for 4x4 view plane.", expected, actual2);
 	}
 

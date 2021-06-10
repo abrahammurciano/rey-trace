@@ -15,7 +15,7 @@ import math.matrices.RotationMatrix;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class Camera implements Iterable<CameraPixel> {
+public class Camera implements Iterable<Pixel<Ray[]>> {
 	/** The {@link PixelGrid} where all rays are shot from. */
 	public final SinglePixelGrid sensor;
 	/** The {@link Orientation} in which the camera is facing. */
@@ -91,7 +91,7 @@ public class Camera implements Iterable<CameraPixel> {
 	}
 
 	@Override
-	public Iterator<CameraPixel> iterator() {
+	public Iterator<Pixel<Ray[]>> iterator() {
 		return new CameraIterator(this);
 	}
 

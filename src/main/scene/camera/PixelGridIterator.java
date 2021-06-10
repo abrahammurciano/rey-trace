@@ -46,6 +46,6 @@ class PixelGridIterator<T> extends EfficientIterator<Pixel<T>> {
 	 * @return The next pixel.
 	 */
 	private Pixel<T> nextPixel(Vector offset) {
-		return new Pixel<>(shift.apply(next.representation, offset), col, row);
+		return new Pixel<>(shift.apply(next.data, offset), col, row);
 	}
 }

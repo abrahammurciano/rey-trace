@@ -14,7 +14,7 @@ all: $(shell find $(SRC) -type f)
 	cd $(BUILD); jar cfm ../$(PROG).jar manifest.tmp */
 
 docs: $(shell find $(SRC) -type f)
-	javadoc -d docs -cp $(CLASSPATH) $(SRC)/**/*.java
+	javadoc -d docs -cp $(CLASSPATH) $(shell find $(SRC) -iname '*.java')
 
 fresh: clean all
 

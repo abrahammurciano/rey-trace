@@ -7,8 +7,9 @@ import java.util.NoSuchElementException;
 import java.util.function.Supplier;
 import cli.Task;
 import cli.TaskTracker;
+import primitives.Ray;
 import scene.camera.Camera;
-import scene.camera.CameraPixel;
+import scene.camera.Pixel;
 import rendering.raytracing.RayTracer;
 
 /**
@@ -49,7 +50,7 @@ public class Renderer implements Task {
 
 	@Override
 	public void task() {
-		Iterator<CameraPixel> iterator = camera.iterator();
+		Iterator<Pixel<Ray[]>> iterator = camera.iterator();
 		Thread[] children = startChildrenThreads(() -> new RenderThread(iterator));
 		waitForChildren(children);
 		writer.writeToFile();
@@ -94,14 +95,14 @@ public class Renderer implements Task {
 	}
 
 	/**
-	 * When run, this thread will continuously consume {@link CameraPixel}s from its iterator, compute its colour using
+	 * When run, this thread will continuously consume {@link Pixel<Ray[]>}s from its iterator, compute its colour using
 	 * {@code Renderer.rayTracer}, then write send it to {@code Renderer.writer}. Once the iterator has no more
 	 * elements, the thread ends.
 	 */
 	private class RenderThread extends Thread {
-		private Iterator<CameraPixel> iterator;
+		private Iterator<Pixel<Ray[]>> iterator;
 
-		public RenderThread(Iterator<CameraPixel> iterator) {
+		public RenderThread(Iterator<Pixel<Ray[]>> iterator) {
 			this.iterator = iterator;
 		}
 
@@ -109,8 +110,8 @@ public class Renderer implements Task {
 		public void run() {
 			while (true) {
 				try {
-					CameraPixel pixel = iterator.next();
-					writer.setPixel(pixel.row, pixel.col, rayTracer.trace(pixel.representation));
+					Pixel<Ray[]> pixel = iterator.next();
+					writer.setPixel(pixel.row, pixel.col, rayTracer.trace(pixel.data));
 					completeJobs(1);
 				} catch (NoSuchElementException e) {
 					return;

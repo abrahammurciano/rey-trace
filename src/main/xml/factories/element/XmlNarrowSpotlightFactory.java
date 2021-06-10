@@ -7,6 +7,12 @@ import primitives.Point;
 import xml.factories.attribute.XmlDoubleFactory;
 import xml.factories.attribute.XmlTripleFactory;
 
+/**
+ * Constructs a new {@link NarrowSpotlight} from an XML {@link Element}.
+ *
+ * @author Abraham Murciano
+ * @author Eli Levin
+ */
 public class XmlNarrowSpotlightFactory extends XmlLightFactory {
 
 	private static final XmlTripleFactory<Point> POINT_FACTORY = new XmlTripleFactory<>(Point::new);

@@ -54,7 +54,7 @@ public class CameraSettings {
 		resolution(camera.resolution());
 		sensorSize(camera.sensor.height);
 		sensorPixels(camera.sensor.resolution.x);
-		antialiasing(camera.viewPlane.antialiasing);
+		antialiasing(camera.viewPlane.subPixels);
 	}
 
 	/**
@@ -275,6 +275,11 @@ public class CameraSettings {
 		return this;
 	}
 
+	/**
+	 * Get the antialiasing level which will be used by the camera.
+	 *
+	 * @return The antialiasing level.
+	 */
 	public int antialiasing() {
 		return antialiasing;
 	}

@@ -4,10 +4,16 @@ import java.util.Iterator;
 import primitives.Point;
 import rendering.Resolution;
 
-public class SinglePixelGrid extends PixelGrid<Point> {
 
-	protected SinglePixelGrid(double width, double height, Point center, Resolution resolution,
-		Orientation orientation) {
+/**
+ * A {@link PixelGrid} whose pixels store their center {@link Point}.
+ *
+ * @author Abraham Murciano
+ * @author Eli Levin
+ */
+class SinglePixelGrid extends PixelGrid<Point> {
+
+	SinglePixelGrid(double width, double height, Point center, Resolution resolution, Orientation orientation) {
 		super(width, height, center, resolution, orientation);
 	}
 

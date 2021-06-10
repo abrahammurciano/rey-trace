@@ -8,10 +8,11 @@ import geometries.Triangle;
 import org.junit.Assert;
 import primitives.NormalizedVector;
 import primitives.Point;
+import primitives.Ray;
 import rendering.Resolution;
 import scene.camera.Camera;
 import scene.camera.CameraSettings;
-import scene.camera.CameraPixel;
+import scene.camera.Pixel;
 
 /**
  * Tests the integration between the camera and the geometries. Namely, we check that the rays constructed by the camera
@@ -127,8 +128,8 @@ public class CameraGeometriesTest {
 	 */
 	private void checkIntersectCount(Camera camera, Geometry geometry, int expectedCount, String message) {
 		int actual = 0;
-		for (CameraPixel pixel : camera) {
-			actual += geometry.intersect(pixel.representation[0]).size();
+		for (Pixel<Ray[]> pixel : camera) {
+			actual += geometry.intersect(pixel.data[0]).size();
 		}
 		Assert.assertEquals(message, expectedCount, actual);
 	}

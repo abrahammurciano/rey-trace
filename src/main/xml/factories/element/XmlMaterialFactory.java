@@ -8,6 +8,12 @@ import xml.factories.attribute.XmlColourFactory;
 import xml.factories.attribute.XmlDoubleFactory;
 import xml.factories.attribute.XmlFactorsFactory;
 
+/**
+ * Constructs a new {@link Material} from an XML {@link Element}.
+ *
+ * @author Abraham Murciano
+ * @author Eli Levin
+ */
 public class XmlMaterialFactory extends XmlFactoryFromElement<Material> {
 
 	private static final XmlDoubleFactory DOUBLE_FACTORY = new XmlDoubleFactory();
