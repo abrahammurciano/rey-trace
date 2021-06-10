@@ -40,6 +40,7 @@ public class XmlCameraFactory extends XmlFactoryFromElement<Camera> {
 		loadSetting(element, "resolution", RESOLUTION_FACTORY, settings::resolution);
 		loadSetting(element, "sensor-size", DOUBLE_FACTORY, settings::sensorSize);
 		loadSetting(element, "sensor-pixels", INT_FACTORY, settings::sensorPixels);
+		loadSetting(element, "antialiasing", INT_FACTORY, settings::antialiasing);
 
 		Camera camera = new Camera(settings);
 

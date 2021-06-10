@@ -3,7 +3,6 @@ package geometries;
 import util.EfficientIterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import primitives.LineSegment;
 import java.util.ArrayDeque;
 import java.util.Collections;

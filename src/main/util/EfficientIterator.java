@@ -16,7 +16,10 @@ public abstract class EfficientIterator<T> implements Iterator<T> {
 	 */
 	protected boolean hasNext = true;
 
-	/** The next element to iterate over. This element should be set by the {@link #setNext()} method. */
+	/**
+	 * The next element to iterate over. This element should be set by the {@link #setNext()} method and must also be
+	 * initialised by constructors of derived classes.
+	 */
 	protected T next;
 
 	@Override
@@ -42,8 +45,8 @@ public abstract class EfficientIterator<T> implements Iterator<T> {
 	 * {@link #next()}. Otherwise, {@code hasNext} should be set to false (the
 	 * value of {@code naxt} is irrelevant in this case).
 	 *
-	 * This method should also be called by the constructor to set the values of the fields initially in preperation for
-	 * the first iteration.
+	 * This method may be used by the derived constructors to set the values of {@code next} initially in preperation
+	 * for the first iteration.
 	 */
 	protected abstract void setNext();
 

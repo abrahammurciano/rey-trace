@@ -25,7 +25,6 @@ import xml.XmlSceneParser;
 public class Cli {
 	private static final String SYNOPSIS = "reytrace [OPTIONS] <INFILES>";
 
-	private static final int ANTI_ALIASING_DEFAULT = 3;
 	private static final int THREADS_DEFAULT = 3;
 	private static final int RECURSION_DEFAULT = 4;
 	private static final double MIN_COEFFICIENT_DEFAULT = 0.01;
@@ -47,8 +46,6 @@ public class Cli {
 
 			checkHelp(cmd, formatter, options);
 
-			int antiAliasing = parseArg("anti-aliasing", Integer::parseInt, ANTI_ALIASING_DEFAULT, cmd);
-
 			int threads = parseArg("threads", Integer::parseInt, THREADS_DEFAULT, cmd);
 
 			int recursion = parseArg("recursion", Integer::parseInt, RECURSION_DEFAULT, cmd);
@@ -64,8 +61,7 @@ public class Cli {
 			int i = 0;
 			for (String infile : infiles) {
 				System.out.println("(" + ++i + '/' + infiles.length + ") " + infile);
-				renderXml(infile, FilenameUtils.removeExtension(infile) + ".png", antiAliasing, threads, recursion,
-					minCoefficient);
+				renderXml(infile, FilenameUtils.removeExtension(infile) + ".png", threads, recursion, minCoefficient);
 			}
 
 		} catch (ParseException e) {
@@ -81,8 +77,7 @@ public class Cli {
 		}
 	}
 
-	private static void renderXml(String infile, String outfile, int antiAliasing, int threads, int recursion,
-		double minCoefficient) {
+	private static void renderXml(String infile, String outfile, int threads, int recursion, double minCoefficient) {
 		Scene scene;
 		try {
 			scene = new XmlSceneParser().parse(infile);
@@ -98,7 +93,7 @@ public class Cli {
 		}
 		scene.geometries.optimize();
 		RayTracer rayTracer = new PhongRayTracer(scene, recursion, minCoefficient);
-		Renderer renderer = new Renderer(scene.camera(), rayTracer, outfile, threads, antiAliasing);
+		Renderer renderer = new Renderer(scene.camera(), rayTracer, outfile, threads);
 		renderer.register(new ProgressBar(renderer.totalJobs(), 80, '#', '-'));
 		renderer.render();
 	}
@@ -107,10 +102,6 @@ public class Cli {
 		Options options = new Options();
 
 		options.addOption("h", "help", false, "Print this help message.");
-
-		options.addOption("a", "anti-aliasing", true,
-			"The level of anti-aliasing to use. 1 means no anti-aliasing. 2 means moderate, 3 means extreme, and anything higher is simply overkill. Default is "
-				+ ANTI_ALIASING_DEFAULT + ".");
 
 		options.addOption("t", "threads", true, "Number of threads to use. Default is " + THREADS_DEFAULT + ".");
 		options.addOption("r", "recursion", true,

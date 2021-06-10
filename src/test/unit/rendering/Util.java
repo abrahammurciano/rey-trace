@@ -22,7 +22,7 @@ public class Util {
 			return true;
 		}
 
-		new Renderer(scene.camera(), new PhongRayTracer(scene, 10, 0.01), outFile, 3, 3).render();
+		new Renderer(scene.camera(), new PhongRayTracer(scene, 10, 0.01), outFile, 3).render();
 
 		return checkImageCorrect(outFile);
 	}
