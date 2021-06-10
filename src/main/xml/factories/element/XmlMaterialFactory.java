@@ -15,7 +15,7 @@ public class XmlMaterialFactory extends XmlFactoryFromElement<Material> {
 	private static final XmlFactorsFactory FACTORS_FACTORY = new XmlFactorsFactory();
 
 	@Override
-	public Material createHelper(Element element) {
+	protected Material createHelper(Element element) {
 		Colour emission = COLOUR_FACTORY.create(element, "emission", Colour.BLACK);
 		double shine = DOUBLE_FACTORY.create(element, "shine");
 		Factors diffuse = FACTORS_FACTORY.create(element, "diffuse");

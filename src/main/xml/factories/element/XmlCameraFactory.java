@@ -28,7 +28,7 @@ public class XmlCameraFactory extends XmlFactoryFromElement<Camera> {
 	private static final XmlResolutionFactory RESOLUTION_FACTORY = new XmlResolutionFactory();
 
 	@Override
-	public Camera createHelper(Element element) {
+	protected Camera createHelper(Element element) {
 		CameraSettings settings = new CameraSettings();
 
 		loadSetting(element, "position", POINT_FACTORY, settings::position);

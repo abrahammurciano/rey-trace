@@ -12,7 +12,7 @@ public class XmlPointLightFactory extends XmlLightFactory {
 	private static final XmlDoubleFactory DOUBLE_FACTORY = new XmlDoubleFactory();
 
 	@Override
-	public PointLight createHelper(Element element) {
+	protected PointLight createHelper(Element element) {
 		Point position = POINT_FACTORY.create(element, "position");
 
 		double quadratic = DOUBLE_FACTORY.create(element, "quadratic", 0d);

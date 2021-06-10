@@ -25,7 +25,7 @@ public class XmlLightSourcesFactory extends XmlFactoryFromElement<List<LightSour
 	);
 	//@formatter:on
 	@Override
-	public List<LightSource> createHelper(Element element) {
+	protected List<LightSource> createHelper(Element element) {
 		List<Element> lightElements = Util.getChildren(element);
 		List<LightSource> lights = new ArrayList<>(lightElements.size());
 		for (Element light : lightElements) {

@@ -15,7 +15,7 @@ public class XmlNarrowSpotlightFactory extends XmlLightFactory {
 	private static final XmlDoubleFactory DOUBLE_FACTORY = new XmlDoubleFactory();
 
 	@Override
-	public NarrowSpotlight createHelper(Element element) {
+	protected NarrowSpotlight createHelper(Element element) {
 		Point position = POINT_FACTORY.create(element, "position");
 		NormalizedVector direction = DIRECTION_FACTORY.create(element, "direction");
 		double quadratic = DOUBLE_FACTORY.create(element, "quadratic", 0d);
