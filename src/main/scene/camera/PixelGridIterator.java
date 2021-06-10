@@ -1,7 +1,7 @@
 package scene.camera;
 
 import java.util.function.BiFunction;
-import primitives.Vector;
+import primitives.NonZeroVector;
 import util.EfficientIterator;
 
 class PixelGridIterator<T> extends EfficientIterator<Pixel<T>> {
@@ -9,7 +9,7 @@ class PixelGridIterator<T> extends EfficientIterator<Pixel<T>> {
 	private final PixelGrid<T> view;
 	private int col = 0;
 	private int row = 0;
-	private BiFunction<T, Vector, T> shift;
+	private BiFunction<T, NonZeroVector, T> shift;
 
 	/**
 	 * Construct an iterator to iterate over the pixels in the view plane.
@@ -18,7 +18,7 @@ class PixelGridIterator<T> extends EfficientIterator<Pixel<T>> {
 	 * @param subPixels The number of sub pixels to return for each pixel. For example, 3 means a 3x3 grid for each
 	 *                  pixel, so 9 points would be returned for each iteration.
 	 */
-	PixelGridIterator(PixelGrid<T> view, T first, BiFunction<T, Vector, T> shift) {
+	PixelGridIterator(PixelGrid<T> view, T first, BiFunction<T, NonZeroVector, T> shift) {
 		this.view = view;
 		this.shift = shift;
 		this.next = new Pixel<>(first, 0, 0);
@@ -45,7 +45,7 @@ class PixelGridIterator<T> extends EfficientIterator<Pixel<T>> {
 	 * @param offset The vector from the current {@link Pixel} to the next one.
 	 * @return The next pixel.
 	 */
-	private Pixel<T> nextPixel(Vector offset) {
+	private Pixel<T> nextPixel(NonZeroVector offset) {
 		return new Pixel<>(shift.apply(next.data, offset), col, row);
 	}
 }

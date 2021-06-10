@@ -22,7 +22,7 @@ import xml.XmlSceneParser;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class Cli {
+public class Main {
 	private static final String SYNOPSIS = "reytrace [OPTIONS] <INFILES>";
 
 	private static final int THREADS_DEFAULT = 3;

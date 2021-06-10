@@ -2,7 +2,7 @@ package scene.camera;
 
 import primitives.Point;
 import primitives.Ray;
-import primitives.Vector;
+import primitives.NonZeroVector;
 import rendering.Resolution;
 import java.util.Iterator;
 import math.matrices.Matrix;
@@ -66,12 +66,12 @@ public class Camera implements Iterable<Pixel<Ray[]>> {
 	}
 
 	/**
-	 * Create a new camera which is shifted by the given {@link Vector}.
+	 * Create a new camera which is shifted by the given {@link NonZeroVector}.
 	 *
-	 * @param offset The {@link Vector} by which to shift the camera.
-	 * @return A new {@link Camera} shifted by the given {@link Vector}.
+	 * @param offset The {@link NonZeroVector} by which to shift the camera.
+	 * @return A new {@link Camera} shifted by the given {@link NonZeroVector}.
 	 */
-	public Camera shift(Vector offset) {
+	public Camera shift(NonZeroVector offset) {
 		return new Camera(new CameraSettings(this).position(sensor.center.add(offset)));
 	}
 

@@ -10,7 +10,7 @@ public class Colour {
 
 	// Internal variable for keeping track of the rgb values
 	// x = Red, y = Green, z = Blue
-	private final VectorBase rgb;
+	private final Vector rgb;
 
 	/** Black. */
 	public static final Colour BLACK = new Colour(0, 0, 0);
@@ -24,10 +24,10 @@ public class Colour {
 	 * @param blue  The blue value (0 to 255).
 	 */
 	public Colour(double red, double green, double blue) {
-		this(new VectorBase(red, green, blue));
+		this(new Vector(red, green, blue));
 	}
 
-	private Colour(VectorBase rgb) {
+	private Colour(Vector rgb) {
 		this.rgb = rgb;
 	}
 
@@ -61,7 +61,7 @@ public class Colour {
 	 * @return The new colour which is the result of the scale.
 	 */
 	public Colour scale(Factors factors) {
-		return new Colour(this.rgb.transform((c, f) -> c * f, factors.values, VectorBase::new));
+		return new Colour(this.rgb.transform((c, f) -> c * f, factors.values, Vector::new));
 	}
 
 	/**

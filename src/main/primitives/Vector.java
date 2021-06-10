@@ -1,13 +1,15 @@
 package primitives;
 
+import util.DoubleTriFunction;
+
 /**
- * The {@link Vector} class represents a {@link Vector} with it's base at the
- * origin and it's head at the {@link Point} 'head'.
+ * The {@link Vector} class represents a {@link NonZeroVector} with the single difference that the VectorBase can be the
+ * zero vector. Let me repeat that. This class can have values of (0,0,0).
  *
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class Vector extends VectorBase {
+public class Vector extends Triple {
 
 	/**
 	 * This constructor accepts 3 doubles and returns the appropriate {@link Vector}
@@ -19,9 +21,19 @@ public class Vector extends VectorBase {
 	 */
 	public Vector(double x, double y, double z) {
 		super(x, y, z);
-		if (this.equals(0, 0, 0)) {
-			throw new ZeroVectorException();
-		}
+	}
+
+	/**
+	 * Adds a {@link Triple} to this {@link Vector} and returns a new {@link Triple} of the same type returned by
+	 * {@code creator}.
+	 *
+	 * @param <T>     The type of Triple to return.
+	 * @param triple  The {@link Vector} which is to be added to this {@link Vector}.
+	 * @param creator A function which receives three doubles and returns a new {@link Triple}.
+	 * @return The sum of the two {@link Vector}s.
+	 */
+	public <T extends Triple> T add(Triple triple, DoubleTriFunction<T> creator) {
+		return transform(Double::sum, triple, creator);
 	}
 
 	/**
@@ -29,23 +41,43 @@ public class Vector extends VectorBase {
 	 *
 	 * @param triple The {@link Triple} which is to be added to this {@link Vector}.
 	 * @return The sum of the two {@link Vector}s.
-	 * @throws ZeroVectorException when adding a {@link Vector} with its reverse.
 	 */
-	@Override
 	public Vector add(Triple triple) {
 		return add(triple, Vector::new);
 	}
 
 	/**
+	 * Subtracts two {@link Vector}s and returns a new {@link Vector} of the type returned by {@code creator}.
+	 *
+	 * @param <T>     The type of Triple to return.
+	 * @param vector  The {@link Vector} to be subtracted from this {@link Vector}.
+	 * @param creator A function which receives three doubles and returns a new {@link Vector}.
+	 * @return The sum of this {@link Vector} and the negation of the given {@link Vector}.
+	 */
+	public <T extends Vector> T subtract(Vector vector, DoubleTriFunction<T> creator) {
+		return add(vector.reversed(), creator);
+	}
+
+	/**
 	 * Subtracts two {@link Vector}s and returns a new {@link Vector}.
 	 *
-	 * @param vector The {@link VectorBase} to be subtracted from this {@link Vector}.
-	 * @return The sum of this {@link Vector} and the negation of the given {@link VectorBase}.
-	 * @throws ZeroVectorException if a {@link Vector} is subtracted from itself.
+	 * @param vector The {@link Vector} to be subtracted from this {@link Vector}.
+	 * @return The sum of this {@link Vector} and the negation of the given {@link Vector}.
 	 */
-	@Override
-	public Vector subtract(VectorBase vector) {
+	public Vector subtract(Vector vector) {
 		return subtract(vector, Vector::new);
+	}
+
+	/**
+	 * Constructs a new {@link Vector} which is a scalar multiplication of this {@link Vector} by a scalar.
+	 *
+	 * @param <T>     The type of Triple to return.
+	 * @param factor  The scalar by which to multiply this {@link Vector}
+	 * @param creator A function which receives three doubles and returns a new {@link Vector}.
+	 * @return New scaled {@link Vector}, of the concrete type as returned by {@code creator}.
+	 */
+	public <T extends Vector> T scale(double factor, DoubleTriFunction<T> creator) {
+		return transform(c -> c * factor, creator);
 	}
 
 	/**
@@ -55,46 +87,73 @@ public class Vector extends VectorBase {
 	 * @return New scaled {@link Vector}
 	 * @throws ZeroVectorException if the scale factor is zero.
 	 */
-	@Override
 	public Vector scale(double factor) {
 		return scale(factor, Vector::new);
 	}
 
 	/**
+	 * An alias for {@link #scale(double)} with factor -1.
+	 *
+	 * @return New reversed {@link Vector}
+	 */
+	public Vector reversed() {
+		return scale(-1);
+	}
+
+	/**
 	 * Calculates the cross product of two {@link Vector}s.
 	 *
-	 * @param vector The {@link Vector} by which to multiply this {@link Vector}
+	 * @param <T>     The type of Triple to return.
+	 * @param v       The {@link Vector} by which to multiply this {@link Vector}
+	 * @param creator A function which receives three doubles and returns a new {@link Vector}
+	 * @return The resulting {@link Vector} which is the cross product of the two {@link Vector}s, but of the
+	 *         concrete type as returned by {@code creator}
+	 */
+	public <T extends Vector> T cross(Vector v, DoubleTriFunction<T> creator) {
+		return creator.apply(y * v.z - z * v.y, z * v.x - x * v.z, x * v.y - y * v.x);
+	}
+
+	/**
+	 * Calculates the cross product of two {@link Vector}s.
+	 *
+	 * @param v The {@link Vector} by which to multiply this {@link Vector}
 	 * @return The resulting {@link Vector} which is the cross product of the two {@link Vector}s
 	 * @throws ZeroVectorException if the result vector is the zero vector.
 	 */
-	public Vector cross(Vector vector) {
-		return cross(vector, Vector::new);
+	public Vector cross(Vector v) {
+		return cross(v, Vector::new);
 	}
 
 	/**
-	 * Creates a new {@link Vector} with the same direction as this one but with a
-	 * magnitude of one.
+	 * Calculates the dot product of two {@link Vector}s
 	 *
-	 * @return new {@link Vector}
+	 * @param v The {@link Vector} to dot product with this {@link Vector}
+	 * @return The dot product of the two {@link Vector}s
 	 */
-	public NormalizedVector normalized() {
-		return new NormalizedVector(this);
+	public double dot(Triple v) {
+		return transform((base, aux) -> base * aux, v, Vector::new).sum();
 	}
 
 	/**
-	 * Calculates the angle in radians between this vector and the given vector. The
-	 * angle is normalized between zero and Pi.
+	 * Calculates the length of this {@link Vector}.
 	 *
-	 * @param v The other vector to be used to calculate the angle.
-	 * @return The angle in radians between the vectors between zero and Pi.
+	 * @return The length of this {@link Vector}.
 	 */
-	public double angle(Vector v) {
-		double dot = normalized().dot(v.normalized());
-		return Math.acos(dot);
+	public double length() {
+		return Math.sqrt(squareLength());
+	}
+
+	/**
+	 * Calculates the square of the length of this {@link Vector}.
+	 *
+	 * @return The square of the length of this {@link Vector}.
+	 */
+	public double squareLength() {
+		return this.dot(this);
 	}
 
 	@Override
-	public Vector reversed() {
-		return scale(-1);
+	public String toString() {
+		return "[" + super.toString() + "]";
 	}
 }

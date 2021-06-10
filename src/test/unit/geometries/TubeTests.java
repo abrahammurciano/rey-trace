@@ -7,6 +7,7 @@ import geometries.Tube;
 import primitives.NormalizedVector;
 import primitives.Point;
 import primitives.Ray;
+import unit.geometries.util.PointExtractor;
 
 public class TubeTests {
 
@@ -51,12 +52,13 @@ public class TubeTests {
 
 		// 1. Hits tube twice (starts outside).
 		Ray ray = new Ray(new Point(-1, 5, 2), new NormalizedVector(1, -1, 0));
-		Assert.assertEquals("Ray which passes through center", Set.of(p1, p2), Util.getPoints(tube.intersect(ray)));
+		Assert.assertEquals("Ray which passes through center", Set.of(p1, p2),
+			PointExtractor.extractPoints(tube.intersect(ray)));
 
 		// 2. Hits tube once (starts inside).
 		ray = new Ray(new Point(1, 3, 2), new NormalizedVector(1, -1, 0));
 		Assert.assertEquals("Ray which starts on tube and passes through center", Set.of(p1),
-			Util.getPoints(tube.intersect(ray)));
+			PointExtractor.extractPoints(tube.intersect(ray)));
 
 		// 3. Doesn't intersect tube (starts outside)
 		ray = new Ray(new Point(3, 1, 2), new NormalizedVector(1, -1, 0));
@@ -86,7 +88,7 @@ public class TubeTests {
 		// Start on side of cylinder going inwards
 		ray = new Ray(new Point(2, 2, 2), new NormalizedVector(-1, 1, 0));
 		Assert.assertEquals("Ray starts on side of tube and goes inwards", Set.of(p2),
-			Util.getPoints(tube.intersect(ray)));
+			PointExtractor.extractPoints(tube.intersect(ray)));
 
 		// When ray IS axis
 		ray = axis;
@@ -99,13 +101,13 @@ public class TubeTests {
 		// Start on axis and go orthogonal to it
 		ray = new Ray(new Point(0, 2, 1), new NormalizedVector(-1, 1, 0));
 		Assert.assertEquals("Ray starts on axis and is orthogonal to it", Set.of(new Point(-1, 3, 1)),
-			Util.getPoints(tube.intersect(ray)));
+			PointExtractor.extractPoints(tube.intersect(ray)));
 
 		// tube's center is at origin
 		tube = new Tube(null, new Ray(Point.ORIGIN, new NormalizedVector(1, 1, 1)), Math.sqrt(2));
 		ray = new Ray(new Point(-1, 3, 1), new NormalizedVector(1, -1, 0));
 		Assert.assertEquals("Ray starts on axis and is orthogonal to it",
-			Set.of(new Point(0, 2, 1), new Point(2, 0, 1)), Util.getPoints(tube.intersect(ray)));
+			Set.of(new Point(0, 2, 1), new Point(2, 0, 1)), PointExtractor.extractPoints(tube.intersect(ray)));
 	}
 
 }

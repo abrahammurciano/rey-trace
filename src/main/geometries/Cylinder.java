@@ -58,8 +58,8 @@ public class Cylinder extends Geometry {
 	 *
 	 * @return The axis {@link NormalizedVector} of the {@link Cylinder}.
 	 */
-	public NormalizedVector direction() {
-		return middle.direction();
+	private NormalizedVector direction() {
+		return middle.axis.direction;
 	}
 
 	/**
@@ -71,7 +71,7 @@ public class Cylinder extends Geometry {
 	@Override
 	public NormalizedVector normal(Point p) {
 		if (top.contains(p) || bottom.contains(p)) {
-			return middle.direction();
+			return direction();
 		} else {
 			return middle.normal(p);
 		}
@@ -96,7 +96,7 @@ public class Cylinder extends Geometry {
 			return intersections;
 		}
 		intersections.removeIf(intersection -> {
-			double intersectionHeight = middle.axis.direction.dot(bottom.point.vectorBaseTo(intersection.point));
+			double intersectionHeight = direction().dot(bottom.point.vectorBaseTo(intersection.point));
 			return DoubleCompare.leq(intersectionHeight, 0) || DoubleCompare.geq(intersectionHeight, height);
 		});
 		return intersections;

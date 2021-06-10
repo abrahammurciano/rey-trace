@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import math.compare.DoubleCompare;
 import primitives.Point;
-import primitives.Vector;
+import primitives.NonZeroVector;
 import primitives.ZeroVectorException;
 
 /**
@@ -25,22 +25,22 @@ public class PointTests {
 		Point calc, actual;
 
 		// simple adddition
-		calc = p.add(new Vector(2, 3, 4));
+		calc = p.add(new NonZeroVector(2, 3, 4));
 		actual = new Point(3, 5, 7);
 		Assert.assertEquals("Incorrect output for adding vector to point", calc, actual);
 
 		// cross over zero
-		calc = p.add(new Vector(-2, -4, -5));
+		calc = p.add(new NonZeroVector(-2, -4, -5));
 		actual = new Point(-1, -2, -2);
 		Assert.assertEquals("Incorrect output for adding vector to point while crossing origin", calc, actual);
 
 		// floating point addition
-		calc = p.add(new Vector(0.4537, -0.7891, 0.1309));
+		calc = p.add(new NonZeroVector(0.4537, -0.7891, 0.1309));
 		actual = new Point(1.4537, 1.2109, 3.1309);
 		Assert.assertEquals("Incorrect output for adding vector with 4 points of accuracy", calc, actual);
 
 		// go to origin
-		calc = p.add(new Vector(-1, -2, -3));
+		calc = p.add(new NonZeroVector(-1, -2, -3));
 		actual = Point.ORIGIN;
 		Assert.assertEquals("Incorrect output for adding vector to obtain origin", calc, actual);
 	}
@@ -51,11 +51,11 @@ public class PointTests {
 	@Test
 	public void vectorTo() {
 		// This method is supposed to accept a point and return a vector to it
-		Vector calc, actual;
+		NonZeroVector calc, actual;
 
 		// non-zero vector
 		calc = p.vectorTo(new Point(2, 3, 4));
-		actual = new Vector(1, 1, 1);
+		actual = new NonZeroVector(1, 1, 1);
 		Assert.assertEquals("Incorrect vectorTo other point.", calc, actual);
 
 		// return zero vector

@@ -2,7 +2,7 @@ package scene.camera;
 
 import java.util.Iterator;
 import primitives.Point;
-import primitives.Vector;
+import primitives.NonZeroVector;
 import rendering.Resolution;
 
 /**
@@ -18,7 +18,7 @@ class MultiPixelGrid extends PixelGrid<Point[]> {
 	private Resolution subResolution;
 	private Point[] firstPoints;
 	/** The number of sub rows and sub columns of points to store in each pixel. */
-	public final int subPixels;
+	final int subPixels;
 
 	/**
 	 * Construct a new MultiPixelGrid with {@code subPixels * subPixels} points evenly spaced out in each pixel.
@@ -54,7 +54,7 @@ class MultiPixelGrid extends PixelGrid<Point[]> {
 		return points;
 	}
 
-	private static Point[] shiftPoints(Point[] points, Vector offset) {
+	private static Point[] shiftPoints(Point[] points, NonZeroVector offset) {
 		Point[] result = new Point[points.length];
 		for (int i = 0; i < result.length; ++i) {
 			result[i] = points[i].add(offset);

@@ -1,5 +1,7 @@
 package primitives;
 
+import util.DoubleTriFunction;
+
 /**
  * The {@link Point} class represents a {@link Point} in three dimensional space.
  *
@@ -28,57 +30,59 @@ public class Point extends Triple {
 	}
 
 	/**
-	 * Adds a {@link Vector} to this {@link Point} and returns the resulting {@link Point}.
+	 * Adds a {@link NonZeroVector} to this {@link Point} and returns the resulting {@link Point}.
 	 *
-	 * @param vector The {@link VectorBase} to add to this {@link Point}.
-	 * @return The {@link Point} resulting from adding the {@link Vector} to this {@link Point}.
+	 * @param vector The {@link Vector} to add to this {@link Point}.
+	 * @return The {@link Point} resulting from adding the {@link NonZeroVector} to this {@link Point}.
 	 */
-	public Point add(VectorBase vector) {
+	public Point add(Vector vector) {
 		return transform(Double::sum, vector, Point::new);
 	}
 
 	/**
-	 * Subtract a {@link Vector} from this {@link Point} and returns the resulting {@link Point}.
+	 * Subtract a {@link NonZeroVector} from this {@link Point} and returns the resulting {@link Point}.
 	 *
-	 * @param vector The {@link Vector} to subtract from this {@link Point}.
-	 * @return The {@link Point} resulting from dubtracting the {@link Vector} from this {@link Point}.
+	 * @param vector The {@link NonZeroVector} to subtract from this {@link Point}.
+	 * @return The {@link Point} resulting from dubtracting the {@link NonZeroVector} from this {@link Point}.
 	 */
-	public Point subtract(Vector vector) {
+	public Point subtract(NonZeroVector vector) {
 		return add(vector.reversed());
 	}
 
 	/**
-	 * Constructs a {@link VectorBase} from this {@link Point} to the given {@link Point} of the type {@code creator}
+	 * Constructs a {@link Vector} from this {@link Point} to the given {@link Point} of the type {@code creator}
 	 * returns.
 	 *
-	 * @param target  The coordinate where the {@link Vector} is to end, if it were to start from this {@link Point}.
-	 * @param creator A function which receives three doubles and returns a new {@link VectorBase}
-	 * @return The {@link Vector} from this {@link Point} to the given {@link Point}.
+	 * @param target  The coordinate where the {@link NonZeroVector} is to end, if it were to start from this
+	 *                {@link Point}.
+	 * @param creator A function which receives three doubles and returns a new {@link Vector}
+	 * @return The {@link NonZeroVector} from this {@link Point} to the given {@link Point}.
 	 */
-	private <T extends VectorBase> T vectorTo(Point target, TripleCreator<T> creator) {
+	private <T extends Vector> T vectorTo(Point target, DoubleTriFunction<T> creator) {
 		return transform((base, aux) -> aux - base, target, creator);
 	}
 
 	/**
-	 * Constructs a {@link VectorBase} from this {@link Point} to the given {@link Point}. With this method, the zero
+	 * Constructs a {@link Vector} from this {@link Point} to the given {@link Point}. With this method, the zero
 	 * vector may be returned.
-	 *
-	 * @param target The coordinate where the {@link VectorBase} is to end, if it were to start from this {@link Point}.
-	 * @return The {@link VectorBase} from this {@link Point} to the given {@link Point}.
-	 */
-	public VectorBase vectorBaseTo(Point target) {
-		return vectorTo(target, VectorBase::new);
-	}
-
-	/**
-	 * Constructs a {@link Vector} from this {@link Point} to the given {@link Point}.
 	 *
 	 * @param target The coordinate where the {@link Vector} is to end, if it were to start from this {@link Point}.
 	 * @return The {@link Vector} from this {@link Point} to the given {@link Point}.
+	 */
+	public Vector vectorBaseTo(Point target) {
+		return vectorTo(target, Vector::new);
+	}
+
+	/**
+	 * Constructs a {@link NonZeroVector} from this {@link Point} to the given {@link Point}.
+	 *
+	 * @param target The coordinate where the {@link NonZeroVector} is to end, if it were to start from this
+	 *               {@link Point}.
+	 * @return The {@link NonZeroVector} from this {@link Point} to the given {@link Point}.
 	 * @throws ZeroVectorException if the target is equal to this {@link Point}.
 	 */
-	public Vector vectorTo(Point target) {
-		return vectorTo(target, Vector::new);
+	public NonZeroVector vectorTo(Point target) {
+		return vectorTo(target, NonZeroVector::new);
 	}
 
 	/**

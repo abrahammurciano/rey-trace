@@ -15,7 +15,7 @@ import java.util.Iterator;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class GeometryList implements Intersectible, Iterable<Geometry> {
+public class GeometryList implements Boundable, Iterable<Geometry> {
 
 	private List<Intersectible> intersectibles = new LinkedList<>();
 	private BoundingBox border;

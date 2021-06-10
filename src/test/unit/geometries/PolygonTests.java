@@ -4,10 +4,11 @@ import java.util.Set;
 import org.junit.Assert;
 import org.junit.Test;
 import geometries.Polygon;
-import math.compare.NormalCompare;
 import primitives.NormalizedVector;
 import primitives.Point;
 import primitives.Ray;
+import unit.geometries.util.NormalCompare;
+import unit.geometries.util.PointExtractor;
 
 /**
  * Tests the methods of the Polygon class.
@@ -165,7 +166,7 @@ public class PolygonTests {
 		// Intersection inside polygon
 		Ray ray = new Ray(new Point(0.5, 0, 1), new NormalizedVector(0, 1, -1));
 		Assert.assertEquals("Intersection expected but not found or wrong value.", Set.of(new Point(0.5, 0.5, 0.5)),
-			Util.getPoints(polygon.intersect(ray)));
+			PointExtractor.extractPoints(polygon.intersect(ray)));
 
 		// Intersection outside polygon (on outside of only one edge)
 		ray = new Ray(new Point(0.5, 0, 1), new NormalizedVector(2, -1, -1));

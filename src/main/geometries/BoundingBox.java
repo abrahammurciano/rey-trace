@@ -5,8 +5,8 @@ import primitives.Point;
 
 class BoundingBox {
 
-	public static final BoundingBox INFINITE = new BoundingBox(Point.NEGATIVE_INFINITY, Point.POSITIVE_INFINITY);
-	public static final BoundingBox EMPTY = new BoundingBox(Point.POSITIVE_INFINITY, Point.NEGATIVE_INFINITY);
+	static final BoundingBox INFINITE = new BoundingBox(Point.NEGATIVE_INFINITY, Point.POSITIVE_INFINITY);
+	static final BoundingBox EMPTY = new BoundingBox(Point.POSITIVE_INFINITY, Point.NEGATIVE_INFINITY);
 
 	BoundingBox(Point min, Point max) {
 		// TODO: implement
@@ -17,7 +17,7 @@ class BoundingBox {
 	 *
 	 * @param point The only point contained in the bounding box.
 	 */
-	public BoundingBox(Point point) {
+	BoundingBox(Point point) {
 		this(point, point);
 	}
 

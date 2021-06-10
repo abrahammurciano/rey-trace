@@ -10,7 +10,7 @@ public class Factors {
 	/** The minimum value of Factors. That is (0, 0, 0). */
 	public static final Factors ZERO = new Factors(0);
 
-	final VectorBase values;
+	final Vector values;
 
 	/**
 	 * Construct a factors object.
@@ -20,7 +20,7 @@ public class Factors {
 	 * @param blue  The blue factor.
 	 */
 	public Factors(double red, double green, double blue) {
-		this(new VectorBase(red, green, blue));
+		this(new Vector(red, green, blue));
 	}
 
 	/**
@@ -29,10 +29,10 @@ public class Factors {
 	 * @param value The value for all channels.
 	 */
 	public Factors(double value) {
-		this(new VectorBase(value, value, value));
+		this(new Vector(value, value, value));
 	}
 
-	private Factors(VectorBase values) {
+	private Factors(Vector values) {
 		this.values = values;
 	}
 
@@ -53,6 +53,6 @@ public class Factors {
 	 * @return A new Factors object where each factor is the product of the two corresponding factors.
 	 */
 	public Factors scale(Factors factors) {
-		return new Factors(values.transform((a, b) -> a * b, factors.values, VectorBase::new));
+		return new Factors(values.transform((a, b) -> a * b, factors.values, Vector::new));
 	}
 }

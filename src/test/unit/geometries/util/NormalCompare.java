@@ -1,4 +1,4 @@
-package math.compare;
+package unit.geometries.util;
 
 import primitives.NormalizedVector;
 

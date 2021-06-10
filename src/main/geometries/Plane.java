@@ -62,7 +62,7 @@ public class Plane extends InfiniteGeometry {
 	 * @param p The point to check.
 	 * @return Whether or not the given point is on the plane.
 	 */
-	public boolean contains(Point p) {
+	boolean contains(Point p) {
 		// If the vector from p to another point is on the plane dot product the normal is zero (the vectors are
 		// perpendicular) then the point is on the plane.
 		return DoubleCompare.eq(normal.dot(point.vectorBaseTo(p)), 0);

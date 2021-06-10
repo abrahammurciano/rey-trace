@@ -9,7 +9,7 @@ import primitives.LineSegment;
 import primitives.Material;
 import primitives.NormalizedVector;
 import primitives.Point;
-import primitives.Vector;
+import primitives.NonZeroVector;
 import primitives.ZeroVectorException;
 
 /**
@@ -24,8 +24,7 @@ public class Polygon extends Geometry {
 	private final List<Point> vertices;
 	private final Plane plane; // The plane which all the points must reside on.
 	private final BoundingBox border;
-	/** The number of vertices in the polygon. */
-	public final int size;
+	private final int size;
 
 	/**
 	 * This constructor accepts a list of the vertices of the polygon.
@@ -106,7 +105,8 @@ public class Polygon extends Geometry {
 		// Check if the plane intersection is within the polygon
 		Point p1 = vertices.get(0);
 		Point p2 = vertices.get(1);
-		Vector normal = line.start.vectorTo(p1).cross(p1.vectorTo(p2)); // No zero vectors bc ray intersects the plane
+		NonZeroVector normal = line.start.vectorTo(p1).cross(p1.vectorTo(p2)); // No zero vectors bc ray intersects the
+																				// plane
 		int comparison = DoubleCompare.compare(normal.dot(line.direction), 0);
 		for (int i = 2; i <= size; ++i) { // Loop through consecutive points
 			p1 = p2;

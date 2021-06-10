@@ -43,7 +43,7 @@ public class PointLight extends LightSource {
 	@Override
 	public Colour colourAt(Point point) {
 		double d = position.distance(point);
-		return colour.scale(1 / factors.sub(d));
+		return colour.scale(1 / factors.substitute(d));
 	}
 
 	/**

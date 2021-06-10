@@ -1,6 +1,6 @@
 package math.matrices;
 
-import primitives.VectorBase;
+import primitives.Vector;
 
 /**
  * Represents a rotation matrix.
@@ -33,10 +33,10 @@ public class RotationMatrix extends Matrix {
 	private RotationMatrix(double sinPitch, double cosPitch, double sinYaw, double cosYaw, double sinRoll,
 		double cosRoll) {
 		super(
-			new VectorBase(cosPitch * cosYaw, sinPitch * cosYaw * sinRoll - sinYaw * cosRoll,
+			new Vector(cosPitch * cosYaw, sinPitch * cosYaw * sinRoll - sinYaw * cosRoll,
 				sinPitch * cosYaw * cosRoll + sinYaw * sinRoll),
-			new VectorBase(cosPitch * sinYaw, sinYaw * sinPitch * sinRoll + cosYaw * cosRoll,
+			new Vector(cosPitch * sinYaw, sinYaw * sinPitch * sinRoll + cosYaw * cosRoll,
 				sinYaw * sinPitch * cosRoll - cosYaw * sinRoll),
-			new VectorBase(-sinPitch, cosPitch * sinRoll, cosPitch * cosRoll));
+			new Vector(-sinPitch, cosPitch * sinRoll, cosPitch * cosRoll));
 	}
 }

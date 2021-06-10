@@ -7,6 +7,7 @@ import geometries.Triangle;
 import primitives.NormalizedVector;
 import primitives.Point;
 import primitives.Ray;
+import unit.geometries.util.PointExtractor;
 
 /**
  * Tests the methods of the Triangle class.
@@ -51,7 +52,7 @@ public class TriangleTests {
 		// Intersection inside triangle
 		Ray ray = new Ray(new Point(0.5, 0, 1), new NormalizedVector(0.5, 1, -1));
 		Assert.assertEquals("Intersection expected but not found or wrong value.", Set.of(new Point(0.75, 0.5, 0.5)),
-			Util.getPoints(triangle.intersect(ray)));
+			PointExtractor.extractPoints(triangle.intersect(ray)));
 
 		// Intersection outside triangle (on outside of only one edge)
 		ray = new Ray(new Point(0.5, 0, 1), new NormalizedVector(2, 1, -1));

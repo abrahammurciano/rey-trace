@@ -2,9 +2,9 @@ package math.matrices;
 
 import primitives.Point;
 import primitives.Triple;
-import primitives.TripleCreator;
+import primitives.NonZeroVector;
 import primitives.Vector;
-import primitives.VectorBase;
+import util.DoubleTriFunction;
 
 /**
  *
@@ -14,18 +14,18 @@ import primitives.VectorBase;
 public class Matrix {
 
 	// rows of matrix
-	private final VectorBase r1;
-	private final VectorBase r2;
-	private final VectorBase r3;
+	private final Vector r1;
+	private final Vector r2;
+	private final Vector r3;
 
 	/**
-	 * Matrix constructor which takes three {@link VectorBase}s.
+	 * Matrix constructor which takes three {@link Vector}s.
 	 *
 	 * @param r1 The first row.
 	 * @param r2 The second row.
 	 * @param r3 The third row.
 	 */
-	public Matrix(VectorBase r1, VectorBase r2, VectorBase r3) {
+	public Matrix(Vector r1, Vector r2, Vector r3) {
 		this.r1 = r1;
 		this.r2 = r2;
 		this.r3 = r3;
@@ -51,8 +51,8 @@ public class Matrix {
 	 * @return The {@link Triple} resulting from the multiplication, of the concrete type as returned by
 	 *         {@code creator}.
 	 */
-	public <T extends Triple> T multiply(Triple triple, TripleCreator<T> creator) {
-		return creator.create(r1.dot(triple), r2.dot(triple), r3.dot(triple));
+	public <T extends Triple> T multiply(Triple triple, DoubleTriFunction<T> creator) {
+		return creator.apply(r1.dot(triple), r2.dot(triple), r3.dot(triple));
 	}
 
 	/**
@@ -66,13 +66,13 @@ public class Matrix {
 	}
 
 	/**
-	 * Multiply the matrix by a {@link Vector}.
+	 * Multiply the matrix by a {@link NonZeroVector}.
 	 *
-	 * @param v The {@link Vector} to multiply by the matrix.
-	 * @return The {@link Vector} resulting from the multiplication.
+	 * @param v The {@link NonZeroVector} to multiply by the matrix.
+	 * @return The {@link NonZeroVector} resulting from the multiplication.
 	 */
-	public Vector multiply(Vector v) {
-		return multiply(v, Vector::new);
+	public NonZeroVector multiply(NonZeroVector v) {
+		return multiply(v, NonZeroVector::new);
 	}
 
 	@Override

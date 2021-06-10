@@ -1,6 +1,6 @@
 package scene.camera;
 
-import primitives.Vector;
+import primitives.NonZeroVector;
 import rendering.Resolution;
 import primitives.Point;
 
@@ -19,9 +19,9 @@ abstract class PixelGrid<T> implements Iterable<Pixel<T>> {
 	/** The top left point. */
 	final Point topLeft;
 	/** Moves one pixel to the left. */
-	final Vector nextCol;
+	final NonZeroVector nextCol;
 	/** Moves one pixel down. */
-	final Vector nextRowFirstCol;
+	final NonZeroVector nextRowFirstCol;
 	/** The resolution of the pixel grid. */
 	final Resolution resolution;
 	/** The orientation of the pixel grid. */
@@ -35,7 +35,7 @@ abstract class PixelGrid<T> implements Iterable<Pixel<T>> {
 		this.orientation = orientation;
 		this.center = center;
 		nextCol = orientation.right.scale(width / resolution.x);
-		Vector nextRow = orientation.up.scale(-height / resolution.y);
+		NonZeroVector nextRow = orientation.up.scale(-height / resolution.y);
 		nextRowFirstCol = resolution.x > 1 ? nextRow.add(nextCol.scale(-(resolution.x - 1))) : nextRow;
 		topLeft = center.subtract(orientation.right.scale(width / 2)).add(orientation.up.scale(height / 2))
 			.add(nextCol.scale(0.5)).add(nextRow.scale(0.5));

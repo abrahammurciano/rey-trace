@@ -11,17 +11,17 @@ public interface TaskTracker {
 	/**
 	 * React to the starting of the entire task.
 	 */
-	void start();
+	public void start();
 
 	/**
 	 * React to the completion of {@code number} jobs.
 	 *
 	 * @param number The number of jobs to mark as completed.
 	 */
-	void completeJobs(int number);
+	public void completeJobs(int number);
 
 	/**
 	 * React to the completion of the entire task.
 	 */
-	void finished();
+	public void finished();
 }

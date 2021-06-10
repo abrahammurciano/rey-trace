@@ -8,7 +8,7 @@ import primitives.Material;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public abstract class InfiniteGeometry extends Geometry {
+abstract class InfiniteGeometry extends Geometry {
 
 	/**
 	 * Constructor that sets the material.

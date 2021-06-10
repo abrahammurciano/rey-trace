@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import math.compare.DoubleCompare;
 import primitives.NormalizedVector;
-import primitives.Vector;
+import primitives.NonZeroVector;
 import primitives.ZeroVectorException;
 
 /**
@@ -25,9 +25,9 @@ public class NormalizedVectorTests {
 	public void subtract() {
 		// Equivalence partition tests
 		Assert.assertEquals("Obtuse vectors gave wrong result.", base.subtract(new NormalizedVector(-3, -2, -4)),
-			new Vector(0.82434725644358, 0.9059131601789525, 1.5445650784454807));
+			new NonZeroVector(0.82434725644358, 0.9059131601789525, 1.5445650784454807));
 		Assert.assertEquals("Acute vectors gave wrong result.", base.subtract(new NormalizedVector(3, 2, 4)),
-			new Vector(-0.2898247726187312, 0.16313180747074507, 0.05900237302906575));
+			new NonZeroVector(-0.2898247726187312, 0.16313180747074507, 0.05900237302906575));
 
 		// @formatter:off
 		//  ____                        _
@@ -44,7 +44,7 @@ public class NormalizedVectorTests {
 
 		// Parallel vectors
 		Assert.assertEquals("Antiparallel vectors gave wrong result.", base.subtract(new NormalizedVector(-1, -2, -3)),
-			new Vector(2 * 0.2672612419124244, 2 * 0.5345224838248488, 2 * 0.8017837257372732));
+			new NonZeroVector(2 * 0.2672612419124244, 2 * 0.5345224838248488, 2 * 0.8017837257372732));
 		NormalizedVector v = new NormalizedVector(1, 2, 3);
 		Assert.assertThrows("A vector minus itself should throw a ZeroVectorException.", ZeroVectorException.class,
 			() -> base.subtract(v));

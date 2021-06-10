@@ -8,8 +8,8 @@ import primitives.LineSegment;
 import primitives.Material;
 import primitives.NormalizedVector;
 import primitives.Point;
+import primitives.NonZeroVector;
 import primitives.Vector;
-import primitives.VectorBase;
 import math.compare.DoubleCompare;
 import math.equations.Quadratic;
 
@@ -22,9 +22,9 @@ import math.equations.Quadratic;
  */
 public class Sphere extends Geometry {
 	/** The center of the sphere. */
-	public final Point center;
+	private final Point center;
 	/** The radius of the sphere. */
-	public final double radius;
+	private final double radius;
 
 	private final BoundingBox border;
 
@@ -48,7 +48,7 @@ public class Sphere extends Geometry {
 	}
 
 	static BoundingBox calcBorder(Point center, double radius) {
-		Vector toBorderCorner = new Vector(radius, radius, radius);
+		NonZeroVector toBorderCorner = new NonZeroVector(radius, radius, radius);
 		return new BoundingBox(center.add(toBorderCorner), center.subtract(toBorderCorner));
 	}
 
@@ -66,7 +66,7 @@ public class Sphere extends Geometry {
 
 	@Override
 	public List<Intersection> intersect(LineSegment line) {
-		VectorBase centerToRaySource = center.vectorBaseTo(line.start);
+		Vector centerToRaySource = center.vectorBaseTo(line.start);
 		double b = 2 * line.direction.dot(centerToRaySource);
 		double c = centerToRaySource.squareLength() - radius * radius;
 		Quadratic quadratic = new Quadratic(1, b, c);
