@@ -29,41 +29,17 @@ public class Cli {
 	private static final int RECURSION_DEFAULT = 4;
 	private static final double MIN_COEFFICIENT_DEFAULT = 0.01;
 
+	private static HelpFormatter formatter = new HelpFormatter();
+	private static Options options = createOptions();
+
 	/**
 	 * The main entry point for the program.
 	 *
 	 * @param args The command line arguments.
 	 */
 	public static void main(String[] args) {
-		Options options = createOptions();
-
-		CommandLineParser parser = new DefaultParser();
-		HelpFormatter formatter = new HelpFormatter();
-		CommandLine cmd;
-
 		try {
-			cmd = parser.parse(options, args);
-
-			checkHelp(cmd, formatter, options);
-
-			int threads = parseArg("threads", Integer::parseInt, THREADS_DEFAULT, cmd);
-
-			int recursion = parseArg("recursion", Integer::parseInt, RECURSION_DEFAULT, cmd);
-
-			double minCoefficient = parseArg("min-coefficient", Double::parseDouble, MIN_COEFFICIENT_DEFAULT, cmd);
-
-			String[] infiles = cmd.getArgs();
-			if (infiles.length == 0) {
-				System.out.println("Required argument <INFILES> missing");
-				formatter.printHelp(SYNOPSIS, options);
-				System.exit(6);
-			}
-			int i = 0;
-			for (String infile : infiles) {
-				System.out.println("(" + ++i + '/' + infiles.length + ") " + infile);
-				renderXml(infile, FilenameUtils.removeExtension(infile) + ".png", threads, recursion, minCoefficient);
-			}
-
+			runCommand(args);
 		} catch (ParseException e) {
 			System.out.println(e.getMessage());
 			formatter.printHelp(SYNOPSIS, options);
@@ -72,25 +48,46 @@ public class Cli {
 			System.out.println("Error parsing a number: " + e.getLocalizedMessage());
 			System.exit(2);
 		} catch (XmlParserException e) {
-			System.out.println("Error parsing XML or position parameter: " + e.getLocalizedMessage());
+			System.out.println("Error parsing XML:\n" + e.toString());
+			System.exit(3);
+		} catch (IOException e) {
+			System.out.println(e);
 			System.exit(4);
+		} catch (Exception e) {
+			System.out.println(e);
+			System.exit(5);
 		}
 	}
 
-	private static void renderXml(String infile, String outfile, int threads, int recursion, double minCoefficient) {
-		Scene scene;
-		try {
-			scene = new XmlSceneParser().parse(infile);
-		} catch (IOException e) {
-			System.out.println("Error: Coutld not open file \"" + infile + "\".");
-			System.exit(3);
-			return;
-		} catch (XmlParserException e) {
-			System.out.println(e.toString());
-			System.out.println("There is an error in the XML file. Please check it and try again.");
-			System.exit(5);
-			return;
+	public static void runCommand(String... args) throws IOException, ParseException {
+		CommandLineParser parser = new DefaultParser();
+		CommandLine cmd;
+
+		cmd = parser.parse(options, args);
+
+		checkHelp(cmd, formatter, options);
+
+		int threads = parseArg("threads", Integer::parseInt, THREADS_DEFAULT, cmd);
+
+		int recursion = parseArg("recursion", Integer::parseInt, RECURSION_DEFAULT, cmd);
+
+		double minCoefficient = parseArg("min-coefficient", Double::parseDouble, MIN_COEFFICIENT_DEFAULT, cmd);
+
+		String[] infiles = cmd.getArgs();
+		if (infiles.length == 0) {
+			throw new ParseException("Required argument <INFILES> missing");
 		}
+		int i = 0;
+		for (String infile : infiles) {
+			System.out.println("(" + ++i + '/' + infiles.length + ") " + infile);
+			renderXml(infile, FilenameUtils.removeExtension(infile) + ".png", threads, recursion, minCoefficient);
+		}
+	}
+
+	private static void renderXml(String infile, String outfile, int threads, int recursion, double minCoefficient)
+		throws IOException {
+		Scene scene;
+		scene = new XmlSceneParser().parse(infile);
 		scene.geometries.optimize();
 		RayTracer rayTracer = new PhongRayTracer(scene, recursion, minCoefficient);
 		Renderer renderer = new Renderer(scene.camera(), rayTracer, outfile, threads);
