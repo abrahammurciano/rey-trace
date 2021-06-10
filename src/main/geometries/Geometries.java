@@ -1,6 +1,6 @@
 package geometries;
 
-import java.util.Iterator;
+import util.EfficientIterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -8,6 +8,7 @@ import primitives.LineSegment;
 import java.util.ArrayDeque;
 import java.util.Collections;
 import java.util.Deque;
+import java.util.Iterator;
 
 /**
  * A collection of {@link Intersectible}s which aggregates the intersections between rays and all its elements.
@@ -96,10 +97,9 @@ public class Geometries implements Intersectible, Iterable<Geometry> {
 	/**
 	 * Iterates over the leaves of the geometries hierarchy as if they were a flat collection of {@link Geometry}s.
 	 */
-	public class GeometriesIterator implements Iterator<Geometry> {
+	public class GeometriesIterator extends EfficientIterator<Geometry> {
 
 		private Deque<Iterator<Intersectible>> iterators;
-		private Geometry next;
 
 		/**
 		 * Construct an iterator which iterates over the geometries in the given {@link Geometries}.
@@ -109,46 +109,32 @@ public class Geometries implements Intersectible, Iterable<Geometry> {
 		GeometriesIterator(Geometries geometries) {
 			this.iterators = new ArrayDeque<>();
 			iterators.add(geometries.intersectibles.iterator());
-			calcNext();
-		}
-
-		@Override
-		public boolean hasNext() {
-			return next != null;
+			setNext();
 		}
 
 		/**
 		 * Assigns the next geometry to fetch to the field {@code next}. If there are no more geometries, it assigns
 		 * {@code null}.
 		 */
-		private void calcNext() {
-			if (iterators.isEmpty()) {
-				next = null;
-				return;
-			}
-			Iterator<Intersectible> top = iterators.peek();
-			if (top.hasNext()) {
-				Intersectible node = top.next();
-				if (node instanceof Geometry) { // node is a leaf
-					next = (Geometry) node;
-				} else { // intermediate node
-					iterators.add(((Geometries) node).intersectibles.iterator());
-					calcNext();
-				}
-			} else {
-				iterators.pop();
-				calcNext();
-			}
-		}
-
 		@Override
-		public Geometry next() {
-			if (!hasNext()) {
-				throw new NoSuchElementException("There are no more geometries in this Geometries.");
+		protected void setNext() {
+			if (iterators.isEmpty()) {
+				hasNext = false;
+			} else {
+				Iterator<Intersectible> top = iterators.peek();
+				if (top.hasNext()) {
+					Intersectible node = top.next();
+					if (node instanceof Geometry) { // node is a leaf
+						next = (Geometry) node;
+					} else { // intermediate node
+						iterators.add(((Geometries) node).intersectibles.iterator());
+						setNext();
+					}
+				} else {
+					iterators.pop();
+					setNext();
+				}
 			}
-			Geometry result = next;
-			calcNext();
-			return result;
 		}
 
 	}
