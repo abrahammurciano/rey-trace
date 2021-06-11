@@ -69,14 +69,23 @@ public class GeometryList implements Boundable, Iterable<Geometry> {
 	 */
 	public void optimize() {
 		// TODO: implement
-		// first flatten geometries (to bring all infinite geometries to top level)
-		// then put all finite geometries in a sub-geometries (use g.border().isFinite() to determine which ones to add)
-		// then construct that one with the constructHierarchy recursive helper function
+		// move all finite geometries to a sub-geometries (use g.border().isFinite() to determine which ones to add)
+		finiteGeometries.constructHierarchy();
+                this.intersectibles.add(finiteGeometries);
 	}
 
 	private void constructHierarchy() {
 		// TODO: implement
 		// this is where the fun begins
+                // An overview of an algorithm might go as follows
+                // 1. For each unordered pair of geometries {a,b} calculate the SA of the Union of their bounding boxes
+                // 2. Store these values in some data structure (we'd have to find/make one to efficiently support our operations, possibly some sort of graph)
+                // 3.1. Remove the pair {a,b} with the smallest bounding box.
+                // 3.2. Remove all pairs {x,a} or {x,b} (i.e. all paid which contain a or b)
+                // 4. Make a GeometryList c which contains a and b (note, we can pass the already computed bounding box of a and b into a private constructor so it won't need to recompute it). 
+                // 5. For each remaining Intersectible x add the pair {c,x} to the data structure and compute the bounding box of c union X.
+                // 6. Repeat until there are two Intersectibles i1 and 12 left.
+                // 7. this.intersectibles.add(i1, i2)
 	}
 
 	@Override
