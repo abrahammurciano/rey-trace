@@ -18,7 +18,7 @@ import xml.factories.attribute.XmlTripleFactory;
 public class XmlTubeFactory extends XmlGeometryFactory {
 
 	@Override
-	public Tube createHelper(Element element) {
+	protected Tube createHelper(Element element) {
 		Point source = new XmlTripleFactory<Point>(Point::new).create(element, "source");
 		NormalizedVector direction =
 			new XmlTripleFactory<NormalizedVector>(NormalizedVector::new).create(element, "direction");

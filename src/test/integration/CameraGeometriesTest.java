@@ -8,6 +8,7 @@ import geometries.Triangle;
 import org.junit.Assert;
 import primitives.NormalizedVector;
 import primitives.Point;
+import primitives.Ray;
 import rendering.Resolution;
 import scene.camera.Camera;
 import scene.camera.CameraSettings;
@@ -127,8 +128,8 @@ public class CameraGeometriesTest {
 	 */
 	private void checkIntersectCount(Camera camera, Geometry geometry, int expectedCount, String message) {
 		int actual = 0;
-		for (Pixel pixel : camera) {
-			actual += geometry.intersect(pixel.rays[0]).size();
+		for (Pixel<Ray[]> pixel : camera) {
+			actual += geometry.intersect(pixel.data[0]).size();
 		}
 		Assert.assertEquals(message, expectedCount, actual);
 	}

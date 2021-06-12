@@ -4,6 +4,7 @@ import java.util.function.DoubleBinaryOperator;
 import java.util.function.DoubleUnaryOperator;
 
 import math.compare.DoubleCompare;
+import util.DoubleTriFunction;
 
 /**
  * A class that has three values, (x, y, z)
@@ -40,13 +41,14 @@ public abstract class Triple {
 	 * @param creator        A function which receives three doubles and returns a new {@link Triple}
 	 * @return The {@link Triple} made up of applying the transformation to each of the three coordinates.
 	 */
-	<T extends Triple> T transform(DoubleBinaryOperator transformation, Triple aux, TripleCreator<T> creator) {
-		return creator.create(transformation.applyAsDouble(x, aux.x), transformation.applyAsDouble(y, aux.y),
+	public <T extends Triple> T transform(DoubleBinaryOperator transformation, Triple aux,
+		DoubleTriFunction<T> creator) {
+		return creator.apply(transformation.applyAsDouble(x, aux.x), transformation.applyAsDouble(y, aux.y),
 			transformation.applyAsDouble(z, aux.z));
 	}
 
 	/**
-	 * Similar to {@link #transform(DoubleBinaryOperator, Triple, TripleCreator)} but does not require an auxiliary
+	 * Similar to {@link #transform(DoubleBinaryOperator, Triple, DoubleTriFunction)} but does not require an auxiliary
 	 * {@link Triple}, since the transformation when called in this way does not depend on a second coordinate.
 	 *
 	 * @param <T>            The type of Triple to return.
@@ -54,8 +56,8 @@ public abstract class Triple {
 	 * @param creator        A function which receives three doubles and returns a new {@link Triple}
 	 * @return The {@link Triple} made up of applying the transformation to each of the three coordinates.
 	 */
-	<T extends Triple> T transform(DoubleUnaryOperator transformation, TripleCreator<T> creator) {
-		return creator.create(transformation.applyAsDouble(x), transformation.applyAsDouble(y),
+	public <T extends Triple> T transform(DoubleUnaryOperator transformation, DoubleTriFunction<T> creator) {
+		return creator.apply(transformation.applyAsDouble(x), transformation.applyAsDouble(y),
 			transformation.applyAsDouble(z));
 	}
 
@@ -64,7 +66,7 @@ public abstract class Triple {
 	 *
 	 * @return The sum of the three values this {@link Triple} is made up of.
 	 */
-	public double sum() {
+	double sum() {
 		return x + y + z;
 	}
 

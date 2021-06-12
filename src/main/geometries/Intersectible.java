@@ -25,5 +25,4 @@ public interface Intersectible {
 	 * @return
 	 */
 	public BoundingBox border();
-
 }

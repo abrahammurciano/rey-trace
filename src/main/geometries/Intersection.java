@@ -1,6 +1,5 @@
 package geometries;
 
-import primitives.Colour;
 import primitives.NormalizedVector;
 import primitives.Point;
 
@@ -34,14 +33,5 @@ public class Intersection {
 	 */
 	public NormalizedVector normal() {
 		return geometry.normal(point);
-	}
-
-	/**
-	 * Get the emission light of the object at this intersection.
-	 *
-	 * @return The emission light of the object at this intersection.
-	 */
-	public Colour emission() {
-		return geometry.material.emission;
 	}
 }

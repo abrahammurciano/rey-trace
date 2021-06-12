@@ -20,6 +20,7 @@ public class CameraSettings {
 	private Resolution resolution;
 	private double sensorSize;
 	private int sensorPixels;
+	private int antialiasing;
 
 	/**
 	 * Default constructor for CameraSettings.
@@ -34,6 +35,7 @@ public class CameraSettings {
 		resolution = new Resolution("1920x1080");
 		sensorSize = 1;
 		sensorPixels = 1;
+		antialiasing = 3;
 	}
 
 	/**
@@ -52,6 +54,7 @@ public class CameraSettings {
 		resolution(camera.resolution());
 		sensorSize(camera.sensor.height);
 		sensorPixels(camera.sensor.resolution.x);
+		antialiasing(camera.viewPlane.subPixels);
 	}
 
 	/**
@@ -255,6 +258,30 @@ public class CameraSettings {
 	 */
 	public int sensorPixels() {
 		return sensorPixels;
+	}
+
+	/**
+	 * Specify the level of antialiasing to be used by the camera. 1 means no antialiasing, 2 is moderate, 3 gives in
+	 * decent results with acceptable computation cost.
+	 *
+	 * @param antialiasing The level of antialiasing to be used by the camera.
+	 * @return This {@link CameraSettings}.
+	 */
+	public CameraSettings antialiasing(int antialiasing) {
+		if (antialiasing < 1) {
+			throw new IllegalArgumentException("Error: Anti aliasing level must be a positive integer.");
+		}
+		this.antialiasing = antialiasing;
+		return this;
+	}
+
+	/**
+	 * Get the antialiasing level which will be used by the camera.
+	 *
+	 * @return The antialiasing level.
+	 */
+	public int antialiasing() {
+		return antialiasing;
 	}
 
 }

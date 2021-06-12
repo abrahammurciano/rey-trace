@@ -8,8 +8,8 @@ import primitives.Material;
 import primitives.NormalizedVector;
 import primitives.Point;
 import primitives.Ray;
+import primitives.NonZeroVector;
 import primitives.Vector;
-import primitives.VectorBase;
 import primitives.ZeroVectorException;
 import math.compare.DoubleCompare;
 import math.equations.Linear;
@@ -26,11 +26,11 @@ import math.matrices.FastMatrixMultSelf;
  */
 public class Tube extends InfiniteGeometry {
 	/** The axis {@link Ray} of the tube. */
-	public final Ray axis;
+	final Ray axis;
 	/** The radius of the tube. */
-	public final double radius;
+	final double radius;
 
-	private VectorBase toOrigin = null, fromOrigin = null;
+	private Vector toOrigin = null, fromOrigin = null;
 
 	/**
 	 * Constructs a {@link Tube} with the source at the same source and direction as
@@ -54,28 +54,19 @@ public class Tube extends InfiniteGeometry {
 	}
 
 	/**
-	 * Gets the axis {@link Vector} of the {@link Tube}.
-	 *
-	 * @return The axis {@link Vector} of the {@link Tube}.
-	 */
-	public NormalizedVector direction() {
-		return axis.direction;
-	}
-
-	/**
 	 * This function returns the normal to the tube at the given point. If the point
 	 * doesn't lie on the surface of the tube, the behavior is undefined.
 	 *
 	 * @param p The {@link Point} to get the normal at.
-	 * @return The normalized normal {@link Vector}
+	 * @return The normalized normal {@link NonZeroVector}
 	 * @throws ZeroVectorException if the p is equal to the source @{@link Point} of
 	 *                             the {@link Tube}.
 	 */
 	@Override
 	public NormalizedVector normal(Point p) {
-		Vector sourceToP = axis.start.vectorTo(p);
-		double dotProduct = direction().dot(sourceToP);
-		return sourceToP.subtract(direction().scale(dotProduct, VectorBase::new)).normalized();
+		NonZeroVector sourceToP = axis.start.vectorTo(p);
+		double dotProduct = axis.direction.dot(sourceToP);
+		return sourceToP.subtract(axis.direction.scale(dotProduct, Vector::new)).normalized();
 	}
 
 	@Override

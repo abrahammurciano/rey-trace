@@ -9,7 +9,7 @@ import math.compare.DoubleCompare;
 
 /**
  * The {@link Ray} class represents a ray with it's base at the {@link Point}
- * 'source' and shoots off in direction pointed at by {@link Vector}
+ * 'source' and shoots off in direction pointed at by {@link NonZeroVector}
  * 'direction'.
  *
  * @author Abraham Murciano
@@ -18,7 +18,7 @@ import math.compare.DoubleCompare;
 public class Ray extends LineSegment {
 
 	/**
-	 * Constructs a {@link Ray} from a source {@link Point} and a direction {@link Vector}.
+	 * Constructs a {@link Ray} from a source {@link Point} and a direction {@link NonZeroVector}.
 	 *
 	 * @param start     The {@link Point} at which the {@link Ray} starts.
 	 * @param direction The {@link NormalizedVector} in which the {@link Ray} is directed.
@@ -69,7 +69,7 @@ public class Ray extends LineSegment {
 	}
 
 	/**
-	 * Computes the hash code based on that of the source {@link Point} and the direction {@link Vector}.
+	 * Computes the hash code based on that of the source {@link Point} and the direction {@link NonZeroVector}.
 	 */
 	@Override
 	public int hashCode() {

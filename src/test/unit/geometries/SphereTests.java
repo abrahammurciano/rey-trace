@@ -4,14 +4,15 @@ import java.util.Set;
 import org.junit.Assert;
 import org.junit.Test;
 import geometries.Sphere;
-import math.compare.NormalCompare;
 import primitives.NormalizedVector;
 import primitives.Point;
 import primitives.Ray;
-import primitives.Vector;
+import primitives.NonZeroVector;
+import unit.geometries.util.NormalCompare;
+import unit.geometries.util.PointExtractor;
 
 /**
- * Tests the functions of the {@link Vector} class
+ * Tests the functions of the {@link NonZeroVector} class
  *
  * @author Abraham Murciano
  * @author Eli Levin
@@ -77,13 +78,13 @@ public class SphereTests {
 		Point p1 = new Point(0.06515307716504659, 0.35505102572168223, 0);
 		Point p2 = new Point(1.5348469228349528, 0.8449489742783177, 0);
 		Assert.assertEquals("Wrong result for ray crossing sphere.", Set.of(p1, p2),
-			Util.getPoints(sphere.intersect(ray)));
+			PointExtractor.extractPoints(sphere.intersect(ray)));
 
 		// Ray starts inside the sphere (1 intersection)
 		ray = new Ray(new Point(1.5, 0.5, 0.5), new NormalizedVector(0, -1, -1));
 		p1 = new Point(1.5, -0.612372435695794, -0.612372435695794);
 		Assert.assertEquals("Wrong result for ray starting inside sphere.", Set.of(p1),
-			Util.getPoints(sphere.intersect(ray)));
+			PointExtractor.extractPoints(sphere.intersect(ray)));
 
 		// Ray starts after the sphere (no intersections)
 		ray = new Ray(new Point(1.5, -1, -1), new NormalizedVector(0, -1, -1));
@@ -107,7 +108,7 @@ public class SphereTests {
 		ray = new Ray(Point.ORIGIN, new NormalizedVector(1, 1, 0));
 		p1 = new Point(1, 1, 0);
 		Assert.assertEquals("Wrong result for ray staring on boundary going in", Set.of(p1),
-			Util.getPoints(sphere.intersect(ray)));
+			PointExtractor.extractPoints(sphere.intersect(ray)));
 
 		// Ray starts at surface and goes outside (not directly away from center) (no
 		// intersections)
@@ -120,25 +121,25 @@ public class SphereTests {
 		p1 = Point.ORIGIN;
 		p2 = new Point(2, 0, 0);
 		Assert.assertEquals("Wrong result for ray going through center of sphere.", Set.of(p1, p2),
-			Util.getPoints(sphere.intersect(ray)));
+			PointExtractor.extractPoints(sphere.intersect(ray)));
 
 		// Ray starts at surface and goes inside throuch center (one intersection)
 		ray = new Ray(Point.ORIGIN, NormalizedVector.I);
 		p1 = new Point(2, 0, 0);
 		Assert.assertEquals("Wrong result for ray starting at surface going through center of sphere.", Set.of(p1),
-			Util.getPoints(sphere.intersect(ray)));
+			PointExtractor.extractPoints(sphere.intersect(ray)));
 
 		// Ray starts inside and passes through center (one intersection)
 		ray = new Ray(new Point(0.5, 0, 0), NormalizedVector.I);
 		p1 = new Point(2, 0, 0);
 		Assert.assertEquals("Wrong result for ray starting inside and going through center of sphere.", Set.of(p1),
-			Util.getPoints(sphere.intersect(ray)));
+			PointExtractor.extractPoints(sphere.intersect(ray)));
 
 		// Ray starts at the center (one intersection)
 		ray = new Ray(new Point(1, 0, 0), NormalizedVector.I);
 		p1 = new Point(2, 0, 0);
 		Assert.assertEquals("Wrong result for ray starting at center of sphere.", Set.of(p1),
-			Util.getPoints(sphere.intersect(ray)));
+			PointExtractor.extractPoints(sphere.intersect(ray)));
 
 		// Ray starts at sphere and goes outside directly away from center (no
 		// intersections)

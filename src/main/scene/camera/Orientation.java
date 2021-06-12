@@ -9,13 +9,13 @@ import primitives.NormalizedVector;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class Orientation {
+class Orientation {
 	/** The vector pointing front relative to this orientation. */
-	public final NormalizedVector front;
+	final NormalizedVector front;
 	/** The vector pointing up relative to this orientation. */
-	public final NormalizedVector up;
+	final NormalizedVector up;
 	/** The vector pointing right relative to this orientation. */
-	public final NormalizedVector right;
+	final NormalizedVector right;
 
 	/**
 	 * Constructs an orientation given the front and up vectors.
@@ -24,7 +24,7 @@ public class Orientation {
 	 * @param up    The vector pointing up with respect to the desired orientation.
 	 * @throws IllegalArgumentException if front and up are not perpendicular.
 	 */
-	public Orientation(NormalizedVector front, NormalizedVector up) {
+	Orientation(NormalizedVector front, NormalizedVector up) {
 		if (DoubleCompare.neq(front.dot(up), 0)) {
 			throw new IllegalArgumentException("Front and up vectors must be perpendicular.");
 		}

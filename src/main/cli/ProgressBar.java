@@ -21,13 +21,12 @@ public class ProgressBar implements TaskTracker {
 	/**
 	 * Construct a progress bar.
 	 *
-	 * @param totalJobs       The total number of jobs to be completed.
-	 * @param length          The number of characters to try to take up when printing progress updates.
-	 * @param updateFrequency The number of jobs to complete before updating the progress bar.
-	 * @param completed       The character to use in the completed section of the progress bar.
-	 * @param uncompleted     The character to use in the uncompleted section of the progress bar.
+	 * @param totalJobs   The total number of jobs to be completed.
+	 * @param length      The number of characters to try to take up when printing progress updates.
+	 * @param completed   The character to use in the completed section of the progress bar.
+	 * @param uncompleted The character to use in the uncompleted section of the progress bar.
 	 */
-	public ProgressBar(int totalJobs, int length, char completed, char uncompleted) {
+	ProgressBar(int totalJobs, int length, char completed, char uncompleted) {
 		this.totalJobs = totalJobs;
 		this.length = length;
 		this.updateFrequency = totalJobs / 100;
@@ -42,7 +41,7 @@ public class ProgressBar implements TaskTracker {
 	 *
 	 * @return The number of characters to try to take up when printing progress updates.
 	 */
-	public int length() {
+	int length() {
 		return length;
 	}
 
@@ -51,7 +50,7 @@ public class ProgressBar implements TaskTracker {
 	 *
 	 * @param length The number of characters to try to take up when printing progress updates.
 	 */
-	public void length(int length) {
+	void length(int length) {
 		this.length = length;
 	}
 
@@ -60,7 +59,7 @@ public class ProgressBar implements TaskTracker {
 	 *
 	 * @return A number between 0 and 1 representing how much of the task has been completed.
 	 */
-	public double percent() {
+	double percent() {
 		return (double) completedJobs / totalJobs;
 	}
 

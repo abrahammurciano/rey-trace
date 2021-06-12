@@ -3,7 +3,7 @@ package xml.factories.element;
 import java.util.Collections;
 import java.util.List;
 import org.w3c.dom.Element;
-import geometries.Geometries;
+import geometries.GeometryList;
 import lighting.AmbientLight;
 import lighting.LightSource;
 import primitives.Colour;
@@ -21,7 +21,7 @@ import xml.factories.attribute.XmlColourFactory;
  */
 public class XmlSceneFactory extends XmlFactoryFromElement<Scene> {
 	@Override
-	public Scene createHelper(Element element) {
+	protected Scene createHelper(Element element) {
 		Colour background = new XmlColourFactory().create(element, "background-colour");
 
 		AmbientLight ambient;
@@ -31,7 +31,7 @@ public class XmlSceneFactory extends XmlFactoryFromElement<Scene> {
 			ambient = new AmbientLight(Colour.BLACK);
 		}
 
-		Geometries geometries = new XmlGeometriesFactory().create(Util.getChild(element, "geometries"));
+		GeometryList geometries = new XmlGeometriesFactory().create(Util.getChild(element, "geometries"));
 
 		List<LightSource> lights =
 			Util.hasChild(element, "lights") ? new XmlLightSourcesFactory().create(Util.getChild(element, "lights"))

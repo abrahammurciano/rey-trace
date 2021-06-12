@@ -2,7 +2,7 @@ package scene.camera;
 
 import primitives.Point;
 import primitives.Ray;
-import primitives.Vector;
+import primitives.NonZeroVector;
 import rendering.Resolution;
 import java.util.Iterator;
 import math.matrices.Matrix;
@@ -15,13 +15,13 @@ import math.matrices.RotationMatrix;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class Camera implements Iterable<Pixel> {
+public class Camera implements Iterable<Pixel<Ray[]>> {
 	/** The {@link PixelGrid} where all rays are shot from. */
-	public final PixelGrid sensor;
+	public final SinglePixelGrid sensor;
 	/** The {@link Orientation} in which the camera is facing. */
 	final Orientation orientation;
 	/** The {@link PixelGrid} the camera is to shoot rays through. */
-	final PixelGrid viewPlane;
+	final MultiPixelGrid viewPlane;
 	/** The distance between the {@link Camera} and the {@link PixelGrid}. */
 	final double distance;
 
@@ -32,11 +32,12 @@ public class Camera implements Iterable<Pixel> {
 	 */
 	public Camera(CameraSettings settings) {
 		this.orientation = new Orientation(settings.front(), settings.up());
-		this.sensor = new PixelGrid(settings.sensorSize(), settings.sensorSize(), settings.position(),
+		this.sensor = new SinglePixelGrid(settings.sensorSize(), settings.sensorSize(), settings.position(),
 			new Resolution(settings.sensorPixels(), settings.sensorPixels()), orientation);
 		this.distance = settings.distance();
-		this.viewPlane = new PixelGrid(settings.width(), settings.height(),
-			settings.position().add(orientation.front.scale(distance)), settings.resolution(), orientation);
+		this.viewPlane = new MultiPixelGrid(settings.width(), settings.height(),
+			settings.position().add(orientation.front.scale(distance)), settings.resolution(), orientation,
+			settings.antialiasing());
 	}
 
 	/**
@@ -65,12 +66,12 @@ public class Camera implements Iterable<Pixel> {
 	}
 
 	/**
-	 * Create a new camera which is shifted by the given {@link Vector}.
+	 * Create a new camera which is shifted by the given {@link NonZeroVector}.
 	 *
-	 * @param offset The {@link Vector} by which to shift the camera.
-	 * @return A new {@link Camera} shifted by the given {@link Vector}.
+	 * @param offset The {@link NonZeroVector} by which to shift the camera.
+	 * @return A new {@link Camera} shifted by the given {@link NonZeroVector}.
 	 */
-	public Camera shift(Vector offset) {
+	public Camera shift(NonZeroVector offset) {
 		return new Camera(new CameraSettings(this).position(sensor.center.add(offset)));
 	}
 
@@ -90,18 +91,8 @@ public class Camera implements Iterable<Pixel> {
 	}
 
 	@Override
-	public Iterator<Pixel> iterator() {
-		return iterator(1);
-	}
-
-	/**
-	 * Get an iterator which iterates over the pixels of the camera.
-	 *
-	 * @param subPixels The number of sub pixels in each dimension for each pixel.
-	 * @return An iterator which iterates over the pixels of the camera.
-	 */
-	public Iterator<Pixel> iterator(int subPixels) {
-		return new CameraIterator(this, subPixels);
+	public Iterator<Pixel<Ray[]>> iterator() {
+		return new CameraIterator(this);
 	}
 
 }

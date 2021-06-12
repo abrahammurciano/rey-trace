@@ -7,8 +7,8 @@ import primitives.Triple;
 
 class BoundingBox {
 
-	public static final BoundingBox INFINITE = new BoundingBox(Point.NEGATIVE_INFINITY, Point.POSITIVE_INFINITY);
-	public static final BoundingBox EMPTY = new BoundingBox(Point.POSITIVE_INFINITY, Point.NEGATIVE_INFINITY);
+	static final BoundingBox INFINITE = new BoundingBox(Point.NEGATIVE_INFINITY, Point.POSITIVE_INFINITY);
+	static final BoundingBox EMPTY = new BoundingBox(Point.POSITIVE_INFINITY, Point.NEGATIVE_INFINITY);
 
 	public final Point min;
 	public final Point max;
@@ -29,6 +29,15 @@ class BoundingBox {
 			return p;
 		else
 			return Point.POSITIVE_INFINITY;
+	}
+
+	/**
+	 * Create a bounding box containing only a single {@link Point}.
+	 *
+	 * @param point The only point contained in the bounding box.
+	 */
+	BoundingBox(Point point) {
+		this(point, point);
 	}
 
 	/**
@@ -113,6 +122,5 @@ class BoundingBox {
 		return intersectsRectangle(line, fixed.apply(min), fixed, free1, free2)
 			|| intersectsRectangle(line, fixed.apply(max), fixed, free1, free2);
 	}
-
 
 }

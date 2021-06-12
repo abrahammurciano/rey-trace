@@ -2,7 +2,7 @@ package scene;
 
 import java.util.ArrayList;
 import java.util.List;
-import geometries.Geometries;
+import geometries.GeometryList;
 import lighting.AmbientLight;
 import lighting.LightSource;
 import primitives.Colour;
@@ -21,7 +21,7 @@ public class Scene {
 	/** The ambient lighting of the scene. */
 	public final AmbientLight ambient;
 	/** The collection of geometries in the scene. */
-	public final Geometries geometries;
+	public final GeometryList geometries;
 	/** The light source of the scene. */
 	public final List<LightSource> lights;
 
@@ -34,7 +34,7 @@ public class Scene {
 	 * @param ambient    The ambient lighting of the scene.
 	 */
 	public Scene(Colour background, AmbientLight ambient) {
-		this(background, ambient, new Geometries(), new ArrayList<>(), new Camera());
+		this(background, ambient, new GeometryList(), new ArrayList<>(), new Camera());
 	}
 
 	/**
@@ -46,7 +46,7 @@ public class Scene {
 	 * @param lights     The list of light sources
 	 * @param camera     The camera to use to render the scene.
 	 */
-	public Scene(Colour background, AmbientLight ambient, Geometries geometries, List<LightSource> lights,
+	public Scene(Colour background, AmbientLight ambient, GeometryList geometries, List<LightSource> lights,
 		Camera camera) {
 		this.background = background;
 		this.ambient = ambient;

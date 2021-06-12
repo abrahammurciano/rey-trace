@@ -8,6 +8,12 @@ import xml.factories.attribute.XmlColourFactory;
 import xml.factories.attribute.XmlDoubleFactory;
 import xml.factories.attribute.XmlFactorsFactory;
 
+/**
+ * Constructs a new {@link Material} from an XML {@link Element}.
+ *
+ * @author Abraham Murciano
+ * @author Eli Levin
+ */
 public class XmlMaterialFactory extends XmlFactoryFromElement<Material> {
 
 	private static final XmlDoubleFactory DOUBLE_FACTORY = new XmlDoubleFactory();
@@ -15,7 +21,7 @@ public class XmlMaterialFactory extends XmlFactoryFromElement<Material> {
 	private static final XmlFactorsFactory FACTORS_FACTORY = new XmlFactorsFactory();
 
 	@Override
-	public Material createHelper(Element element) {
+	protected Material createHelper(Element element) {
 		Colour emission = COLOUR_FACTORY.create(element, "emission", Colour.BLACK);
 		double shine = DOUBLE_FACTORY.create(element, "shine");
 		Factors diffuse = FACTORS_FACTORY.create(element, "diffuse");

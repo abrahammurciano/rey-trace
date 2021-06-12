@@ -2,23 +2,22 @@ package xml.factories.element;
 
 import java.util.Map;
 import org.w3c.dom.Element;
-import geometries.Geometries;
-import geometries.Intersectible;
+import geometries.GeometryList;
+import geometries.Geometry;
 import xml.Util;
 import xml.XmlParserException;
 import static java.util.Map.entry;
 
 
 /**
- * Constructs a {@link Geometries} object from an XML {@link Element}.
+ * Constructs a {@link GeometryList} object from an XML {@link Element}.
  *
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class XmlGeometriesFactory extends XmlFactoryFromElement<Geometries> {
+public class XmlGeometriesFactory extends XmlFactoryFromElement<GeometryList> {
 	//@formatter:off
-	private static final Map<String, XmlFactoryFromElement<? extends Intersectible>> FACTORIES = Map.ofEntries(
-		entry("geometries", new XmlGeometriesFactory()),
+	private static final Map<String, XmlFactoryFromElement<? extends Geometry>> FACTORIES = Map.ofEntries(
 		entry("cylinder", new XmlCylinderFactory()),
 		entry("plane", new XmlPlaneFactory()),
 		entry("polygon", new XmlPolygonFactory()),
@@ -29,11 +28,15 @@ public class XmlGeometriesFactory extends XmlFactoryFromElement<Geometries> {
 	//@formatter:on
 
 	@Override
-	public Geometries createHelper(Element element) {
-		Geometries geometries = new Geometries();
+	protected GeometryList createHelper(Element element) {
+		GeometryList geometries = new GeometryList();
 		for (Element child : Util.getChildren(element)) {
 			try {
-				geometries.add(FACTORIES.get(child.getNodeName()).create(child));
+				if (child.getNodeName().equals("geometries")) {
+					geometries.add(create(element));
+				} else {
+					geometries.add(FACTORIES.get(child.getNodeName()).create(child));
+				}
 			} catch (NullPointerException e) {
 				throw new XmlParserException("Unknown geometry \"" + child.getNodeName() + "\" in <geometries>.", e);
 			}

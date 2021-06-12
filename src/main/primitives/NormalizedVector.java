@@ -1,13 +1,13 @@
 package primitives;
 
 /**
- * This class represents a special kind of {@link Vector} whose length is one.
+ * This class represents a special kind of {@link NonZeroVector} whose length is one.
  *
  * @author Abraham Murciano
  * @author Eli Levin
  */
 
-public class NormalizedVector extends Vector {
+public class NormalizedVector extends NonZeroVector {
 
 	/** The I unit vector */
 	public static final NormalizedVector I = new NormalizedVector(1, 0, 0);
@@ -17,11 +17,11 @@ public class NormalizedVector extends Vector {
 	public static final NormalizedVector K = new NormalizedVector(0, 0, 1);
 
 	/**
-	 * Constructs a {@link NormalizedVector} from a not necessarily normalized {@link Vector}
+	 * Constructs a {@link NormalizedVector} from a not necessarily normalized {@link NonZeroVector}
 	 *
 	 * @param vector The unnormalized vector.
 	 */
-	public NormalizedVector(Vector vector) {
+	public NormalizedVector(NonZeroVector vector) {
 		this(vector.x, vector.y, vector.z, vector.length());
 	}
 
@@ -39,7 +39,7 @@ public class NormalizedVector extends Vector {
 	}
 
 	/**
-	 * This constructor accepts 3 doubles and returns the appropriate {@link Vector}.
+	 * This constructor accepts 3 doubles and returns the appropriate {@link NonZeroVector}.
 	 *
 	 * @param x The value of the x coordinate.
 	 * @param y The value of the y coordinate.
@@ -47,7 +47,7 @@ public class NormalizedVector extends Vector {
 	 * @throws ZeroVectorException if the x, y, and z are all zero.
 	 */
 	public NormalizedVector(double x, double y, double z) {
-		this(new Vector(x, y, z));
+		this(new NonZeroVector(x, y, z));
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public class NormalizedVector extends Vector {
 	/**
 	 * Calculates a new {@link NormalizedVector} with the opposite direction to this vector.
 	 *
-	 * @return Since the magnitude is unchanged, the returned {@link Vector} is a {@link NormalizedVector}.
+	 * @return Since the magnitude is unchanged, the returned {@link NonZeroVector} is a {@link NormalizedVector}.
 	 */
 	@Override
 	public NormalizedVector reversed() {

@@ -40,12 +40,6 @@ public class NarrowSpotlight extends Spotlight {
 
 	@Override
 	protected double factor(Point point) {
-		// f(t): [a,b] -> [c,d]
-		// a=a
-		// b=1
-		// c=0
-		// d=1
-		// f(t) = (t-a/1-a)
 		return (super.factor(point) - focus) / (1 - focus);
 	}
 

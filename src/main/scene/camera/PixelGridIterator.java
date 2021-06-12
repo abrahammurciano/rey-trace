@@ -1,18 +1,15 @@
 package scene.camera;
 
-import java.util.Iterator;
-import java.util.NoSuchElementException;
-import primitives.Point;
-import primitives.Vector;
-import rendering.Resolution;
+import java.util.function.BiFunction;
+import primitives.NonZeroVector;
+import util.EfficientIterator;
 
-class PixelGridIterator implements Iterator<Point[]> {
+class PixelGridIterator<T> extends EfficientIterator<Pixel<T>> {
 
-	private final PixelGrid view;
-	private Point[] current;
+	private final PixelGrid<T> view;
 	private int col = 0;
 	private int row = 0;
-	private boolean hasNext = true;
+	private BiFunction<T, NonZeroVector, T> shift;
 
 	/**
 	 * Construct an iterator to iterate over the pixels in the view plane.
@@ -21,80 +18,34 @@ class PixelGridIterator implements Iterator<Point[]> {
 	 * @param subPixels The number of sub pixels to return for each pixel. For example, 3 means a 3x3 grid for each
 	 *                  pixel, so 9 points would be returned for each iteration.
 	 */
-	PixelGridIterator(PixelGrid view, int subPixels) {
+	PixelGridIterator(PixelGrid<T> view, T first, BiFunction<T, NonZeroVector, T> shift) {
 		this.view = view;
-		if (subPixels == 1) { // base case
-			this.current = new Point[] {view.topLeft}; // set to singleton array
-			return;
-		}
-		this.current = new Point[subPixels * subPixels];
-
-		// Make a mini view plane that splits the first pixel into subPixels by subPixels little rectangles.
-		PixelGridIterator subIterator = new PixelGrid(view.width / view.resolution.x, view.height / view.resolution.y,
-			view.topLeft, new Resolution(subPixels, subPixels), view.orientation).iterator();
-
-		for (int i = 0; i < current.length; ++i) {
-			current[i] = subIterator.next()[0];
-		}
-	}
-
-	/**
-	 * Get the row index of the next point to be returned by the iterator.
-	 *
-	 * @return The row index of the next point.
-	 */
-	int nextRow() {
-		return row;
-	}
-
-	/**
-	 * Get the column index of the next point to be returned by the iterator.
-	 *
-	 * @return The column index of the next point.
-	 */
-	int nextCol() {
-		return col;
+		this.shift = shift;
+		this.next = new Pixel<>(first, 0, 0);
 	}
 
 	@Override
-	public boolean hasNext() {
-		return hasNext;
-	}
-
-	@Override
-	public Point[] next() {
-		if (!hasNext()) {
-			throw new NoSuchElementException();
-		}
-		Point[] prev = current; // store value to return
-		increment();
-		return prev;
-	}
-
-	private void increment() {
+	protected synchronized void setNext() {
 		col = (col + 1) % view.resolution.x; // increment column
 		if (col != 0) { // if column didn't wrap around
-			current = addToSubPixels(view.nextCol);
+			next = nextPixel(view.nextCol);
 		} else { // column wrapped around, so go to next row
 			++row;
 			if (row >= view.resolution.y) { // if row overflowed number of pixels
 				hasNext = false;
+			} else {
+				next = nextPixel(view.nextRowFirstCol);
 			}
-			current = addToSubPixels(view.nextRowFirstCol);
 		}
 	}
 
 	/**
-	 * Add the given vector to all the sub pixels in the {@code current} pixel.
+	 * Uses the shift function and other fields to construct the next pixel.
 	 *
-	 * @param next The vector to add to the points in {@code current}.
-	 * @return An array of the points which are the sub pixels of the next pixel.
+	 * @param offset The vector from the current {@link Pixel} to the next one.
+	 * @return The next pixel.
 	 */
-	private Point[] addToSubPixels(Vector next) {
-		Point[] result = new Point[current.length];
-		for (int i = 0; i < current.length; ++i) {
-			result[i] = current[i].add(next);
-		}
-		return result;
+	private Pixel<T> nextPixel(NonZeroVector offset) {
+		return new Pixel<>(shift.apply(next.data, offset), col, row);
 	}
 }

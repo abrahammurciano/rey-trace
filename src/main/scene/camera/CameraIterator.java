@@ -4,6 +4,7 @@ import java.util.Iterator;
 
 import primitives.Point;
 import primitives.Ray;
+import util.EfficientIterator;
 
 /**
  * An iterator to iterate over the rays shot by the camera.
@@ -13,48 +14,41 @@ import primitives.Ray;
  * calling {@link next()} need not have a {@code synchronized} block, but if it first checks {@link #hasNext()} and then
  * expects {@link #next()} not to throw an exception, those two calls must be in the same {@code synchronized} block.
  */
-public class CameraIterator implements Iterator<Pixel> {
+public class CameraIterator extends EfficientIterator<Pixel<Ray[]>> {
 
-	private final PixelGridIterator viewPlaneIterator;
-	private final PixelGrid sensor;
+	private final Iterator<Pixel<Point[]>> viewPlaneIterator;
+	private final SinglePixelGrid sensor;
 
 	/**
 	 * Get an iterator to iterate over the rays shot by the camera.
 	 *
-	 * @param camera    The camera whose rays to iterate over.
-	 * @param subPixels The number of sub pixels in each dimension for each pixel.
+	 * @param camera The camera whose rays to iterate over.
 	 */
-	public CameraIterator(Camera camera, int subPixels) {
-		this.viewPlaneIterator = camera.viewPlane.iterator(subPixels);
+	public CameraIterator(Camera camera) {
+		this.viewPlaneIterator = camera.viewPlane.iterator();
 		this.sensor = camera.sensor;
+		setNext();
 	}
 
 	@Override
 	public boolean hasNext() {
-		synchronized (this) {
-			return viewPlaneIterator.hasNext();
-		}
+		return viewPlaneIterator.hasNext();
 	}
 
 	@Override
-	public Pixel next() {
-		int row, col;
-		Point[] viewPlanePoints;
-		synchronized (this) {
-			row = viewPlaneIterator.nextRow();
-			col = viewPlaneIterator.nextCol();
-			viewPlanePoints = viewPlaneIterator.next();
-		}
-		int sensorPixels = sensor.numPixels();
-		Ray[] rays = new Ray[viewPlanePoints.length * sensorPixels];
-		for (int i = 0; i < viewPlanePoints.length; ++i) {
+	protected void setNext() {
+		Pixel<Point[]> pixel = viewPlaneIterator.next();
+		Point[] subPixels = pixel.data;
+		int sensorSize = sensor.numPixels();
+		Ray[] rays = new Ray[subPixels.length * sensorSize];
+		for (int i = 0; i < subPixels.length; ++i) {
 			int j = 0;
-			for (Point[] sensorPoints : sensor) {
-				rays[i * sensorPixels + j++] =
-					new Ray(sensorPoints[0], sensorPoints[0].vectorTo(viewPlanePoints[i]).normalized());
+			for (Pixel<Point> sensorPixel : sensor) {
+				rays[i * sensorSize + j++] =
+					new Ray(sensorPixel.data, sensorPixel.data.vectorTo(subPixels[i]).normalized());
 			}
 		}
-		return new Pixel(row, col, rays);
+		next = new Pixel<Ray[]>(rays, pixel.row, pixel.col);
 	}
 
 }

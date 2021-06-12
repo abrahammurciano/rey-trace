@@ -9,7 +9,7 @@ import primitives.LineSegment;
 import primitives.Material;
 import primitives.NormalizedVector;
 import primitives.Point;
-import primitives.Vector;
+import primitives.NonZeroVector;
 import primitives.ZeroVectorException;
 
 /**
@@ -21,10 +21,10 @@ import primitives.ZeroVectorException;
  */
 public class Polygon extends Geometry {
 
-	private List<Point> vertices;
-	private Plane plane; // The plane which all the points must reside on.
-	/** The number of vertices in the polygon. */
-	public final int size;
+	private final List<Point> vertices;
+	private final Plane plane; // The plane which all the points must reside on.
+	private final BoundingBox border;
+	private final int size;
 
 	/**
 	 * This constructor accepts a list of the vertices of the polygon.
@@ -71,8 +71,17 @@ public class Polygon extends Geometry {
 		if (this.size < 3) {
 			throw new IllegalArgumentException("Error: A polygon must contain at least three vertices.");
 		}
+		this.border = calcBorder(vertices);
 		// Construct the plane from the first three vertices (not in a straight line).
 		this.plane = new Plane(material, this.vertices.get(0), this.vertices.get(1), this.vertices.get(2));
+	}
+
+	static BoundingBox calcBorder(Point[] vertices) {
+		BoundingBox result = new BoundingBox(vertices[0]);
+		for (int i = 1; i < vertices.length; i++) {
+			result = result.union(new BoundingBox(vertices[i]));
+		}
+		return result;
 	}
 
 	/**
@@ -96,7 +105,8 @@ public class Polygon extends Geometry {
 		// Check if the plane intersection is within the polygon
 		Point p1 = vertices.get(0);
 		Point p2 = vertices.get(1);
-		Vector normal = line.start.vectorTo(p1).cross(p1.vectorTo(p2)); // No zero vectors bc ray intersects the plane
+		NonZeroVector normal = line.start.vectorTo(p1).cross(p1.vectorTo(p2)); // No zero vectors bc ray intersects the
+																				// plane
 		int comparison = DoubleCompare.compare(normal.dot(line.direction), 0);
 		for (int i = 2; i <= size; ++i) { // Loop through consecutive points
 			p1 = p2;
@@ -111,8 +121,7 @@ public class Polygon extends Geometry {
 
 	@Override
 	public BoundingBox border() {
-		// TODO Auto-generated method stub
-		return null;
+		return border;
 	}
 
 }

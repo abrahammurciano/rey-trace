@@ -23,7 +23,7 @@ public class XmlCylinderFactory extends XmlGeometryFactory {
 	private static final XmlDoubleFactory DOUBLE_FACTORY = new XmlDoubleFactory();
 
 	@Override
-	public Cylinder createHelper(Element element) {
+	protected Cylinder createHelper(Element element) {
 		Point source = POINT_FACTORY.create(element, "source");
 		NormalizedVector direction = NORMALIZED_VECTOR_FACTORY.create(element, "direction");
 		Ray ray = new Ray(source, direction);

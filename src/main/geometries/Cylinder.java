@@ -21,9 +21,10 @@ import primitives.Ray;
 public class Cylinder extends Geometry {
 	private double height;
 
-	private Tube middle;
-	private Plane bottom;
-	private Plane top;
+	private final Tube middle;
+	private final Plane bottom;
+	private final Plane top;
+	private final BoundingBox border;
 
 	/**
 	 * This constructs a Cylinder.
@@ -43,7 +44,13 @@ public class Cylinder extends Geometry {
 		}
 		this.height = height;
 		bottom = new Plane(material, ray.start, direction());
-		top = new Plane(material, ray.start.add(direction().scale(height)), direction());
+		Point topPoint = ray.start.add(direction().scale(height));
+		top = new Plane(material, topPoint, direction());
+		border = calcBorder(ray.start, topPoint, radius);
+	}
+
+	static BoundingBox calcBorder(Point p1, Point p2, double radius) {
+		return Sphere.calcBorder(p1, radius).union(Sphere.calcBorder(p2, radius));
 	}
 
 	/**
@@ -51,8 +58,8 @@ public class Cylinder extends Geometry {
 	 *
 	 * @return The axis {@link NormalizedVector} of the {@link Cylinder}.
 	 */
-	public NormalizedVector direction() {
-		return middle.direction();
+	private NormalizedVector direction() {
+		return middle.axis.direction;
 	}
 
 	/**
@@ -64,7 +71,7 @@ public class Cylinder extends Geometry {
 	@Override
 	public NormalizedVector normal(Point p) {
 		if (top.contains(p) || bottom.contains(p)) {
-			return middle.direction();
+			return direction();
 		} else {
 			return middle.normal(p);
 		}
@@ -89,7 +96,7 @@ public class Cylinder extends Geometry {
 			return intersections;
 		}
 		intersections.removeIf(intersection -> {
-			double intersectionHeight = middle.axis.direction.dot(bottom.point.vectorBaseTo(intersection.point));
+			double intersectionHeight = direction().dot(bottom.point.vectorBaseTo(intersection.point));
 			return DoubleCompare.leq(intersectionHeight, 0) || DoubleCompare.geq(intersectionHeight, height);
 		});
 		return intersections;
@@ -108,7 +115,6 @@ public class Cylinder extends Geometry {
 
 	@Override
 	public BoundingBox border() {
-		// TODO Auto-generated method stub
-		return null;
+		return border;
 	}
 }

@@ -4,10 +4,11 @@ import java.util.Set;
 import org.junit.Assert;
 import org.junit.Test;
 import geometries.Plane;
-import math.compare.NormalCompare;
 import primitives.NormalizedVector;
 import primitives.Point;
 import primitives.Ray;
+import unit.geometries.util.NormalCompare;
+import unit.geometries.util.PointExtractor;
 
 /**
  * Tests the methods of the Plane class.
@@ -29,49 +30,6 @@ public class PlaneTests {
 		Point p3 = new Point(2, 2, 2);
 		Assert.assertThrows("Colinear points should throw an exception.", IllegalArgumentException.class,
 			() -> new Plane(null, Point.ORIGIN, p2, p3));
-	}
-
-	/**
-	 * Test Plane.contains
-	 */
-	@Test
-	public void contains() {
-		Plane plane = new Plane(null, Point.ORIGIN, NormalizedVector.K);
-
-		// @formatter:off
-		//  _____            _            _
-		// | ____|__ _ _   _(_)_   ____ _| | ___ _ __   ___ ___
-		// |  _| / _` | | | | \ \ / / _` | |/ _ \ '_ \ / __/ _ \
-		// | |__| (_| | |_| | |\ V / (_| | |  __/ | | | (_|  __/
-		// |_____\__, |\__,_|_| \_/ \__,_|_|\___|_| |_|\___\___|
-		//          |_|
-		//  ____            _   _ _   _
-		// |  _ \ __ _ _ __| |_(_) |_(_) ___  _ __  ___
-		// | |_) / _` | '__| __| | __| |/ _ \| '_ \/ __|
-		// |  __/ (_| | |  | |_| | |_| | (_) | | | \__ \
-		// |_|   \__,_|_|   \__|_|\__|_|\___/|_| |_|___/
-		// @formatter:on
-
-		// Point on plane
-		Assert.assertTrue("Plane claims to not contain a point on its surface.", plane.contains(new Point(3, 3, 0)));
-		// Point not on plane
-		Assert.assertFalse("Plane claims to contain a point not on its surface.", plane.contains(new Point(3, 3, 1)));
-
-		// @formatter:off
-		//  ____                        _
-		// | __ )  ___  _   _ _ __   __| | __ _ _ __ _   _
-		// |  _ \ / _ \| | | | '_ \ / _` |/ _` | '__| | | |
-		// | |_) | (_) | |_| | | | | (_| | (_| | |  | |_| |
-		// |____/ \___/ \__,_|_| |_|\__,_|\__,_|_|   \__, |
-		//  _____         _                          |___/
-		// |_   _|__  ___| |_ ___
-		//   | |/ _ \/ __| __/ __|
-		//   | |  __/\__ \ |_\__ \
-		//   |_|\___||___/\__|___/
-		// @formatter:on
-
-		// Plane's defining point
-		Assert.assertTrue("Plane claims to not contain its defining point.", plane.contains(Point.ORIGIN));
 	}
 
 	/**
@@ -110,7 +68,7 @@ public class PlaneTests {
 		// Does intersect
 		ray = new Ray(new Point(1, 1, 1), new NormalizedVector(1, 1, -1));
 		Assert.assertEquals("Expected intersection for intersecting ray.", Set.of(new Point(2, 2, 0)),
-			Util.getPoints(plane.intersect(ray)));
+			PointExtractor.extractPoints(plane.intersect(ray)));
 
 		// Does not intersect (not parallel)
 		ray = new Ray(new Point(1, 1, -1), new NormalizedVector(1, 1, -1));

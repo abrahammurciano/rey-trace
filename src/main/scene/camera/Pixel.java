@@ -1,28 +1,31 @@
 package scene.camera;
 
-import primitives.Ray;
-
 /**
- * This class represents a pixel of the camera.
+ * This class represents a pixel in a {@link PixelGrid}. The pixel knows its position in the grid in terms of the row
+ * and column indices.
+ *
+ * @param <T> The generic type T is the type of the data that each pixel knows about itself. This may be simply
+ *            the center point of the pixel, it may be a collection of many points in the pixel, it may be a ray (or an
+ *            array of rays) from some point to the pixel, or anything else.
  */
-public class Pixel {
-	/** The row index of the pixel. */
-	public final int row;
-	/** The columnt index of the pixel. */
+public class Pixel<T> {
+	/** The data stored by each pixel. This may be the center point of the pixel for example, or a ray to the pixel. */
+	public final T data;
+	/** The column index of the pixel in its {@link PixelGrid}. */
 	public final int col;
-	/** The ray from the camera through various points of the pixel. */
-	public final Ray[] rays;
+	/** The row index of the pixel in its {@link PixelGrid}. */
+	public final int row;
 
 	/**
-	 * Constructs a pixel of the camera with the given fields.
+	 * Construct a new {@link Pixel} with the given row and column indices storing some {@code data} about itself.
 	 *
+	 * @param data The data stored by the pixel.
+	 * @param col  The column index of the pixel.
 	 * @param row  The row index of the pixel.
-	 * @param col  The columnt index of the pixel.
-	 * @param rays The rays from the camera through various points of the pixel.
 	 */
-	Pixel(int row, int col, Ray[] rays) {
-		this.row = row;
+	public Pixel(T data, int col, int row) {
+		this.data = data;
 		this.col = col;
-		this.rays = rays;
+		this.row = row;
 	}
 }
