@@ -59,6 +59,7 @@ public class Geometries implements Intersectible, Iterable<Geometry> {
 	private void constructHierarchyHelper() {
 		// TODO: implement
 		// this is where the fun begins
+
 	}
 
 	@Override

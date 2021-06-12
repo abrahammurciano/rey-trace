@@ -12,10 +12,23 @@ class BoundingBox {
 
 	public final Point min;
 	public final Point max;
+	private final double SA;
 
-	BoundingBox(Point min, Point max) {
+	public BoundingBox(Point min, Point max) {
+		this(assertFinite(min), assertFinite(max), null);
+	}
+
+	private BoundingBox(Point min, Point max, Object __) {
 		this.min = min;
 		this.max = max;
+		this.SA = calcSurfaceArea();
+	}
+
+	private static Point assertFinite(Point p) {
+		if (Double.isFinite(p.x) && Double.isFinite(p.y) && Double.isFinite(p.z))
+			return p;
+		else
+			return Point.POSITIVE_INFINITY;
 	}
 
 	/**
@@ -25,12 +38,10 @@ class BoundingBox {
 	 * @return if the line intersects
 	 */
 	boolean intersects(LineSegment line) {
-		if (composed(line,(p)->p.x, (p)->p.y, (p)->p.z)) return true;
-		if (composed(line,(p)->p.y, (p)->p.x, (p)->p.z)) return true;
-		if (composed(line,(p)->p.z, (p)->p.x, (p)->p.y)) return true;
-		return false;
+		return (intersectsParallelRectangles(line,(p)->p.x, (p)->p.y, (p)->p.z))
+			|| (intersectsParallelRectangles(line,(p)->p.y, (p)->p.x, (p)->p.z))
+			|| (intersectsParallelRectangles(line,(p)->p.z, (p)->p.x, (p)->p.y));
 	}
-
 
 	/**
 	 * Form a new bounding box that exactly encompases this box and the parameter.
@@ -48,55 +59,59 @@ class BoundingBox {
 	 * @return surface area
 	 */
 	double surfaceArea() {
+		return SA;
+	}
+
+	private double calcSurfaceArea() {
 		double xLength = Math.abs(min.x - max.x);
 		double yLength = Math.abs(min.y - max.y);
 		double zLength = Math.abs(min.z - max.z);
 		return 2 * (xLength * yLength + xLength * zLength + yLength * zLength);
 	}
 
+	/**
+	 * Determines if a bounding box is finite
+	 * @return true if the box is finite
+	 */
 	boolean isFinite() {
-		// TODO: implement. WTF why?
-		return false;
+		return assertFinite(this.min) == Point.POSITIVE_INFINITY
+			&& assertFinite(this.max) == Point.POSITIVE_INFINITY;
 	}
 
-	private double intersectHelper(LineSegment line, double fixed, Function<Triple, Double> func) {
-		double maybeZero = func.apply(line.direction);
-		if (maybeZero == 0) {
-			if (fixed == 0) return 0;
-			else return -1;
+	/**
+	 * Distance along the {@link LineSegment} to the plane that contains param fixed. 
+	 *
+	 * @param line The line
+	 * @param fixed The fixed point in the plane
+	 * @param getCoordinate getter for x,y or z
+	 * @return distance
+	 */
+	private boolean intersectsRectangle(LineSegment line, double fixed, Function<Triple, Double> getCoordinate, Function<Triple, Double> free1, Function<Triple, Double> free2) {
+		double distance = (fixed - getCoordinate.apply(line.start)) / getCoordinate.apply(line.direction);
+		Point on = line.travel(distance);
+		if (on == null) {
+			return false;
 		}
-		return (fixed - func.apply(line.start)) / func.apply(line.direction);
+		return inRange(on, free1, free2);
 	}
 
-	// 🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮
-	// this ends up geting the values of min and max up to 24 times, while there are only 6 of them
-	// how to do better?
-	private boolean inRange(Point query, Function<Triple, Double> func1, Function<Triple, Double> func2) {
-		double query1 = func1.apply(query);
-		double query2 = func2.apply(query);
-		double min1 = func1.apply(min);
-		double min2 = func2.apply(min);
-		double max1 = func1.apply(max);
-		double max2= func2.apply(max);
+	// 🤮
+	private boolean inRange(Point query, Function<Triple, Double> free1, Function<Triple, Double> free2) {
+		double query1 = free1.apply(query);
+		double query2 = free2.apply(query);
+		double min1 = free1.apply(min);
+		double min2 = free2.apply(min);
+		double max1 = free1.apply(max);
+		double max2= free2.apply(max);
 		if ((min1 < query1 && query1 < max1) && (min2 < query2 && query2 < max2)) {
 			return true;
 		}
 		return false;
 	}
 
-	// 🤮🤮🤮
-	private boolean composed(LineSegment line, Function<Triple, Double> fixed,Function<Triple, Double> free1,Function<Triple, Double> free2) {
-		double tmin = intersectHelper(line, min.x, fixed);
-		double tmax = intersectHelper(line, max.x, fixed);
-		if (tmin != -1) {
-			Point on = line.travel(tmin);
-			if (inRange(on, free1, free2)) return true;
-		}
-		if (tmax != -1) {
-			Point on = line.travel(tmax);
-			if (inRange(on, free1, free2)) return true;
-		}
-		return false;
+	private boolean intersectsParallelRectangles(LineSegment line, Function<Triple, Double> fixed,Function<Triple, Double> free1,Function<Triple, Double> free2) {
+		return intersectsRectangle(line, fixed.apply(min), fixed, free1, free2)
+			|| intersectsRectangle(line, fixed.apply(max), fixed, free1, free2);
 	}
 
 

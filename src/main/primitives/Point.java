@@ -106,11 +106,11 @@ public class Point extends Triple {
 	}
 
 	public Point minimumest(Point target) {
-		return transform((base, aux) -> Math.min(base, aux), target ,Point::new);
+		return transform((base, aux) -> Math.min(base, aux), target, Point::new);
 	}
 
 	public Point maximumest(Point target) {
-		return transform((base, aux) -> Math.max(base, aux), target ,Point::new);
+		return transform((base, aux) -> Math.max(base, aux), target, Point::new);
 	}
 
 	@Override
