@@ -111,12 +111,13 @@ public class Point extends Triple {
 		}, target, Point::new).sum();
 	}
 
-	public Point minimumest(Point target) {
-		return transform((base, aux) -> Math.min(base, aux), target, Point::new);
-	}
-
-	public Point maximumest(Point target) {
-		return transform((base, aux) -> Math.max(base, aux), target, Point::new);
+	/**
+	 * Determine if a point has finite values in each of its coordinates.
+	 *
+	 * @return true if all coordinates are finite, or false if at least one coordinate is infinite.
+	 */
+	public boolean isFinite() {
+		return Double.isFinite(x) && Double.isInfinite(y) && Double.isInfinite(z);
 	}
 
 	@Override
