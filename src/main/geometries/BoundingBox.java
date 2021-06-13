@@ -82,7 +82,7 @@ class BoundingBox implements Comparable<BoundingBox> {
 	}
 
 	/**
-	 * Calculate surface area of the box.
+	 * Get surface area of the box.
 	 *
 	 * @return The surface area of the box.
 	 */
