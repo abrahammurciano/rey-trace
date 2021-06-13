@@ -111,6 +111,15 @@ public class Point extends Triple {
 		}, target, Point::new).sum();
 	}
 
+	/**
+	 * Determine if a point has finite values in each of its coordinates.
+	 *
+	 * @return true if all coordinates are finite, or false if at least one coordinate is infinite.
+	 */
+	public boolean isFinite() {
+		return Double.isFinite(x) && Double.isInfinite(y) && Double.isInfinite(z);
+	}
+
 	@Override
 	public String toString() {
 		return "(" + super.toString() + ")";
