@@ -36,7 +36,7 @@ class BoundingBox implements Comparable<BoundingBox> {
 	 *
 	 * @throws IllegalArgumentException if min has any value greater than the respective value of max.
 	 */
-	public BoundingBox(Point min, Point max) {
+	BoundingBox(Point min, Point max) {
 		this(min, max, null);
 		if (min.x > max.x || min.y > max.y || min.z > max.z) {
 			throw new IllegalArgumentException(
