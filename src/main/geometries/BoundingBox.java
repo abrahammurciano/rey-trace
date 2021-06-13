@@ -1,11 +1,12 @@
 package geometries;
 
 import java.util.function.Function;
+import math.compare.DoubleCompare;
 import primitives.LineSegment;
 import primitives.Point;
 import primitives.Triple;
 
-class BoundingBox {
+class BoundingBox implements Comparable<BoundingBox> {
 
 	static final BoundingBox INFINITE = new BoundingBox(Point.NEGATIVE_INFINITY, Point.POSITIVE_INFINITY);
 	static final BoundingBox EMPTY = new BoundingBox(Point.POSITIVE_INFINITY, Point.NEGATIVE_INFINITY);
@@ -85,6 +86,20 @@ class BoundingBox {
 	boolean isFinite() {
 		return assertFinite(this.min) == Point.POSITIVE_INFINITY
 			&& assertFinite(this.max) == Point.POSITIVE_INFINITY;
+	}
+
+	/**
+	 * Compares the surface area of this bounding box against another bounding box.
+	 * @param other The other BoundingBox to compare against
+	 * @return -1, 0, 1 if this box is smaller, equals, or bigger than other bounding box.
+	 */
+	public int compareTo(BoundingBox other) {
+		if (DoubleCompare.lt(SA, other.SA))
+			return -1;
+		if (DoubleCompare.eq(SA, other.SA))
+			return 0;
+		else // gt
+			return 1;
 	}
 
 	/**
