@@ -6,12 +6,12 @@ import primitives.Point;
 import primitives.Triple;
 
 /**
- * This class represents an axis aligned cuboid which bounds some Boundable in three dimensional space.
+ * This class represents an axis aligned cuboid which bounds some Intersectible in three dimensional space.
  *
  * @author Eli Levin
  * @author Abraham Murciano
  */
-class BoundingBox {
+class BoundingBox implements Comparable<BoundingBox> {
 
 	/** Covers the entirity of 3D space. */
 	static final BoundingBox INFINITE = new BoundingBox(Point.NEGATIVE_INFINITY, Point.POSITIVE_INFINITY, null);
@@ -147,5 +147,39 @@ class BoundingBox {
 		return intersectsRectangle(line, fixed.applyAsDouble(min), fixed, free1, free2)
 			|| intersectsRectangle(line, fixed.applyAsDouble(max), fixed, free1, free2);
 	}
+
+	/**
+	 * Compares the surface area of this bounding box against another bounding box.
+	 *
+	 * @param other The other BoundingBox to compare against
+	 * @return a negative integer if this box has a smaller surface area than the other bounding box, 0 if they are
+	 *         equal, or a positive integer if it is larger.
+	 */
+	@Override
+	public int compareTo(BoundingBox other) {
+		return Double.compare(SA, other.SA);
+	}
+
+	/**
+	 * Two bounding boxes are considered equal if their surface areas are the same.
+	 *
+	 * @param o The other object to compare.
+	 * @return true if the two boxes have an equal surface area.
+	 */
+	@Override
+	public boolean equals(Object o) {
+		if (o == this)
+			return true;
+		if (!(o instanceof BoundingBox)) {
+			return false;
+		}
+		return SA == ((BoundingBox) o).SA;
+	}
+
+	@Override
+	public int hashCode() {
+		return Double.hashCode(SA);
+	}
+
 
 }
