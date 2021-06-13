@@ -20,7 +20,7 @@ import util.EfficientIterator;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class GeometryList implements Boundable, Iterable<Geometry> {
+public class GeometryList implements Intersectible, Iterable<Geometry> {
 
 	private List<Intersectible> intersectibles = new LinkedList<>();
 	private BoundingBox border;
@@ -84,16 +84,16 @@ public class GeometryList implements Boundable, Iterable<Geometry> {
 	private void constructHierarchy() {
 		// TODO: implement
 		// this is where the fun begins
-                // An overview of an algorithm might go as follows
-                // 1. For each unordered pair of geometries {a,b} calculate the SA of the Union of their bounding boxes
-                // 2. Store these values in some data structure (we'd have to find/make one to efficiently support our operations, possibly some sort of graph)
-                // 3.1. Remove the pair {a,b} with the smallest bounding box.
-                // 3.2. Remove all pairs {x,a} or {x,b} (i.e. all paid which contain a or b)
-                // 4. Make a GeometryList c which contains a and b (note, we can pass the already computed bounding box of a and b into a private constructor so it won't need to recompute it). 
-                // 5. For each remaining Intersectible x add the pair {c,x} to the data structure and compute the bounding box of c union X.
-                // 6. Repeat until there are two Intersectibles i1 and 12 left.
-                // 7. this.intersectibles.add(i1, i2)
-				//
+		// An overview of an algorithm might go as follows
+		// 1. For each unordered pair of geometries {a,b} calculate the SA of the Union of their bounding boxes
+		// 2. Store these values in some data structure (we'd have to find/make one to efficiently support our operations, possibly some sort of graph)
+		// 3.1. Remove the pair {a,b} with the smallest bounding box.
+		// 3.2. Remove all pairs {x,a} or {x,b} (i.e. all paid which contain a or b)
+		// 4. Make a GeometryList c which contains a and b (note, we can pass the already computed bounding box of a and b into a private constructor so it won't need to recompute it). 
+		// 5. For each remaining Intersectible x add the pair {c,x} to the data structure and compute the bounding box of c union X.
+		// 6. Repeat until there are two Intersectibles i1 and 12 left.
+		// 7. this.intersectibles.add(i1, i2)
+		//
 		WeightedGraph<Boundable, BoundingBox> G = new WeightedGraph<Boundable, BoundingBox>(
 				(a,b) -> a.border().union(b.border()),
 				(a,b) -> new GeometryList().add(/*WHAT DO I ADD HERE*/);
