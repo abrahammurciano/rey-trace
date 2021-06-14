@@ -3,24 +3,31 @@ package util;
 import java.util.HashSet;
 import java.util.function.BiFunction;
 
-public class WeightedGraph<V, W extends Comparable<W>> {
+/**
+ * This class represents a complete weighted graph and provides an interface to add vertices and extract the edge with
+ * minimal weight.
+ *
+ * @author Eli Levin
+ * @author Abraham Murciano
+ */
+public class CompleteWeightedGraph<V, W extends Comparable<W>> {
 	private final HashSet<Edge> edges = new HashSet<>();
 	private final HashSet<V> vertices = new HashSet<>();
 	private final BiFunction<V, V, W> getWeight;
 
 	/**
-	 * Weighter graph ctor
+	 * Weighted graph constructor.
 	 *
 	 * @param getWeight A lambda function that recieved two V's and returns a W. Represents the weight of an edge
 	 *                  between two vertices.
 	 */
-	public WeightedGraph(BiFunction<V, V, W> getWeight) {
+	public CompleteWeightedGraph(BiFunction<V, V, W> getWeight) {
 		this.getWeight = getWeight;
 	}
 
-	public WeightedGraph(Iterable<V> _vertices, BiFunction<V, V, W> getWeight) {
+	public CompleteWeightedGraph(Iterable<V> vertices, BiFunction<V, V, W> getWeight) {
 		this(getWeight);
-		for (V vertex : _vertices) {
+		for (V vertex : vertices) {
 			add(vertex);
 		}
 	}
@@ -80,10 +87,10 @@ public class WeightedGraph<V, W extends Comparable<W>> {
 			if (this == obj) {
 				return true;
 			}
-			if (!(obj instanceof WeightedGraph.Edge)) {
+			if (!(obj instanceof CompleteWeightedGraph.Edge)) {
 				return false;
 			}
-			Edge other = (Edge) obj; // Type safety: Unchecked cast from Object to WeightedGraph<V,W>.Edge
+			CompleteWeightedGraph<?, ?>.Edge other = (CompleteWeightedGraph<?, ?>.Edge) obj;
 			return (vertex1 == other.vertex1 && vertex2 == other.vertex2)
 				|| (vertex1 == other.vertex2 && vertex2 == other.vertex1);
 		}

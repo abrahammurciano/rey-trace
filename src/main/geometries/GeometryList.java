@@ -8,8 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import primitives.LineSegment;
 import util.EfficientIterator;
-import util.WeightedGraph;
-import util.WeightedGraph.Edge;
+import util.CompleteWeightedGraph;
 
 
 /**
@@ -45,7 +44,7 @@ public class GeometryList implements Intersectible, Iterable<Geometry> {
 	 *
 	 * @param geometry The {@link Geometry} to add.
 	 */
-	public void add(Intersectible geometry) {
+	private void add(Intersectible geometry) {
 		intersectibles.add(geometry);
 		border = border.union(geometry.border());
 	}
@@ -67,9 +66,7 @@ public class GeometryList implements Intersectible, Iterable<Geometry> {
 	 * @param geometries The {@link GeometryList} whose elements to add.
 	 */
 	public void add(GeometryList geometries) {
-		for (Geometry geometry : geometries) {
-			intersectibles.add(geometry);
-		}
+		geometries.forEach(intersectibles::add);
 		border = border.union(geometries.border());
 	}
 
@@ -78,10 +75,9 @@ public class GeometryList implements Intersectible, Iterable<Geometry> {
 	 * all the geometries have been added, but before the ray tracing process begins.
 	 */
 	public void optimize() {
-		// move all finite geometries to a sub-geometries (use g.border().isFinite() to determine which ones to add)
 		GeometryList finiteGeometries = new GeometryList();
 		intersectibles.removeIf(i -> {
-			if(i.border().isFinite()) {
+			if (i.border().isFinite()) {
 				finiteGeometries.add(i);
 				return true;
 			}
@@ -93,25 +89,10 @@ public class GeometryList implements Intersectible, Iterable<Geometry> {
 	}
 
 	private void constructHierarchy() {
-		// TODO: implement
-		// this is where the fun begins
-		// An overview of an algorithm might go as follows
-		// 1. For each unordered pair of geometries {a,b} calculate the SA of the Union of their bounding boxes
-		// 2. Store these values in some data structure (we'd have to find/make one to efficiently support our
-		// operations, possibly some sort of graph)
-		// 3.1. Remove the pair {a,b} with the smallest bounding box.
-		// 3.2. Remove all pairs {x,a} or {x,b} (i.e. all paid which contain a or b)
-		// 4. Make a GeometryList c which contains a and b (note, we can pass the already computed bounding box of a and
-		// b into a private constructor so it won't need to recompute it).
-		// 5. For each remaining Intersectible x add the pair {c,x} to the data structure and compute the bounding box
-		// of c union X.
-		// 6. Repeat from step 3 until there are two Intersectibles i1 and 12 left.
-		// 7. this.intersectibles.add(i1, i2)
-		//
-		WeightedGraph<Intersectible, BoundingBox> G =
-			new WeightedGraph<>(intersectibles, (i1, i2) -> i1.border().union(i2.border()));
-		WeightedGraph<Intersectible, BoundingBox>.Edge minEdge; // a typedef would be nice here
-		while(G.size() >= 2) {
+		CompleteWeightedGraph<Intersectible, BoundingBox> G =
+			new CompleteWeightedGraph<>(intersectibles, (i1, i2) -> i1.border().union(i2.border()));
+		CompleteWeightedGraph<Intersectible, BoundingBox>.Edge minEdge; // a typedef would be nice here
+		while (G.size() >= 2) {
 			minEdge = G.extract();
 			G.add(new GeometryList(minEdge.weight, minEdge.vertex1, minEdge.vertex2));
 		}
