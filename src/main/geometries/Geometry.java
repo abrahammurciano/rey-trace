@@ -7,7 +7,7 @@ import primitives.Point;
 /**
  * Represents a three dimensional shape
  */
-public abstract class Geometry implements Boundable {
+public abstract class Geometry implements Intersectible {
 	/** The material of this geometry. */
 	public final Material material;
 

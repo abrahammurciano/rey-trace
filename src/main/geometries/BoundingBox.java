@@ -6,10 +6,7 @@ import primitives.Point;
 import primitives.Triple;
 
 /**
- * This class represents an axis aligned cuboid which bounds some Boundable in three dimensional space.
- *
- * The natural ordering of bounding boxes is determined by their surface areas, and the equals method is consistent with
- * this.
+ * This class represents an axis aligned cuboid which bounds some Intersectible in three dimensional space.
  *
  * @author Eli Levin
  * @author Abraham Murciano
@@ -99,39 +96,6 @@ class BoundingBox implements Comparable<BoundingBox> {
 		return min.isFinite() && max.isFinite();
 	}
 
-	/**
-	 * Compares the surface area of this bounding box against another bounding box.
-	 *
-	 * @param other The other BoundingBox to compare against
-	 * @return a negative integer if this box has a smaller surface area than the other bounding box, 0 if they are
-	 *         equal, or a positive integer if it is larger.
-	 */
-	@Override
-	public int compareTo(BoundingBox other) {
-		return Double.compare(SA, other.SA);
-	}
-
-	/**
-	 * Two bounding boxes are considered equal if their surface areas are the same.
-	 *
-	 * @param o The other object to compare.
-	 * @return true if the two boxes have an equal surface area.
-	 */
-	@Override
-	public boolean equals(Object o) {
-		if (o == this)
-			return true;
-		if (!(o instanceof BoundingBox)) {
-			return false;
-		}
-		return SA == ((BoundingBox) o).SA;
-	}
-
-	@Override
-	public int hashCode() {
-		return Double.hashCode(SA);
-	}
-
 
 	private Point min(Point p, Point q) {
 		return p.transform(Math::min, q, Point::new);
@@ -183,5 +147,39 @@ class BoundingBox implements Comparable<BoundingBox> {
 		return intersectsRectangle(line, fixed.applyAsDouble(min), fixed, free1, free2)
 			|| intersectsRectangle(line, fixed.applyAsDouble(max), fixed, free1, free2);
 	}
+
+	/**
+	 * Compares the surface area of this bounding box against another bounding box.
+	 *
+	 * @param other The other BoundingBox to compare against
+	 * @return a negative integer if this box has a smaller surface area than the other bounding box, 0 if they are
+	 *         equal, or a positive integer if it is larger.
+	 */
+	@Override
+	public int compareTo(BoundingBox other) {
+		return Double.compare(SA, other.SA);
+	}
+
+	/**
+	 * Two bounding boxes are considered equal if their surface areas are the same.
+	 *
+	 * @param o The other object to compare.
+	 * @return true if the two boxes have an equal surface area.
+	 */
+	@Override
+	public boolean equals(Object o) {
+		if (o == this)
+			return true;
+		if (!(o instanceof BoundingBox)) {
+			return false;
+		}
+		return SA == ((BoundingBox) o).SA;
+	}
+
+	@Override
+	public int hashCode() {
+		return Double.hashCode(SA);
+	}
+
 
 }

@@ -1,13 +1,15 @@
 package geometries;
 
-import util.EfficientIterator;
-import java.util.LinkedList;
-import java.util.List;
-import primitives.LineSegment;
 import java.util.ArrayDeque;
 import java.util.Collections;
 import java.util.Deque;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import primitives.LineSegment;
+import util.EfficientIterator;
+import util.CompleteWeightedGraph;
+
 
 /**
  * A collection of {@link Intersectible}s which aggregates the intersections between rays and all its elements.
@@ -15,7 +17,7 @@ import java.util.Iterator;
  * @author Abraham Murciano
  * @author Eli Levin
  */
-public class GeometryList implements Boundable, Iterable<Geometry> {
+public class GeometryList implements Intersectible, Iterable<Geometry> {
 
 	private List<Intersectible> intersectibles = new LinkedList<>();
 	private BoundingBox border;
@@ -30,12 +32,19 @@ public class GeometryList implements Boundable, Iterable<Geometry> {
 		add(geometries);
 	}
 
+	private GeometryList(BoundingBox border, Intersectible... intersectibles) {
+		for (Intersectible intersectible : intersectibles) {
+			this.intersectibles.add(intersectible);
+		}
+		this.border = border; // #efficient
+	}
+
 	/**
 	 * Add a single {@link Geometry} to the collection.
 	 *
 	 * @param geometry The {@link Geometry} to add.
 	 */
-	public void add(Geometry geometry) {
+	private void add(Intersectible geometry) {
 		intersectibles.add(geometry);
 		border = border.union(geometry.border());
 	}
@@ -57,9 +66,7 @@ public class GeometryList implements Boundable, Iterable<Geometry> {
 	 * @param geometries The {@link GeometryList} whose elements to add.
 	 */
 	public void add(GeometryList geometries) {
-		for (Geometry geometry : geometries) {
-			intersectibles.add(geometry);
-		}
+		geometries.forEach(intersectibles::add);
 		border = border.union(geometries.border());
 	}
 
@@ -68,24 +75,30 @@ public class GeometryList implements Boundable, Iterable<Geometry> {
 	 * all the geometries have been added, but before the ray tracing process begins.
 	 */
 	public void optimize() {
-		// TODO: implement
-		// move all finite geometries to a sub-geometries (use g.border().isFinite() to determine which ones to add)
+		GeometryList finiteGeometries = new GeometryList();
+		intersectibles.removeIf(i -> {
+			if (i.border().isFinite()) {
+				finiteGeometries.add(i);
+				return true;
+			}
+			return false;
+
+		});
 		finiteGeometries.constructHierarchy();
-                this.intersectibles.add(finiteGeometries);
+		this.intersectibles.add(finiteGeometries);
 	}
 
 	private void constructHierarchy() {
-		// TODO: implement
-		// this is where the fun begins
-                // An overview of an algorithm might go as follows
-                // 1. For each unordered pair of geometries {a,b} calculate the SA of the Union of their bounding boxes
-                // 2. Store these values in some data structure (we'd have to find/make one to efficiently support our operations, possibly some sort of graph)
-                // 3.1. Remove the pair {a,b} with the smallest bounding box.
-                // 3.2. Remove all pairs {x,a} or {x,b} (i.e. all paid which contain a or b)
-                // 4. Make a GeometryList c which contains a and b (note, we can pass the already computed bounding box of a and b into a private constructor so it won't need to recompute it). 
-                // 5. For each remaining Intersectible x add the pair {c,x} to the data structure and compute the bounding box of c union X.
-                // 6. Repeat until there are two Intersectibles i1 and 12 left.
-                // 7. this.intersectibles.add(i1, i2)
+		CompleteWeightedGraph<Intersectible, BoundingBox> G =
+			new CompleteWeightedGraph<>(intersectibles, (i1, i2) -> i1.border().union(i2.border()));
+		CompleteWeightedGraph<Intersectible, BoundingBox>.Edge minEdge;
+		while (G.size() >= 2) {
+			minEdge = G.extract();
+			G.add(new GeometryList(minEdge.weight, minEdge.vertex1, minEdge.vertex2));
+		}
+		minEdge = G.extract();
+		this.intersectibles.add(minEdge.vertex1);
+		this.intersectibles.add(minEdge.vertex2);
 	}
 
 	@Override
