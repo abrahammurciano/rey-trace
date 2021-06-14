@@ -16,15 +16,21 @@ public class CompleteWeightedGraph<V, W extends Comparable<W>> {
 	private final BiFunction<V, V, W> getWeight;
 
 	/**
-	 * Weighted graph constructor.
+	 * Construct a complete weighted graph which uses the given function to compute weghts of edges between vertices.
 	 *
-	 * @param getWeight A lambda function that recieved two V's and returns a W. Represents the weight of an edge
-	 *                  between two vertices.
+	 * @param getWeight A function which computes the weight between two given vertices.
 	 */
 	public CompleteWeightedGraph(BiFunction<V, V, W> getWeight) {
 		this.getWeight = getWeight;
 	}
 
+	/**
+	 * Construct a complete weighted graph with the given vertices and the given function which calculates the weights
+	 * between them.
+	 *
+	 * @param vertices  The vertices to add to the graph.
+	 * @param getWeight A function which computes the weight between two given vertices.
+	 */
 	public CompleteWeightedGraph(Iterable<V> vertices, BiFunction<V, V, W> getWeight) {
 		this(getWeight);
 		for (V vertex : vertices) {
@@ -32,11 +38,17 @@ public class CompleteWeightedGraph<V, W extends Comparable<W>> {
 		}
 	}
 
-	public void add(V newVertex) {
-		for (V vertex : vertices) {
-			edges.add(new Edge(vertex, newVertex)); // no edges with self
+	/**
+	 * Add a vertex to the complete graph, adding an edge to each existing vertex and calculating the weight of each of
+	 * these.
+	 *
+	 * @param vertex The vertex to add to the graph.
+	 */
+	public void add(V vertex) {
+		for (V existing : vertices) {
+			edges.add(new Edge(existing, vertex)); // no edges with self
 		}
-		vertices.add(newVertex);
+		vertices.add(vertex);
 	}
 
 	/**
@@ -65,8 +77,11 @@ public class CompleteWeightedGraph<V, W extends Comparable<W>> {
 	 * weight between them.
 	 */
 	public class Edge {
+		/** One of the vertices of the edge. */
 		public final V vertex1;
+		/** The other vertex of the edge. */
 		public final V vertex2;
+		/** The weight of the edge. */
 		public final W weight;
 
 		Edge(V vertex1, V vertex2) {
@@ -76,6 +91,12 @@ public class CompleteWeightedGraph<V, W extends Comparable<W>> {
 
 		}
 
+		/**
+		 * Checks if the given vertex is one of the vertices of the edge.
+		 *
+		 * @param vertex The vertex to check.
+		 * @return true if the vertex is one of the vertices of the edge, or false otherwise.
+		 */
 		public boolean contains(V vertex) {
 			return vertex.equals(vertex1) || vertex.equals(vertex2);
 		}
