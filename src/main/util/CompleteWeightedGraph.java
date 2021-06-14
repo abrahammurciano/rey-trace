@@ -60,7 +60,10 @@ public class CompleteWeightedGraph<V, W extends Comparable<W>> {
 		return vertices.size();
 	}
 
-	// this class is really more of a struct. No logic in it, just a group of data.
+	/**
+	 * This class represents a weighted edge of the graph. It contains two vertices (whose order doesnt matter) and a
+	 * weight between them.
+	 */
 	public class Edge {
 		public final V vertex1;
 		public final V vertex2;

@@ -91,7 +91,7 @@ public class GeometryList implements Intersectible, Iterable<Geometry> {
 	private void constructHierarchy() {
 		CompleteWeightedGraph<Intersectible, BoundingBox> G =
 			new CompleteWeightedGraph<>(intersectibles, (i1, i2) -> i1.border().union(i2.border()));
-		CompleteWeightedGraph<Intersectible, BoundingBox>.Edge minEdge; // a typedef would be nice here
+		CompleteWeightedGraph<Intersectible, BoundingBox>.Edge minEdge;
 		while (G.size() >= 2) {
 			minEdge = G.extract();
 			G.add(new GeometryList(minEdge.weight, minEdge.vertex1, minEdge.vertex2));
@@ -99,7 +99,6 @@ public class GeometryList implements Intersectible, Iterable<Geometry> {
 		minEdge = G.extract();
 		this.intersectibles.add(minEdge.vertex1);
 		this.intersectibles.add(minEdge.vertex2);
-		this.border = minEdge.weight;
 	}
 
 	@Override
