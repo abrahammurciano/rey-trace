@@ -26,7 +26,7 @@ class Boundary implements Comparable<Boundary> {
 	static final Boundary EMPTY = new Boundary(null, Intersects.NEVER);
 
 	private final double surfaceArea;
-	private final BoundingSphere sphere;
+	private final BasicSphere sphere;
 	private final Intersects intersects;
 
 	/**
@@ -48,8 +48,15 @@ class Boundary implements Comparable<Boundary> {
 		this(point, point, Intersects.NEVER);
 	}
 
-	private Boundary(Point min, Point max, Intersects intersects) {
-		this(new BoundingSphere(min, max), intersects);
+	/**
+	 * Construct the smallest possible boundary containing p1 and p2.
+	 *
+	 * @param p1         A point on the surface of the boundary.
+	 * @param p2         A point on the surface of the boundary.
+	 * @param intersects When this boundary intersects with a ray.
+	 */
+	private Boundary(Point p1, Point p2, Intersects intersects) {
+		this(new BasicSphere(p1, p2), intersects);
 	}
 
 	/**
@@ -60,7 +67,7 @@ class Boundary implements Comparable<Boundary> {
 	 * @param max        The point to consider the maximum.
 	 * @param intersects When the bounding box intersects with any ray.
 	 */
-	private Boundary(BoundingSphere sphere, Intersects intersects) {
+	private Boundary(BasicSphere sphere, Intersects intersects) {
 		this.sphere = sphere;
 		this.intersects = intersects;
 		if (intersects == Intersects.SOMETIMES) {

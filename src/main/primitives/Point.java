@@ -114,6 +114,7 @@ public class Point extends Triple {
 	/**
 	 * Calculate the midpoint between two points.
 	 *
+	 * @param point The other point to consider in the calculation.
 	 * @return The midpoint of this point and the given point.
 	 */
 	public Point midPoint(Point point) {

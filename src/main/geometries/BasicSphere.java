@@ -8,7 +8,14 @@ import primitives.LineSegment;
 import primitives.Point;
 import primitives.Vector;
 
-class BoundingSphere {
+/**
+ * This class represents a sphere and has some of the operations that can be performed with a sphere. This class is used
+ * by {@link Boundary} and by {@Sphere}.
+ *
+ * @author Abraham Murciano
+ * @author Eli Levin
+ */
+class BasicSphere {
 	/** The center of the sphere. */
 	final Point center;
 	/** The radius of the sphere. */
@@ -23,19 +30,38 @@ class BoundingSphere {
 	 *                      number will be assumed to be positive.
 	 * @throws IllegalArgumentException if the radius is zero.
 	 */
-	BoundingSphere(Point center, double radiusSquared) {
+	BasicSphere(Point center, double radiusSquared) {
 		this.center = center;
 		this.radiusSquared = radiusSquared;
 	}
 
-	private BoundingSphere(Point center, Point surface, Object __) {
+	/**
+	 * Construct the smallest possible sphere that contains the two given points.
+	 *
+	 * @param p1 One point on the surface.
+	 * @param p2 Another point on the surface.
+	 */
+	BasicSphere(Point p1, Point p2) {
+		this(p1.midPoint(p2), p1, null);
+	}
+
+	/**
+	 * Construct a sphere given the center and a point on the surface.
+	 *
+	 * @param center  The center of the sphere.
+	 * @param surface A point on the surface of the sphere.
+	 * @param __      A dummy parameter to distinguish between this constructor and {@link #BasicSphere(Point, Point)}.
+	 */
+	private BasicSphere(Point center, Point surface, Object __) {
 		this(center, center.vectorTo(surface).squareLength());
 	}
 
-	BoundingSphere(Point min, Point max) {
-		this(min.midPoint(max), min, null);
-	}
-
+	/**
+	 * Given a line segment, this method calculates the points of intersection between this sphere and the line segment.
+	 *
+	 * @param line The {@link LineSegment} to check for intersections with this sphere.
+	 * @return A list of points where the intersections are.
+	 */
 	List<Point> intersect(LineSegment line) {
 		Vector toCenter = line.start.vectorTo(center);
 		double scalarsMid = toCenter.dot(line.direction);
@@ -57,10 +83,21 @@ class BoundingSphere {
 		}
 	}
 
+	/**
+	 * Calculate the surface area of the sphere.
+	 *
+	 * @return The surface area of the sphere.
+	 */
 	double surfaceArea() {
 		return 4 * Math.PI * radiusSquared;
 	}
 
+	/**
+	 * Determines if a point is enclosed within the sphere.
+	 *
+	 * @param point The point to test.
+	 * @return True if the point is enclosed within the sphere, false otherwise.
+	 */
 	boolean contains(Point point) {
 		return DoubleCompare.lt(center.vectorTo(point).squareLength(), radiusSquared);
 	}

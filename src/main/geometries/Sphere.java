@@ -19,7 +19,7 @@ import math.compare.DoubleCompare;
  */
 public class Sphere extends Geometry {
 
-	private final BoundingSphere boundingSphere;
+	private final BasicSphere basicSphere;
 	private final Boundary boundary;
 
 	/**
@@ -36,7 +36,7 @@ public class Sphere extends Geometry {
 		if (DoubleCompare.eq(radius, 0)) {
 			throw new IllegalArgumentException("Error: Radius must not be zero.");
 		}
-		boundingSphere = new BoundingSphere(center, radius * radius);
+		basicSphere = new BasicSphere(center, radius * radius);
 		this.boundary = calcBorder(center, radius);
 	}
 
@@ -54,13 +54,13 @@ public class Sphere extends Geometry {
 	 */
 	@Override
 	public NormalizedVector normal(Point p) {
-		return boundingSphere.center.nonZeroVectorTo(p).normalized();
+		return basicSphere.center.nonZeroVectorTo(p).normalized();
 	}
 
 	@Override
 	public List<Intersection> intersect(LineSegment line) {
 		List<Intersection> result = new ArrayList<>(2);
-		boundingSphere.intersect(line).forEach(p -> result.add(intersection(p)));
+		basicSphere.intersect(line).forEach(p -> result.add(intersection(p)));
 		return result;
 	}
 
