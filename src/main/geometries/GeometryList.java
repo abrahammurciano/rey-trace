@@ -22,7 +22,7 @@ import util.CompleteWeightedGraph;
 public class GeometryList implements Intersectible, Iterable<Geometry> {
 
 	private Set<Intersectible> intersectibles = new HashSet<>();
-	private BoundingBox border = BoundingBox.EMPTY;
+	private Boundary boundary = Boundary.EMPTY;
 
 	/**
 	 * Construct a collection of geometries given an array of {@link Intersectible}s or given any number of
@@ -34,11 +34,11 @@ public class GeometryList implements Intersectible, Iterable<Geometry> {
 		add(geometries);
 	}
 
-	private GeometryList(BoundingBox border, Intersectible... intersectibles) {
+	private GeometryList(Boundary boundary, Intersectible... intersectibles) {
 		for (Intersectible intersectible : intersectibles) {
 			this.intersectibles.add(intersectible);
 		}
-		this.border = border; // #efficient
+		this.boundary = boundary; // #efficient
 	}
 
 	/**
@@ -48,7 +48,7 @@ public class GeometryList implements Intersectible, Iterable<Geometry> {
 	 */
 	private void add(Intersectible geometry) {
 		intersectibles.add(geometry);
-		border = border.union(geometry.border());
+		boundary = boundary.union(geometry.boundary());
 	}
 
 	/**
@@ -69,7 +69,7 @@ public class GeometryList implements Intersectible, Iterable<Geometry> {
 	 */
 	public void add(GeometryList geometries) {
 		geometries.forEach(intersectibles::add);
-		border = border.union(geometries.border());
+		boundary = boundary.union(geometries.boundary());
 	}
 
 	/**
@@ -77,7 +77,7 @@ public class GeometryList implements Intersectible, Iterable<Geometry> {
 	 * all the geometries have been added, but before the ray tracing process begins.
 	 */
 	public void optimize() {
-		GeometryList finites = intersectibles.stream().filter(g -> g.border().isFinite()).collect(GeometryList::new,
+		GeometryList finites = intersectibles.stream().filter(g -> g.boundary().isFinite()).collect(GeometryList::new,
 			GeometryList::add, GeometryList::add);
 		if (finites.intersectibles.size() == intersectibles.size()) {
 			constructHierarchy();
@@ -92,9 +92,9 @@ public class GeometryList implements Intersectible, Iterable<Geometry> {
 		if (intersectibles.size() <= 2) {
 			return;
 		}
-		CompleteWeightedGraph<Intersectible, BoundingBox> G =
-			new CompleteWeightedGraph<>(intersectibles, (i1, i2) -> i1.border().union(i2.border()));
-		CompleteWeightedGraph<Intersectible, BoundingBox>.Edge minEdge;
+		CompleteWeightedGraph<Intersectible, Boundary> G =
+			new CompleteWeightedGraph<>(intersectibles, (i1, i2) -> i1.boundary().union(i2.boundary()));
+		CompleteWeightedGraph<Intersectible, Boundary>.Edge minEdge;
 		while (G.size() > 2) {
 			minEdge = G.extract();
 			G.add(new GeometryList(minEdge.weight, minEdge.vertex1, minEdge.vertex2));
@@ -107,7 +107,7 @@ public class GeometryList implements Intersectible, Iterable<Geometry> {
 
 	@Override
 	public List<Intersection> intersect(LineSegment line) {
-		if (!border().intersects(line)) {
+		if (!boundary().intersects(line)) {
 			return Collections.emptyList();
 		}
 		List<Intersection> result = new LinkedList<>();
@@ -118,8 +118,8 @@ public class GeometryList implements Intersectible, Iterable<Geometry> {
 	}
 
 	@Override
-	public BoundingBox border() {
-		return border;
+	public Boundary boundary() {
+		return boundary;
 	}
 
 	@Override

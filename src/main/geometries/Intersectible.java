@@ -20,9 +20,9 @@ public interface Intersectible {
 	public List<Intersection> intersect(LineSegment line);
 
 	/**
-	 * Get the {@link BoundingBox} of this intersectible.
+	 * Get the {@link Boundary} of this intersectible.
 	 *
 	 * @return The bounding box of this intersectible.
 	 */
-	BoundingBox border();
+	Boundary boundary();
 }

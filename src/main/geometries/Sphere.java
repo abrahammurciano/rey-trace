@@ -2,16 +2,13 @@ package geometries;
 
 import primitives.ZeroVectorException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import primitives.LineSegment;
 import primitives.Material;
 import primitives.NormalizedVector;
 import primitives.Point;
 import primitives.NonZeroVector;
-import primitives.Vector;
 import math.compare.DoubleCompare;
-import math.equations.Quadratic;
 
 /**
  * This represents a sphere. A sphere is described by a center {@link Point} and
@@ -21,12 +18,9 @@ import math.equations.Quadratic;
  * @author Eli Levin
  */
 public class Sphere extends Geometry {
-	/** The center of the sphere. */
-	private final Point center;
-	/** The radius of the sphere. */
-	private final double radius;
 
-	private final BoundingBox border;
+	private final BoundingSphere boundingSphere;
+	private final Boundary boundary;
 
 	/**
 	 * Constructs a sphere from a given center point and a radius.
@@ -42,14 +36,13 @@ public class Sphere extends Geometry {
 		if (DoubleCompare.eq(radius, 0)) {
 			throw new IllegalArgumentException("Error: Radius must not be zero.");
 		}
-		this.center = center;
-		this.radius = Math.abs(radius);
-		this.border = calcBorder(center, radius);
+		boundingSphere = new BoundingSphere(center, radius * radius);
+		this.boundary = calcBorder(center, radius);
 	}
 
-	static BoundingBox calcBorder(Point center, double radius) {
-		NonZeroVector toBorderCorner = new NonZeroVector(radius, radius, radius);
-		return new BoundingBox(center.subtract(toBorderCorner), center.add(toBorderCorner));
+	static Boundary calcBorder(Point center, double radius) {
+		NonZeroVector toEdge = NormalizedVector.I.scale(radius);
+		return new Boundary(center.subtract(toEdge), center.add(toEdge));
 	}
 
 	/**
@@ -61,31 +54,18 @@ public class Sphere extends Geometry {
 	 */
 	@Override
 	public NormalizedVector normal(Point p) {
-		return center.vectorTo(p).normalized();
+		return boundingSphere.center.nonZeroVectorTo(p).normalized();
 	}
 
 	@Override
 	public List<Intersection> intersect(LineSegment line) {
-		Vector centerToRaySource = center.vectorBaseTo(line.start);
-		double b = 2 * line.direction.dot(centerToRaySource);
-		double c = centerToRaySource.squareLength() - radius * radius;
-		Quadratic quadratic = new Quadratic(1, b, c);
-		double discriminant = quadratic.discriminant;
-		if (DoubleCompare.leq(discriminant, 0)) {
-			return Collections.emptyList(); // ray is tangent or doesn't intersect at all
-		}
 		List<Intersection> result = new ArrayList<>(2);
-		for (double t : quadratic.solutions()) {
-			Point intersectionPoint = line.travel(t);
-			if (intersectionPoint != null) {
-				result.add(intersection(intersectionPoint));
-			}
-		}
+		boundingSphere.intersect(line).forEach(p -> result.add(intersection(p)));
 		return result;
 	}
 
 	@Override
-	public BoundingBox border() {
-		return border;
+	public Boundary boundary() {
+		return boundary;
 	}
 }

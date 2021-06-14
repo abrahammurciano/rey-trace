@@ -49,7 +49,7 @@ public class Tube extends InfiniteGeometry {
 		this.axis = axis;
 		this.radius = Math.abs(radius);
 
-		toOrigin = axis.start.vectorBaseTo(Point.ORIGIN);
+		toOrigin = axis.start.vectorTo(Point.ORIGIN);
 		fromOrigin = toOrigin.reversed();
 	}
 
@@ -64,7 +64,7 @@ public class Tube extends InfiniteGeometry {
 	 */
 	@Override
 	public NormalizedVector normal(Point p) {
-		NonZeroVector sourceToP = axis.start.vectorTo(p);
+		NonZeroVector sourceToP = axis.start.nonZeroVectorTo(p);
 		double dotProduct = axis.direction.dot(sourceToP);
 		return sourceToP.subtract(axis.direction.scale(dotProduct, Vector::new)).normalized();
 	}

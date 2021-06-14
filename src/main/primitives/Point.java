@@ -40,12 +40,12 @@ public class Point extends Triple {
 	}
 
 	/**
-	 * Subtract a {@link NonZeroVector} from this {@link Point} and returns the resulting {@link Point}.
+	 * Subtract a {@link Vector} from this {@link Point} and returns the resulting {@link Point}.
 	 *
-	 * @param vector The {@link NonZeroVector} to subtract from this {@link Point}.
-	 * @return The {@link Point} resulting from dubtracting the {@link NonZeroVector} from this {@link Point}.
+	 * @param vector The {@link Vector} to subtract from this {@link Point}.
+	 * @return The {@link Point} resulting from dubtracting the {@link Vector} from this {@link Point}.
 	 */
-	public Point subtract(NonZeroVector vector) {
+	public Point subtract(Vector vector) {
 		return add(vector.reversed());
 	}
 
@@ -69,7 +69,7 @@ public class Point extends Triple {
 	 * @param target The coordinate where the {@link Vector} is to end, if it were to start from this {@link Point}.
 	 * @return The {@link Vector} from this {@link Point} to the given {@link Point}.
 	 */
-	public Vector vectorBaseTo(Point target) {
+	public Vector vectorTo(Point target) {
 		return vectorTo(target, Vector::new);
 	}
 
@@ -81,7 +81,7 @@ public class Point extends Triple {
 	 * @return The {@link NonZeroVector} from this {@link Point} to the given {@link Point}.
 	 * @throws ZeroVectorException if the target is equal to this {@link Point}.
 	 */
-	public NonZeroVector vectorTo(Point target) {
+	public NonZeroVector nonZeroVectorTo(Point target) {
 		return vectorTo(target, NonZeroVector::new);
 	}
 
@@ -112,12 +112,12 @@ public class Point extends Triple {
 	}
 
 	/**
-	 * Determine if a point has finite values in each of its coordinates.
+	 * Calculate the midpoint between two points.
 	 *
-	 * @return true if all coordinates are finite, or false if at least one coordinate is infinite.
+	 * @return The midpoint of this point and the given point.
 	 */
-	public boolean isFinite() {
-		return Double.isFinite(x) && Double.isFinite(y) && Double.isFinite(z);
+	public Point midPoint(Point point) {
+		return transform((a, b) -> (a + b) / 2, point, Point::new);
 	}
 
 	@Override

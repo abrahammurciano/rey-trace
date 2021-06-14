@@ -54,12 +54,13 @@ public class PointTests {
 		NonZeroVector calc, actual;
 
 		// non-zero vector
-		calc = p.vectorTo(new Point(2, 3, 4));
+		calc = p.nonZeroVectorTo(new Point(2, 3, 4));
 		actual = new NonZeroVector(1, 1, 1);
 		Assert.assertEquals("Incorrect vectorTo other point.", calc, actual);
 
 		// return zero vector
-		Assert.assertThrows("Expected zero vector", ZeroVectorException.class, () -> p.vectorTo(new Point(1, 2, 3)));
+		Assert.assertThrows("Expected zero vector", ZeroVectorException.class,
+			() -> p.nonZeroVectorTo(new Point(1, 2, 3)));
 	}
 
 	/**

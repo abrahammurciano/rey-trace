@@ -44,7 +44,7 @@ public class CameraIterator extends EfficientIterator<Pixel<Ray[]>> {
 			int j = 0;
 			for (Pixel<Point> sensorPixel : sensor) {
 				rays[i * sensorSize + j++] =
-					new Ray(sensorPixel.data, sensorPixel.data.vectorTo(subPixels[i]).normalized());
+					new Ray(sensorPixel.data, sensorPixel.data.nonZeroVectorTo(subPixels[i]).normalized());
 			}
 		}
 		next = new Pixel<Ray[]>(rays, pixel.row, pixel.col);
