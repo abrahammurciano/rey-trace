@@ -53,7 +53,7 @@ public class CameraSettings {
 		distance(camera.distance);
 		resolution(camera.resolution());
 		sensorSize(camera.sensor.height);
-		sensorPixels(camera.sensor.resolution.x);
+		sensorPixels(camera.sensor.resolution.columns);
 		antialiasing(camera.viewPlane.subPixels);
 	}
 

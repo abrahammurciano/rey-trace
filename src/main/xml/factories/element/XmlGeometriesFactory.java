@@ -33,7 +33,7 @@ public class XmlGeometriesFactory extends XmlFactoryFromElement<GeometryList> {
 		for (Element child : Util.getChildren(element)) {
 			try {
 				if (child.getNodeName().equals("geometries")) {
-					geometries.add(create(element));
+					geometries.add(create(child));
 				} else {
 					geometries.add(FACTORIES.get(child.getNodeName()).create(child));
 				}

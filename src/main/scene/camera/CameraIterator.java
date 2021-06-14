@@ -31,12 +31,11 @@ public class CameraIterator extends EfficientIterator<Pixel<Ray[]>> {
 	}
 
 	@Override
-	public boolean hasNext() {
-		return viewPlaneIterator.hasNext();
-	}
-
-	@Override
 	protected void setNext() {
+		if (!viewPlaneIterator.hasNext()) {
+			hasNext = false;
+			return;
+		}
 		Pixel<Point[]> pixel = viewPlaneIterator.next();
 		Point[] subPixels = pixel.data;
 		int sensorSize = sensor.numPixels();
@@ -50,5 +49,4 @@ public class CameraIterator extends EfficientIterator<Pixel<Ray[]>> {
 		}
 		next = new Pixel<Ray[]>(rays, pixel.row, pixel.col);
 	}
-
 }

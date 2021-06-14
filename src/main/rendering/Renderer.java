@@ -110,7 +110,10 @@ public class Renderer implements Task {
 		public void run() {
 			while (true) {
 				try {
-					Pixel<Ray[]> pixel = iterator.next();
+					Pixel<Ray[]> pixel;
+					synchronized (iterator) {
+						pixel = iterator.next();
+					}
 					writer.setPixel(pixel.row, pixel.col, rayTracer.trace(pixel.data));
 					completeJobs(1);
 				} catch (NoSuchElementException e) {
@@ -128,6 +131,6 @@ public class Renderer implements Task {
 	@Override
 	public int totalJobs() {
 		Resolution resolution = camera.resolution();
-		return resolution.x * resolution.y;
+		return resolution.columns * resolution.rows;
 	}
 }

@@ -11,21 +11,21 @@ package scene.camera;
 public class Pixel<T> {
 	/** The data stored by each pixel. This may be the center point of the pixel for example, or a ray to the pixel. */
 	public final T data;
-	/** The column index of the pixel in its {@link PixelGrid}. */
-	public final int col;
 	/** The row index of the pixel in its {@link PixelGrid}. */
 	public final int row;
+	/** The column index of the pixel in its {@link PixelGrid}. */
+	public final int col;
 
 	/**
 	 * Construct a new {@link Pixel} with the given row and column indices storing some {@code data} about itself.
 	 *
 	 * @param data The data stored by the pixel.
-	 * @param col  The column index of the pixel.
 	 * @param row  The row index of the pixel.
+	 * @param col  The column index of the pixel.
 	 */
-	public Pixel(T data, int col, int row) {
+	public Pixel(T data, int row, int col) {
 		this.data = data;
-		this.col = col;
 		this.row = row;
+		this.col = col;
 	}
 }

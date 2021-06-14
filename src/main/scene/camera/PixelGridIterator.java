@@ -25,13 +25,13 @@ class PixelGridIterator<T> extends EfficientIterator<Pixel<T>> {
 	}
 
 	@Override
-	protected synchronized void setNext() {
-		col = (col + 1) % view.resolution.x; // increment column
+	protected void setNext() {
+		col = (col + 1) % view.resolution.columns; // increment column
 		if (col != 0) { // if column didn't wrap around
 			next = nextPixel(view.nextCol);
 		} else { // column wrapped around, so go to next row
 			++row;
-			if (row >= view.resolution.y) { // if row overflowed number of pixels
+			if (row >= view.resolution.rows) { // if row overflowed number of pixels
 				hasNext = false;
 			} else {
 				next = nextPixel(view.nextRowFirstCol);
@@ -46,6 +46,6 @@ class PixelGridIterator<T> extends EfficientIterator<Pixel<T>> {
 	 * @return The next pixel.
 	 */
 	private Pixel<T> nextPixel(NonZeroVector offset) {
-		return new Pixel<>(shift.apply(next.data, offset), col, row);
+		return new Pixel<>(shift.apply(next.data, offset), row, col);
 	}
 }

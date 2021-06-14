@@ -27,8 +27,8 @@ public class ImageWriter {
 	 * @param resolution The resolution of the image.
 	 */
 	public ImageWriter(String filename, Resolution resolution) {
-		image = new BufferedImage(resolution.x, resolution.y, BufferedImage.TYPE_INT_RGB);
-		this.width = resolution.x;
+		image = new BufferedImage(resolution.columns, resolution.rows, BufferedImage.TYPE_INT_RGB);
+		this.width = resolution.columns;
 		this.filename = filename;
 		this.pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 	}

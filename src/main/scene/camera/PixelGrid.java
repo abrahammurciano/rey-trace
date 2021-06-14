@@ -34,9 +34,9 @@ abstract class PixelGrid<T> implements Iterable<Pixel<T>> {
 		this.height = height;
 		this.orientation = orientation;
 		this.center = center;
-		nextCol = orientation.right.scale(width / resolution.x);
-		NonZeroVector nextRow = orientation.up.scale(-height / resolution.y);
-		nextRowFirstCol = resolution.x > 1 ? nextRow.add(nextCol.scale(-(resolution.x - 1))) : nextRow;
+		nextCol = orientation.right.scale(width / resolution.columns);
+		NonZeroVector nextRow = orientation.up.scale(-height / resolution.rows);
+		nextRowFirstCol = resolution.columns > 1 ? nextRow.add(nextCol.scale(-(resolution.columns - 1))) : nextRow;
 		topLeft = center.subtract(orientation.right.scale(width / 2)).add(orientation.up.scale(height / 2))
 			.add(nextCol.scale(0.5)).add(nextRow.scale(0.5));
 		this.resolution = resolution;
@@ -48,6 +48,6 @@ abstract class PixelGrid<T> implements Iterable<Pixel<T>> {
 	 * @return The number of pixels in this pixel grid.
 	 */
 	public int numPixels() {
-		return resolution.x * resolution.y;
+		return resolution.columns * resolution.rows;
 	}
 }

@@ -49,7 +49,7 @@ public class Sphere extends Geometry {
 
 	static BoundingBox calcBorder(Point center, double radius) {
 		NonZeroVector toBorderCorner = new NonZeroVector(radius, radius, radius);
-		return new BoundingBox(center.add(toBorderCorner), center.subtract(toBorderCorner));
+		return new BoundingBox(center.subtract(toBorderCorner), center.add(toBorderCorner));
 	}
 
 	/**

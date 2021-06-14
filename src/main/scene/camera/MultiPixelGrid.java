@@ -44,8 +44,8 @@ class MultiPixelGrid extends PixelGrid<Point[]> {
 	}
 
 	private Point[] firstPoints() {
-		PixelGrid<Point> subGrid =
-			new SinglePixelGrid(width / resolution.x, height / resolution.y, topLeft, subResolution, orientation);
+		PixelGrid<Point> subGrid = new SinglePixelGrid(width / resolution.columns, height / resolution.rows, topLeft,
+			subResolution, orientation);
 		Point[] points = new Point[subGrid.numPixels()];
 		int i = 0;
 		for (Pixel<Point> pixel : subGrid) {

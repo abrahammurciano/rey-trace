@@ -41,6 +41,14 @@ class BoundingBox implements Comparable<BoundingBox> {
 		}
 	}
 
+	/**
+	 * Private constructor which doesn't check that min is always less than max. This is used to create the empty
+	 * bounding box.
+	 *
+	 * @param min The point to consider the minimum.
+	 * @param max The point to consider the maximum.
+	 * @param __  A dummy parameter to distinguish between this constructor and {@link #BoundingBox(Point, Point)}.
+	 */
 	private BoundingBox(Point min, Point max, Object __) {
 		this.min = min;
 		this.max = max;
@@ -63,9 +71,20 @@ class BoundingBox implements Comparable<BoundingBox> {
 	 * @return if the line intersects
 	 */
 	boolean intersects(LineSegment line) {
-		return (intersectsParallelRectangles(line, p -> p.x, p -> p.y, p -> p.z))
+		return (this != EMPTY) && (!isFinite() || contains(line.start)
+			|| (intersectsParallelRectangles(line, p -> p.x, p -> p.y, p -> p.z))
 			|| (intersectsParallelRectangles(line, p -> p.y, p -> p.x, p -> p.z))
-			|| (intersectsParallelRectangles(line, p -> p.z, p -> p.x, p -> p.y));
+			|| (intersectsParallelRectangles(line, p -> p.z, p -> p.x, p -> p.y)));
+	}
+
+	/**
+	 * Check if a point is within the bounding box.
+	 *
+	 * @param point The point to check.
+	 * @return true if the point is within the bounding box, false otherwise.
+	 */
+	private boolean contains(Point point) {
+		return min(min, point).equals(min) && max(max, point).equals(max);
 	}
 
 	/**

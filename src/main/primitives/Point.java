@@ -117,7 +117,7 @@ public class Point extends Triple {
 	 * @return true if all coordinates are finite, or false if at least one coordinate is infinite.
 	 */
 	public boolean isFinite() {
-		return Double.isFinite(x) && Double.isInfinite(y) && Double.isInfinite(z);
+		return Double.isFinite(x) && Double.isFinite(y) && Double.isFinite(z);
 	}
 
 	@Override

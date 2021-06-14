@@ -32,7 +32,7 @@ public class CameraGeometriesTest {
 		// Only one ray intersects
 		// Unit sphere at (0, 0, -3) with two intersections
 		CameraSettings settings = new CameraSettings().position(Point.ORIGIN).front(new NormalizedVector(0, 0, -1))
-			.up(NormalizedVector.J).width(3).height(3).distance(1).resolution(new Resolution("3x3"));
+			.up(NormalizedVector.J).width(3).height(3).distance(1).resolution(new Resolution("3x3")).antialiasing(1);
 
 		Camera camera = new Camera(settings);
 		Sphere sphere = new Sphere(null, new Point(0, 0, -3), 1);
@@ -67,7 +67,7 @@ public class CameraGeometriesTest {
 	@Test
 	public void testPlane() {
 		CameraSettings settings = new CameraSettings().dimensions(3, 3).distance(1)
-			.front(new NormalizedVector(0, 0, -1)).up(NormalizedVector.J).resolution("3x3");
+			.front(new NormalizedVector(0, 0, -1)).up(NormalizedVector.J).resolution("3x3").antialiasing(1);
 
 		// Plane parallel to the view plane.
 		Camera camera = new Camera(settings);
@@ -93,7 +93,7 @@ public class CameraGeometriesTest {
 	@Test
 	public void testTriangle() {
 		CameraSettings settings = new CameraSettings().dimensions(3, 3).distance(1).front(new NormalizedVector(0, 1, 0))
-			.up(new NormalizedVector(0, 0, 1)).resolution("3x3");
+			.up(new NormalizedVector(0, 0, 1)).resolution("3x3").antialiasing(1);
 		Camera camera = new Camera(settings);
 
 		// triangle in plane parallel to view pane, completely in view pane

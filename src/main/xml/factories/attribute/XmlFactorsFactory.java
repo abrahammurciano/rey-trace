@@ -12,7 +12,6 @@ import xml.XmlParserException;
  * @author Eli Levin
  */
 public class XmlFactorsFactory extends XmlFactoryFromAttribute<Factors> {
-	private static final XmlDoubleFactory DOUBLE_FACTORY = new XmlDoubleFactory();
 
 	/**
 	 * Constructs a new {@link Factors} from an XML attribute string.
@@ -24,14 +23,16 @@ public class XmlFactorsFactory extends XmlFactoryFromAttribute<Factors> {
 	 */
 	protected Factors create(String attribute) {
 		try (Scanner scanner = new Scanner(attribute)) {
-			return new Factors(scanner.nextDouble(), scanner.nextDouble(), scanner.nextDouble());
-		} catch (NoSuchElementException e) {
-			try {
-				return new Factors(DOUBLE_FACTORY.create(attribute));
-			} catch (XmlParserException __) {
-				throw new XmlParserException("Expected a string with one or three numbers but saw \"" + attribute + '"',
-					e);
+			double first = scanner.nextDouble();
+			Factors result = new Factors(first);
+			if (scanner.hasNextDouble()) {
+				double second = scanner.nextDouble();
+				double third = scanner.nextDouble();
+				result = new Factors(first, second, third);
 			}
+			return result;
+		} catch (NoSuchElementException e) {
+			throw new XmlParserException("Expected a string with one or three numbers but saw \"" + attribute + '"', e);
 		}
 	}
 }

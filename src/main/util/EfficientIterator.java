@@ -23,12 +23,12 @@ public abstract class EfficientIterator<T> implements Iterator<T> {
 	protected T next;
 
 	@Override
-	public boolean hasNext() {
+	public final boolean hasNext() {
 		return hasNext;
 	}
 
 	@Override
-	public T next() {
+	public final T next() {
 		if (hasNext()) {
 			T temp = next;
 			setNext();

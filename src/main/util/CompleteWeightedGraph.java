@@ -56,9 +56,12 @@ public class CompleteWeightedGraph<V, W extends Comparable<W>> {
 	 * Assumes queue is not empty.
 	 *
 	 * @return The minumum weighted edge.
+	 * @throws NoSuchElementException if the graph has no edges, i.e. when it has less than 2 vertices.
 	 */
 	public Edge extract() {
 		Edge min = edges.stream().min((e1, e2) -> e1.weight.compareTo(e2.weight)).get();
+		vertices.remove(min.vertex1);
+		vertices.remove(min.vertex2);
 		edges.removeIf(e -> e.contains(min.vertex1) || e.contains(min.vertex2));
 		return min;
 	}

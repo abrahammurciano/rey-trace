@@ -68,9 +68,7 @@ public class Main {
 	 */
 	public static void runCommand(String... args) throws IOException, ParseException {
 		CommandLineParser parser = new DefaultParser();
-		CommandLine cmd;
-
-		cmd = parser.parse(options, args);
+		CommandLine cmd = parser.parse(options, args);
 
 		checkHelp(cmd, formatter, options);
 
@@ -93,8 +91,7 @@ public class Main {
 
 	private static void renderXml(String infile, String outfile, int threads, int recursion, double minCoefficient)
 		throws IOException {
-		Scene scene;
-		scene = new XmlSceneParser().parse(infile);
+		Scene scene = new XmlSceneParser().parse(infile);
 		scene.geometries.optimize();
 		RayTracer rayTracer = new PhongRayTracer(scene, recursion, minCoefficient);
 		Renderer renderer = new Renderer(scene.camera(), rayTracer, outfile, threads);

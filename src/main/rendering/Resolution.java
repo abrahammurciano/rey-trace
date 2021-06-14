@@ -9,19 +9,19 @@ package rendering;
  */
 public class Resolution {
 	/** The number of pixels in the width of the resolution. */
-	public final int x;
+	public final int columns;
 	/** The number of pixels in the height of the resolution. */
-	public final int y;
+	public final int rows;
 
 	/**
 	 * Construct a resolution {@code x} by {@code y} pixels.
 	 *
-	 * @param x The number of pixels in the resolution's width.
-	 * @param y The number of pixels in the resolution's height.
+	 * @param columns The number of pixels in the resolution's width.
+	 * @param rows    The number of pixels in the resolution's height.
 	 */
-	public Resolution(int x, int y) {
-		this.x = x;
-		this.y = y;
+	public Resolution(int columns, int rows) {
+		this.columns = columns;
+		this.rows = rows;
 	}
 
 	/**
@@ -32,8 +32,8 @@ public class Resolution {
 	public Resolution(String resolution) {
 		try {
 			String[] split = resolution.split("x", 2);
-			x = Integer.parseInt(split[0]);
-			y = Integer.parseInt(split[1]);
+			columns = Integer.parseInt(split[0]);
+			rows = Integer.parseInt(split[1]);
 		} catch (NumberFormatException | ArrayIndexOutOfBoundsException __) {
 			throw new IllegalArgumentException("Argument must be a string of the form \"1920x1080\".");
 		}
@@ -41,7 +41,7 @@ public class Resolution {
 
 	@Override
 	public String toString() {
-		return "" + x + "x" + y;
+		return "" + columns + "x" + rows;
 	}
 
 }
