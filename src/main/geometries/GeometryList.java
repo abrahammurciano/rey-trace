@@ -6,10 +6,10 @@ import java.util.Deque;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.PriorityQueue;
 import primitives.LineSegment;
 import util.EfficientIterator;
 import util.WeightedGraph;
+import util.WeightedGraph.Edge;
 
 
 /**
@@ -33,10 +33,11 @@ public class GeometryList implements Intersectible, Iterable<Geometry> {
 		add(geometries);
 	}
 
-	private GeometryList(Intersectible... intersectibles) {
+	private GeometryList(BoundingBox border, Intersectible... intersectibles) {
 		for (Intersectible intersectible : intersectibles) {
 			this.intersectibles.add(intersectible);
 		}
+		this.border = border; // #efficient
 	}
 
 	/**
@@ -44,7 +45,7 @@ public class GeometryList implements Intersectible, Iterable<Geometry> {
 	 *
 	 * @param geometry The {@link Geometry} to add.
 	 */
-	public void add(Geometry geometry) {
+	public void add(Intersectible geometry) {
 		intersectibles.add(geometry);
 		border = border.union(geometry.border());
 	}
@@ -77,8 +78,16 @@ public class GeometryList implements Intersectible, Iterable<Geometry> {
 	 * all the geometries have been added, but before the ray tracing process begins.
 	 */
 	public void optimize() {
-		// TODO: implement
 		// move all finite geometries to a sub-geometries (use g.border().isFinite() to determine which ones to add)
+		GeometryList finiteGeometries = new GeometryList();
+		intersectibles.removeIf(i -> {
+			if(i.border().isFinite()) {
+				finiteGeometries.add(i);
+				return true;
+			}
+			return false;
+
+		});
 		finiteGeometries.constructHierarchy();
 		this.intersectibles.add(finiteGeometries);
 	}
@@ -101,7 +110,15 @@ public class GeometryList implements Intersectible, Iterable<Geometry> {
 		//
 		WeightedGraph<Intersectible, BoundingBox> G =
 			new WeightedGraph<>(intersectibles, (i1, i2) -> i1.border().union(i2.border()));
-		// continue from step 3
+		WeightedGraph<Intersectible, BoundingBox>.Edge minEdge; // a typedef would be nice here
+		while(G.size() >= 2) {
+			minEdge = G.extract();
+			G.add(new GeometryList(minEdge.weight, minEdge.vertex1, minEdge.vertex2));
+		}
+		minEdge = G.extract();
+		this.intersectibles.add(minEdge.vertex1);
+		this.intersectibles.add(minEdge.vertex2);
+		this.border = minEdge.weight;
 	}
 
 	@Override

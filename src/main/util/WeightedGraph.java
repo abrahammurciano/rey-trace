@@ -18,9 +18,9 @@ public class WeightedGraph<V, W extends Comparable<W>> {
 		this.getWeight = getWeight;
 	}
 
-	public WeightedGraph(Iterable<V> vertices, BiFunction<V, V, W> getWeight) {
+	public WeightedGraph(Iterable<V> _vertices, BiFunction<V, V, W> getWeight) {
 		this(getWeight);
-		for (V vertex : vertices) {
+		for (V vertex : _vertices) {
 			add(vertex);
 		}
 	}
@@ -33,16 +33,24 @@ public class WeightedGraph<V, W extends Comparable<W>> {
 	}
 
 	/**
-	 * Remove the edge with the minimum weight, join the 2 vertices that connected that edge,
-	 * and connect that new vertex to each of the old vertices in the graph
+	 * Remove the edge with the minimum weight and return it.
 	 * Assumes queue is not empty.
 	 *
-	 * @return The new vertex that was created during this opertation
+	 * @return The minumum weighted edge.
 	 */
 	public Edge extract() {
 		Edge min = edges.stream().min((e1, e2) -> e1.weight.compareTo(e2.weight)).get();
 		edges.removeIf(e -> e.contains(min.vertex1) || e.contains(min.vertex2));
 		return min;
+	}
+
+	/**
+	 * Get the size of the graph
+	 *
+	 * @return the number of vertices in the graph
+	 */
+	public int size() {
+		return vertices.size();
 	}
 
 	// this class is really more of a struct. No logic in it, just a group of data.
@@ -59,8 +67,7 @@ public class WeightedGraph<V, W extends Comparable<W>> {
 		}
 
 		public boolean contains(V vertex) {
-			// TODO: implement
-			return false;
+			return vertex.equals(vertex1) || vertex.equals(vertex2);
 		}
 
 		@Override
