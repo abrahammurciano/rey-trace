@@ -1,0 +1,1210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<scene background-colour="0 0 0">
+	<camera position="0 0 2000" front="0 0 -1" up="0 1 0" distance="2000" width="2200" height="2200" resolution="1000x1000" sensor-pixels="1" sensor-size="100" />
+	<ambient-light colour="150 150 150" />
+	<lights>
+		<directional-light colour="1500 1500 1500" direction="0.5 0.5 -1" />
+	</lights>
+	<geometries>
+		<sphere center="-1045 1045 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-935 1045 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-825 1045 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-715 1045 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-605 1045 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-495 1045 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-385 1045 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-275 1045 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-165 1045 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-55 1045 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="55 1045 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="165 1045 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="275 1045 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="385 1045 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="495 1045 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="605 1045 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="715 1045 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="825 1045 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="935 1045 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="1045 1045 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-1045 935 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-935 935 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-825 935 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-715 935 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-605 935 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-495 935 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-385 935 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-275 935 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-165 935 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-55 935 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="55 935 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="165 935 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="275 935 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="385 935 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="495 935 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="605 935 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="715 935 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="825 935 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="935 935 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="1045 935 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-1045 825 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-935 825 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-825 825 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-715 825 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-605 825 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-495 825 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-385 825 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-275 825 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-165 825 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-55 825 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="55 825 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="165 825 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="275 825 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="385 825 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="495 825 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="605 825 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="715 825 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="825 825 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="935 825 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="1045 825 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-1045 715 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-935 715 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-825 715 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-715 715 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-605 715 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-495 715 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-385 715 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-275 715 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-165 715 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-55 715 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="55 715 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="165 715 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="275 715 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="385 715 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="495 715 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="605 715 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="715 715 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="825 715 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="935 715 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="1045 715 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-1045 605 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-935 605 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-825 605 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-715 605 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-605 605 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-495 605 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-385 605 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-275 605 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-165 605 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-55 605 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="55 605 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="165 605 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="275 605 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="385 605 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="495 605 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="605 605 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="715 605 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="825 605 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="935 605 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="1045 605 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-1045 495 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-935 495 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-825 495 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-715 495 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-605 495 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-495 495 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-385 495 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-275 495 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-165 495 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-55 495 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="55 495 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="165 495 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="275 495 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="385 495 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="495 495 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="605 495 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="715 495 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="825 495 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="935 495 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="1045 495 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-1045 385 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-935 385 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-825 385 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-715 385 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-605 385 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-495 385 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-385 385 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-275 385 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-165 385 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-55 385 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="55 385 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="165 385 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="275 385 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="385 385 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="495 385 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="605 385 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="715 385 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="825 385 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="935 385 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="1045 385 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-1045 275 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-935 275 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-825 275 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-715 275 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-605 275 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-495 275 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-385 275 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-275 275 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-165 275 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-55 275 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="55 275 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="165 275 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="275 275 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="385 275 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="495 275 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="605 275 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="715 275 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="825 275 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="935 275 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="1045 275 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-1045 165 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-935 165 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-825 165 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-715 165 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-605 165 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-495 165 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-385 165 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-275 165 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-165 165 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-55 165 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="55 165 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="165 165 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="275 165 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="385 165 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="495 165 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="605 165 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="715 165 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="825 165 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="935 165 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="1045 165 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-1045 55 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-935 55 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-825 55 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-715 55 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-605 55 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-495 55 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-385 55 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-275 55 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-165 55 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-55 55 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="55 55 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="165 55 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="275 55 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="385 55 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="495 55 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="605 55 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="715 55 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="825 55 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="935 55 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="1045 55 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-1045 -55 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-935 -55 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-825 -55 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-715 -55 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-605 -55 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-495 -55 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-385 -55 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-275 -55 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-165 -55 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-55 -55 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="55 -55 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="165 -55 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="275 -55 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="385 -55 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="495 -55 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="605 -55 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="715 -55 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="825 -55 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="935 -55 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="1045 -55 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-1045 -165 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-935 -165 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-825 -165 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-715 -165 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-605 -165 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-495 -165 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-385 -165 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-275 -165 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-165 -165 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-55 -165 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="55 -165 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="165 -165 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="275 -165 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="385 -165 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="495 -165 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="605 -165 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="715 -165 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="825 -165 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="935 -165 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="1045 -165 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-1045 -275 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-935 -275 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-825 -275 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-715 -275 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-605 -275 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-495 -275 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-385 -275 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-275 -275 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-165 -275 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-55 -275 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="55 -275 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="165 -275 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="275 -275 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="385 -275 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="495 -275 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="605 -275 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="715 -275 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="825 -275 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="935 -275 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="1045 -275 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-1045 -385 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-935 -385 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-825 -385 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-715 -385 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-605 -385 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-495 -385 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-385 -385 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-275 -385 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-165 -385 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-55 -385 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="55 -385 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="165 -385 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="275 -385 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="385 -385 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="495 -385 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="605 -385 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="715 -385 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="825 -385 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="935 -385 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="1045 -385 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-1045 -495 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-935 -495 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-825 -495 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-715 -495 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-605 -495 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-495 -495 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-385 -495 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-275 -495 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-165 -495 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-55 -495 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="55 -495 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="165 -495 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="275 -495 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="385 -495 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="495 -495 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="605 -495 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="715 -495 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="825 -495 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="935 -495 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="1045 -495 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-1045 -605 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-935 -605 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-825 -605 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-715 -605 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-605 -605 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-495 -605 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-385 -605 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-275 -605 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-165 -605 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-55 -605 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="55 -605 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="165 -605 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="275 -605 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="385 -605 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="495 -605 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="605 -605 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="715 -605 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="825 -605 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="935 -605 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="1045 -605 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-1045 -715 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-935 -715 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-825 -715 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-715 -715 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-605 -715 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-495 -715 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-385 -715 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-275 -715 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-165 -715 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-55 -715 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="55 -715 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="165 -715 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="275 -715 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="385 -715 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="495 -715 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="605 -715 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="715 -715 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="825 -715 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="935 -715 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="1045 -715 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-1045 -825 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-935 -825 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-825 -825 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-715 -825 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-605 -825 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-495 -825 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-385 -825 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-275 -825 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-165 -825 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-55 -825 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="55 -825 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="165 -825 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="275 -825 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="385 -825 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="495 -825 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="605 -825 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="715 -825 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="825 -825 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="935 -825 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="1045 -825 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-1045 -935 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-935 -935 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-825 -935 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-715 -935 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-605 -935 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-495 -935 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-385 -935 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-275 -935 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-165 -935 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-55 -935 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="55 -935 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="165 -935 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="275 -935 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="385 -935 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="495 -935 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="605 -935 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="715 -935 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="825 -935 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="935 -935 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="1045 -935 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-1045 -1045 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-935 -1045 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-825 -1045 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-715 -1045 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-605 -1045 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-495 -1045 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-385 -1045 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-275 -1045 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-165 -1045 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="-55 -1045 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="55 -1045 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="165 -1045 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="275 -1045 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="385 -1045 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="495 -1045 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="605 -1045 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="715 -1045 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="825 -1045 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="935 -1045 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+		<sphere center="1045 -1045 0" radius="50">
+			<material ambient="1 0 0" specular="0.5" diffuse="1 0 0" shine="30" reflectivity="0.1" />
+		</sphere>
+	</geometries>
+</scene>
