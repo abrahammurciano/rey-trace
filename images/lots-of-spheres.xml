@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <scene background-colour="0 0 0">
-	<camera position="0 0 2000" front="0 0 -1" up="0 1 0" distance="2000" width="2200" height="2200" resolution="1000x1000" sensor-pixels="10" sensor-size="100" />
+	<camera position="0 0 2000" front="0 0 -1" up="0 1 0" distance="2000" width="2200" height="2200" resolution="1000x1000" sensor-pixels="1" sensor-size="100" />
 	<ambient-light colour="150 150 150" />
 	<lights>
 		<directional-light colour="1500 1500 1500" direction="0.5 0.5 -1" />
