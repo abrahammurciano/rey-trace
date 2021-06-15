@@ -96,7 +96,7 @@ class Boundary implements Comparable<Boundary> {
 		// but if tmax is less than 0 then the entire line is 'behind' the box and then no intersection.
 		// if tmin is less than 0 than than the line intersects (since tmax is greater than 0)
 		// OR if tmin^2 < line.squareLength than the (positive) tmin is within the length of the line and therefore in the box
-		return tmax > 0 && tmax > tmin && (tmin < 0 || tmin * tmin < line.squareLength);
+		return tmax > 0 && tmax >= tmin && (tmin < 0 || tmin * tmin < line.squareLength);
 	}
 
 	/**
