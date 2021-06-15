@@ -1,5 +1,6 @@
 package geometries;
 
+import math.compare.DoubleCompare;
 import primitives.LineSegment;
 import primitives.NormalizedVector;
 import primitives.Point;
@@ -122,8 +123,9 @@ class Boundary implements Comparable<Boundary> {
 		Point thisP2 = sphere.center.add(toThisEdge);
 		Point thatP1 = boundary.sphere.center.subtract(toThatEdge);
 		Point thatP2 = boundary.sphere.center.add(toThatEdge);
-		Point p1 = midPoint.squareDistance(thisP1) > midPoint.squareDistance(thatP1) ? thisP1 : thatP1;
-		Point p2 = midPoint.squareDistance(thisP2) > midPoint.squareDistance(thatP2) ? thisP2 : thatP2;
+		Point p1 =
+			DoubleCompare.geq(midPoint.squareDistance(thisP1), midPoint.squareDistance(thatP1)) ? thisP1 : thatP1;
+		Point p2 = DoubleCompare.gt(midPoint.squareDistance(thisP2), midPoint.squareDistance(thatP2)) ? thisP2 : thatP2;
 		return new Boundary(p1, p2);
 	}
 
