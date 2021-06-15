@@ -2,6 +2,7 @@ package util;
 
 import java.util.HashSet;
 import java.util.function.BiFunction;
+import java.util.NoSuchElementException;
 
 /**
  * This class represents a complete weighted graph and provides an interface to add vertices and extract the edge with

@@ -25,7 +25,7 @@ class CameraPixel extends Pixel<Ray[]> {
 	private static Ray[] constructRays(Point source, Point[] targets) {
 		Ray[] rays = new Ray[targets.length];
 		for (int i = 0; i < targets.length; ++i) {
-			rays[i] = new Ray(source, source.vectorTo(targets[i]).normalized());
+			rays[i] = new Ray(source, source.nonZeroVectorTo(targets[i]).normalized());
 		}
 		return rays;
 	}

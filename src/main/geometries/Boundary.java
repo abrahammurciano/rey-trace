@@ -2,7 +2,6 @@ package geometries;
 
 import primitives.LineSegment;
 import primitives.Point;
-import primitives.Vector;
 
 /**
  * This class represents an axis aligned cuboid which bounds some Intersectible in three dimensional space.
@@ -10,15 +9,15 @@ import primitives.Vector;
  * @author Eli Levin
  * @author Abraham Murciano
  */
-class BoundingBox implements Comparable<BoundingBox> {
+class Boundary implements Comparable<Boundary> {
 
 	/** Covers the entirity of 3D space. */
-	static final BoundingBox INFINITE = new BoundingBox(Point.NEGATIVE_INFINITY, Point.POSITIVE_INFINITY, null);
+	static final Boundary INFINITE = new InfiniteBoundary();
 	/**
 	 * Covers absolutely no space, and calculating the union of this box with any other will always return the other
 	 * box.
 	 */
-	static final BoundingBox EMPTY = new BoundingBox(Point.POSITIVE_INFINITY, Point.NEGATIVE_INFINITY, null);
+	static final Boundary EMPTY = new EmptyBoundary();
 
 	private final Point min;
 	private final Point max;
@@ -32,12 +31,24 @@ class BoundingBox implements Comparable<BoundingBox> {
 	 *
 	 * @throws IllegalArgumentException if min has any value greater than the respective value of max.
 	 */
-	BoundingBox(Point min, Point max) {
+	Boundary(Point min, Point max) {
 		this(min, max, null);
 		if (min.x > max.x || min.y > max.y || min.z > max.z) {
 			throw new IllegalArgumentException(
 				"Error: The minimum point of a bounding box cannot have a value greater than the respective value of the maximum point.");
 		}
+		if (!min.isFinite() || !max.isFinite()) {
+			throw new IllegalArgumentException("Error: You cannot create infinite bounding boxes.");
+		}
+	}
+
+	/**
+	 * Create a bounding box containing only a single {@link Point}.
+	 *
+	 * @param point The only point contained in the bounding box.
+	 */
+	Boundary(Point point) {
+		this(point, point);
 	}
 
 	/**
@@ -48,19 +59,10 @@ class BoundingBox implements Comparable<BoundingBox> {
 	 * @param max The point to consider the maximum.
 	 * @param __  A dummy parameter to distinguish between this constructor and {@link #BoundingBox(Point, Point)}.
 	 */
-	private BoundingBox(Point min, Point max, Object __) {
+	private Boundary(Point min, Point max, Object __) {
 		this.min = min;
 		this.max = max;
 		this.SA = calcSurfaceArea();
-	}
-
-	/**
-	 * Create a bounding box containing only a single {@link Point}.
-	 *
-	 * @param point The only point contained in the bounding box.
-	 */
-	BoundingBox(Point point) {
-		this(point, point);
 	}
 
 	/**
@@ -94,23 +96,16 @@ class BoundingBox implements Comparable<BoundingBox> {
 	}
 
 	/**
-	 * Check if a point is within the bounding box.
-	 *
-	 * @param point The point to check.
-	 * @return true if the point is within the bounding box, false otherwise.
-	 */
-	private boolean contains(Point point) {
-		return min(min, point).equals(min) && max(max, point).equals(max);
-	}
-
-	/**
 	 * Form a new bounding box that exactly encompases this box and the parameter.
 	 *
-	 * @param border The other box that must be included
+	 * @param other The other box that must be included
 	 * @return The new BoundingBox
 	 */
-	BoundingBox union(BoundingBox border) {
-		return new BoundingBox(min(this.min, border.min), max(this.max, border.max));
+	Boundary union(Boundary other) {
+		if (!other.isFinite()) {
+			return other;
+		}
+		return new Boundary(min(this.min, other.min), max(this.max, other.max));
 	}
 
 	/**
@@ -132,15 +127,15 @@ class BoundingBox implements Comparable<BoundingBox> {
 	}
 
 
-	private Point min(Point p, Point q) {
+	private static Point min(Point p, Point q) {
 		return p.transform(Math::min, q, Point::new);
 	}
 
-	private Point max(Point p, Point q) {
+	private static Point max(Point p, Point q) {
 		return p.transform(Math::max, q, Point::new);
 	}
 
-	private double calcSurfaceArea() {
+	protected double calcSurfaceArea() {
 		double xLength = max.x - min.x;
 		double yLength = max.y - min.y;
 		double zLength = max.z - min.z;
@@ -155,7 +150,7 @@ class BoundingBox implements Comparable<BoundingBox> {
 	 *         equal, or a positive integer if it is larger.
 	 */
 	@Override
-	public int compareTo(BoundingBox other) {
+	public int compareTo(Boundary other) {
 		return Double.compare(SA, other.SA);
 	}
 
@@ -169,10 +164,10 @@ class BoundingBox implements Comparable<BoundingBox> {
 	public boolean equals(Object o) {
 		if (o == this)
 			return true;
-		if (!(o instanceof BoundingBox)) {
+		if (!(o instanceof Boundary)) {
 			return false;
 		}
-		return SA == ((BoundingBox) o).SA;
+		return SA == ((Boundary) o).SA;
 	}
 
 	@Override
@@ -180,5 +175,55 @@ class BoundingBox implements Comparable<BoundingBox> {
 		return Double.hashCode(SA);
 	}
 
+	private static class InfiniteBoundary extends Boundary {
+		InfiniteBoundary() {
+			super(Point.NEGATIVE_INFINITY, Point.POSITIVE_INFINITY, null);
+		}
 
+		@Override
+		boolean intersects(LineSegment line) {
+			return true;
+		}
+
+		@Override
+		Boundary union(Boundary other) {
+			return this;
+		}
+
+		@Override
+		protected double calcSurfaceArea() {
+			return Double.POSITIVE_INFINITY;
+		}
+
+		@Override
+		boolean isFinite() {
+			return false;
+		}
+	}
+
+	private static class EmptyBoundary extends Boundary {
+		EmptyBoundary() {
+			super(Point.POSITIVE_INFINITY, Point.NEGATIVE_INFINITY, null);
+		}
+
+		@Override
+		boolean intersects(LineSegment line) {
+			return false;
+		}
+
+		@Override
+		Boundary union(Boundary other) {
+			return other;
+		}
+
+		@Override
+		protected double calcSurfaceArea() {
+			return Double.NEGATIVE_INFINITY;
+		}
+
+		@Override
+		boolean isFinite() {
+			return true;
+		}
+	}
 }

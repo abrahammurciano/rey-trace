@@ -20,7 +20,7 @@ abstract class InfiniteGeometry extends Geometry {
 	}
 
 	@Override
-	public BoundingBox border() {
-		return BoundingBox.INFINITE;
+	public Boundary boundary() {
+		return Boundary.INFINITE;
 	}
 }

@@ -25,7 +25,7 @@ public class LineSegment {
 	 * @param end   The {@link Point} where the line segment ends.
 	 */
 	public LineSegment(Point start, Point end) {
-		this(start, start.vectorTo(end).normalized(), start.squareDistance(end));
+		this(start, start.nonZeroVectorTo(end).normalized(), start.squareDistance(end));
 	}
 
 	/**

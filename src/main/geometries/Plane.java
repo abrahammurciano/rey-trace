@@ -49,7 +49,7 @@ public class Plane extends InfiniteGeometry {
 	public Plane(Material material, Point p1, Point p2, Point p3) {
 		super(material);
 		try {
-			this.normal = p1.vectorTo(p2).cross(p2.vectorTo(p3)).normalized();
+			this.normal = p1.nonZeroVectorTo(p2).cross(p2.nonZeroVectorTo(p3)).normalized();
 		} catch (ZeroVectorException e) {
 			throw new IllegalArgumentException("Error: The three points must not be on the same line.");
 		}
@@ -65,7 +65,7 @@ public class Plane extends InfiniteGeometry {
 	boolean contains(Point p) {
 		// If the vector from p to another point is on the plane dot product the normal is zero (the vectors are
 		// perpendicular) then the point is on the plane.
-		return DoubleCompare.eq(normal.dot(point.vectorBaseTo(p)), 0);
+		return DoubleCompare.eq(normal.dot(point.vectorTo(p)), 0);
 	}
 
 	@Override
@@ -79,7 +79,7 @@ public class Plane extends InfiniteGeometry {
 		if (DoubleCompare.eq(ray_dot_normal, 0)) {
 			return Collections.emptyList(); // ray is parallel to plane
 		}
-		double distance = (line.start.vectorBaseTo(point)).dot(normal) / ray_dot_normal;
+		double distance = (line.start.vectorTo(point)).dot(normal) / ray_dot_normal;
 		Point intersectionPoint = line.travel(distance);
 		return intersectionPoint != null ? List.of(intersection(intersectionPoint)) : Collections.emptyList();
 	}

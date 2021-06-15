@@ -55,7 +55,7 @@ public class PointLight extends LightSource {
 	 */
 	@Override
 	public NormalizedVector vectorTo(Point point) {
-		return position.vectorTo(point).normalized();
+		return position.nonZeroVectorTo(point).normalized();
 	}
 
 	@Override
