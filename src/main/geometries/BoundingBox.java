@@ -1,9 +1,8 @@
 package geometries;
 
-import java.util.function.ToDoubleFunction;
 import primitives.LineSegment;
 import primitives.Point;
-import primitives.Triple;
+import primitives.Vector;
 
 /**
  * This class represents an axis aligned cuboid which bounds some Intersectible in three dimensional space.
@@ -71,10 +70,28 @@ class BoundingBox implements Comparable<BoundingBox> {
 	 * @return if the line intersects
 	 */
 	boolean intersects(LineSegment line) {
-		return (this != EMPTY) && (!isFinite() || contains(line.start)
-			|| (intersectsParallelRectangles(line, p -> p.x, p -> p.y, p -> p.z))
-			|| (intersectsParallelRectangles(line, p -> p.y, p -> p.x, p -> p.z))
-			|| (intersectsParallelRectangles(line, p -> p.z, p -> p.x, p -> p.y)));
+		Vector inverse = new Vector(1d/line.direction.x, 1d/line.direction.y, 1d/line.direction.z);
+		double tmin, tmax;
+
+		double tx1 = (min.x - line.start.x) * inverse.x;
+		double tx2 = (max.x - line.start.x) * inverse.x;
+
+		tmin = Math.min(tx1, tx2);
+		tmax = Math.max(tx1, tx2);
+
+		double ty1 = (min.y - line.start.y) * inverse.y;
+		double ty2 = (max.y - line.start.y) * inverse.y;
+
+		tmin = Math.max(tmin, Math.min(ty1, ty2));
+		tmax = Math.min(tmax, Math.max(ty1, ty2));
+
+		double tz1 = (min.z - line.start.z) * inverse.z;
+		double tz2 = (max.z - line.start.z) * inverse.z;
+
+		tmin = Math.max(tmin, Math.min(tz1, tz2));
+		tmax = Math.min(tmax, Math.max(tz1, tz2));
+
+		return tmax > Math.max(0d, tmin) && tmin * tmin < line.squareLength;
 	}
 
 	/**
@@ -129,42 +146,6 @@ class BoundingBox implements Comparable<BoundingBox> {
 		double yLength = max.y - min.y;
 		double zLength = max.z - min.z;
 		return 2 * (xLength * yLength + xLength * zLength + yLength * zLength);
-	}
-
-	/**
-	 * Distance along the {@link LineSegment} to the plane that contains param fixed.
-	 *
-	 * @param line          The line
-	 * @param fixed         The fixed point in the plane
-	 * @param getCoordinate getter for x,y or z
-	 * @return distance
-	 */
-	private boolean intersectsRectangle(LineSegment line, double fixed, ToDoubleFunction<Triple> getCoordinate,
-		ToDoubleFunction<Triple> free1, ToDoubleFunction<Triple> free2) {
-		double distance =
-			(fixed - getCoordinate.applyAsDouble(line.start)) / getCoordinate.applyAsDouble(line.direction);
-		Point on = line.travel(distance);
-		if (on == null) {
-			return false;
-		}
-		return inRange(on, free1, free2);
-	}
-
-	// 🤮
-	private boolean inRange(Point query, ToDoubleFunction<Triple> free1, ToDoubleFunction<Triple> free2) {
-		double query1 = free1.applyAsDouble(query);
-		double query2 = free2.applyAsDouble(query);
-		double min1 = free1.applyAsDouble(min);
-		double min2 = free2.applyAsDouble(min);
-		double max1 = free1.applyAsDouble(max);
-		double max2 = free2.applyAsDouble(max);
-		return (min1 < query1 && query1 < max1) && (min2 < query2 && query2 < max2);
-	}
-
-	private boolean intersectsParallelRectangles(LineSegment line, ToDoubleFunction<Triple> fixed,
-		ToDoubleFunction<Triple> free1, ToDoubleFunction<Triple> free2) {
-		return intersectsRectangle(line, fixed.applyAsDouble(min), fixed, free1, free2)
-			|| intersectsRectangle(line, fixed.applyAsDouble(max), fixed, free1, free2);
 	}
 
 	/**
