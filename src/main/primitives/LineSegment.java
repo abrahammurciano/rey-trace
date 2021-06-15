@@ -16,6 +16,8 @@ public class LineSegment {
 	/** The square of the distance between the source and the light source. */
 	public final double squareLength;
 
+	public final Vector inverse;
+
 	/**
 	 * Construct a line segment between start and end.
 	 *
@@ -38,6 +40,7 @@ public class LineSegment {
 		this.start = start;
 		this.direction = direction;
 		this.squareLength = squareLength;
+		this.inverse = direction.transform(c -> 1/c, NonZeroVector::new);
 	}
 
 	/**

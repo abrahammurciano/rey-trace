@@ -70,23 +70,22 @@ class BoundingBox implements Comparable<BoundingBox> {
 	 * @return if the line intersects
 	 */
 	boolean intersects(LineSegment line) {
-		Vector inverse = new Vector(1d/line.direction.x, 1d/line.direction.y, 1d/line.direction.z);
 		double tmin, tmax;
 
-		double tx1 = (min.x - line.start.x) * inverse.x;
-		double tx2 = (max.x - line.start.x) * inverse.x;
+		double tx1 = (min.x - line.start.x) * line.inverse.x;
+		double tx2 = (max.x - line.start.x) * line.inverse.x;
 
 		tmin = Math.min(tx1, tx2);
 		tmax = Math.max(tx1, tx2);
 
-		double ty1 = (min.y - line.start.y) * inverse.y;
-		double ty2 = (max.y - line.start.y) * inverse.y;
+		double ty1 = (min.y - line.start.y) * line.inverse.y;
+		double ty2 = (max.y - line.start.y) * line.inverse.y;
 
 		tmin = Math.max(tmin, Math.min(ty1, ty2));
 		tmax = Math.min(tmax, Math.max(ty1, ty2));
 
-		double tz1 = (min.z - line.start.z) * inverse.z;
-		double tz2 = (max.z - line.start.z) * inverse.z;
+		double tz1 = (min.z - line.start.z) * line.inverse.z;
+		double tz2 = (max.z - line.start.z) * line.inverse.z;
 
 		tmin = Math.max(tmin, Math.min(tz1, tz2));
 		tmax = Math.min(tmax, Math.max(tz1, tz2));
