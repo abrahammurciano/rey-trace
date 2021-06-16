@@ -15,7 +15,9 @@ public class LineSegment {
 	public final NormalizedVector direction;
 	/** The square of the distance between the source and the light source. */
 	public final double squareLength;
-
+	/**
+	 * A precomputed vector where each coordinate is the inverse of the respective coordinate in the direction vector.
+	 */
 	public final Vector inverse;
 
 	/**
@@ -40,7 +42,7 @@ public class LineSegment {
 		this.start = start;
 		this.direction = direction;
 		this.squareLength = squareLength;
-		this.inverse = direction.transform(c -> 1/c, NonZeroVector::new);
+		this.inverse = direction.transform(c -> 1 / c, NonZeroVector::new);
 	}
 
 	/**
