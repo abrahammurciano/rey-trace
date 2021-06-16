@@ -100,7 +100,7 @@ public class GeometryList implements Intersectible, Iterable<Geometry> {
 			G.add(new GeometryList(minEdge.weight, minEdge.vertex1, minEdge.vertex2));
 		}
 		minEdge = G.extract();
-		intersectibles = new HashSet<>();
+		intersectibles = new HashSet<>(2);
 		intersectibles.add(minEdge.vertex1);
 		intersectibles.add(minEdge.vertex2);
 	}

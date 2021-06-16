@@ -1,10 +1,7 @@
 package geometries;
 
-import math.compare.DoubleCompare;
 import primitives.LineSegment;
-import primitives.NormalizedVector;
 import primitives.Point;
-import primitives.Vector;
 
 /**
  * This class represents an axis aligned cuboid which bounds some Intersectible in three dimensional space.
@@ -14,30 +11,35 @@ import primitives.Vector;
  */
 class Boundary implements Comparable<Boundary> {
 
-	private enum Intersects {
-		NEVER, SOMETIMES, ALWAYS
-	}
-
 	/** Covers the entirity of 3D space. */
-	static final Boundary INFINITE = new Boundary(null, Intersects.ALWAYS);
+	static final Boundary INFINITE = new InfiniteBoundary();
 	/**
 	 * Covers absolutely no space, and calculating the union of this box with any other will always return the other
 	 * box.
 	 */
-	static final Boundary EMPTY = new Boundary(null, Intersects.NEVER);
+	static final Boundary EMPTY = new EmptyBoundary();
 
-	private final double surfaceArea;
-	private final BasicSphere sphere;
-	private final Intersects intersects;
+	private final Point min;
+	private final Point max;
+	private final double SA;
 
 	/**
 	 * Construct a finite bounding box described by the axis aligned cuboid between the two given points.
 	 *
 	 * @param min The {@link Point} in the bounding box with minimal x, y, and z values.
 	 * @param max The {@link Point} in the bounding box with maximal x, y, and z values.
+	 *
+	 * @throws IllegalArgumentException if min has any value greater than the respective value of max.
 	 */
 	Boundary(Point min, Point max) {
-		this(min, max, Intersects.SOMETIMES);
+		this(min, max, null);
+		if (min.x > max.x || min.y > max.y || min.z > max.z) {
+			throw new IllegalArgumentException(
+				"Error: The minimum point of a bounding box cannot have a value greater than the respective value of the maximum point.");
+		}
+		if (!min.isFinite() || !max.isFinite()) {
+			throw new IllegalArgumentException("Error: You cannot create infinite bounding boxes.");
+		}
 	}
 
 	/**
@@ -46,36 +48,21 @@ class Boundary implements Comparable<Boundary> {
 	 * @param point The only point contained in the bounding box.
 	 */
 	Boundary(Point point) {
-		this(point, point, Intersects.NEVER);
-	}
-
-	/**
-	 * Construct the smallest possible boundary containing p1 and p2.
-	 *
-	 * @param p1         A point on the surface of the boundary.
-	 * @param p2         A point on the surface of the boundary.
-	 * @param intersects When this boundary intersects with a ray.
-	 */
-	private Boundary(Point p1, Point p2, Intersects intersects) {
-		this(new BasicSphere(p1, p2), intersects);
+		this(point, point);
 	}
 
 	/**
 	 * Private constructor which doesn't check that min is always less than max. This is used to create the empty
 	 * bounding box.
 	 *
-	 * @param min        The point to consider the minimum.
-	 * @param max        The point to consider the maximum.
-	 * @param intersects When the bounding box intersects with any ray.
+	 * @param min The point to consider the minimum.
+	 * @param max The point to consider the maximum.
+	 * @param __  A dummy parameter to distinguish between this constructor and {@link #BoundingBox(Point, Point)}.
 	 */
-	private Boundary(BasicSphere sphere, Intersects intersects) {
-		this.sphere = sphere;
-		this.intersects = intersects;
-		if (intersects == Intersects.SOMETIMES) {
-			surfaceArea = sphere.surfaceArea();
-		} else {
-			surfaceArea = intersects == Intersects.ALWAYS ? Double.POSITIVE_INFINITY : Double.NEGATIVE_INFINITY;
-		}
+	private Boundary(Point min, Point max, Object __) {
+		this.min = min;
+		this.max = max;
+		this.SA = calcSurfaceArea();
 	}
 
 	/**
@@ -85,48 +72,44 @@ class Boundary implements Comparable<Boundary> {
 	 * @return if the line intersects
 	 */
 	boolean intersects(LineSegment line) {
-		if (intersects == Intersects.SOMETIMES) {
-			return !sphere.intersect(line).isEmpty() || sphere.contains(line.start);
-		} else {
-			return intersects == Intersects.ALWAYS;
-		}
+		double tmin, tmax;
+
+		double tx1 = (min.x - line.start.x) * line.inverse.x;
+		double tx2 = (max.x - line.start.x) * line.inverse.x;
+
+		tmin = Math.min(tx1, tx2);
+		tmax = Math.max(tx1, tx2);
+
+		double ty1 = (min.y - line.start.y) * line.inverse.y;
+		double ty2 = (max.y - line.start.y) * line.inverse.y;
+
+		tmin = Math.max(tmin, Math.min(ty1, ty2));
+		tmax = Math.min(tmax, Math.max(ty1, ty2));
+
+		double tz1 = (min.z - line.start.z) * line.inverse.z;
+		double tz2 = (max.z - line.start.z) * line.inverse.z;
+
+		tmin = Math.max(tmin, Math.min(tz1, tz2));
+		tmax = Math.min(tmax, Math.max(tz1, tz2));
+
+		// tmax must be greater than tmin for the line to intersect the box.
+		// but if tmax is less than 0 then the entire line is 'behind' the box and then no intersection.
+		// if tmin is less than 0 than than the line intersects (since tmax is greater than 0)
+		// OR if tmin^2 < line.squareLength than the (positive) tmin is within the length of the line and therefore in the box
+		return tmax > 0 && tmax >= tmin && (tmin < 0 || tmin * tmin < line.squareLength);
 	}
 
 	/**
 	 * Form a new bounding box that exactly encompases this box and the parameter.
 	 *
-	 * @param boundary The other box that must be included
+	 * @param other The other box that must be included
 	 * @return The new BoundingBox
 	 */
-	Boundary union(Boundary boundary) {
-		if (intersects == Intersects.ALWAYS || boundary.intersects == Intersects.ALWAYS) {
-			return INFINITE;
+	Boundary union(Boundary other) {
+		if (!other.isFinite()) {
+			return other;
 		}
-		if (this == EMPTY && boundary == EMPTY) {
-			return EMPTY;
-		}
-		if (this == EMPTY) {
-			return boundary;
-		}
-		if (boundary == EMPTY) {
-			return this;
-		}
-		if (sphere.center.equals(boundary.sphere.center)) {
-			return new Boundary(sphere.radiusSquared > boundary.sphere.radiusSquared ? sphere : boundary.sphere,
-				Intersects.SOMETIMES);
-		}
-		NormalizedVector centerToCenter = sphere.center.nonZeroVectorTo(boundary.sphere.center).normalized();
-		Point midPoint = sphere.center.midPoint(boundary.sphere.center);
-		Vector toThisEdge = centerToCenter.scale(Math.sqrt(sphere.radiusSquared), Vector::new);
-		Vector toThatEdge = centerToCenter.scale(Math.sqrt(boundary.sphere.radiusSquared), Vector::new);
-		Point thisP1 = sphere.center.subtract(toThisEdge);
-		Point thisP2 = sphere.center.add(toThisEdge);
-		Point thatP1 = boundary.sphere.center.subtract(toThatEdge);
-		Point thatP2 = boundary.sphere.center.add(toThatEdge);
-		Point p1 =
-			DoubleCompare.geq(midPoint.squareDistance(thisP1), midPoint.squareDistance(thatP1)) ? thisP1 : thatP1;
-		Point p2 = DoubleCompare.gt(midPoint.squareDistance(thisP2), midPoint.squareDistance(thatP2)) ? thisP2 : thatP2;
-		return new Boundary(p1, p2);
+		return new Boundary(min(this.min, other.min), max(this.max, other.max));
 	}
 
 	/**
@@ -135,7 +118,7 @@ class Boundary implements Comparable<Boundary> {
 	 * @return The surface area of the box.
 	 */
 	double surfaceArea() {
-		return surfaceArea;
+		return SA;
 	}
 
 	/**
@@ -144,7 +127,23 @@ class Boundary implements Comparable<Boundary> {
 	 * @return true if the box is finite
 	 */
 	boolean isFinite() {
-		return this != INFINITE;
+		return min.isFinite() && max.isFinite();
+	}
+
+
+	private static Point min(Point p, Point q) {
+		return p.transform(Math::min, q, Point::new);
+	}
+
+	private static Point max(Point p, Point q) {
+		return p.transform(Math::max, q, Point::new);
+	}
+
+	protected double calcSurfaceArea() {
+		double xLength = max.x - min.x;
+		double yLength = max.y - min.y;
+		double zLength = max.z - min.z;
+		return 2 * (xLength * yLength + xLength * zLength + yLength * zLength);
 	}
 
 	/**
@@ -156,7 +155,7 @@ class Boundary implements Comparable<Boundary> {
 	 */
 	@Override
 	public int compareTo(Boundary other) {
-		return Double.compare(surfaceArea(), other.surfaceArea());
+		return Double.compare(SA, other.SA);
 	}
 
 	/**
@@ -172,13 +171,63 @@ class Boundary implements Comparable<Boundary> {
 		if (!(o instanceof Boundary)) {
 			return false;
 		}
-		return surfaceArea() == ((Boundary) o).surfaceArea();
+		return SA == ((Boundary) o).SA;
 	}
 
 	@Override
 	public int hashCode() {
-		return Double.hashCode(surfaceArea());
+		return Double.hashCode(SA);
 	}
 
+	private static class InfiniteBoundary extends Boundary {
+		InfiniteBoundary() {
+			super(Point.NEGATIVE_INFINITY, Point.POSITIVE_INFINITY, null);
+		}
 
+		@Override
+		boolean intersects(LineSegment line) {
+			return true;
+		}
+
+		@Override
+		Boundary union(Boundary other) {
+			return this;
+		}
+
+		@Override
+		protected double calcSurfaceArea() {
+			return Double.POSITIVE_INFINITY;
+		}
+
+		@Override
+		boolean isFinite() {
+			return false;
+		}
+	}
+
+	private static class EmptyBoundary extends Boundary {
+		EmptyBoundary() {
+			super(Point.POSITIVE_INFINITY, Point.NEGATIVE_INFINITY, null);
+		}
+
+		@Override
+		boolean intersects(LineSegment line) {
+			return false;
+		}
+
+		@Override
+		Boundary union(Boundary other) {
+			return other;
+		}
+
+		@Override
+		protected double calcSurfaceArea() {
+			return Double.NEGATIVE_INFINITY;
+		}
+
+		@Override
+		boolean isFinite() {
+			return true;
+		}
+	}
 }

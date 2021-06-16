@@ -4,6 +4,7 @@
 images/*.png
 bin
 build
+rey-trace.jar
 
 # Eli's crap
 formatter

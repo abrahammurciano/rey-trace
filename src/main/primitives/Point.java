@@ -112,13 +112,12 @@ public class Point extends Triple {
 	}
 
 	/**
-	 * Calculate the midpoint between two points.
+	 * Determine if a point has finite values in each of its coordinates.
 	 *
-	 * @param point The other point to consider in the calculation.
-	 * @return The midpoint of this point and the given point.
+	 * @return true if all coordinates are finite, or false if at least one coordinate is infinite.
 	 */
-	public Point midPoint(Point point) {
-		return transform((a, b) -> (a + b) / 2, point, Point::new);
+	public boolean isFinite() {
+		return Double.isFinite(x) && Double.isFinite(y) && Double.isFinite(z);
 	}
 
 	@Override
